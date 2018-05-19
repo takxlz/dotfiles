@@ -1,2 +1,0 @@
-100
-['LeafCage/foldCC.vim', 'Shougo/dein.vim', 'Shougo/neocomplete.vim', 'Shougo/neomru.vim', 'Shougo/neoyank.vim', 'Shougo/unite.vim', 'Shougo/vimfiler.vim', 'Yggdroot/indentline', 'airblade/vim-gitgutter', 'gorodinskiy/vim-coloresque', 'itchyny/lightline.vim', 'itchyny/vim-parenmatch', 'joshdick/onedark.vim', 'kana/vim-submode', 'tomtom/tcomment_vim', 'tpope/vim-fugitive', 'tpope/vim-surround', 'w0ng/vim-hybrid', 'w0rp/ale']
