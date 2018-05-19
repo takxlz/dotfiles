@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main() {
+    FILE * fp;
+    char name[] = "Tanaka Toyota";
+    int age = 25;
+    float height = 163.42;
+
+    if((fp = fopen("pb.bin", "wb")) == NULL) {
+        perror("pb.bin");
+        exit(EXIT_FAILURE);
+    }
+
+    fwrite(name, 1, sizeof(name), fp);
+    fwrite(&age, sizeof(int), 1, fp);
+    fwrite(&height, sizeof(float), 1, fp);
+
+    if(fclose(fp) == EOF) {
+        perror("pb.bin");
+        exit(EXIT_FAILURE);
+    }
+}

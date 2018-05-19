@@ -1,0 +1,12 @@
+@echo off
+
+set /p INT=""
+
+set /a ANS=%INT%+10
+
+echo %ANS%
+
+echo;
+echo;
+
+pause
