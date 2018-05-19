@@ -1,6 +1,6 @@
 .*.un~
 *.swp
 .DS_Store
-/.vim/tmp_files/*
-/.vim/dein/*
+/vim/.vim/tmp_files/*
+/vim/.vim/dein/*
 !.gitkeep
