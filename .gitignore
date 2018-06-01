@@ -2,5 +2,6 @@
 *.swp
 .DS_Store
 /vim/.vim/tmp_files/*
+/vim/.vim/dein/*
 /vim/.vim/_dein/*
 !.gitkeep
