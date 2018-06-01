@@ -1,6 +1,6 @@
 " ==================== init_config ====================
 " ----- dein -----
-let s:dein_dir = expand('~/.vim/dein')
+let s:dein_dir = expand('~/.vim/_dein')
 " dein.vim 本体
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 

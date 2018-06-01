@@ -14,6 +14,9 @@ hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermb
 " フォールディング行の色
 hi Folded gui=NONE term=standout ctermbg=darkgray ctermfg=NONE guibg=gray23 guifg=NONE
 
+" マークダウンファイルを自動で折り畳まないようにする
+let g:vim_markdown_folding_disabled=1
+
 " カラースキームを適用していても、背景をターミナルの背景色に合わせる
 hi Normal ctermbg=NONE
 

@@ -178,4 +178,8 @@ vnoremap <silent>[tcomment]r :TCommentRight<CR>
 nnoremap <silent><Space>d :VimFilerExplorer<CR>
 
 
+" ----- previm -----
+nnoremap <silent><Space>m :PrevimOpen<CR>
+
+
 " ----- various -----

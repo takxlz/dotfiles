@@ -24,13 +24,6 @@ repo = 'Shougo/neoyank.vim'
 # [[plugins]]
 # repo = 'Shougo/vimshell.vim'
 
-
-[[plugins]]
-repo = 'joshdick/onedark.vim'
-
-[[plugins]]
-repo = 'w0ng/vim-hybrid'
-
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
@@ -64,6 +57,12 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'LeafCage/foldCC.vim'
 
+[[plugins]]
+repo = 'joshdick/onedark.vim'
+
+# [[plugins]]
+# repo = 'w0ng/vim-hybrid'
+
 
 # [[plugins]]
 # repo = 'xolox/vim-session'
@@ -71,3 +70,5 @@ repo = 'LeafCage/foldCC.vim'
 # 
 # [[plugins]]
 # repo = 'xolox/vim-misc'
+
+
