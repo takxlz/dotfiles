@@ -45,7 +45,7 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
-augroup YourGroup
+augroup lihtnlineUpdate
     autocmd!
     autocmd User ALELint call lightline#update()
 augroup END
@@ -62,12 +62,16 @@ function! LightLineReadonly()
     return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? "⭤" : ''
 endfunction
 
+" 3項演算子（foo == bar ? trueのとき : falseのとき）
+" '' != expand('%:t') ? 【winwidth(0) <=120 ? 『expand('%:t') : expand('%:p')』 : '[No Name]'】)
+"                                  【          true             『        true          :         false      』     false    】
+" ファイル名(%:t)が空白('')でない? 【窓のサイズが120以下のとき? 『ファイル名(%:t)を表示 : フルパス(%:p)を表示』：NoNameと表示】
 function! LightLineFilename()
     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
                 \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
                 \  &ft == 'unite' ? unite#get_status_string() :
                 \  &ft == 'vimshell' ? vimshell#get_status_string() :
-                \ '' != expand('%') && winwidth(0) <=120 ? expand('%:t') : winwidth(0) >120 ? expand('%:p') : '[No Name]') .
+                \ '' != expand('%:t') ? winwidth(0) <=120 ? expand('%:t') : expand('%:p') : '[No Name]') .
                 \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 

@@ -60,8 +60,8 @@ repo = 'LeafCage/foldCC.vim'
 [[plugins]]
 repo = 'joshdick/onedark.vim'
 
-# [[plugins]]
-# repo = 'w0ng/vim-hybrid'
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
 
 
 # [[plugins]]

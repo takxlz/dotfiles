@@ -9,10 +9,10 @@ au GUIEnter * simalt ~x
 " カラースキーマの設定
 set t_Co=256
 let g:onedark_termcolors=256
-colorscheme onedark
+"colorscheme onedark
 
-"set background=dark  "hybridに必要な設定
-"colorscheme hybrid
+set background=dark  "hybridに必要な設定
+colorscheme hybrid
 
 " フォントの設定
 set guifont=Ricty_Diminished_for_Powerline:h13
