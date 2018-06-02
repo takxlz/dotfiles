@@ -64,8 +64,8 @@ endfunction
 
 " 3項演算子（foo == bar ? trueのとき : falseのとき）
 " '' != expand('%:t') ? 【winwidth(0) <=120 ? 『expand('%:t') : expand('%:p')』 : '[No Name]'】)
-"                                  【          true             『        true          :         false      』     false    】
-" ファイル名(%:t)が空白('')でない? 【窓のサイズが120以下のとき? 『ファイル名(%:t)を表示 : フルパス(%:p)を表示』：NoNameと表示】
+" ようするに，if【 true  if『 true : false 』 : false 】
+" ファイル名(%:t)が空白('')でない? 【窓のサイズが120以下のとき? 『ファイル名(%:t)を表示 : フルパス(%:p)を表示』： NoNameと表示】
 function! LightLineFilename()
     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
                 \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
