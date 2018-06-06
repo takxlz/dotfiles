@@ -1,0 +1,5 @@
+mklink /D %HOMEPATH%\.vim %HOMEPATH%\dotfiles\vim
+
+mklink %HOMEPATH%\.vimrc %HOMEPATH%\dotfiles\vim\.vimrc
+
+mklink %HOMEPATH%\.gvimrc %HOMEPATH%\dotfiles\vim\.gvimrc

@@ -1,0 +1,46 @@
+;; 折り返しトグルコマンド
+(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
+
+
+
+;; ウィンドウを切り替える （デフォルトはtrans-chars）
+(define-key global-map (kbd "C-t") 'other-window)
+
+
+
+;; にリドゥを割り当てる
+(define-key global-map (kbd "C-'") 'redo)
+
+
+;; auto-completeを割り当てる
+(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+
+
+
+;-------------------------------------------------helm関連---------------------------------------------------------------------------------------------------
+
+;; helm-miniを開く
+(define-key global-map (kbd "C-c h") 'helm-mini)
+
+
+
+;; helm-show-kill-ringを割り当てる（過去の履歴からペーストする）
+(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+
+
+
+;; helm-c-moccur-occur-by-moccurを割り当てる
+(define-key global-map (kbd "C-M-o") 'helm-c-moccur-occur-by-moccur)
+
+
+;----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+;; M-oにoccur-by-moccurを割り当てる
+(define-key global-map (kbd "M-o") 'occur-by-moccur)
+
+
+
+
+
+

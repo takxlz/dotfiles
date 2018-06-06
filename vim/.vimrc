@@ -1,13 +1,13 @@
 " .vimrcと.gvimrcを~/にコピーもしくはシンボリックリンクで配置する
 
-" ~/.vim/rc/にある*.vim(設定ファイル)を読み込む
+" ~/.vim/rc.d/にある*.vim(設定ファイル)を読み込む
 set runtimepath+=~/.vim/
 
-runtime! rc/00_init.rc.vim
-runtime! rc/10_basic.rc.vim
-runtime! rc/20_plugin.rc.vim
-runtime! rc/30_indent.rc.vim
-runtime! rc/35_mapping.rc.vim
-runtime! rc/99_final.rc.vim
+runtime! rc.d/init.rc.vim
+runtime! rc.d/basic.rc.vim
+runtime! rc.d/plugin.rc.vim
+runtime! rc.d/indent.rc.vim
+runtime! rc.d/mapping.rc.vim
+runtime! rc.d/final.rc.vim
 
 

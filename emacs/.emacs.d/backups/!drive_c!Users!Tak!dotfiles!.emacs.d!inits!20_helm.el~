@@ -1,9 +1,0 @@
-;; helm‚Ìİ’è
-(when (require 'helm-config nil t)
-  (helm-mode 1))
-
-
-
-;; helm-descbinds‚Ìİ’è
-(when (require 'helm-descbinds nil t)
-  (helm-descbinds-mode))

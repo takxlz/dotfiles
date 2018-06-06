@@ -1,0 +1,28 @@
+@echo off
+
+rem ファイル場所の設定
+set source=C:\Users\Tak\Dropbox\tak\_Others\Pass\passList.*
+
+call :changeEx %source%
+
+:changeEx
+
+	set extension=%~x1
+
+pause
+echo %~x1
+echo %~1
+
+	if %extension%==.docx (
+	   mv %~1.docx %~1.txt
+	) else if %extension%==.txt (
+	   mv %~1.txt %~1.docx
+	) else (
+	   goto end
+	)
+
+goto end
+
+:end
+pause
+exit
