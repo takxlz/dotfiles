@@ -37,3 +37,12 @@ hi Folded gui=NONE term=standout ctermbg=lightgrey ctermfg=NONE guibg=grey23 gui
 
 " gvimの背景を半透明にする(0に近いほど透明)
 "autocmd GUIEnter * set transparency=230
+
+if has('multi_byte_ime') || has('xim')
+  " IME ON時のカーソルの色を設定(設定例:紫)
+  highlight CursorIM guibg=Purple guifg=NONE
+
+  " imeをオフにしてnモードに戻る
+  inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+  inoremap <silent> っｊ <ESC>:set iminsert=0<CR>
+endif
