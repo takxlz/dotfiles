@@ -1,7 +1,7 @@
 .*.un~
 *.swp
 .DS_Store
-/vim/_tmp_files/*
+/vim/_tmpfiles/*
 /vim/bundle/*
 /vim/dein/*
 /vim/_dein/*

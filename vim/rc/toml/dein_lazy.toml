@@ -1,6 +1,6 @@
-[[plugins]]
-repo = 'plasticboy/vim-markdown'
-on_ft = ['md', 'markdown']
+#[[plugins]]
+#repo = 'plasticboy/vim-markdown'
+#on_ft = ['md', 'markdown']
 
 [[plugins]]
 repo = 'kannokanno/previm'
