@@ -64,10 +64,10 @@ set list
 set listchars=tab:>-,trail:_
 
 " tmpファイルの作成場所を変更
-set directory=~/.vim/_tmpfiles/
-set backupdir=~/.vim/_tmpfiles/
-set viminfo+=n~/.vim/_tmpfiles/.viminfo
-set undodir=~/.vim/_tmpfiles/
+set directory=~/vimfiles/_tmpfiles/
+set backupdir=~/vimfiles/_tmpfiles/
+set viminfo+=n~/vimfiles/_tmpfiles/.viminfo
+set undodir=~/vimfiles/_tmpfiles/
 
 " クリップボードを共有する
 set clipboard=unnamed,autoselect

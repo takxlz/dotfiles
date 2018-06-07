@@ -1,19 +1,4 @@
-if (has('win32') || has('win64'))
-    set runtimepath=~/.vim
-endif
 
-" gvimrc-loaderでは、各rcファイルのロードのみ行う
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/rc/grc-loader.vim'
 
-" rcファイル読み込み関数
-let s:rc_dir = expand('~/.vim/rc')
-function! s:source_rc(rc_file_name)
-    let rc_file = expand(s:rc_dir . '/' . a:rc_file_name)
-    if filereadable(rc_file)
-        execute 'source' rc_file
-    endif
-endfunction
 
-call s:source_rc('gui.rc.vim')
-
-" set runtimepath+=~/.vim/
-" runtime! rc/gui.rc.vim
