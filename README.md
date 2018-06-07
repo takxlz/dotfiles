@@ -6,8 +6,8 @@ $ git clone https://github.com/takxlz/dotfiles.git
 
 ## Vim
 ### Windows
-```bat
-rem mklink {link} -> {target}
+```sh
+# mklink {link} -> {target}
 $ mklink /D %HOMEPATH%\.vim %HOMEPATH%\dotfiles\vim
 $ mklink %HOMEPATH%\.vimrc %HOMEPATH%\dotfiles\vim\vimrc-loader
 $ mklink %HOMEPATH%\.gvimrc %HOMEPATH%\dotfiles\vim\gvimrc-loader
