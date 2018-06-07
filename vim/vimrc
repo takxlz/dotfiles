@@ -1,3 +1,8 @@
+if (has('win32') || has('win64'))
+    set runtimepath=~/.vim
+endif
+
+
 " vimrc-loaderでは、各rcファイルのロードのみ行う
 
 " rcファイル読み込み関数
