@@ -1,4 +1,4 @@
 
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/rc/grc-loader.vim'
+let g:loaded_gvimrc = 1
 
 
