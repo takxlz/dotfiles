@@ -1,6 +1,4 @@
 
-execute 'source' fnamemodify(expand('<sfile>'), ':h') . '/rc/rc-loader.vim'
+let g:vim_home = fnamemodify(expand('<sfile>'), ':h')
 
-
-
-
+execute 'source' g:vim_home . '/rc/_rc-loader.vim'
