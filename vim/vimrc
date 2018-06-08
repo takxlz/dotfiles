@@ -4,3 +4,4 @@
 let g:vim_home = expand('<sfile>:p:h')
 
 execute 'source' g:vim_home . '/rc/_rc-loader.vim'
+
