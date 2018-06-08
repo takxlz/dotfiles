@@ -7,3 +7,4 @@ let g:vim_home = expand('<sfile>:p:h')
 
 " g:vim_home/rc/_rc-loader.vimをロードする
 execute 'source' g:vim_home . '/rc/_rc-loader.vim'
+
