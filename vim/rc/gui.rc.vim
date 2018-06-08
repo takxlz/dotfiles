@@ -1,3 +1,5 @@
+" ==================== gui.rc.vim ====================
+
 " gvimでのメニューの文字化け対策
 source $VIMRUNTIME/delmenu.vim
 set langmenu=ja_jp.utf-8

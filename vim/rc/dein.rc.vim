@@ -1,4 +1,4 @@
-" ==================== dein_config ====================
+" ==================== dein.rc.vim ====================
 
 let s:dein_dir = expand(g:vim_home . '/bundle')
 " dein.vim 本体

@@ -1,7 +1,9 @@
+" ==================== vimrc ====================
+" グローバル変数の定義と、_rc-loader.vimのロードのみ行う
 
-"let g:vim_home = fnamemodify(expand('<sfile>'), ':h')
-
+" このファイル(vimrc)の場所を、g:vim_homeに格納し、以後この変数を使用する
+" winでは「~/vimfiles」、unixでは「~/.vim」のように環境の違いを吸収できる
 let g:vim_home = expand('<sfile>:p:h')
 
+" g:vim_home/rc/_rc-loader.vimをロードする
 execute 'source' g:vim_home . '/rc/_rc-loader.vim'
-

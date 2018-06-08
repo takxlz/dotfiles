@@ -1,3 +1,8 @@
+" ==================== gvimrc ====================
+" グローバル変数の定義と、_rc-loader.vimのロードのみ行う
+
+" _rc-loader.vimで、gvimとvimの設定を振り分けるのに使用
 let g:loaded_gvimrc = 1
 
+" g:vim_home/rc/_rc-loader.vimをロードする
 execute 'source' g:vim_home . '/rc/_rc-loader.vim'
