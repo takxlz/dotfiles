@@ -1,22 +1,20 @@
-# ƒCƒ“ƒXƒg[ƒ‹
+# ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
 ```sh
 $ cd ~/
 $ git clone https://github.com/takxlz/dotfiles.git
 ```
 
 ## Vim
-Vim‚ÍA\~/.(g)vimrcˆÈŠO‚É‚àAWindows‚Å‚Íu\~/vimfiles/(g)vimrcvAUnix‚Å‚Íu\~/.vim/(g)vimrcv‚ğ“Ç‚İ‚Ş‚±‚Æ‚ª‚Å‚«‚é‚½‚ßA
-[vimfiles|.vim]/(g)vimrc‚É‚µ‚Ä‘S‚Ä‚Ìİ’èƒtƒ@ƒCƒ‹‚ğ[vimfiles|.vim]‚ÉW–ñ‚·‚é‚æ‚¤‚É‚µ‚Ä‚¢‚éB
+[ vimfiles | .vim ]/(g)vimrcã«ã—ã¦å…¨ã¦ã®è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’[ vimfiles | .vim ]ã«é›†ç´„ã™ã‚‹ã€‚  
+â€» Vimã¯ã€~/.(g)vimrcä»¥å¤–ã«ã‚‚ã€Windowsã§ã¯ã€Œ~/vimfiles/(g)vimrcã€ã€Unixã§ã¯ã€Œ~/.vim/(g)vimrcã€ã‚’èª­ã¿è¾¼ã‚€ã“ã¨ãŒã§ãã‚‹ã€‚
 
 ### Windows
-Windows‚Å‚ÍAVim‚Ìƒz[ƒ€ƒfƒBƒŒƒNƒgƒŠ‚ğuvimfilesv‚Æ‚µ‚ÄƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğ“\‚éB
 ```sh
 # mklink {link} -> {target}
 $ mklink /D %HOMEPATH%\vimfiles %HOMEPATH%\dotfiles\vim
 ```
 
-### Unux
-Unix‚Å‚ÍAVim‚Ìƒz[ƒ€ƒfƒBƒŒƒNƒgƒŠ‚ğu.vimv‚Æ‚µ‚ÄƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğ“\‚éB
+### Unix
 ```sh
 # ln -s {target} <- {link}
 $ ln -sf ~/dotfiles/vim ~/.vim
