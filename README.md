@@ -6,7 +6,8 @@ $ git clone https://github.com/takxlz/dotfiles.git
 
 ## Vim
 [ vimfiles | .vim ]/(g)vimrcにして全ての設定ファイルを[ vimfiles | .vim ]に集約する。  
-vimfilesと.vimのパスの違いはvimrcで自動で対応するように設定している。
+vimfilesと.vimのパスの違いはvimrcで自動で対応するように設定している。  
+  
 ※ Vimは、\~/.(g)vimrc以外にも、Windowsでは「\~/vimfiles/(g)vimrc」、Unixでは「\~/.vim/(g)vimrc」を読み込むことができる。
 
 ### Windows
