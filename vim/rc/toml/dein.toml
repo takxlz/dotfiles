@@ -4,7 +4,7 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
-if = 'has("unix")'
+if = 'has("linux")'
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
