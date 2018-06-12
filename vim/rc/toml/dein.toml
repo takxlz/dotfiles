@@ -21,8 +21,8 @@ repo = 'Shougo/neomru.vim'
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 
-# [[plugins]]
-# repo = 'Shougo/vimshell.vim'
+[[plugins]]
+repo = 'Shougo/vimshell.vim'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
