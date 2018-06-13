@@ -43,10 +43,11 @@ function! AleStatus()
       return l:count.total == 0 ? '' : 'E:' . l:errors . ' W:' . l:warnings
 endfunction
 
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 "let g:ale_statusline_format = [ 'Error %d', 'Warning %d', '' ]
 "let g:ale_echo_msg_error_str = 'E'
 "let g:ale_echo_msg_warning_str = 'W'
-"let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
 
 " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
 augroup LightLineUpdate
@@ -122,6 +123,9 @@ endfunction
 "  左側に常にシンボル用のスペースを開けておく
 let g:ale_sign_column_always = 1
 
+" エラーリストを表示する
+"let g:ale_open_list = 1
+
 " シンボルを変更
 "let g:ale_sign_error = 'E'
 "let g:ale_sign_warning = 'W'
@@ -132,11 +136,16 @@ let g:ale_linters = {
 
 " エラー一覧リストをトグルする自作関数
 function! AleListToggle()
+    " ALEが起動していないときは終了する
+    if !exists('g:ale_open_list')
+        return
+    endif
+    
     " listが0(off)のときは1(on)にして、1のときは0にする
     if(g:ale_open_list == 0) 
-        ALEDisable  " 一旦aleを終了(ale起動中に変数を変えても反映されないので)
+        ALEDisableBuffer  " 一旦aleを終了(ale起動中に変数を変えても反映されないので)
         let g:ale_open_list = 1
-        ALEEnable  " aleを再度起動
+        ALEEnableBuffer  " aleを再度起動
     else
         let g:ale_open_list = 0
         " 下のウィンドウに移動してからウィンドウを消す
