@@ -6,9 +6,9 @@
 
 
 " rcファイルの場所を設定
-let s:rc_dir = expand(g:vim_home . '/rc')
+let s:rc_dir = expand(g:vim_dir . '/rc')
 
-" rcファイルロード関数
+" rcファイルロード関数(引数で渡されたファイルがあったら、ロードする)
 function! s:source_rc(rc_file_name)
     let rc_file = expand(s:rc_dir . '/' . a:rc_file_name)
     if filereadable(rc_file)
@@ -29,3 +29,4 @@ call s:source_rc('basic.rc.vim')
 call s:source_rc('plugin.rc.vim')
 call s:source_rc('lang.rc.vim')
 call s:source_rc('mapping.rc.vim')
+call s:source_rc('test.rc.vim') " TEST用の設定

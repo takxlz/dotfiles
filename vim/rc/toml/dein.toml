@@ -25,9 +25,6 @@ repo = 'Shougo/neoyank.vim'
 repo = 'Shougo/vimshell.vim'
 
 [[plugins]]
-repo = 'itchyny/lightline.vim'
-
-[[plugins]]
 repo = 'itchyny/vim-parenmatch'
 
 [[plugins]]
@@ -44,6 +41,12 @@ repo = 'kana/vim-submode'
 
 [[plugins]]
 repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'maximbaz/lightline-ale'
 
 [[plugins]]
 repo = 'gorodinskiy/vim-coloresque'

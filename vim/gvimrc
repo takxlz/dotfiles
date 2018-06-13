@@ -4,5 +4,5 @@
 " _rc-loader.vimで、gvimとvimの設定を振り分けるのに使用
 let g:loaded_gvimrc = 1
 
-" g:vim_home/rc/_rc-loader.vimをロードする
-execute 'source' g:vim_home . '/rc/_rc-loader.vim'
+" g:vim_dir/rc/_rc-loader.vimをロードする
+execute 'source' g:vim_dir . '/rc/_rc-loader.vim'

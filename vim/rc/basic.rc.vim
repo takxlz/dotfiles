@@ -37,7 +37,7 @@ set shortmess+=I
 " 改行のときの自動コメントを無効化
 autocmd FileType * setlocal formatoptions-=ro
 
-" インサートモードからノーマルモードへ戻るスピードを早くする
+" キーバインドの待機時間の設定
 set timeout timeoutlen=900 ttimeoutlen=50
 
 " vimでのプラグインなどの反映時間を200msに設定
@@ -89,3 +89,8 @@ if has('mac') || has('unix')
     " iモードでのバックスペースの設定(ターミナルのvimではBSが効かないことがあるので)
     set backspace=indent,eol,start
 endif
+
+" xとsではヤンクしない
+" 「"_」は_スコアレジスタを使用するという意味(_レジスタは消去用レジスタ)
+nnoremap x "_x
+nnoremap s "_s

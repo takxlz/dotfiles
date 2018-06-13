@@ -5,12 +5,12 @@ let g:lightline = {
             \ 'colorscheme': 'onedark',
             \ 'mode_map': {'c': 'NORMAL'},
             \ 'active': {
-            \   'right': [ [ 'lineinfo' ],
+            \   'right': [ [ 'ale', 'lineinfo' ],
             \              [ 'percent' ],
             \              [ 'winform' ],
             \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
             \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'fugitive', 'branch', 'filename', 'ale' ],
+            \             [ 'fugitive', 'branch', 'filename' ],
             \             [ 'tmp' ] ]
             \ },
             \ 'component_function': {
@@ -29,26 +29,32 @@ let g:lightline = {
             \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
             \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
             \ 'component_expand': {
-            \   'ale': 'ale#statusline#Count()'
+            \   'ale': 'AleStatus',
             \ },
             \ 'component_type': {
-            \   'ale': 'error'
+            \   'ale': 'error',
             \ }
             \ }
 
-let g:lightline.component = { 'lineinfo': '%3l[%L]:%-2v'}
+function! AleStatus()
+      let l:count = ale#statusline#Count(bufnr(''))
+      let l:errors = l:count.error + l:count.style_error
+      let l:warnings = l:count.warning + l:count.style_warning
+      return l:count.total == 0 ? '' : 'E:' . l:errors . ' W:' . l:warnings
+endfunction
 
-let g:ale_statusline_format = [ 'Error %d', 'Warning %d', '' ]
-
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"let g:ale_statusline_format = [ 'Error %d', 'Warning %d', '' ]
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_echo_msg_warning_str = 'W'
+"let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
-augroup lihtnlineUpdate
+augroup LightLineUpdate
     autocmd!
     autocmd User ALELint call lightline#update()
 augroup END
+
+let g:lightline.component = { 'lineinfo': '%3l[%L]:%-2v'}
 
 function! LightLineWinform()
     return winwidth(0) > 50 ? 'w' . winwidth(0) . ':' . 'h' . winheight(0) : ''

@@ -1,6 +1,6 @@
 " ==================== dein.rc.vim ====================
 
-let s:dein_dir = expand(g:vim_home . '/bundle')
+let s:dein_dir = expand(g:vim_dir . '/bundle')
 " dein.vim 本体
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
@@ -18,7 +18,7 @@ if dein#load_state(s:dein_dir)
 
     " プラグインリストを収めた TOML ファイル
     " 予め TOML ファイル（後述）を用意しておく
-    let g:rc_dir    = expand(g:vim_home . '/rc')
+    let g:rc_dir    = expand(g:vim_dir . '/rc')
     let s:toml      = g:rc_dir . '/toml/dein.toml'
     let s:lazy_toml = g:rc_dir . '/toml/dein_lazy.toml'
 
