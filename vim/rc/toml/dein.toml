@@ -46,9 +46,6 @@ repo = 'w0rp/ale'
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'maximbaz/lightline-ale'
-
-[[plugins]]
 repo = 'gorodinskiy/vim-coloresque'
 
 [[plugins]]
