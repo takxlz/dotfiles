@@ -184,3 +184,5 @@ set foldtext=FoldCCtext()
 
 " フォールディングマーカーを以下の形式で埋め込む「◯◯//◯｛｛｛」
 set commentstring=\ \ //\ %s
+
+
