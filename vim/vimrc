@@ -1,11 +1,11 @@
 " ----------------------------------------------------------------------
 " vimrc
-" 設定でもといるg変数の定義と_rc-loader.vimのロードのみ行う
+" 設定でもといるg変数の定義とrc-loader.vimのロードのみ行う
 
 " このファイル(vimrc)の場所を、g:vim_dirに設定し、以後パスを設定するときはこの環境変数を使用する
 " winでは「~/vimfiles」、unixでは「~/.vim」を使用している場合でも、この違いを吸収する
 let g:vim_dir = expand('<sfile>:p:h')
 
-" g:vim_dir/rc/_rc-loader.vimをロードする
-execute 'source' g:vim_dir . '/rc/_rc-loader.vim'
+" g:vim_dir/rc/rc-loader.vimをロードする
+execute 'source' g:vim_dir . '/rc/rc-loader.vim'
 
