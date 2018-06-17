@@ -1,9 +1,10 @@
-" ==================== gui.rc.vim ====================
+" ----------------------------------------------------------------------
+" gui(gvim) configurations
 
 " gvimでのメニューの文字化け対策
-source $VIMRUNTIME/delmenu.vim
-set langmenu=ja_jp.utf-8
-source $VIMRUNTIME/menu.vim
+"source $VIMRUNTIME/delmenu.vim
+"set langmenu=ja_jp.utf-8
+"source $VIMRUNTIME/menu.vim
 
 " 起動時にgvimを最大化
 au GUIEnter * simalt ~x
@@ -18,6 +19,9 @@ colorscheme hybrid
 
 " フォントの設定
 set guifont=Ricty_Diminished_for_Powerline:h13
+
+" メニューバーを非表示
+set guioptions=Mc
 
 " ツールバーを非表示
 set guioptions-=T
@@ -41,10 +45,10 @@ hi Folded gui=NONE term=standout ctermbg=lightgrey ctermfg=NONE guibg=grey23 gui
 "autocmd GUIEnter * set transparency=230
 
 if has('multi_byte_ime') || has('xim')
-  " IME ON時のカーソルの色を設定(設定例:紫)
-  highlight CursorIM guibg=Purple guifg=NONE
+    " IME ON時のカーソルの色を設定(設定例:紫)
+    highlight CursorIM guibg=Purple guifg=NONE
 
-  " imeをオフにしてnモードに戻る
-  inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-  inoremap <silent> っｊ <ESC>:set iminsert=0<CR>
+    " imeをオフにしてnモードに戻る
+    inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+    inoremap <silent> っｊ <ESC>:set iminsert=0<CR>
 endif

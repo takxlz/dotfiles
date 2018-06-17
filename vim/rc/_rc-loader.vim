@@ -1,9 +1,8 @@
-" ==================== _rc-loader.vim ====================
-" 分割したrcファイルのロードを行う
+" ----------------------------------------------------------------------
+" load rc files
 
-" 設定ファイルのロード順
-" vimrc(kaoriya) -> vimrc -> _rc-loader.vim -> (vim用の各rc) -> gvimrc(kaoriya) -> gvimrc -> _rc-loader.vim -> (gvim用の各rc)
-
+" vimデフォルトのロード順
+" $VIM/vimrc(kaoriya) -> [g:vim_dir/vimrc | ~/.vimrc] -> $VIM/gvimrc(kaoriya) -> [g:vim_dir/gvimrc | ~/.gvimrc]
 
 " rcファイルの場所を設定
 let s:rc_dir = expand(g:vim_dir . '/rc')
@@ -16,23 +15,31 @@ function! s:source_rc(rc_file_name)
     endif
 endfunction
 
-" gui_runningで同様のことができるが、neovimではgui_runningが使えないのでコメントアウトして残しておく
-" gvimのときだけ、以下を実行(最後にfinishし、endif以下の設定を再度読み込まないようにする)
-" (※ endif以下は、vimrc -> _rc-loader.vimのときに既に読み込まれている)
-"if exists('g:loaded_gvimrc') && g:loaded_gvimrc
-    "call s:source_rc('gui.rc.vim')
-    "finish
-"endif
 
-" vimのときだけ以下を実行
-call s:source_rc('dein.rc.vim')
-call s:source_rc('basic.rc.vim')
-call s:source_rc('plugin.rc.vim')
-call s:source_rc('lang.rc.vim')
-call s:source_rc('mapping.rc.vim')
-call s:source_rc('test.rc.vim') " TEST用の設定
+" ------------------------------
+" vim用のrc
 
-" gvimのときだけ以下を実行(kaoriyaの場合はvimインストールディレクトリのgvimrcを削除して上書きされないようにする)
+" vim起動時のみ
+if has('vim_starting')
+    call s:source_rc('00_init.rc.vim')
+endif
+
+call s:source_rc('10_dein.rc.vim')
+
+call s:source_rc('20_basic.rc.vim')
+
+call s:source_rc('30_plugin.rc.vim')
+
+call s:source_rc('40_style.rc.vim')
+
+call s:source_rc('50_keybind.rc.vim')
+
+
+" ------------------------------
+" gvim用のrc
+
+" gvimrcを使用せずにvimrcのgui_runningでGUIの設定を行う
+" (kaoriya版だとロード順的に$VIM/gvimrcに設定を上書きされるので$VIM/gvimrcを削除する)
 if has('gui_running')
-    call s:source_rc('gui.rc.vim')
+    call s:source_rc('80_gui.rc.vim')
 endif

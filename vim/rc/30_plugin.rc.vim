@@ -1,36 +1,40 @@
-" ==================== plugin_rc.vim ====================
-" ----- lightline -----
+" ----------------------------------------------------------------------
+" plugin configurations
+
+" ------------------------------
+" *** lightline ***
+
 " readonlyとmodifiedコンポーネントはデフォルトで使わずに、filename(LightLineFilename)で呼び出し加工して使用
 " percentコンポーネントはデフォルトで使用
 set laststatus=2
 let g:lightline = {
-            \ 'colorscheme': 'onedark',
-            \ 'mode_map': {'c': 'NORMAL'},
-            \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
-            \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
-            \ 'active': {
-            \   'right': [['ale','lineinfo'], ['percent'], ['winform'], ['fileencoding','fileformat','filetype']],
-            \   'left' : [['mode','paste'], ['fugitive','filename']]
-            \ },
-            \ 'component': {
-            \   'lineinfo': '%3l[%L]:%-2v',
-            \ },
-            \ 'component_function': {
-            \   'winform': 'LightLineWinform',
-            \   'fileformat': 'LightLineFileformat',
-            \   'fileencoding': 'LightLineFileencoding',
-            \   'filetype': 'LightLineFiletype',
-            \   'mode': 'LightLineMode',
-            \   'fugitive': 'LightLineFugitive',
-            \   'filename': 'LightLineFilename',
-            \ },
-            \ 'component_expand': {
-            \   'ale': 'LightLineALE',
-            \ },
-            \ 'component_type': {
-            \   'ale': 'error',
-            \ }
-            \ }
+    \ 'colorscheme': 'onedark',
+    \ 'mode_map': {'c': 'NORMAL'},
+    \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
+    \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
+    \ 'active': {
+    \   'right': [['ale','lineinfo'], ['percent'], ['winform'], ['fileencoding','fileformat','filetype']],
+    \   'left' : [['mode','paste'], ['fugitive','filename']]
+    \ },
+    \ 'component': {
+    \   'lineinfo': '%3l[%L]:%-2v',
+    \ },
+    \ 'component_function': {
+    \   'winform': 'LightLineWinform',
+    \   'fileformat': 'LightLineFileformat',
+    \   'fileencoding': 'LightLineFileencoding',
+    \   'filetype': 'LightLineFiletype',
+    \   'mode': 'LightLineMode',
+    \   'fugitive': 'LightLineFugitive',
+    \   'filename': 'LightLineFilename',
+    \ },
+    \ 'component_expand': {
+    \   'ale': 'LightLineALE',
+    \ },
+    \ 'component_type': {
+    \   'ale': 'error',
+    \ }
+    \ }
 
 function! LightLineWinform()
     return winwidth(0) > 50 ? 'w' . winwidth(0) . ':' . 'h' . winheight(0) : ''
@@ -38,11 +42,11 @@ endfunction
 
 function! LightLineFilename()
     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-                \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-                \  &ft == 'unite' ? unite#get_status_string() :
-                \  &ft == 'vimshell' ? vimshell#get_status_string() :
-                \ '' != expand('%:t') ? (winwidth(0) <=120 ? expand('%:t') : expand('%:p')) : '[No Name]') .
-                \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? (winwidth(0) <=120 ? expand('%:t') : expand('%:p')) : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
 function! LightLineReadonly()
@@ -81,10 +85,10 @@ function! LightLineMode()
 endfunction
 
 function! LightLineALE()
-      let l:count = ale#statusline#Count(bufnr(''))
-      let l:errors = l:count.error + l:count.style_error
-      let l:warnings = l:count.warning + l:count.style_warning
-      return l:count.total == 0 ? '' : 'E:' . l:errors . ' W:' . l:warnings
+    let l:count = ale#statusline#Count(bufnr(''))
+    let l:errors = l:count.error + l:count.style_error
+    let l:warnings = l:count.warning + l:count.style_warning
+    return l:count.total == 0 ? '' : 'E:' . l:errors . ' W:' . l:warnings
 endfunction
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -99,7 +103,10 @@ augroup LightLineUpdate
 augroup END
 
 
-" ----- ALE -----
+
+" ------------------------------
+" *** ALE ***
+
 "  左側に常にシンボル用のスペースを開けておく
 let g:ale_sign_column_always = 1
 
@@ -135,7 +142,10 @@ function! AleListToggle()
 endfunction
 
 
-" ----- neocomplete -----
+
+" ------------------------------
+" *** neocomplete ***
+
 " AutoComplPopを無効化
 let g:acp_enableAtStartup = 0
 
@@ -153,11 +163,14 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " ファイルタイプごとにneocomplcacheのディクショナリを設定する
 let g:neocomplcache_dictionary_filetype_lists = {
-            \ 'default' : ''
-            \ }
+    \ 'default' : ''
+    \ }
 
 
-" ----- unite -----
+
+" ------------------------------
+" *** unite ***
+
 " インサートモードで開始しない
 let g:unite_enable_start_insert=0
 
@@ -166,23 +179,21 @@ let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
 
 
-" ----- vimfiler -----
+
+" ------------------------------
+" *** vimfiler ***
+
 let g:vimfiler_enable_auto_cd = 1
 
 
-" ----- git-gutter -----
+
+" ------------------------------
+" *** git-gutter ***
+
 if exists('&signcolumn')  " Vim 7.4.2201
-  set signcolumn=yes
+    set signcolumn=yes
 else
-  let g:gitgutter_sign_column_always = 1
+    let g:gitgutter_sign_column_always = 1
 endif
-
-
-" ----- foldCC -----
-" フォールディング文字列を、LeafCage/foldCC.vimの文字列にする
-set foldtext=FoldCCtext()
-
-" フォールディングマーカーを以下の形式で埋め込む「◯◯//◯｛｛｛」
-set commentstring=\ \ //\ %s
 
 

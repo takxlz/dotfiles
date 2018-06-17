@@ -1,4 +1,8 @@
-"==================== lang.rc.vim ====================
+" ----------------------------------------------------------------------
+" coding style configurations
+
+" 改行のときの自動コメントを無効化
+autocmd FileType * setlocal formatoptions-=ro
 
 " オートインデント（前の行のインデントを継続）を有効化
 set autoindent
@@ -9,6 +13,15 @@ set smartindent
 " タブキーを押した時にソフトタブ（スペースインデント）を有効化
 set expandtab
 
+" 空行で改行しても、インデントのスペースを削除しない
+nnoremap o oX<C-h>
+nnoremap O OX<C-h>
+inoremap <CR> <CR>X<C-h>
+
+
+" ------------------------------
+" デフォルトのインデント
+
 " タブの文字数
 set tabstop=4
 
@@ -18,13 +31,16 @@ set softtabstop=4
 " オートインデント時のインデント数
 set shiftwidth=4
 
+
+" ------------------------------
 " ファイルタイプごとのインデント設定
+
 augroup fileTypeIndent
     autocmd!
     autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    " autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 
-" 空行で改行しても、インデントのスペースを削除しない
-nnoremap o oX<C-h>
-nnoremap O OX<C-h>
-inoremap <CR> <CR>X<C-h>
+
+
+

@@ -1,4 +1,6 @@
-" ==================== mapping.rc.vim ====================
+" ----------------------------------------------------------------------
+" keybind configurations
+
 " 「submode#enter_with」でサブモードを作成する
 " 1:作成するサブモード名、2:対象モード(n,i,ni)、3:マップのオプション(nmapのようにリマップするときは、「r」)、4:サブモードに入るキーマップ、5:サブモードに入った際に行う処理
 
@@ -33,7 +35,9 @@ nnoremap <CR> i<CR><ESC>
 nnoremap <silent><Space>l :<C-u>setlocal relativenumber!<CR>
 
 
-" ----- フォールディングの操作 -----
+" ------------------------------
+" *** フォールディングの操作 ***
+
 nnoremap [fold] <Nop>
 nmap <Space>f [fold]
 
@@ -56,7 +60,10 @@ noremap <silent><Space>fm zf
 nnoremap <silent>[fold]d zd
 
 
-" ----- ウィンドウ操作 -----
+
+" ------------------------------
+" *** ウィンドウ操作 ***
+
 nnoremap [pane] <Nop>
 nmap <Space>s [pane]
 "nnoremap s <Nop>
@@ -104,7 +111,10 @@ call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
 
-" ----- ale -----
+
+" ------------------------------
+" *** ALE ***
+
 nnoremap [ale] <Nop>
 nmap <Space>a [ale]
 
@@ -118,7 +128,9 @@ call submode#map('alemove', 'n', 'r', 'k', '<Plug>(ale_previous_wrap)')
 call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
 
 
-" ----- neocomplete -----
+
+" ------------------------------
+" *** neocomplete ***
 
 " 前回行われた保管をキャンセルする
 inoremap <expr><C-g> neocomplete#undo_completion()
@@ -133,7 +145,10 @@ inoremap <expr><C-f> pumvisible() ? "\<C-y>" : "\<C-f>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 
-" ----- unite -----
+
+" ------------------------------
+" *** unite ***
+
 nnoremap [unite] <Nop>
 nmap <Space>u [unite]
 
@@ -162,7 +177,10 @@ nnoremap <silent>[unite]b :<C-u>Unite bookmark<CR>
 nnoremap <silent>[unite]d :<C-u>Unite directory<CR>
 
 
-" ----- tcomment -----
+
+" ------------------------------
+" *** tcomment ***
+
 noremap [tcomment] <Nop>
 map <Space>t [tcomment]
 
@@ -174,12 +192,20 @@ vnoremap <silent>[tcomment]b :TCommentBlock<CR>
 vnoremap <silent>[tcomment]r :TCommentRight<CR>
 
 
-" ----- vimfiler -----
+
+" ------------------------------
+" *** vimfiler ***
+
 nnoremap <silent><Space>d :VimFilerExplorer<CR>
 
 
-" ----- previm -----
+
+" ------------------------------
+" *** previm ***
+
 nnoremap <silent><Space>m :PrevimOpen<CR>
 
 
-" ----- various -----
+
+" ------------------------------
+" *** various ***
