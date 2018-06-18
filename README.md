@@ -11,6 +11,7 @@ vimfilesと.vimのパスの違いはvimrcで自動で対応するように設定
 ※ Vimは、\~/.(g)vimrc以外にも、Windowsでは「\~/vimfiles/(g)vimrc」、Unixでは「\~/.vim/(g)vimrc」を読み込むことができる。
 
 ### Windows
+kaoriya版のときは、$VIM/gvimrcを削除する(GUIの設定をgvimrcではなくvimrcのgui_runningで設定している)
 ```sh
 # mklink {link} -> {target}
 $ mklink /D %HOMEPATH%\vimfiles %HOMEPATH%\dotfiles\vim

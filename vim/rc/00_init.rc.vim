@@ -6,7 +6,8 @@ if &compatible
     set nocompatible
 endif
 
-" エンコーディングをutf8にする
+" エンコーディングをutf8にする(plugin.rc.vimより先に設定)
+" lightlineのセパレータ文字である「\u2b82」等の「\(エン)」がutf8でないと文字化けしエラーになる
 set encoding=utf-8
 
 " 256色の使用を有効にする
