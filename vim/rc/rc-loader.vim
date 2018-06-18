@@ -17,7 +17,7 @@ endfunction
 
 
 " ------------------------------
-" vim用のrc
+" vim用rc
 
 " vim起動時のみ
 if has('vim_starting')
@@ -36,10 +36,10 @@ call s:source_rc('50_keybind.rc.vim')
 
 
 " ------------------------------
-" gvim用のrc
+" gvim用rc
 
 " gvimrcを使用せずにvimrcのgui_runningでGUIの設定を行う
-" (kaoriya版だとロード順的に$VIM/gvimrcに設定を上書きされるので$VIM/gvimrcを削除する)
+" ※kaoriya版だとロード順的に$VIM/gvimrcに設定を上書きされるので$VIM/gvimrcを削除する
 if has('gui_running')
     call s:source_rc('80_gui.rc.vim')
 endif
