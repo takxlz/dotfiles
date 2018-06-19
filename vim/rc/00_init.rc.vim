@@ -1,5 +1,5 @@
 " ----------------------------------------------------------------------
-" Initialize(vim_starting)
+" initialize(vim_starting)
 
 " vi互換の動作を無効化する
 if &compatible
@@ -20,37 +20,15 @@ endif
 
 
 " ------------------------------
-let g:loaded_2html_plugin      = 1
+" disable default plugins
 
-let g:loaded_logiPat           = 1
-
-let g:loaded_getscriptPlugin   = 1
-
-let g:loaded_gzip              = 1
-
-let g:loaded_man               = 1
-
-let g:loaded_matchit           = 1
-
-" 対応する括弧の可視化を無効化(プラグインで可視化)
-let g:loaded_matchparen        = 1
-
-let g:loaded_netrwFileHandlers = 1
-
-let g:loaded_netrwPlugin       = 1
-
-let g:loaded_netrwSettings     = 1
-
-let g:loaded_rrhelper          = 1
-
-let g:loaded_shada_plugin      = 1
-
-let g:loaded_spellfile_plugin  = 1
-
-let g:loaded_tarPlugin         = 1
-
-let g:loaded_tutor_mode_plugin = 1
-
-let g:loaded_vimballPlugin     = 1
-
-let g:loaded_zipPlugin         = 1
+let g:loaded_2html_plugin      = 1  " vimで表示している状態をhtml化するプラグイン
+let g:loaded_gzip              = 1  " 圧縮されたファイルをvimで編集するプラグイン
+let g:loaded_tarPlugin         = 1  " tarプラグイン
+let g:loaded_zipPlugin         = 1  " zipプラグイン
+let g:loaded_matchparen        = 1  " 対応する括弧の可視化するプラグイン(別プラグインを使用)
+let g:loaded_netrwFileHandlers = 1  " netrw(ファイラ)プラグイン
+let g:loaded_netrwPlugin       = 1  " netrw(ファイラ)プラグイン
+let g:loaded_vimballPlugin     = 1  " パッケージマネージャプラグイン
+let g:loaded_getscriptPlugin   = 1  " vim scriptの最新バージョンを検索するプラグイン
+let g:loaded_tutor_mode_plugin = 1  " vimチュートリアルプラグイン
