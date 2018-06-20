@@ -8,5 +8,6 @@ set shellslash
 " winでは「~/vimfiles」、unixでは「~/.vim」を使用している場合でも、この違いを吸収する
 let g:vim_dir = expand('<sfile>:p:h')
 
+
 " g:vim_dir/rc/rc-loader.vimをロードする
 execute 'source ' g:vim_dir . '/rc/rc-loader.vim'
