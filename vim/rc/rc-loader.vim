@@ -30,7 +30,7 @@ call s:source_rc('20_basic.rc.vim')
 
 call s:source_rc('30_plugin.rc.vim')
 
-call s:source_rc('40_style.rc.vim')
+call s:source_rc('40_indent.rc.vim')
 
 call s:source_rc('50_keybind.rc.vim')
 

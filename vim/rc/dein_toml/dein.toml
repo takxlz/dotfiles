@@ -1,67 +1,120 @@
 [[plugins]]
+repo = 'kana/vim-submode'
+
+
+[[plugins]]
 repo = 'Shougo/dein.vim'
+
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
 if = 'has("unix")'
 
+
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
+hook_add = '''
+  " 前回行われた保管をキャンセルする
+  inoremap <expr> <C-g> neocomplete#undo_completion()
+
+  " TABで補完候補を進める
+  inoremap <expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+  " C-fでポップアップを消す
+  inoremap <expr> <C-f> pumvisible() ? "\<C-y>" : "\<C-f>"
+
+  " BSでポップアップを消して、一文字消す
+  inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
+'''
+
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
+hook_add = '''
+  nnoremap <silent> <Space>d :VimFilerExplorer<CR>
+'''
 
-[[plugins]]
-repo = 'Shougo/unite.vim'
 
-[[plugins]]
-repo = 'Shougo/neomru.vim'
 
-[[plugins]]
-repo = 'Shougo/neoyank.vim'
+
+
 
 [[plugins]]
 repo = 'Shougo/vimshell.vim'
 
+
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
+
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 
+
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
 
 [[plugins]]
 repo = 'Yggdroot/indentline'
 
-[[plugins]]
-repo = 'kana/vim-submode'
 
 [[plugins]]
 repo = 'w0rp/ale'
+hook_add = '''
+  nnoremap [ale] <Nop>
+  nmap <Space>a [ale]
+
+  " aleのトグル
+  nnoremap <silent> [ale]t :call AleListToggle()<CR>
+
+  " エラー間の移動
+  call submode#enter_with('alemove', 'n', 'r', '[ale]k', '<Plug>(ale_previous_wrap)')
+  call submode#enter_with('alemove', 'n', 'r', '[ale]j', '<Plug>(ale_next_wrap)')
+  call submode#map('alemove', 'n', 'r', 'k', '<Plug>(ale_previous_wrap)')
+  call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
+'''
+
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
+
 [[plugins]]
 repo = 'gorodinskiy/vim-coloresque'
 
+
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
+hook_add = '''
+  noremap [tcomment] <Nop>
+  map <Space>t [tcomment]
+
+  nnoremap <silent> [tcomment]t :TComment<CR>
+  nnoremap <silent> [tcomment]b :TCommentBlock<CR>
+  nnoremap <silent> [tcomment]r :TCommentRight
+  vnoremap <silent> [tcomment]t :TComment<CR>
+  vnoremap <silent> [tcomment]b :TCommentBlock<CR>
+  vnoremap <silent> [tcomment]r :TCommentRight<CR>
+'''
+
 
 [[plugins]]
 repo = 'tpope/vim-surround'
 
+
 [[plugins]]
 repo = 'LeafCage/foldCC.vim'
+
 
 [[plugins]]
 repo = 'joshdick/onedark.vim'
 
+
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
+
 
 [[plugins]]
 repo = 'severin-lemaignan/vim-minimap'
@@ -70,7 +123,8 @@ repo = 'severin-lemaignan/vim-minimap'
 # [[plugins]]
 # repo = 'xolox/vim-session'
 # depends = ['xolox/vim-misc']
-# 
+
+
 # [[plugins]]
 # repo = 'xolox/vim-misc'
 

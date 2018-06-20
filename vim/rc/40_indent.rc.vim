@@ -1,4 +1,4 @@
-" coding style configurations
+" indent configurations
 
 " ----------------------------------------------------------------------
 " defalut indent:

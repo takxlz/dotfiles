@@ -1,10 +1,57 @@
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_event = 'TextYankPost'
+on_source = ['unite.vim']
+
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+hook_add = '''
+  nnoremap [unite] <Nop>
+  nmap <Space>u [unite]
+
+  " カレントディレクトリのファイルとディレクトリの一覧を表示
+  nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+
+  " 最近開いたファイルの一覧を表示(neomru.vimが必要)
+  nnoremap <silent> [unite]r :<C-u>Unite file_mru<CR>
+
+  " 開かれているバッファの一覧を表示
+  nnoremap <silent> [unite]B :<C-u>Unite buffer<CR>
+
+  " ヤンク(コピー)の履歴の一覧を表示(neoyank.vimが必要)
+  nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+
+  " レジスタの一覧を表示
+  nnoremap <silent> [unite]R :<C-u>Unite -buffer-name=register register<CR>
+
+  " マッピング一覧
+  nnoremap <silent> [unite]m :<C-u>Unite mapping<CR>
+
+  " ブックマーク一覧
+  nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
+
+  " カレントディレクトリ一覧
+  nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_source = ['unite.vim']
+
+
 #[[plugins]]
 #repo = 'plasticboy/vim-markdown'
 #on_ft = ['md', 'markdown']
 
+
 [[plugins]]
 repo = 'kannokanno/previm'
 on_ft = ['md', 'markdown']
+hook_add = '''
+  nnoremap <silent> <Space>m :PrevimOpen<CR>
+'''
+
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
