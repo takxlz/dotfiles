@@ -1,5 +1,7 @@
-" ----------------------------------------------------------------------
 " dein configurations
+
+" ----------------------------------------------------------------------
+" dein:
 
 " deinで使用するディレクトリの指定
 let s:dein_dir = expand(g:vim_dir . '/bundle')
@@ -20,8 +22,8 @@ if dein#load_state(s:dein_dir)
     " プラグインリストを収めた TOML ファイル
     " 予め TOML ファイル（後述）を用意しておく
     let g:rc_dir    = expand(g:vim_dir . '/rc')
-    let s:toml      = g:rc_dir . '/dein.toml'
-    let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+    let s:toml      = g:rc_dir . '/dein_toml/dein.toml'
+    let s:lazy_toml = g:rc_dir . '/dein_toml/dein_lazy.toml'
 
     " TOML を読み込み、キャッシュしておく
     call dein#load_toml(s:toml,      {'lazy': 0})
@@ -38,8 +40,8 @@ if dein#check_install()
 endif
 
 
-" ------------------------------
-" deinの後に記述すべき設定
+" ----------------------------------------------------------------------
+" deinの後にすべき設定:
 
 " シンタックスをon
 syntax on

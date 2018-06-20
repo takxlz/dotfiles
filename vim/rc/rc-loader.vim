@@ -11,7 +11,7 @@ let s:rc_dir = expand(g:vim_dir . '/rc')
 function! s:source_rc(rc_file_name)
     let rc_file = expand(s:rc_dir . '/' . a:rc_file_name)
     if filereadable(rc_file)
-        execute 'source' rc_file
+        execute 'source ' rc_file
     endif
 endfunction
 

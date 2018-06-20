@@ -1,5 +1,7 @@
-" ----------------------------------------------------------------------
 " coding style configurations
+
+" ----------------------------------------------------------------------
+" defalut indent:
 
 " 改行のときの自動コメントを無効化
 autocmd FileType * setlocal formatoptions-=ro
@@ -18,10 +20,6 @@ nnoremap o oX<C-h>
 nnoremap O OX<C-h>
 inoremap <CR> <CR>X<C-h>
 
-
-" ------------------------------
-" デフォルトのインデント
-
 " タブの文字数
 set tabstop=4
 
@@ -32,8 +30,8 @@ set softtabstop=4
 set shiftwidth=4
 
 
-" ------------------------------
-" ファイルタイプごとのインデント設定
+" ----------------------------------------------------------------------
+" filetype indent:
 
 augroup fileTypeIndent
     autocmd!
