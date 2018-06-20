@@ -4,4 +4,5 @@
 /vim/bundle/*
 /vim/dein/*
 /vim/_dein/*
+/vim/plugged/*
 !.gitkeep
