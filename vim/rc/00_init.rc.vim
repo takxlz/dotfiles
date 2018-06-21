@@ -1,12 +1,18 @@
 " initialize configurations
 
-" ----------------------------------------------------------------------
+" -------------------------
 " initialize:(vim_starting)
 
 " vi互換の動作を無効化する
 if &compatible
     set nocompatible
 endif
+
+" シンタックスをon
+syntax on
+
+" ファイルタイプ検出と各種プラグインの有効
+filetype plugin indent on
 
 " エンコーディングをutf8にする(plugin.rc.vimより先に設定)
 " lightlineのセパレータ文字である「\u2b82」等の「\(エン)」がutf8でないと文字化けしエラーになる
@@ -21,8 +27,8 @@ if !isdirectory(expand('~/.cache/vim_tmpfiles'))
 endif
 
 
-" ----------------------------------------------------------------------
-" disable default plugins:
+" -------------------------
+" disable default plugins
 
 let g:loaded_2html_plugin      = 1  " vimで表示している状態をhtml化するプラグイン
 let g:loaded_gzip              = 1  " 圧縮されたファイルをvimで編集するプラグイン

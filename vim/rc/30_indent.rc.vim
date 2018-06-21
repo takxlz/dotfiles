@@ -1,7 +1,7 @@
 " indent configurations
 
-" ----------------------------------------------------------------------
-" defalut indent:
+" -------------------------
+" defalut indent
 
 " 改行のときの自動コメントを無効化
 autocmd FileType * setlocal formatoptions-=ro
@@ -30,8 +30,8 @@ set softtabstop=4
 set shiftwidth=4
 
 
-" ----------------------------------------------------------------------
-" filetype indent:
+" -------------------------
+" filetype indent
 
 augroup fileTypeIndent
     autocmd!

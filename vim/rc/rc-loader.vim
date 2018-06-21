@@ -1,4 +1,4 @@
-" ----------------------------------------------------------------------
+" -------------------------
 " load rc files
 
 " vimデフォルトのロード順
@@ -16,7 +16,7 @@ function! s:source_rc(rc_file_name)
 endfunction
 
 
-" ------------------------------
+" -------------------------
 " vim用rc
 
 " vim起動時のみ
@@ -24,18 +24,16 @@ if has('vim_starting')
     call s:source_rc('00_init.rc.vim')
 endif
 
-call s:source_rc('10_plug.rc.vim')
+call s:source_rc('10_plugin.rc.vim')
 
 call s:source_rc('20_basic.rc.vim')
 
-call s:source_rc('30_plugin.rc.vim')
+call s:source_rc('30_indent.rc.vim')
 
-call s:source_rc('40_indent.rc.vim')
-
-call s:source_rc('50_keybind.rc.vim')
+call s:source_rc('40_keybind.rc.vim')
 
 
-" ------------------------------
+" -------------------------
 " gvim用rc
 
 " gvimrcを使用せずにvimrcのgui_runningでGUIの設定を行う
