@@ -1,5 +1,7 @@
-" -------------------------
-" gui(gvim) configurations
+" gui(gvim)の設定を記述
+
+" ------------------------------------------------------------
+" gui
 
 " gvimでのメニューの文字化け対策
 "source $VIMRUNTIME/delmenu.vim

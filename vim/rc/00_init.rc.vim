@@ -1,7 +1,7 @@
-" initialize configurations
+" 最初に必要な設定を記述
 
-" -------------------------
-" initialize:(vim_starting)
+" ------------------------------------------------------------
+" initialize(vim_starting)
 
 " vi互換の動作を無効化する
 if &compatible
@@ -27,7 +27,7 @@ if !isdirectory(expand('~/.cache/vim_tmpfiles'))
 endif
 
 
-" -------------------------
+" ------------------------------------------------------------
 " disable default plugins
 
 let g:loaded_2html_plugin      = 1  " vimで表示している状態をhtml化するプラグイン

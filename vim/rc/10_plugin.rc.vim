@@ -1,9 +1,9 @@
-" install plugin and configurations
+" プラグインのインストール・オプション(設定)・キーバインドの設定を記述
 
-" ----------------------------------------------------------
+" ------------------------------------------------------------
 " vim-plug
 
-call plug#begin(expand(g:vim_dir . '/plugged'))
+call plug#begin(expand(g:vim_dir . '/plug'))
 
 if has('unix')
   Plug Shougo/vimproc.vim', { 'do': 'make' }
@@ -35,11 +35,11 @@ Plug 'tyru/open-browser.vim', { 'for': ['md', 'markdown'] }
 call plug#end()
 
 
-" ----------------------------------------------------------
-" unite
+" ------------------------------------------------------------
+" unite {{{
 
 " +--------+
-" | config |
+" | option |
 " +--------+
 " インサートモードで開始しない
 let g:unite_enable_start_insert=0
@@ -78,12 +78,12 @@ nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
 " カレントディレクトリ一覧
 nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
 
-
-" ----------------------------------------------------------
-" neocomplete
+" }}}
+" ------------------------------------------------------------
+" neocomplete {{{
 
 " +--------+
-" | config |
+" | option |
 " +--------+
 " AutoComplPopを無効化
 let g:acp_enableAtStartup = 0
@@ -120,12 +120,12 @@ inoremap <expr> <C-f> pumvisible() ? "\<C-y>" : "\<C-f>"
 " BSでポップアップを消して、一文字消す
 inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
 
-
-" ----------------------------------------------------------
-" vimfiler
+" }}}
+" ------------------------------------------------------------
+" vimfiler {{{
 
 " +--------+
-" | config |
+" | option |
 " +--------+
 let g:vimfiler_enable_auto_cd = 1
 
@@ -134,12 +134,12 @@ let g:vimfiler_enable_auto_cd = 1
 " +---------+
 nnoremap <silent> <Space>d :VimFilerExplorer<CR>
 
-
-" ----------------------------------------------------------
-" ale
+" }}}
+" ------------------------------------------------------------
+" ale {{{
 
 " +--------+
-" | config |
+" | option |
 " +--------+
 "  左側に常にシンボル用のスペースを開けておく
 let g:ale_sign_column_always = 1
@@ -189,14 +189,13 @@ call submode#enter_with('alemove', 'n', 'r', '[ale]k', '<Plug>(ale_previous_wrap
 call submode#enter_with('alemove', 'n', 'r', '[ale]j', '<Plug>(ale_next_wrap)')
 call submode#map('alemove', 'n', 'r', 'k', '<Plug>(ale_previous_wrap)')
 call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
+
 " }}}
-
-
-" ----------------------------------------------------------
-" git-gutter
+" ------------------------------------------------------------
+" git-gutter {{{
 
 " +--------+
-" | config |
+" | option |
 " +--------+
 if exists('&signcolumn')  " Vim 7.4.2201
     set signcolumn=yes
@@ -204,12 +203,12 @@ else
     let g:gitgutter_sign_column_always = 1
 endif
 
-
-" ----------------------------------------------------------
-" tcomment
+" }}}
+" ------------------------------------------------------------
+" tcomment {{{
 
 " +--------+
-" | config |
+" | option |
 " +--------+
 noremap [tcomment] <Nop>
 map <Space>t [tcomment]
@@ -224,21 +223,21 @@ vnoremap <silent> [tcomment]t :TComment<CR>
 vnoremap <silent> [tcomment]b :TCommentBlock<CR>
 vnoremap <silent> [tcomment]r :TCommentRight<CR>
 
-
-" ----------------------------------------------------------
-" previm
+" }}}
+" ------------------------------------------------------------
+" previm {{{
 
 " +---------+
 " | keybind |
 " +---------+
 nnoremap <silent> <Space>m :PrevimOpen<CR>
 
-
-" ----------------------------------------------------------
-" lightline
+" }}}
+" ------------------------------------------------------------
+" lightline {{{
 
 " +--------+
-" | config |
+" | option |
 " +--------+
 " readonlyとmodifiedコンポーネントはデフォルトで使わずに、filename(LightLineFilename)で呼び出し加工して使用
 " percentコンポーネントはデフォルトで使用
@@ -338,4 +337,6 @@ augroup LightLineUpdate
     autocmd User ALELint call lightline#update()
 augroup END
 
+" }}}
+" ------------------------------------------------------------
 

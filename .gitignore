@@ -3,6 +3,6 @@
 .DS_Store
 /vim/bundle/*
 /vim/dein/*
-/vim/_dein/*
 /vim/plugged/*
+/vim/plug/*
 !.gitkeep
