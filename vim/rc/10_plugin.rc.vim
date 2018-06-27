@@ -3,7 +3,7 @@
 " --------------------------------------------------------------------------------
 " vim-plug
 
-call plug#begin(expand(g:vim_dir . '/plug'))
+call plug#begin(expand(g:vim_dir . '/plugged'))
 
 if has('unix')
   Plug Shougo/vimproc.vim', { 'do': 'make' }
