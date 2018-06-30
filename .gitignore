@@ -1,8 +1,5 @@
 .*.un~
 *.swp
 .DS_Store
-/vim/bundle/*
-/vim/dein/*
-/vim/plugged/*
-/vim/plug/*
+/vim/_plugged/*
 !.gitkeep

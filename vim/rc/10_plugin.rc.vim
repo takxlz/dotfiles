@@ -3,7 +3,7 @@
 " --------------------------------------------------------------------------------
 " vim-plug
 
-call plug#begin(expand(g:vim_dir . '/plugged'))
+call plug#begin(expand(g:vim_dir . '/_plugged'))
 
 if has('unix')
   Plug Shougo/vimproc.vim', { 'do': 'make' }
@@ -32,15 +32,16 @@ Plug 'severin-lemaignan/vim-minimap', { 'on': 'Minimap' }
 "Plug 'plasticboy/vim-markdown', { 'for': ['md', 'markdown'] }
 Plug 'kannokanno/previm', { 'for': ['md', 'markdown'] }
 Plug 'tyru/open-browser.vim', { 'for': ['md', 'markdown'] }
+Plug 'reireias/vim-cheatsheet', { 'on': 'Cheat' }
 call plug#end()
 
 
 " --------------------------------------------------------------------------------
 " unite {{{
 
-" +--------+
-" | option |
-" +--------+
+" --------------------
+" option
+
 " インサートモードで開始しない
 let g:unite_enable_start_insert=0
 
@@ -48,9 +49,9 @@ let g:unite_source_history_yank_enable =1
 
 let g:unite_source_file_mru_limit = 200
 
-" +---------+
-" | keybind |
-" +---------+
+" --------------------
+" keybind
+
 nnoremap [unite] <Nop>
 nmap <Space>u [unite]
 
@@ -82,9 +83,9 @@ nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
 " --------------------------------------------------------------------------------
 " neocomplete {{{
 
-" +--------+
-" | option |
-" +--------+
+" --------------------
+" option
+
 " AutoComplPopを無効化
 let g:acp_enableAtStartup = 0
 
@@ -105,9 +106,9 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : ''
     \ }
 
-" +---------+
-" | keybind |
-" +---------+
+" --------------------
+" keybind
+
 " 前回行われた保管をキャンセルする
 inoremap <expr> <C-g> neocomplete#undo_completion()
 
@@ -124,23 +125,23 @@ inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
 " --------------------------------------------------------------------------------
 " vimfiler {{{
 
-" +--------+
-" | option |
-" +--------+
+" --------------------
+" option
+
 let g:vimfiler_enable_auto_cd = 1
 
-" +---------+
-" | keybind |
-" +---------+
+" --------------------
+" keybind
+
 nnoremap <silent> <Space>d :VimFilerExplorer<CR>
 
 " }}}
 " --------------------------------------------------------------------------------
 " ale {{{
 
-" +--------+
-" | option |
-" +--------+
+" --------------------
+" option
+
 "  左側に常にシンボル用のスペースを開けておく
 let g:ale_sign_column_always = 1
 
@@ -175,9 +176,9 @@ function! AleListToggle()
     endif
 endfunction
 
-" +---------+
-" | keybind |
-" +---------+
+" --------------------
+" keybind
+
 nnoremap [ale] <Nop>
 nmap <Space>a [ale]
 
@@ -194,9 +195,9 @@ call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
 " --------------------------------------------------------------------------------
 " git-gutter {{{
 
-" +--------+
-" | option |
-" +--------+
+" --------------------
+" option
+
 if exists('&signcolumn')  " Vim 7.4.2201
     set signcolumn=yes
 else
@@ -207,15 +208,15 @@ endif
 " --------------------------------------------------------------------------------
 " tcomment {{{
 
-" +--------+
-" | option |
-" +--------+
+" --------------------
+" option
+
 noremap [tcomment] <Nop>
 map <Space>t [tcomment]
 
-" +---------+
-" | keybind |
-" +---------+
+" --------------------
+" keybind
+
 nnoremap <silent> [tcomment]t :TComment<CR>
 nnoremap <silent> [tcomment]b :TCommentBlock<CR>
 nnoremap <silent> [tcomment]r :TCommentRight
@@ -227,18 +228,18 @@ vnoremap <silent> [tcomment]r :TCommentRight<CR>
 " --------------------------------------------------------------------------------
 " previm {{{
 
-" +---------+
-" | keybind |
-" +---------+
+" --------------------
+" keybind
+
 nnoremap <silent> <Space>m :PrevimOpen<CR>
 
 " }}}
 " --------------------------------------------------------------------------------
 " lightline {{{
 
-" +--------+
-" | option |
-" +--------+
+" --------------------
+" option
+
 " readonlyとmodifiedコンポーネントはデフォルトで使わずに、filename(LightLineFilename)で呼び出し加工して使用
 " percentコンポーネントはデフォルトで使用
 set laststatus=2
@@ -339,4 +340,19 @@ augroup END
 
 " }}}
 " --------------------------------------------------------------------------------
+" vim-cheatsheet {{{
 
+" --------------------
+" option
+
+let g:cheatsheet#cheat_file = g:vim_dir . '/doc/cheat1.md'
+
+" cheatsheet opens vertical splited pane(def:0)
+let g:cheatsheet#vsplit = 1
+
+" --------------------
+" keybind
+
+
+
+" }}}
