@@ -8,6 +8,11 @@
 "set langmenu=ja_jp.utf-8
 "source $VIMRUNTIME/menu.vim
 
+" 一部のUCS文字の幅を自動計測して決める
+if has('kaoriya')
+    set ambiwidth=auto
+endif
+
 " 起動時にgvimを最大化
 au GUIEnter * simalt ~x
 

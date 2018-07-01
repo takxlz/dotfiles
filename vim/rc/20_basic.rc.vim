@@ -10,6 +10,9 @@ colorscheme onedark
 " カラースキームを適用していても、背景をターミナルの背景色に合わせる
 hi Normal ctermbg=NONE
 
+" マークダウンで*や_でイタリックになるのを無効にする
+" autocmd! FileType markdown hi! def link markdownItalic Normal
+
 " オープニングメッセージを非表示
 set shortmess+=I
 

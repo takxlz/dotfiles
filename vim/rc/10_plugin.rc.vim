@@ -33,6 +33,8 @@ Plug 'severin-lemaignan/vim-minimap', { 'on': 'Minimap' }
 Plug 'kannokanno/previm', { 'for': ['md', 'markdown'] }
 Plug 'tyru/open-browser.vim', { 'for': ['md', 'markdown'] }
 Plug 'reireias/vim-cheatsheet', { 'on': 'Cheat' }
+Plug 'junegunn/vim-easy-align'
+Plug 'dhruvasagar/vim-table-mode', { 'for': ['md', 'markdown'] }
 call plug#end()
 
 
@@ -345,7 +347,7 @@ augroup END
 " --------------------
 " option
 
-let g:cheatsheet#cheat_file = g:vim_dir . '/doc/cheat1.md'
+let g:cheatsheet#cheat_file = g:vim_dir . '/doc/keybind.md'
 
 " cheatsheet opens vertical splited pane(def:0)
 let g:cheatsheet#vsplit = 1
@@ -353,6 +355,33 @@ let g:cheatsheet#vsplit = 1
 " --------------------
 " keybind
 
+
+" }}}
+
+" --------------------------------------------------------------------------------
+" vim-easy-align {{{
+
+" --------------------
+" option
+
+
+" --------------------
+" keybind
+
+vmap <Enter> <Plug>(EasyAlign)
+
+" }}}
+
+" --------------------------------------------------------------------------------
+" vim-table-mode {{{
+
+" --------------------
+" option
+
+let g:table_mode_corner = '|'
+
+" --------------------
+" keybind
 
 
 " }}}
