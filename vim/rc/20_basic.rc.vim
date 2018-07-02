@@ -10,8 +10,9 @@ colorscheme onedark
 " カラースキームを適用していても、背景をターミナルの背景色に合わせる
 hi Normal ctermbg=NONE
 
-" マークダウンで*や_でイタリックになるのを無効にする
-" autocmd! FileType markdown hi! def link markdownItalic Normal
+" マークダウンで*や_が隠れるのを無効化する
+" ※ indentlineプラグインが設定を上書きしてしまうのでindentlineの設定でマークダウン、helpを除外している
+set conceallevel=0
 
 " オープニングメッセージを非表示
 set shortmess+=I

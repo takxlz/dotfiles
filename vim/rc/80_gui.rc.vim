@@ -59,3 +59,4 @@ if has('multi_byte_ime') || has('xim')
     inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
     inoremap <silent> っｊ <ESC>:set iminsert=0<CR>
 endif
+

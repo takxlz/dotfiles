@@ -26,13 +26,15 @@ if has('vim_starting')
     call s:source_rc('00_init.rc.vim')
 endif
 
-call s:source_rc('10_plugin.rc.vim')
+call s:source_rc('10_plug_get_opt.rc.vim')
 
 call s:source_rc('20_basic.rc.vim')
 
 call s:source_rc('30_indent.rc.vim')
 
 call s:source_rc('40_keybind.rc.vim')
+
+call s:source_rc('41_plug_keybind.rc.vim')
 
 
 " --------------------------------------------------------------------------------
