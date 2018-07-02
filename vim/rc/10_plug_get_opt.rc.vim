@@ -29,7 +29,7 @@ Plug 'LeafCage/foldCC.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'w0ng/vim-hybrid'
 Plug 'severin-lemaignan/vim-minimap', { 'on': 'Minimap' }
-"Plug 'plasticboy/vim-markdown', { 'for': ['md', 'markdown'] }
+Plug 'plasticboy/vim-markdown', { 'for': ['md', 'markdown'] }
 Plug 'kannokanno/previm', { 'for': ['md', 'markdown'] }
 Plug 'tyru/open-browser.vim', { 'for': ['md', 'markdown'] }
 Plug 'reireias/vim-cheatsheet', { 'on': 'Cheat' }
