@@ -23,18 +23,20 @@ endfunction
 
 " vim起動時のみ
 if has('vim_starting')
-    call s:source_rc('00_init.rc.vim')
+    call s:source_rc('00_init.vim')
 endif
 
-call s:source_rc('10_plug_get_opt.rc.vim')
+call s:source_rc('10_plug_list.vim')
 
-call s:source_rc('20_basic.rc.vim')
+call s:source_rc('11_plug_option.vim')
 
-call s:source_rc('30_indent.rc.vim')
+call s:source_rc('12_plug_keymap.vim')
 
-call s:source_rc('40_keybind.rc.vim')
+call s:source_rc('20_basic.vim')
 
-call s:source_rc('41_plug_keybind.rc.vim')
+call s:source_rc('30_indent.vim')
+
+call s:source_rc('40_keymap.vim')
 
 
 " --------------------------------------------------------------------------------
@@ -43,5 +45,5 @@ call s:source_rc('41_plug_keybind.rc.vim')
 " gvimrcを使用せずにvimrcのgui_runningでGUIの設定を行う
 " ※kaoriya版だとロード順的に$VIM/gvimrcに設定を上書きされるので$VIM/gvimrcを削除する
 if has('gui_running')
-    call s:source_rc('80_gui.rc.vim')
+    call s:source_rc('80_gui.vim')
 endif
