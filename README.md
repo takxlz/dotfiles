@@ -19,7 +19,6 @@ $ mklink /D %HOMEPATH%\vimfiles %HOMEPATH%\dotfiles\vim
 ```
 - **$VIM/gvimrcを削除（kaoriya版）**
 <br />
-<br />
 
 
 ### Unix or Mac
@@ -30,7 +29,6 @@ $ ln -sf ~/dotfiles/vim ~/.vim
 ```
 - luaを追加
 - vimprocを追加
-<br />
 <br />
 
 
