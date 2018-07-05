@@ -5,44 +5,41 @@ $ git clone https://github.com/takxlz/dotfiles.git
 ```
 
 ## Vim
-Vimはデフォルトで以下のファイルを読み込む
-1. \~/.(g)vimrc
-2. \~/vimfiles/(g)vimrc  (Windows)
-3. \~/.vim/(g)vimrc  (Unix)
+「**\~/.vimrc**」以外にも「win: **\~/vimfiles/vimrc**」「unix: **\~/.vim/vimrc**」に配置することができる.(※ .vimrcではなくvimrc)  
+「**\~/ [vimfiles | .vim] /vimrc**」の場合、Vimの設定ファイルなどを1つのディレクトリにまとめることができ管理が楽になる.
 
-①が一般的だが,②(③)にすることで,Vimの設定ファイル・ディレクトリ(vimrc, gvimrc, .vim/ ...)を一箇所にまとめることができる.
+※ gvimの設定はgvimrcではなくvimrc内にてgui_runningフラグを用いて設定している.
 
-※ OSの違いによる「\~/vimfiles/」と「\~/.vim/」のパスの違いは,vimrcにて自動で判別し「g:vim_dir」に設定している.  
-プラグインの設定などで「\~/vimfiles/」「\~/.vim/」のパスを指定する場合は「g:vim_dir」を用いる.
-
-※ gvimの設定は「gvimrc」を用いずに「vimrc」内にてgui_runningフラグを用いて設定している.
-
-<br />
 
 ### Windows
-kaoriya版のときは「$VIM/gvimrc」を削除する(vimrcでgvimの設定をしているため,ロード順的にvimrcより後に読み込まれる「$VIM/gvimrc」に設定が上書きされるのを防ぐ)
+***
 ```sh
 # mklink {リンク先} {リンク元(実体)}
 $ mklink /D %HOMEPATH%\vimfiles %HOMEPATH%\dotfiles\vim
 ```
-
+- **$VIM/gvimrcを削除（kaoriya版）**
+<br />
 <br />
 
+
 ### Unix or Mac
+***
 ```sh
 # ln -s {リンク元(実体)} {リンク先}
 $ ln -sf ~/dotfiles/vim ~/.vim
 ```
 - luaを追加
 - vimprocを追加
-
+<br />
 <br />
 
+
 #### 共通
+***
 - Lightline.vim
     - RictyDiminished-for-Powerline-masterをインストールしてvim-powerline-fontpatchedをOSのフォントに追加
 
-- ALE
+- ALE.vim
     - OSにnode.jsをインストール
     - npmで各言語のLinterをインストール
 
