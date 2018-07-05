@@ -26,8 +26,23 @@ kaoriya版のときは「$VIM/gvimrc」を削除する(vimrcでgvimの設定を�
 $ mklink /D %HOMEPATH%\vimfiles %HOMEPATH%\dotfiles\vim
 ```
 
-### Unix
+<br />
+
+### Unix or Mac
 ```sh
 # ln -s {リンク元(実体)} {リンク先}
 $ ln -sf ~/dotfiles/vim ~/.vim
 ```
+- luaを追加
+- vimprocを追加
+
+<br />
+
+#### 共通
+- Lightline.vim
+    - RictyDiminished-for-Powerline-masterをインストールしてvim-powerline-fontpatchedをOSのフォントに追加
+
+- ALE
+    - OSにnode.jsをインストール
+    - npmで各言語のLinterをインストール
+
