@@ -38,7 +38,8 @@ set list
 set listchars=tab:>-,trail:_
 
 " キーバインドの待機時間の設定
-set timeout timeoutlen=1000 ttimeoutlen=100
+"set timeout timeoutlen=1000 ttimeoutlen=100
+set timeout timeoutlen=900 ttimeoutlen=900
 
 " vimでのプラグインなどの反映時間
 set updatetime=200
