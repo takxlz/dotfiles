@@ -126,4 +126,3 @@ noremap [fold]m zf
 " カーソル下の折りたたみマーカーを削除
 nnoremap [fold]d zd
 
-
