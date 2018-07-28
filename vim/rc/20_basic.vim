@@ -3,6 +3,12 @@
 " --------------------------------------------------------------------------------
 " basic
 
+" 起動時に「~/」に移動
+execute 'cd' expand('~/')
+
+" 自動で開いたファイルの場所に移動
+set autochdir
+
 " カラースキームの設定
 let g:onedark_termcolors=256
 colorscheme onedark
@@ -23,8 +29,13 @@ set number
 " カレント行をハイライト ※重くなる
 " set cursorline
 
-" クリップボードを共有する
-set clipboard=unnamed,autoselect
+" クリップボードを共有する，マウスの有効化
+if has('nvim')
+    set clipboard=unnamed
+    set mouse=a
+else
+    set clipboard=unnamed,autoselect
+endif
 
 " コマンドの補完
 set wildmenu
@@ -48,10 +59,14 @@ nnoremap x "_x
 nnoremap s "_s
 
 " tmpファイルの作成場所を変更
-set directory=~/.cache/vim_tmpfiles/
-set backupdir=~/.cache/vim_tmpfiles/
-set viminfo+=n~/.cache/vim_tmpfiles/.viminfo
-set undodir=~/.cache/vim_tmpfiles/
+if has('nvim')
+    
+else
+    set directory=~/.cache/vim_tmpfiles/
+    set backupdir=~/.cache/vim_tmpfiles/
+    set viminfo+=n~/.cache/vim_tmpfiles/.viminfo
+    set undodir=~/.cache/vim_tmpfiles/
+endif
 
 " フォールディング文字列を、LeafCage/foldCC.vimの文字列にする
 set foldtext=FoldCCtext()
@@ -81,3 +96,5 @@ if has('mac') || has('unix')
 endif
 
 " let g:python3_host_prog=exepath('python')
+
+

@@ -119,8 +119,7 @@ let g:unite_source_file_mru_limit = 200
 " --------------------------------------------------------------------------------
 " deoplete
 
-" deopleteを有効
-let g:deoplete#enable_at_startup = 1
+
 
 
 

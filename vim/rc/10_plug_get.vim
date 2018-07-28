@@ -9,7 +9,8 @@ if has('unix')
   Plug Shougo/vimproc.vim', { 'do': 'make' }
 endif
   
-Plug 'Shougo/unite.vim'
+" Plug 'Shougo/unite.vim'
+Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/vimfiler.vim', { 'on': 'VimFilerExplorer' }
