@@ -35,17 +35,7 @@ nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
 " --------------------------------------------------------------------------------
 " neocomplete
 
-" 前回行われた保管をキャンセルする
-inoremap <expr> <C-g> neocomplete#undo_completion()
 
-" TABで補完候補を進める
-inoremap <expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" C-fでポップアップを消す
-inoremap <expr> <C-f> pumvisible() ? "\<C-y>" : "\<C-f>"
-
-" BSでポップアップを消して、一文字消す
-inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
 
 
 

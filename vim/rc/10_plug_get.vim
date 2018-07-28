@@ -12,7 +12,6 @@ endif
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimfiler.vim', { 'on': 'VimFilerExplorer' }
 Plug 'Shougo/vimshell.vim', { 'on': 'VimShell' }
 Plug 'kana/vim-submode'

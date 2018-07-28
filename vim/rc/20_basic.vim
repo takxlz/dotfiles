@@ -38,8 +38,7 @@ set list
 set listchars=tab:>-,trail:_
 
 " キーバインドの待機時間の設定
-"set timeout timeoutlen=1000 ttimeoutlen=100
-set timeout timeoutlen=900 ttimeoutlen=900
+set timeout timeoutlen=1000 ttimeoutlen=0
 
 " vimでのプラグインなどの反映時間
 set updatetime=200
@@ -80,3 +79,5 @@ if has('mac') || has('unix')
     set mouse=a  " マウス・トラックパッドを有効化
     set backspace=indent,eol,start  " BSの設定(ターミナルではBSが効かないことがある)
 endif
+
+" let g:python3_host_prog=exepath('python')

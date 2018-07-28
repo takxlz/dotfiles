@@ -26,11 +26,11 @@ if has('vim_starting')
     call s:source_rc('00_init.vim')
 endif
 
-call s:source_rc('10_plug_list.vim')
+call s:source_rc('10_plug_get.vim')
 
-call s:source_rc('11_plug_option.vim')
+call s:source_rc('11_plug_opt.vim')
 
-call s:source_rc('12_plug_keymap.vim')
+call s:source_rc('12_plug_map.vim')
 
 call s:source_rc('20_basic.vim')
 

@@ -117,34 +117,17 @@ let g:unite_source_file_mru_limit = 200
 
 
 " --------------------------------------------------------------------------------
-" neocomplete
+" deoplete
 
-" AutoComplPopを無効化
-let g:acp_enableAtStartup = 0
-
-" neocomplcacheを有効化
-let g:neocomplete#enable_at_startup = 1
-
-" 大文字が入力されるまで、大文字小文字を区別しない
-let g:neocomplcache_enable_smart_case = 1
-
-" シンタックスをキャッシュする最小文字長
-let g:neocomplcache_min_syntax_length = 4
-
-" =右のファイル名のときは、neocomplcacheをロックする
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" ファイルタイプごとにneocomplcacheのディクショナリを設定する
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : ''
-    \ }
+" deopleteを有効
+let g:deoplete#enable_at_startup = 1
 
 
 
 " --------------------------------------------------------------------------------
 " vimfiler
 
-let g:vimfiler_enable_auto_cd = 1
+"let g:vimfiler_enable_auto_cd = 1
 
 
 
