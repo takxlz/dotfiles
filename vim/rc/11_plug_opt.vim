@@ -118,9 +118,9 @@ let g:unite_source_file_mru_limit = 200
 
 " --------------------------------------------------------------------------------
 " deoplete
-
-let g:deoplete#enable_at_startup = 1
-
+if has('nvim')
+    let g:deoplete#enable_at_startup = 1
+endif
 
 
 " --------------------------------------------------------------------------------

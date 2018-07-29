@@ -13,13 +13,6 @@ if has('kaoriya')
     set ambiwidth=auto
 endif
 
-" 起動時にgvimを最大化
-if has('nvim')
-    call GuiWindowMaximized(1)
-else
-    au GUIEnter * simalt ~x
-endif
-
 " カラースキーマの設定
 set t_Co=256
 set termguicolors
@@ -28,13 +21,6 @@ let g:onedark_termcolors=256
 
 set background=dark  "hybridに必要な設定
 colorscheme hybrid
-
-" フォントの設定
-if has('nvim')
-    Guifont! Ricty Diminished for Powerline:h13
-else
-    set guifont=Ricty_Diminished_for_Powerline:h13
-endif
 
 " メニューバーを非表示
 set guioptions=Mc
@@ -69,3 +55,16 @@ if has('multi_byte_ime') || has('xim')
     inoremap <silent> っｊ <ESC>:set iminsert=0<CR>
 endif
 
+" 起動時にgvimを最大化
+if has('nvim')
+    call GuiWindowMaximized(1)
+else
+    au GUIEnter * simalt ~x
+endif
+
+" フォントの設定
+if has('nvim')
+    Guifont! Ricty Diminished for Powerline:h13
+else
+    set guifont=Ricty_Diminished_for_Powerline:h13
+endif

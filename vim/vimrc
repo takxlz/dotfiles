@@ -11,4 +11,4 @@ set shellslash
 let g:vim_dir = expand('<sfile>:p:h')
 
 " g:vim_dir/rc/_loader.vimをロードする
-execute 'source ' g:vim_dir . '/rc/_loader.vim'
+execute 'source' g:vim_dir . '/rc/_loader.vim'
