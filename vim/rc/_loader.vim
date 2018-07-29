@@ -26,7 +26,7 @@ if has('vim_starting')
     call s:source_rc('00_init.vim')
 endif
 
-call s:source_rc('10_plug_get.vim')
+call s:source_rc('10_plug_add.vim')
 
 call s:source_rc('11_plug_opt.vim')
 
