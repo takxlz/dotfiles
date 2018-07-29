@@ -22,20 +22,12 @@ endfunction
 " vim用rc
 
 " vim起動時のみ
-if has('vim_starting')
-    call s:source_rc('00_init.vim')
-endif
-
+if has('vim_starting') | call s:source_rc('00_init.vim') | endif
 call s:source_rc('10_plug_add.vim')
-
 call s:source_rc('11_plug_opt.vim')
-
 call s:source_rc('12_plug_map.vim')
-
 call s:source_rc('20_basic.vim')
-
 call s:source_rc('30_indent.vim')
-
 call s:source_rc('40_keymap.vim')
 
 " --------------------------------------------------------------------------------

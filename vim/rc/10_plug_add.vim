@@ -2,16 +2,11 @@
 
 " ------------------------------------------------------------
 " vim-plug
-
 call plug#begin(expand(g:vim_dir . '/_plugged'))
 
-if has('unix')
-  "Plug Shougo/vimproc.vim', { 'do': 'make' }
-endif
-  
-" Plug 'Shougo/unite.vim'
+if has('unix') | Plug Shougo/vimproc.vim', { 'do': 'make' } | endif
 Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'on': 'Test' }
 Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/vimfiler.vim', { 'on': 'VimFilerExplorer' }
@@ -36,6 +31,10 @@ Plug 'tyru/open-browser.vim', { 'for': ['md', 'markdown'] }
 Plug 'reireias/vim-cheatsheet', { 'on': 'Cheat' }
 Plug 'junegunn/vim-easy-align'
 Plug 'dhruvasagar/vim-table-mode', { 'for': ['md', 'markdown'] }
-
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'takxlz/test'
 call plug#end()
+
+
 
