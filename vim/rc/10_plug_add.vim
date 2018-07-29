@@ -6,7 +6,7 @@
 call plug#begin(expand(g:vim_dir . '/_plugged'))
 
 if has('unix')
-  Plug Shougo/vimproc.vim', { 'do': 'make' }
+  "Plug Shougo/vimproc.vim', { 'do': 'make' }
 endif
   
 " Plug 'Shougo/unite.vim'
