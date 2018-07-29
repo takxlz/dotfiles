@@ -33,7 +33,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'dhruvasagar/vim-table-mode', { 'for': ['md', 'markdown'] }
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'takxlz/test'
+Plug 'takxlz/test', { 'on': 'Test' }
 call plug#end()
 
 
