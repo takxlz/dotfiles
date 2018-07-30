@@ -4,7 +4,10 @@
 " defalut indent
 
 " 改行のときの自動コメントを無効化
-autocmd FileType * setlocal formatoptions-=ro
+augroup newLineAutoComment
+    autocmd!
+    autocmd FileType * setlocal formatoptions-=ro
+augroup END
 
 " オートインデント（前の行のインデントを継続）を有効化
 set autoindent
