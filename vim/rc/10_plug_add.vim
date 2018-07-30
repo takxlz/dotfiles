@@ -6,7 +6,8 @@ call plug#begin(expand(g:vim_dir . '/_plugged'))
 
 if has('unix') | Plug Shougo/vimproc.vim', { 'do': 'make' } | endif
 Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deoplete.nvim', { 'on': 'Test' }
+Plug 'Shougo/deoplete.nvim', { 'on': [] }
+command! StartDp call plug#load('deoplete.nvim')
 Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/vimfiler.vim', { 'on': 'VimFilerExplorer' }
@@ -33,7 +34,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'dhruvasagar/vim-table-mode', { 'for': ['md', 'markdown'] }
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'takxlz/test', { 'on': 'Test' }
 call plug#end()
 
 
