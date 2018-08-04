@@ -1,10 +1,9 @@
 [[plugins]]
 repo = 'Shougo/denite.nvim'
-#on_cmd = 'Denite'
+on_cmd = 'Denite'
 hook_post_update = '''
 call dein#remote_plugins()
 '''
-
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'

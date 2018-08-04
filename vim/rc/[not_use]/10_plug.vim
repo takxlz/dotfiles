@@ -21,6 +21,7 @@ Plug 'Shougo/neoyank.vim',                 { 'on': 'Denite'}
 Plug 'Shougo/neomru.vim',                  { 'on': 'Denite'}
 Plug 'Shougo/deoplete.nvim', has('nvim') ? { 'on': [], 'do': ':UpdateRemotePlugins' } : { 'on': []}
 Plug 'Shougo/vimfiler.vim',                { 'on': 'VimFilerExplorer' }
+Plug 'Shougo/unite.vim',                   { 'on': 'VimFilerExplorer'}
 Plug 'severin-lemaignan/vim-minimap',      { 'on': 'Minimap' }
 Plug 'reireias/vim-cheatsheet',            { 'on': 'Cheat' }
 Plug 'plasticboy/vim-markdown',            { 'for': ['md', 'markdown'] }
