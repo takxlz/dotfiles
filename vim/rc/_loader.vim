@@ -25,7 +25,7 @@ endfunction
 if has('vim_starting') | call s:source_rc('00_init.vim') | endif
 call s:source_rc('10_plug.vim')
 call s:source_rc('20_basic.vim')
-call s:source_rc('30_indent.vim')
+call s:source_rc('30_lang.vim')
 call s:source_rc('40_keymap.vim')
 
 " --------------------------------------------------------------------------------

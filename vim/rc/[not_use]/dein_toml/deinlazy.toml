@@ -1,0 +1,87 @@
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+#on_cmd = 'Denite'
+hook_post_update = '''
+call dein#remote_plugins()
+'''
+
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_event = 'TextYankPost'
+on_source = 'denite.nvim'
+
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_source = 'denite.nvim'
+
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+#on_event = 'InsertEnter'
+#on_ft = ['java', 'javascript']
+on_event = 'BufRead'
+hook_source = '''
+call deoplete#enable()
+'''
+
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+on_source = 'deoplete.nvim'
+
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+on_source = 'deoplete.nvim'
+
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+on_cmd = 'VimFilerExplorer'
+hook_add = '''
+nnoremap <silent> <Space>d :VimFilerExplorer<CR>
+'''
+
+
+[[plugins]]
+repo = 'severin-lemaignan/vim-minimap'
+on_cmd = 'Minimap'
+
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['md', 'markdown']
+
+
+[[plugins]]
+repo = 'kannokanno/previm'
+on_ft = ['md', 'markdown']
+hook_source = '''
+nnoremap <silent> <Space>m :PrevimOpen<CR>
+'''
+
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft = ['md', 'markdown']
+
+
+[[plugins]]
+repo = 'reireias/vim-cheatsheet'
+on_cmd = 'Cheat'
+hook_source = '''
+let g:cheatsheet#cheat_file = g:vim_dir . '/doc/keymap.md'
+let g:cheatsheet#vsplit = 1
+'''
+
+
+[[plugins]]
+repo = 'dhruvasagar/vim-table-mode'
+on_ft = ['md', 'markdown']
+hook_source = '''
+let g:table_mode_corner = '|'
+'''
+
+

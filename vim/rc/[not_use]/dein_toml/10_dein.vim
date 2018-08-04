@@ -1,10 +1,9 @@
-" dein configurations
-
-" ----------------------------------------------------------------------
-" dein:
+" --------------------------------------------------------------------------------
+" dein config
 
 " deinで使用するディレクトリの指定
-let s:dein_dir = expand(g:vim_dir . '/bundle')
+"let s:dein_dir = expand(g:vim_dir . '/bundle')
+let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " dein.vim がなければ github から落としてくる
@@ -23,7 +22,7 @@ if dein#load_state(s:dein_dir)
     " 予め TOML ファイル（後述）を用意しておく
     let g:rc_dir    = expand(g:vim_dir . '/rc')
     let s:toml      = g:rc_dir . '/dein_toml/dein.toml'
-    let s:lazy_toml = g:rc_dir . '/dein_toml/dein_lazy.toml'
+    let s:lazy_toml = g:rc_dir . '/dein_toml/deinlazy.toml'
 
     " TOML を読み込み、キャッシュしておく
     call dein#load_toml(s:toml,      {'lazy': 0})
@@ -43,8 +42,5 @@ endif
 " ----------------------------------------------------------------------
 " deinの後にすべき設定:
 
-" シンタックスをon
 syntax on
-
-" ファイルタイプ検出と各種プラグインの有効
 filetype plugin indent on

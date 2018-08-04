@@ -1,13 +1,7 @@
 " --------------------------------------------------------------------------------
 " [vim-plug]
+" ------------------------------
 call plug#begin(expand(g:vim_dir . '/_plugged'))
-if has('unix') | Plug Shougo/vimproc.vim', { 'do': 'make' } | endif
-Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deoplete.nvim', { 'on': [] }
-Plug 'Shougo/neoyank.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/vimfiler.vim', { 'on': 'VimFilerExplorer' }
-Plug 'Shougo/vimshell.vim', { 'on': 'VimShell' }
 Plug 'kana/vim-submode'
 Plug 'itchyny/vim-parenmatch'
 Plug 'airblade/vim-gitgutter'
@@ -21,22 +15,33 @@ Plug 'tpope/vim-surround'
 Plug 'LeafCage/foldCC.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'w0ng/vim-hybrid'
-Plug 'severin-lemaignan/vim-minimap', { 'on': 'Minimap' }
-Plug 'plasticboy/vim-markdown', { 'for': ['md', 'markdown'] }
-Plug 'kannokanno/previm', { 'for': ['md', 'markdown'] }
-Plug 'tyru/open-browser.vim', { 'for': ['md', 'markdown'] }
-Plug 'reireias/vim-cheatsheet', { 'on': 'Cheat' }
 Plug 'junegunn/vim-easy-align'
-Plug 'dhruvasagar/vim-table-mode', { 'for': ['md', 'markdown'] }
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/denite.nvim', has('nvim') ?   { 'on': 'Denite', 'do': ':UpdateRemotePlugins'} : { 'on': 'Denite' }
+Plug 'Shougo/neoyank.vim',                 { 'on': 'Denite'}
+Plug 'Shougo/neomru.vim',                  { 'on': 'Denite'}
+Plug 'Shougo/deoplete.nvim', has('nvim') ? { 'on': [], 'do': ':UpdateRemotePlugins' } : { 'on': []}
+Plug 'Shougo/vimfiler.vim',                { 'on': 'VimFilerExplorer' }
+Plug 'severin-lemaignan/vim-minimap',      { 'on': 'Minimap' }
+Plug 'reireias/vim-cheatsheet',            { 'on': 'Cheat' }
+Plug 'plasticboy/vim-markdown',            { 'for': ['md', 'markdown'] }
+Plug 'kannokanno/previm',                  { 'for': ['md', 'markdown'] }
+Plug 'tyru/open-browser.vim',              { 'for': ['md', 'markdown'] }
+Plug 'dhruvasagar/vim-table-mode',         { 'for': ['md', 'markdown'] }
+if !has('nvim') | Plug 'roxma/nvim-yarp' | Plug 'roxma/vim-hug-neovim-rpc' | endif
 call plug#end()
+" ------------------------------
 
 " 自作コマンドで指定のプラグインを遅延ロードする
 function! MyCommand(name)
     if a:name == 'deoplete' | call plug#load('deoplete.nvim') | endif
 endfunction
 command! -nargs=1 Start call MyCommand(<f-args>)
+
+" イベントで遅延ロードする (load('foo', 'bar')  ※複数)
+augroup load_plug_event
+    autocmd!
+    autocmd BufRead * call plug#load('deoplete.nvim')
+augroup END
 
 
 " --------------------------------------------------------------------------------
@@ -45,7 +50,6 @@ command! -nargs=1 Start call MyCommand(<f-args>)
 let g:unite_enable_start_insert=0
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
-"
 nnoremap [unite] <Nop>
 nmap <Space>u [unite]
 " カレントディレクトリのファイルとディレクトリの一覧を表示
@@ -76,7 +80,6 @@ let g:deoplete#enable_at_startup = 1
 " --------------------------------------------------------------------------------
 " [vimfiler]
 "let g:vimfiler_enable_auto_cd = 1
-"
 nnoremap <silent> <Space>d :VimFilerExplorer<CR>
 
 
@@ -156,7 +159,7 @@ function! AleListToggle()
         execute ":q"
     endif
 endfunction
-"
+
 nnoremap [ale] <Nop>
 nmap <Space>a [ale]
 " aleのトグル

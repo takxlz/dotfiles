@@ -1,17 +1,14 @@
 " 最初に必要な設定を記述
 
 " --------------------------------------------------------------------------------
-" initialize(vim_starting)
+" initialize
 
 " vi互換の動作を無効化する
 if &compatible
     set nocompatible
 endif
 
-" シンタックスをon
 syntax on
-
-" ファイルタイプ検出と各種プラグインの有効
 filetype plugin indent on
 
 " エンコーディングをutf8にする(plugin.rc.vimより先に設定)
