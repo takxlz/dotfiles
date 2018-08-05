@@ -1,10 +1,8 @@
 [[plugins]]
 repo = 'kana/vim-submode'
 
-
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
-
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -12,21 +10,14 @@ hook_add = '''
 set signcolumn=yes
 '''
 
-
 [[plugins]]
 repo = 'tpope/vim-fugitive'
-
 
 [[plugins]]
 repo = 'Yggdroot/indentline'
 hook_add = '''
 let g:indentLine_fileTypeExclude = ['help', 'markdown', 'md']
 '''
-
-
-[[plugins]]
-repo = 'gorodinskiy/vim-coloresque'
-
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
@@ -41,70 +32,22 @@ vnoremap <silent> [tcomment]b :TCommentBlock<CR>
 vnoremap <silent> [tcomment]r :TCommentRight<CR>
 '''
 
-
 [[plugins]]
 repo = 'tpope/vim-surround'
-
 
 [[plugins]]
 repo = 'LeafCage/foldCC.vim'
 
-
 [[plugins]]
 repo = 'joshdick/onedark.vim'
-
 
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
 
 
-[[plugins]]
-repo = 'junegunn/vim-easy-align'
-hook_add = '''
-vmap <Enter> <Plug>(EasyAlign)
-'''
-
 
 [[plugins]]
-repo = 'w0rp/ale'
-hook_add = '''
-let g:ale_sign_column_always = 1
-"let g:ale_open_list = 1 "let g:ale_sign_error = 'E' "let g:ale_sign_warning = 'W'
-let g:ale_linters = { 'javascript': ['eslint']}
-
-" エラー一覧リストをトグルする自作関数
-function! AleListToggle()
-    " ALEが起動していないときは終了する
-    if !exists('g:ale_open_list')
-        return
-    endif
-    " listが0(off)のときは1(on)にして、1のときは0にする
-    if(g:ale_open_list == 0) 
-        ALEDisableBuffer  " 一旦aleを終了(ale起動中に変数を変えても反映されないので)
-        let g:ale_open_list = 1
-        ALEEnableBuffer  " aleを再度起動
-    else
-        let g:ale_open_list = 0
-        " 下のウィンドウに移動してからウィンドウを消す
-        execute ":wincmd j"
-        execute ":q"
-    endif
-endfunction
-"
-nnoremap [ale] <Nop>
-nmap <Space>a [ale]
-" aleのトグル
-nnoremap <silent> [ale]t :call AleListToggle()<CR>
-" エラー間の移動
-call submode#enter_with('alemove', 'n', 'r', '[ale]k', '<Plug>(ale_previous_wrap)')
-call submode#enter_with('alemove', 'n', 'r', '[ale]j', '<Plug>(ale_next_wrap)')
-call submode#map('alemove', 'n', 'r', 'k', '<Plug>(ale_previous_wrap)')
-call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
-'''
-
-
-[[plugins]]
-repo = 'itchyny/lightline.vim'
+repo = 'itchyny/lightline.vim' # {{{
 hook_add = '''
 " readonlyとmodifiedコンポーネントはデフォルトで使わずに、filename(LightLineFilename)で呼び出し加工して使用
 " percentコンポーネントはデフォルトで使用
@@ -204,5 +147,6 @@ augroup LightLineUpdate
     autocmd User ALELint call lightline#update()
 augroup END
 '''
+# }}}
 
 

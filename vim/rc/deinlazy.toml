@@ -1,3 +1,6 @@
+# 「on_if」は「on_event」も併記しないとerrorMsgが表示される（機能的には問題ない，バグ？）
+  # __通常__ならデフォルトで「BunRead」などが設定されるので併記する必要はない
+
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 on_cmd = 'Denite'
@@ -10,62 +13,68 @@ repo = 'Shougo/neoyank.vim'
 on_event = 'TextYankPost'
 on_source = 'denite.nvim'
 
-
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 on_source = 'denite.nvim'
 
-
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-#on_event = 'InsertEnter'
-#on_ft = ['java', 'javascript']
 on_event = 'BufRead'
 hook_source = '''
 call deoplete#enable()
 '''
 
-
 [[plugins]]
 repo = 'roxma/nvim-yarp'
-on_source = 'deoplete.nvim'
-
+on_event = 'VimEnter'
+on_if = '!has("nvim")'
 
 [[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
-on_source = 'deoplete.nvim'
+on_event = 'VimEnter'
+on_if = '!has("nvim")'
 
+[[plugins]]
+repo = 'Shougo/unite.vim'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
+depends = 'unite.vim'
 on_cmd = 'VimFilerExplorer'
 hook_add = '''
 nnoremap <silent> <Space>d :VimFilerExplorer<CR>
 '''
 
+[[plugins]]
+repo = 'gorodinskiy/vim-coloresque'
+on_ft = ['css', 'html']
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+on_map = '<Plug>(EasyAlign)'
+hook_add = '''
+vmap <Enter> <Plug>(EasyAlign)
+'''
 
 [[plugins]]
 repo = 'severin-lemaignan/vim-minimap'
 on_cmd = 'Minimap'
 
-
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
 on_ft = ['md', 'markdown']
 
-
 [[plugins]]
 repo = 'kannokanno/previm'
+depends = 'open-browser.vim'
 on_ft = ['md', 'markdown']
 hook_source = '''
 nnoremap <silent> <Space>m :PrevimOpen<CR>
 '''
 
-
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 on_ft = ['md', 'markdown']
-
 
 [[plugins]]
 repo = 'reireias/vim-cheatsheet'
@@ -75,7 +84,6 @@ let g:cheatsheet#cheat_file = g:vim_dir . '/doc/keymap.md'
 let g:cheatsheet#vsplit = 1
 '''
 
-
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
 on_ft = ['md', 'markdown']
@@ -83,4 +91,43 @@ hook_source = '''
 let g:table_mode_corner = '|'
 '''
 
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'w0rp/ale' # {{{
+on_ft = ['javascript']
+hook_source = '''
+let g:ale_sign_column_always = 1
+"let g:ale_open_list = 1 "let g:ale_sign_error = 'E' "let g:ale_sign_warning = 'W'
+let g:ale_linters = { 'javascript': ['eslint']}
+
+" エラー一覧リストをトグルする自作関数
+function! AleListToggle()
+    " ALEが起動していないときは終了する
+    if !exists('g:ale_open_list') | return | endif
+    " listが0(off)のときは1(on)にして、1のときは0にする
+    if(g:ale_open_list == 0) 
+        ALEDisableBuffer  " 一旦aleを終了(ale起動中に変数を変えても反映されないので)
+        let g:ale_open_list = 1
+        ALEEnableBuffer  " aleを再度起動
+    else
+        let g:ale_open_list = 0
+        " 下のウィンドウに移動してからウィンドウを消す
+        execute ":wincmd j"
+        execute ":q"
+    endif
+endfunction
+nnoremap [ale] <Nop>
+nmap <Space>a [ale]
+" aleのトグル
+nnoremap <silent> [ale]t :call AleListToggle()<CR>
+" エラー間の移動
+call submode#enter_with('alemove', 'n', 'r', '[ale]k', '<Plug>(ale_previous_wrap)')
+call submode#enter_with('alemove', 'n', 'r', '[ale]j', '<Plug>(ale_next_wrap)')
+call submode#map('alemove', 'n', 'r', 'k', '<Plug>(ale_previous_wrap)')
+call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
+'''
+# }}}
 

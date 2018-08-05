@@ -1,0 +1,100 @@
+﻿# vim環境構築
+## python3
+- denite, deopleteなどで必要
+- python3.6が対応していないのでpython3.5を使用する(2018/6/12時点)
+
+## フォント
+- lightline.vimで必要
+- Githubから「RictyDiminished-for-Powerline-master」を取得しOSのフォントに追加  
+  (vim-powerline-fontpatchedのほう)
+
+## node.js
+- aleで必要
+- OSにnode.jsをインストール
+- OSでnpmを用いて各言語のLinterをインストール
+- vimでale.vimプラグインをインストール
+
+
+
+
+
+# dein
+## 主な関数
+- dein#update()
+- dein#clear_state()
+- dein#source([{plugins}])     : 引数のプラグインを手動でロードする
+- dein#is_sourced([{plugins}]) : 引数のプラグインがロードされているか確認する(loaded:1)
+  - g:dein#_plugins['プラグイン名']['sourced']変数を確認してもいい
+
+## toml
+- on_ft
+- on_cmd
+- on_event
+- on_source        : 指定のプラグイン(ファイル)がロードされたときロードする
+- on_if            : ifの結果が0以外のときロードする(かつ，デフォルトではBufRead,BufNewFile,VimEnter,FileTypeのとき)
+  ※ デフォルトで↑になるはずが，なぜかon_eventを併記していない場合，エラーメッセージが表示される
+- hook_add         :プラグインが追加(認識)されたときに呼び出される
+- hook_source      : プラグインがロードされたときに呼び出される(lazyのみ)
+- hook_post_source : プラグインが読み込まれた直後(lazyのみ)
+- hook_post_update : プラグインが更新された直後
+
+
+
+
+
+# tips
+## コマンドをファイル出力する
+```
+:redir! > filename
+:echo 'aaa'
+:redir end
+```
+- 「!」で新規ファイル
+- 「>>」で追記
+
+
+
+
+
+# vim script
+## 変数
+  - let s:foo = 0
+
+## スコープ
+- s:foo : スクリプトローカル
+- g:foo : グローバル
+- b:foo : バッファローカル
+- v:foo : vimが定義する変数（ユーザには関係ない）
+- l:foo : 関数ローカル
+- 省略  : 関数外ではグローバル，関数内では関数ローカル
+
+## ファイルパス
+- %       : カレントファイル名（「%:t」と同じ）
+- %:p     : カレントフルパス
+- %:r     : 拡張子抜きのカレントファイル名
+- %:e     : カレントファイルの拡張子
+- %:h     : カレントファイルのディレクトリのパス
+- <sfile> : 実行中のvimスクリプトのパス
+
+## よく使う関数
+- expand(path)
+  - 引数のパス(「~/」など)をフルパスに展開する
+
+## 関数の提供方法
+- 特になにもしない(:callで呼び出す)
+- コマンドに登録する(:foo)
+- キーマップに登録する
+
+
+
+
+
+# issue
+## remote_plugin(neovim)
+- neovimでは外部言語を使用するプラグインは「:call UpdateRemotePlugins」して登録するが  
+  lazyロードのプラグインで現在ロードされていないプラグインは登録されない
+
+- 解決方法
+  - 登録したいプラグインを**全て**ロードしてから「:call UpdateRemotePlugins」
+  - deinの「hook_post_update」に「call UpdateRemotePlugins(or dein#remote_plugins)」  
+    を設定し「dein#update()」をcall
