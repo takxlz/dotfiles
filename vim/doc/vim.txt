@@ -27,12 +27,14 @@
   - g:dein#_plugins['プラグイン名']['sourced']変数を確認してもいい
 
 ## toml
-- on_ft
-- on_cmd
-- on_event
-- on_source        : 指定のプラグイン(ファイル)がロードされたときロードする
-- on_if            : ifの結果が0以外のときロードする(かつ，デフォルトではBufRead,BufNewFile,VimEnter,FileTypeのとき)
-  ※ デフォルトで↑になるはずが，なぜかon_eventを併記していない場合，エラーメッセージが表示される
+- on_ft     = ['foo', 'bar']
+- on_cmd    = 'Foo'
+- on_event  = 'FooBar'
+- on_func   = 'Foo'
+- on_map    = '<Plug>(foo)'
+- on_source = 'foo'
+- on_if     = 'has("foo")'   ※「on_event」と併記する
+
 - hook_add         :プラグインが追加(認識)されたときに呼び出される
 - hook_source      : プラグインがロードされたときに呼び出される(lazyのみ)
 - hook_post_source : プラグインが読み込まれた直後(lazyのみ)
