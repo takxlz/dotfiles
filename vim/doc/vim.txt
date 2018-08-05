@@ -22,6 +22,7 @@
 ## 主な関数
 - dein#update()
 - dein#clear_state()
+- dein#recache_runtimepath()   : deinの挙動がおかしくなったら実行する
 - dein#source([{plugins}])     : 引数のプラグインを手動でロードする
 - dein#is_sourced([{plugins}]) : 引数のプラグインがロードされているか確認する(loaded:1)
   - g:dein#_plugins['プラグイン名']['sourced']変数を確認してもいい
