@@ -8,11 +8,6 @@
 "set langmenu=ja_jp.utf-8
 "source $VIMRUNTIME/menu.vim
 
-" 一部のUCS文字の幅を自動計測して決める
-if has('kaoriya')
-    set ambiwidth=auto
-endif
-
 " カラースキーマの設定
 set t_Co=256
 set termguicolors
@@ -55,7 +50,6 @@ if has('multi_byte_ime') || has('xim')
     inoremap <silent> っｊ <ESC>:set iminsert=0<CR>
 endif
 
-
 if has('nvim')
     call GuiWindowMaximized(1)
     Guifont! Ricty Diminished for Powerline:h13
@@ -64,3 +58,7 @@ else
     set guifont=Ricty_Diminished_for_Powerline:h13
 endif
 
+" 一部のUCS文字の幅を自動計測して決める(font設定の後に記述)
+if has('kaoriya') || has('nvim')
+    set ambiwidth=double
+endif

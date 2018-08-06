@@ -11,7 +11,7 @@ endif
 syntax on
 filetype plugin indent on
 
-" エンコーディングをutf8にする(plugin.rc.vimより先に設定)
+" エンコーディングをutf8にする(プラグインの設定より先に記述)
 " lightlineのセパレータ文字である「\u2b82」等の「\(エン)」がutf8でないと文字化けしエラーになる
 set encoding=utf-8
 

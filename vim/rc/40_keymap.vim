@@ -56,7 +56,8 @@ nnoremap <silent> [general]l :<C-u>setlocal relativenumber!<CR>
 " ウィンドウ操作
 
 nnoremap [pane] <Nop>
-nmap <Space>s [pane]
+nnoremap s <Nop>
+nmap s [pane]
 
 " ウィンドウの分割
 nnoremap <silent> [pane]s :<C-u>sp<CR>

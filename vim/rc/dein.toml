@@ -2,6 +2,9 @@
 repo = 'kana/vim-submode'
 
 [[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
 repo = 'itchyny/vim-parenmatch'
 
 [[plugins]]
