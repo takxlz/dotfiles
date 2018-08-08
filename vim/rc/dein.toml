@@ -1,11 +1,14 @@
 [[plugins]]
 repo = 'kana/vim-submode'
 
+
 [[plugins]]
 repo = 'kana/vim-operator-user'
 
+
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
+
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -13,8 +16,10 @@ hook_add = '''
 set signcolumn=yes
 '''
 
+
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
 
 [[plugins]]
 repo = 'Yggdroot/indentline'
@@ -22,31 +27,21 @@ hook_add = '''
 let g:indentLine_fileTypeExclude = ['help', 'markdown', 'md']
 '''
 
-[[plugins]]
-repo = 'tomtom/tcomment_vim'
-hook_add = '''
-noremap [tcomment] <Nop>
-map <Space>t [tcomment]
-nnoremap <silent> [tcomment]t :TComment<CR>
-nnoremap <silent> [tcomment]b :TCommentBlock<CR>
-nnoremap <silent> [tcomment]r :TCommentRight
-vnoremap <silent> [tcomment]t :TComment<CR>
-vnoremap <silent> [tcomment]b :TCommentBlock<CR>
-vnoremap <silent> [tcomment]r :TCommentRight<CR>
-'''
 
 [[plugins]]
 repo = 'tpope/vim-surround'
 
+
 [[plugins]]
 repo = 'LeafCage/foldCC.vim'
+
 
 [[plugins]]
 repo = 'joshdick/onedark.vim'
 
+
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
-
 
 
 [[plugins]]
@@ -83,11 +78,11 @@ let g:lightline = {
     \   'ale': 'error',
     \ }
 \ }
-
+" ----------------------------------------
 function! LightLineWinform()
     return winwidth(0) > 50 ? 'w' . winwidth(0) . ':' . 'h' . winheight(0) : ''
 endfunction
-
+" ----------------------------------------
 function! LightLineFilename()
     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
@@ -96,15 +91,15 @@ function! LightLineFilename()
         \ '' != expand('%:t') ? (winwidth(0) <=120 ? expand('%:t') : expand('%:p')) : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
-
+" ----------------------------------------
 function! LightLineReadonly()
     return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? "⭤" : ''
 endfunction
-
+" ----------------------------------------
 function! LightLineModified()
     return &ft =~ 'help\|vimfiler\|gundo' ? '' : (&modified ? '+' : (&modifiable ? '' : '-'))
 endfunction
-
+" ----------------------------------------
 function! LightLineFugitive()
     try
         if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && winwidth(0) > 55
@@ -115,35 +110,35 @@ function! LightLineFugitive()
     endtry
     return ''
 endfunction
-
+" ----------------------------------------
 function! LightLineFileencoding()
     return winwidth(0) > 60 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
-
+" ----------------------------------------
 function! LightLineFileformat()
     return winwidth(0) > 70 ? &fileformat : ''
 endfunction
-
+" ----------------------------------------
 function! LightLineFiletype()
     return winwidth(0) > 80 ? (strlen(&filetype) ? &filetype : 'no_ft') : ''
 endfunction
-
+" ----------------------------------------
 function! LightLineMode()
     return winwidth(0) > 30 ? lightline#mode() : ''
 endfunction
-
+" ----------------------------------------
 function! LightLineALE()
     let l:count = ale#statusline#Count(bufnr(''))
     let l:errors = l:count.error + l:count.style_error
     let l:warnings = l:count.warning + l:count.style_warning
     return l:count.total == 0 ? '' : 'E:' . l:errors . ' W:' . l:warnings
 endfunction
-
+" ----------------------------------------
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 "let g:ale_statusline_format = [ 'Error %d', 'Warning %d', '' ]
 "let g:ale_echo_msg_error_str = 'E'
 "let g:ale_echo_msg_warning_str = 'W'
-
+" ----------------------------------------
 " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
 augroup LightLineUpdate
     autocmd!

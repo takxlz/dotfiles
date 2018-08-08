@@ -8,14 +8,17 @@ hook_post_update = '''
 call dein#remote_plugins()
 '''
 
+
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 on_event = 'TextYankPost'
 on_source = 'denite.nvim'
 
+
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 on_source = 'denite.nvim'
+
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
@@ -24,30 +27,46 @@ hook_source = '''
 call deoplete#enable()
 '''
 
+
 [[plugins]]
 repo = 'roxma/nvim-yarp'
 on_event = 'VimEnter'
 on_if = '!has("nvim")'
+
 
 [[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
 on_event = 'VimEnter'
 on_if = '!has("nvim")'
 
+
 [[plugins]]
 repo = 'Shougo/unite.vim'
+
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
 depends = 'unite.vim'
 on_cmd = 'VimFilerExplorer'
 hook_add = '''
-nnoremap <silent> <Space>d :VimFilerExplorer<CR>
 '''
+
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+on_cmd = 'TComment'
+hook_add = '''
+noremap [tcomment] <Nop>
+map <Space>c [tcomment]
+noremap <silent> [tcomment]c :TComment<CR>
+noremap <silent> [tcomment]b :TCommentBlock<CR>
+'''
+
 
 [[plugins]]
 repo = 'gorodinskiy/vim-coloresque'
 on_ft = ['css', 'html']
+
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
@@ -56,54 +75,69 @@ hook_add = '''
 vmap <Enter> <Plug>(EasyAlign)
 '''
 
+
 [[plugins]]
 repo = 'severin-lemaignan/vim-minimap'
 on_cmd = 'Minimap'
+
 
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
 on_ft = ['md', 'markdown']
 
+
 [[plugins]]
 repo = 'kannokanno/previm'
 depends = 'open-browser.vim'
-on_ft = ['md', 'markdown']
+on_ft = ['md', 'markdown', 'text']
 hook_source = '''
 nnoremap <silent> <Space>m :PrevimOpen<CR>
 '''
 
+
 [[plugins]]
 repo = 'tyru/open-browser.vim'
-on_ft = ['md', 'markdown']
+on_ft = ['md', 'markdown', 'text']
+
 
 [[plugins]]
 repo = 'reireias/vim-cheatsheet'
 on_cmd = 'Cheat'
 hook_source = '''
-let g:cheatsheet#cheat_file = g:vim_dir . '/doc/keymap.md'
+let g:cheatsheet#cheat_file = g:vim_dir . '/doc/keymap.txt'
 let g:cheatsheet#vsplit = 1
 '''
 
+
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
-on_ft = ['md', 'markdown']
+on_ft = ['md', 'markdown', 'text']
 hook_source = '''
 let g:table_mode_corner = '|'
+" ----------------------------------------
+noremap [tbl] <Nop>
+map <Space>t [tbl]
+noremap [tbl]t :TableModeToggle<CR>
+noremap [tbl]c :Tableize<CR>
 '''
+
 
 [[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
+
 [[plugins]]
-repo = 'w0rp/ale' # {{{
+repo = 'w0rp/ale'
+# on_ftを設定してもBufReadのタイミングでロードされてしまう
 on_ft = ['javascript']
 hook_source = '''
 let g:ale_sign_column_always = 1
-"let g:ale_open_list = 1 "let g:ale_sign_error = 'E' "let g:ale_sign_warning = 'W'
 let g:ale_linters = { 'javascript': ['eslint']}
-
-" エラー一覧リストをトグルする自作関数
+"let g:ale_open_list = 1
+"let g:ale_sign_error = 'E'
+"let g:ale_sign_warning = 'W'
+" ----------------------------------------
 function! AleListToggle()
     " ALEが起動していないときは終了する
     if !exists('g:ale_open_list') | return | endif
@@ -119,9 +153,9 @@ function! AleListToggle()
         execute ":q"
     endif
 endfunction
+" ----------------------------------------
 nnoremap [ale] <Nop>
 nmap <Space>a [ale]
-" aleのトグル
 nnoremap <silent> [ale]t :call AleListToggle()<CR>
 " エラー間の移動
 call submode#enter_with('alemove', 'n', 'r', '[ale]k', '<Plug>(ale_previous_wrap)')
@@ -129,5 +163,4 @@ call submode#enter_with('alemove', 'n', 'r', '[ale]j', '<Plug>(ale_next_wrap)')
 call submode#map('alemove', 'n', 'r', 'k', '<Plug>(ale_previous_wrap)')
 call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
 '''
-# }}}
 

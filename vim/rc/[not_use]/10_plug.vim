@@ -7,7 +7,7 @@ Plug 'itchyny/vim-parenmatch'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'Yggdroot/indentline'
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', { 'on': [] }
 Plug 'itchyny/lightline.vim'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tomtom/tcomment_vim'
