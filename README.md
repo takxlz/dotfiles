@@ -27,8 +27,6 @@ $ mklink /D %HOMEPATH%\vimfiles %HOMEPATH%\dotfiles\vim
 # ln -s {リンク元(実体)} {リンク先}
 $ ln -sf ~/dotfiles/vim ~/.vim
 ```
-- luaを追加
-- vimprocを追加
 <br />
 
 
@@ -41,3 +39,4 @@ $ ln -sf ~/dotfiles/vim ~/.vim
     - OSにnode.jsをインストール
     - npmで各言語のLinterをインストール
 
+- Python3をインストール
