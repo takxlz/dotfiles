@@ -144,14 +144,10 @@ on_ft = 'toml'
 
 [[plugins]]
 repo = 'w0rp/ale'
-# on_ftを設定してもBufReadのタイミングでロードされてしまう
 on_ft = ['javascript']
 hook_source = '''
 let g:ale_sign_column_always = 1
 let g:ale_linters = { 'javascript': ['eslint']}
-"let g:ale_open_list = 1
-"let g:ale_sign_error = 'E'
-"let g:ale_sign_warning = 'W'
 " ----------------------------------------
 function! AleListToggle()
     " ALEが起動していないときは終了する
@@ -178,4 +174,5 @@ call submode#enter_with('alemove', 'n', 'r', '[ale]j', '<Plug>(ale_next_wrap)')
 call submode#map('alemove', 'n', 'r', 'k', '<Plug>(ale_previous_wrap)')
 call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
 '''
+
 

@@ -128,6 +128,7 @@ function! LightLineMode()
 endfunction
 " ----------------------------------------
 function! LightLineALE()
+    if dein#is_sourced('ale') == 0 | return '' | endif
     let l:count = ale#statusline#Count(bufnr(''))
     let l:errors = l:count.error + l:count.style_error
     let l:warnings = l:count.warning + l:count.style_warning
@@ -135,14 +136,11 @@ function! LightLineALE()
 endfunction
 " ----------------------------------------
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-"let g:ale_statusline_format = [ 'Error %d', 'Warning %d', '' ]
-"let g:ale_echo_msg_error_str = 'E'
-"let g:ale_echo_msg_warning_str = 'W'
 " ----------------------------------------
 " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
 augroup LightLineUpdate
     autocmd!
-    autocmd User ALELint call lightline#update()
+    autocmd User ALELintPost call lightline#update()
 augroup END
 '''
 # }}}

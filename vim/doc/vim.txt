@@ -36,10 +36,10 @@
 - on_source = 'foo'
 - on_if     = 'has("foo")'   ※「on_event」と併記する
 
-- hook_add         :プラグインが追加(認識)されたときに呼び出される
-- hook_source      : プラグインがロードされたときに呼び出される(lazyのみ)
-- hook_post_source : プラグインが読み込まれた直後(lazyのみ)
-- hook_post_update : プラグインが更新された直後
+- hook_add                   : プラグインが追加(認識)されたとき
+- hook_source(lazyのみ)      : プラグインがロードされる直前
+- hook_post_source(lazyのみ) : プラグインがロードされた直後
+- hook_post_update           : プラグインが更新された直後
 
 
 
