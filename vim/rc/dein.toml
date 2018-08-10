@@ -1,4 +1,8 @@
 [[plugins]]
+repo = 'Shougo/dein.vim'
+
+
+[[plugins]]
 repo = 'kana/vim-submode'
 
 
