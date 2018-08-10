@@ -10,7 +10,12 @@ execute 'cd' expand('~/')
 set autochdir
 
 " 使用するpythonの場所を指定
-let g:python3_host_prog=exepath('python')
+if has('mac') || has('unix')
+    let g:python3_host_prog=exepath('python3')
+else
+    " winではpythonとpython3が同じフォルダに入るので3を付ける必要がない
+    let g:python3_host_prog=exepath('python')
+endif
 
 " カラースキームの設定
 let g:onedark_termcolors=256
