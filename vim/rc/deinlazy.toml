@@ -11,7 +11,9 @@ hook_add = '''
 nnoremap [denite] <Nop>
 nmap <Space>d [denite]
 nnoremap <silent> [denite]r :<C-u>Denite file_mru<CR>
+nnoremap <silent> [denite]d :<C-u>Denite file<CR>
 nnoremap <silent> [denite]f :<C-u>Denite file/rec<CR>
+nnoremap <silent> [denite]c :<C-u>Denite command_history<CR>
 nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
 nnoremap <silent> [denite]. :<C-u>Denite filetype<CR>
 '''
@@ -21,6 +23,12 @@ hi CursorLine guifg=#E19972  " カーソル(候補)行が見にくいので色�
 call denite#custom#map('insert', 'jj', '<denite:enter_mode:normal>', 'noremap')
 call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
+" ----------------------------------------
+call denite#custom#source('file/rec', 'matchers', ['matcher_fuzzy','matcher/ignore_globs'])
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+    \ [ '.git/', '.git\', '.ropeproject/', '.ropeproject\', '__pycache__/', '__pycache__\',
+    \   'venv/', 'venv\', 'images/', 'images\', '*.min.*', 'img/', 'img\', 'fonts/', 'fonts\',
+    \   '.atom/', '.atom\'])
 '''
 
 
