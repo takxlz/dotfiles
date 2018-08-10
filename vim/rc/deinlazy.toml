@@ -65,6 +65,7 @@ on_if = '!has("nvim")'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
+on_cmd = 'Unite'
 
 
 [[plugins]]
