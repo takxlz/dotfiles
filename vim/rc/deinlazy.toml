@@ -107,7 +107,7 @@ on_cmd = 'Minimap'
 
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
-on_ft = ['md', 'markdown']
+on_ft = ['md', 'markdown', 'text']
 
 
 [[plugins]]
@@ -183,5 +183,6 @@ call submode#enter_with('alemove', 'n', 'r', '[ale]j', '<Plug>(ale_next_wrap)')
 call submode#map('alemove', 'n', 'r', 'k', '<Plug>(ale_previous_wrap)')
 call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
 '''
+
 
 
