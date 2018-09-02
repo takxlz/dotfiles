@@ -38,6 +38,7 @@ set shiftwidth=4
 augroup setFileType
     autocmd!
     autocmd BufRead,BufNewFile *.toml setfiletype toml
+augroup END
 
 
 " --------------------------------------------------------------------------------
