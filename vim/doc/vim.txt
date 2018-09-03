@@ -41,8 +41,18 @@
 - hook_post_source(lazyのみ) : プラグインがロードされた直後
 - hook_post_update           : プラグインが更新された直後
 
+## 遅延ロードについて
+- 自動で遅延ロードプラグインのプラグイン名をプレフィックスとしたコマンドを登録する
+- そのコマンドが入力されたときは，(設定した発火条件でなくても)そのプラグインをロードする
+ - vim-minimapなら「minimap」,vim-cheatsheetなら「cheatsheet」がコマンドとして自動登録される
+  - vim-minimapはMinimapコマンドがあるため自動登録したコマンドにマッチし，ロードされる
+  - vim-cheatsheetはCheatsheetではなくCheatがコマンド名なのでマッチせずに，ロードされない
 
-
+> dein の機能として、プラグインのコマンドのプレフィクスを自動認識する機能があり、プレフィクスにマッチしたコマンドは自動的にロードできるからです。
+> ただし自動認識は完璧ではありません。
+> プレフィクスはプラグイン名から計算されるので、
+> 例えば vim-minimap なら minimap、vim-cheatsheet なら cheatsheet になります。
+> Minimap には minimap のプレフィクスがマッチしますが Cheat と cheatsheet はマッチしないのでロードできないのです。
 
 
 # tips
