@@ -115,7 +115,7 @@ repo = 'previm/previm'
 depends = 'open-browser.vim'
 on_ft = ['md', 'markdown', 'text']
 hook_source = '''
-nnoremap <silent> <Space>m :PrevimOpen<CR>
+nnoremap <silent> <Space><Space>p :PrevimOpen<CR>
 '''
 
 
