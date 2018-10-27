@@ -51,13 +51,16 @@ nnoremap <CR> i<CR><ESC>
 " 行番号の絶対行表示と相対行表示のトグル
 nnoremap <silent> [general]l :<C-u>setlocal relativenumber!<CR>
 
+" terminal-insertからterminal-normalに抜ける
+tnoremap jj <C-\><C-n>
 
 " --------------------------------------------------------------------------------
 " ウィンドウ操作
 
 nnoremap [pane] <Nop>
-nnoremap s <Nop>
-nmap s [pane]
+nmap <Space>s [pane]
+" nmap s [pane]
+" nnoremap s <Nop>
 
 " ウィンドウの分割
 nnoremap <silent> [pane]s :<C-u>sp<CR>
