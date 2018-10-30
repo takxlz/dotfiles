@@ -185,7 +185,7 @@ call submode#map('alemove', 'n', 'r', 'j', '<Plug>(ale_next_wrap)')
 '''
 
 
-[[plugins]]
-repo = 'vim-ruby/vim-ruby'
-on_ft = 'ruby'
+# [[plugins]]
+# repo = 'vim-ruby/vim-ruby'
+# on_ft = 'ruby'
 
