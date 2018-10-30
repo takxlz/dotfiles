@@ -1,4 +1,15 @@
 ﻿# vim環境構築
+
+## remote_plugin(neovim)
+- neovimでは外部言語を使用するプラグインは「:call UpdateRemotePlugins」して登録するが  
+  lazyロードのプラグインで現在ロードされていないプラグインは登録されない
+
+- 解決方法
+  - 登録したいプラグインを**全て**ロードしてから「:call UpdateRemotePlugins」
+  - deinの「hook_post_update」に「call UpdateRemotePlugins(or dein#remote_plugins)」  
+    を設定し「dein#update()」をcall
+
+
 ## python3
 - denite, deopleteなどで必要
 - windows
@@ -6,6 +17,7 @@
 - linux
   - python3,python3-pipをインストール
   - $pip3 install neovim ($pip3 install --upgrade neovim)
+
 
 ## フォント
 - lightline.vimで必要
@@ -17,8 +29,6 @@
 - OSにnode.jsをインストール
 - OSでnpmを用いて各言語のLinterをインストール
 - vimでale.vimプラグインをインストール
-
-
 
 
 
@@ -104,14 +114,3 @@
 
 
 
-
-
-# issue
-## remote_plugin(neovim)
-- neovimでは外部言語を使用するプラグインは「:call UpdateRemotePlugins」して登録するが  
-  lazyロードのプラグインで現在ロードされていないプラグインは登録されない
-
-- 解決方法
-  - 登録したいプラグインを**全て**ロードしてから「:call UpdateRemotePlugins」
-  - deinの「hook_post_update」に「call UpdateRemotePlugins(or dein#remote_plugins)」  
-    を設定し「dein#update()」をcall
