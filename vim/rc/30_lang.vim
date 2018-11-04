@@ -19,9 +19,9 @@ set smartindent
 set expandtab
 
 " 空行で改行しても、インデントのスペースを削除しない
-nnoremap o oX<C-h>
-nnoremap O OX<C-h>
-inoremap <CR> <CR>X<C-h>
+"nnoremap o oX<C-h>
+"nnoremap O OX<C-h>
+"inoremap <CR> <CR>X<C-h>
 
 " タブの文字数
 set tabstop=4
