@@ -43,24 +43,25 @@ repo = 'Shougo/neomru.vim'
 on_source = 'denite.nvim'
 
 
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-on_event = 'BufRead'
-hook_source = '''
-call deoplete#enable()
-'''
+#[[plugins]]
+#repo = 'Shougo/deoplete.nvim'
+#on_event = 'BufRead'
+#hook_source = '''
+#call deoplete#enable()
+#let g:deoplete#auto_complete_delay = 0
+#'''
 
 
-[[plugins]]
-repo = 'roxma/nvim-yarp'
-on_event = 'VimEnter'
-on_if = '!has("nvim")'
+#[[plugins]]
+#repo = 'roxma/nvim-yarp'
+#on_event = 'VimEnter'
+#on_if = '!has("nvim")'
 
 
-[[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
-on_event = 'VimEnter'
-on_if = '!has("nvim")'
+#[[plugins]]
+#repo = 'roxma/vim-hug-neovim-rpc'
+#on_event = 'VimEnter'
+#on_if = '!has("nvim")'
 
 
 [[plugins]]
