@@ -1,0 +1,30 @@
+﻿# vim環境構築
+
+- 「git」
+
+- 「python3」「pip3」
+
+- 「neovimパッケージ」（vimでも必要） 
+  - pipを使用してインストール
+
+- lspを使用する言語の「lsp」
+  - pipを使用してインストール
+
+- 「node.js（npm）」
+
+- linterを使用する言語の「linter」
+  - npmを使用してインストール
+
+- 「RictyDiminished-for-Powerline-master」
+  - githubから取得
+  - OSのフォントに追加（vim-powerline-fontpatchedのほう）
+
+
+
+※※※
+neovimで外部言語プラグインを使用する場合は「:call UpdateRemotePlugins」で，そのプラグインを登録する必要がある．
+問題は，lazyロードに設定されており「:call UpdateRemotePlugins」した時点でロードされていないものは登録されない．
+よって以下のように対処する．
+① 登録するプラグインを全てロードしてから「:call UpdateRemotePlugins」する
+② 登録するプラグインのどれかの「hook_post_update」に「call UpdateRemotePlugins」か「dein#remote_plugins(推奨)」を設定し「:call dein#update()」する．
+　（update中は全てのプラグインが読み込まれている状態なので上記が可能となる）
