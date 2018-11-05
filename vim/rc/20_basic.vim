@@ -85,6 +85,7 @@ if has('mac') || has('unix')
     set backspace=indent,eol,start  " BSの設定(ターミナルではBSが効かないことがある)
 endif
 
+" nvimとvimの設定の違いは以下に記述
 if has('nvim')
     set clipboard=unnamed
     set mouse=a

@@ -50,6 +50,7 @@ if has('multi_byte_ime') || has('xim')
     inoremap <silent> っｊ <ESC>:set iminsert=0<CR>
 endif
 
+" nvimとvimの設定の違いは以下に記述
 if has('nvim')
     call GuiWindowMaximized(1)
     Guifont! Ricty Diminished for Powerline:h13
