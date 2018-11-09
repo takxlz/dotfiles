@@ -79,6 +79,15 @@ let g:vim_markdown_folding_disabled=1
 " ウィンドウ分割したときのウィンドウ境界線の色を指定
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
 
+" 保存時の直前に実行される処理
+augroup executeBufWritePre
+    autocmd!
+    " 空行に含まれるスペースを削除(改行は残る)
+    autocmd BufWritePre * :%s/^ *$//g
+    " 行末のスペースを削除
+    autocmd BufWritePre * :%s/ *$//g
+augroup END
+
 " macとunixだけの設定
 if has('mac') || has('unix')
     set mouse=a  " マウス・トラックパッドを有効化
