@@ -18,7 +18,7 @@ set background=dark  "hybridに必要な設定
 colorscheme hybrid
 
 " メニューバーを非表示
-set guioptions=Mc
+"set guioptions=Mc
 
 " ツールバーを非表示
 set guioptions-=T
