@@ -9,6 +9,7 @@ execute 'cd' expand('~/')
 " 自動で開いたファイルの場所に移動
 set autochdir
 
+
 " 使用するpythonの場所を指定
 if has('mac') || has('unix')
     let g:python3_host_prog=exepath('python3')
@@ -16,6 +17,7 @@ else
     " winではpythonとpython3が同じフォルダに入るので3を付ける必要がない
     let g:python3_host_prog=exepath('python')
 endif
+
 
 " カラースキームの設定
 let g:onedark_termcolors=256
@@ -79,20 +81,34 @@ let g:vim_markdown_folding_disabled=1
 " ウィンドウ分割したときのウィンドウ境界線の色を指定
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
 
+
+" 不要なスペースを削除する関数
+" リプレースする対象が見つからないとエラーになるのでtry-endtryで囲む
+function! s:remove_dust()
+    let cursor_point = getpos(".")
+    try
+        " 空行の空白を削除(改行は残る)
+        execute ":%s/^ *$//g"
+    catch
+    finally
+        call setpos(".", cursor_point)
+        unlet cursor_point
+    endtry
+endfunction
+
 " 保存時の直前に実行される処理
 augroup executeBufWritePre
     autocmd!
-    " 空行に含まれるスペースを削除(改行は残る)
-    autocmd BufWritePre * :%s/^ *$//g
-    " 行末のスペースを削除
-    autocmd BufWritePre * :%s/ *$//g
+    autocmd BufWritePre * call <SID>remove_dust()
 augroup END
+
 
 " macとunixだけの設定
 if has('mac') || has('unix')
     set mouse=a  " マウス・トラックパッドを有効化
     set backspace=indent,eol,start  " BSの設定(ターミナルではBSが効かないことがある)
 endif
+
 
 " nvimとvimの設定の違いは以下に記述
 if has('nvim')
