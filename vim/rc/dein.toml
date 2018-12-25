@@ -46,7 +46,7 @@ repo = 'w0ng/vim-hybrid'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
-hook_add = 'execute "source" g:vim_dir . "/rc/parts/lightline.rc.vim"'
+hook_add = 'execute "source" g:vimrc_dir . "/rc/parts/lightline.rc.vim"'
 # 変数なし「source path」
 # 変数あり「execute "source" "path1" . 変数名 . "path2"」(.は連結)
 

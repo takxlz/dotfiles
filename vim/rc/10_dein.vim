@@ -2,7 +2,7 @@
 " dein config
 
 " deinで使用するディレクトリの指定
-"let s:dein_dir = expand(g:vim_dir . '/bundle')
+"let s:dein_dir = expand(g:vimrc_dir . '/bundle')
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
@@ -20,7 +20,7 @@ if dein#load_state(s:dein_dir)
 
     " プラグインリストを収めた TOML ファイル
     " 予め TOML ファイル（後述）を用意しておく
-    let g:rc_dir    = expand(g:vim_dir . '/rc')
+    let g:rc_dir    = expand(g:vimrc_dir . '/rc')
     let s:toml      = g:rc_dir . '/dein.toml'
     let s:lazy_toml = g:rc_dir . '/deinlazy.toml'
 
