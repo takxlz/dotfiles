@@ -1,14 +1,15 @@
 ﻿# vim環境構築
 
+## 共通
 - 「git」
 
 - 「python3」「pip3」
-
+  - kaoriya版vimはpython3.5しか対応していないので最新版ではなく3.5を使用する（vim8.1 2018 May 17, compiled May 20 2018）
 - 「neovimパッケージ」（vimでも必要） 
-  - pipを使用してインストール
+  - pip3 install pynvim, neovim
 
 - lspを使用する言語の「lsp」
-  - pipを使用してインストール
+  - pip3を使用してインストール
 
 - 「node.js（npm）」
 
@@ -16,15 +17,35 @@
   - npmを使用してインストール
 
 - 「RictyDiminished-for-Powerline-master」
-  - githubから取得
+  - 「github」から取得 or 「GoogleDrive/_etc/tool」から取得
   - OSのフォントに追加（vim-powerline-fontpatchedのほう）
 
 
 
-※※※
+
+## Vim
+- 「$VIM/gvimrc」の削除
+  - kaoriya版vimのみ
+
+
+
+
+## Neovim
+- 「vimfiles」ではなく「.config」に設定ファイルを格納
+
+- 「.config」の場所を環境パス「XDG_CONFIG_HOME」に設定
+
+- 「:call dein#update()」してプラグインを登録する（※1）
+
+
+
+
+
+※1
 neovimで外部言語プラグインを使用する場合は「:call UpdateRemotePlugins」で，そのプラグインを登録する必要がある．
 問題は，lazyロードに設定されており「:call UpdateRemotePlugins」した時点でロードされていないものは登録されない．
 よって以下のように対処する．
 ① 登録するプラグインを全てロードしてから「:call UpdateRemotePlugins」する
 ② 登録するプラグインのどれかの「hook_post_update」に「call UpdateRemotePlugins」か「dein#remote_plugins(推奨)」を設定し「:call dein#update()」する．
 　（update中は全てのプラグインが読み込まれている状態なので上記が可能となる）
+登録情報は「~/AppData/Local/nvim/」に記載される．
