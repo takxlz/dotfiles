@@ -14,8 +14,10 @@ set autochdir
 if has('mac') || has('unix')
     let g:python3_host_prog=exepath('python3')
 else
-    " winではpythonとpython3が同じフォルダに入るので3を付ける必要がない
-    let g:python3_host_prog=exepath('python')
+    " winではpythonとpython3は，同様にpythonというコマンドなので3はつけなくていい
+    "let g:python3_host_prog=exepath('python')
+    " python3.7で不具合があったためpython3.5を使用する
+    let g:python3_host_prog=expand('~/AppData/Local/Programs/Python/Python35/python')
 endif
 
 
