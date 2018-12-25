@@ -1,51 +1,54 @@
-﻿# vim環境構築
+﻿# vim環境構築 (「※」は重要なため必ず確認する)
 
 ## 共通
-- 「git」
 
-- 「python3」「pip3」
-  - kaoriya版vimはpython3.5しか対応していないので最新版ではなく3.5を使用する（vim8.1 2018 May 17, compiled May 20 2018）
-- 「neovimパッケージ」（vimでも必要） 
-  - pip3 install pynvim, neovim
+-「git」，「node.j」をインストール
 
-- lspを使用する言語の「lsp」
-  - pip3を使用してインストール
+-「python3.5(vim/nvimでは最新ではなく3.5を使用)」をインストール(※1)
 
-- 「node.js（npm）」
+-「pynvim(python用neovimクライアント)」をpip(※2)でインストール
 
-- linterを使用する言語の「linter」
-  - npmを使用してインストール
+- lspを使用する言語の「lspクライアント」をpip(※2)でインストール
 
-- 「RictyDiminished-for-Powerline-master」
-  - 「github」から取得 or 「GoogleDrive/_etc/tool」から取得
-  - OSのフォントに追加（vim-powerline-fontpatchedのほう）
+- linterを使用する言語の「linterクライアント」をnpmでインストール
 
+- 「RictyDiminished(vim-powerline-fontpatched)」をOSのフォントに追加
+  - 「GoogleDrive/_etc/tool」から取得
 
 
 
 ## Vim
-- 「$VIM/gvimrc」の削除
-  - kaoriya版vimのみ
-
+- kaoriya版vimのみ「$VIM/gvimrc」を削除
 
 
 
 ## Neovim
-- 「vimfiles」ではなく「.config」に設定ファイルを格納
+-「vimfiles」ではなく「.config」に設定ファイルを格納
 
-- 「.config」の場所を環境パス「XDG_CONFIG_HOME」に設定
+-「.config」の場所を環境パス「XDG_CONFIG_HOME」に設定
 
-- 「:call dein#update()」してプラグインを登録する（※1）
-
-
-
+-「:call dein#update()」してプラグインを登録する(※3)
 
 
 ※1
+複数のpythonがインストールされている場合は，すべてのバージョンを環境パスに設定する．
+ただし，順番は最新(メイン使用)のものを一番上にし，vim/nvimで使用するものは下にする．
+つまり，普段は最新を使用し，vim/nvimのみ3.5を使用するようにするということ．
+
+
+
+※2
+pythonのバージョンによってpipのパッケージがインストールされる場所が異なり，
+単にpipコマンドを使用すると環境パスで一番上に設定されているバージョンのpipが使用される．
+よって，複数のpythonがインストールされている場合は，vim/nvimで使用するpython3.5のディレクトリまで移動してpipコマンドを使用する．
+(~/AppData/Local/Programs/Python/Python35/Scripts)
+
+
+※3
 neovimで外部言語プラグインを使用する場合は「:call UpdateRemotePlugins」で，そのプラグインを登録する必要がある．
 問題は，lazyロードに設定されており「:call UpdateRemotePlugins」した時点でロードされていないものは登録されない．
 よって以下のように対処する．
 ① 登録するプラグインを全てロードしてから「:call UpdateRemotePlugins」する
 ② 登録するプラグインのどれかの「hook_post_update」に「call UpdateRemotePlugins」か「dein#remote_plugins(推奨)」を設定し「:call dein#update()」する．
-　（update中は全てのプラグインが読み込まれている状態なので上記が可能となる）
+  （update中は全てのプラグインが読み込まれている状態なので上記が可能となる）
 登録情報は「~/AppData/Local/nvim/」に記載される．
