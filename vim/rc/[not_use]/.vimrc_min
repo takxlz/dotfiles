@@ -1,0 +1,118 @@
+" vi互換の動作を無効化する
+if &compatible
+    set nocompatible
+endif
+
+" エンコーディングをutf8にする(プラグインの設定より先に記述)
+set encoding=utf-8
+
+" 自動で開いたファイルの場所に移動
+set autochdir
+
+" オープニングメッセージを非表示
+set shortmess+=I
+
+" 行番号を表示
+set number
+
+" xとsではヤンクしない(_レジスタは消去用レジスタ)
+nnoremap x "_x
+nnoremap s "_s
+
+" 改行のときの自動コメントを無効化
+augroup newLineAutoComment
+    autocmd!
+    autocmd FileType * setlocal formatoptions-=ro
+augroup END
+
+" オートインデント（前の行のインデントを継続）を有効化
+set autoindent
+
+" 末尾の文字に合わせてインデントを増減する
+set smartindent
+
+" タブキーを押した時にソフトタブ（スペースインデント）を有効化
+set expandtab
+
+" タブの文字数
+set tabstop=4
+
+" 連続した空白に対してBSなどでカーソルが動く幅
+set softtabstop=4
+
+" オートインデント時のインデント数
+set shiftwidth=4
+
+" escをjjにマッピング
+inoremap jj <ESC>
+
+" インサートモード時のカーソル移動を追加
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+" インデントを維持したまま、カーソル下に行を挿入し、その行に移動
+nnoremap <C-j> oX<C-h><ESC>
+
+" インデントを維持しないで、カーソル下に行を挿入し、その行に移動
+nnoremap <silent> <C-k> :<C-u>call append(expand('.'), '')<Cr>j
+
+" カーソル位置に改行を挿入(カーソル右は折り返される)
+nnoremap <CR> i<CR><ESC>
+
+" 行番号の絶対行表示と相対行表示のトグル
+nnoremap <silent> [general]l :<C-u>setlocal relativenumber!<CR>
+
+" terminal-insertからterminal-normalに抜ける
+tnoremap jj <C-\><C-n>
+
+" --------------------------------------------------------------------------------
+" ウィンドウ操作
+
+nnoremap [pane] <Nop>
+nmap <Space>s [pane]
+" nmap s [pane]
+" nnoremap s <Nop>
+
+" ウィンドウの分割
+nnoremap <silent> [pane]s :<C-u>sp<CR>
+nnoremap <silent> [pane]v :<C-u>vs<CR>
+
+" ウィンドウ移動
+nnoremap [pane]j <C-w>j
+nnoremap [pane]k <C-w>k
+nnoremap [pane]l <C-w>l
+nnoremap [pane]h <C-w>h
+
+" ウィンドウ自体を移動
+nnoremap [pane]J <C-w>J
+nnoremap [pane]K <C-w>K
+nnoremap [pane]L <C-w>L
+nnoremap [pane]H <C-w>H
+
+" 次のタブ、前のタブに移動
+nnoremap [pane]n gt
+nnoremap [pane]p gT
+
+" 大きさを揃える、縦横最大化
+nnoremap [pane]= <C-w>=
+nnoremap [pane]o <C-w>_<C-w>|
+
+" 新規タブ
+nnoremap <silent> [pane]t :<C-u>tabnew<CR>
+
+" ウィンドウを閉じる、バッファを閉じる
+nnoremap <silent> [pane]q :<C-u>q<CR>
+nnoremap <silent> [pane]Q :<C-u>bd<CR>
+
+
+
+
+
+
+
+
+
+
+
