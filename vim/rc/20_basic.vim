@@ -9,6 +9,9 @@ execute 'cd' expand('~/')
 " 自動で開いたファイルの場所に移動
 set autochdir
 
+" 数値の形式を10進数にする（デフォルトは8進数）
+set nrformats=
+
 
 " 使用するpythonの場所を指定
 if has('mac') || has('unix')
