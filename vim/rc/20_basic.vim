@@ -22,7 +22,7 @@ else
     let g:python3_host_prog=exepath('python')
     
     " kaoriya版vimはpython3.5以外だとdllが見つけられずエラーになるので，直接dllの場所を指定する
-    if !has('nvim') | set pythonthreedll=~/AppData/Local/Programs/Python/Python37/python37.dll | endif
+    if !has('nvim') | set pythonthreedll=~/AppData/Local/Programs/Python/Python38/python38.dll | endif
     " ----------
     
     " vimのpython3.7で不具合(deopleteなどで使用される構文がdeprecated)があったためpython3.5を使用する

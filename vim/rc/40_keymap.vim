@@ -109,13 +109,13 @@ call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 " フォールディングの操作
 
 noremap [fold] <Nop>
-map <Space>f [fold]
+map <Space>b [fold]
 
 " カーソル下の折りたたみを1段階トグル
-nnoremap [fold]f za
+nnoremap [fold]b za
 
 " カーソル下の折りたたみを全てトグル
-nnoremap [fold]F zA
+nnoremap [fold]B zA
 
 " 全ての折りたたみを閉じる
 nnoremap [fold]c zM
