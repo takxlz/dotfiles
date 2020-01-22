@@ -108,13 +108,14 @@ repo = 'Shougo/neomru.vim'
 on_source = 'denite.nvim'
 
 
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-on_event = 'BufRead'
-hook_source = '''
-    call deoplete#enable()
-    let g:deoplete#auto_complete_delay = 0
-'''
+# vim-lspに統合する
+# [[plugins]]
+# repo = 'Shougo/deoplete.nvim'
+# on_event = 'BufRead'
+# hook_source = '''
+#    call deoplete#enable()
+#    let g:deoplete#auto_complete_delay = 0
+# '''
 
 
 [[plugins]]
@@ -129,7 +130,6 @@ on_event = 'VimEnter'
 on_if = '!has("nvim")'
 
 
-# 一応，残してある
 # [[plugins]]
 # repo = 'Shougo/unite.vim'
 # on_cmd = 'Unite'
@@ -257,8 +257,8 @@ on_ft = 'python'
 hook_source = 'let g:python_highlight_all = 1'
 
 
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-on_ft = 'python'
+# [[plugins]]
+# repo = 'zchee/deoplete-jedi'
+# on_ft = 'python'
 
 

@@ -12,26 +12,6 @@ set autochdir
 " 数値の形式を10進数にする（デフォルトは8進数）
 set nrformats=
 
-
-" 使用するpythonの場所を指定
-if has('mac') || has('unix')
-    let g:python3_host_prog=exepath('python3')
-else
-    " ----------
-    " winではpythonとpython3はpythonというコマンドなので3はつけなくていい
-    let g:python3_host_prog=exepath('python')
-    
-    " kaoriya版vimはpython3.5以外だとdllが見つけられずエラーになるので，直接dllの場所を指定する
-    if !has('nvim') | set pythonthreedll=~/AppData/Local/Programs/Python/Python38/python38.dll | endif
-    " ----------
-    
-    " vimのpython3.7で不具合(deopleteなどで使用される構文がdeprecated)があったためpython3.5を使用する
-    " 不具合が解消された場合は，上の---で囲まれた設定のコメントアウトを解除し以下をコメントアウトする
-    " 2020/01/18だとpython3.5でdeniteがエラーとなったため以下をコメントアウトし、---で囲まれた設定のコメントを外す
-    " let g:python3_host_prog=expand('~/AppData/Local/Programs/Python/Python35/python')
-endif
-
-
 " カラースキームの設定
 let g:onedark_termcolors=256
 colorscheme onedark

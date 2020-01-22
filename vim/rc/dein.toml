@@ -78,3 +78,12 @@ hook_add = '''
     noremap <silent> [lsp]v :vsplit \| :LspDefinition <CR>
 '''
 
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
