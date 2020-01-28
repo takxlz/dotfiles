@@ -36,6 +36,11 @@ inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
+" カーソル移動を早くする
+nnoremap J 10j
+nnoremap K 10k
+
+
 " ヤンクレジストリからペーストC-pに設定
 nnoremap <C-p> "0p
 
@@ -58,9 +63,9 @@ tnoremap jj <C-\><C-n>
 " ウィンドウ操作
 
 nnoremap [pane] <Nop>
-nmap <Space>s [pane]
-" nmap s [pane]
-" nnoremap s <Nop>
+nnoremap s <Nop>
+" nmap <Space>s [pane]
+nmap s [pane]
 
 " ウィンドウの分割
 nnoremap <silent> [pane]s :<C-u>sp<CR>
