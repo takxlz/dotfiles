@@ -40,6 +40,8 @@ inoremap <C-l> <Right>
 nnoremap J 10j
 nnoremap K 10k
 
+" カーソル下の単語をハイライト
+nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 
 " ヤンクレジストリからペーストC-pに設定
 nnoremap <C-p> "0p
@@ -58,6 +60,14 @@ nnoremap <silent> [general]l :<C-u>setlocal relativenumber!<CR>
 
 " terminal-insertからterminal-normalに抜ける
 tnoremap jj <C-\><C-n>
+
+" 行を移動
+nnoremap <C-Up> "zdd<Up>"zP
+nnoremap <C-Down> "zdd"zp
+
+" 複数行を移動
+vnoremap <C-Up> "zx<Up>"zP`[V`]
+vnoremap <C-Down> "zx"zp`[V`]
 
 " --------------------------------------------------------------------------------
 " ウィンドウ操作
