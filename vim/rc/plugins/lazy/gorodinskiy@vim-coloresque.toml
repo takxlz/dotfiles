@@ -1,0 +1,3 @@
+[[plugins]]
+repo = 'gorodinskiy/vim-coloresque'
+on_ft = ['css', 'html']

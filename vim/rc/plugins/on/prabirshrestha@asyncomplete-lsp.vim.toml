@@ -1,0 +1,2 @@
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'

@@ -1,0 +1,4 @@
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+on_event = 'VimEnter'
+on_if = '!has("nvim")'

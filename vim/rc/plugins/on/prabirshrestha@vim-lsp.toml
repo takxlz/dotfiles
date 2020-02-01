@@ -1,0 +1,18 @@
+# lazyだと上手く動作しなかった
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+    if executable('pyls')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'pyls',
+            \ 'cmd': {server_info->['pyls']},
+            \ 'whitelist': ['python'],
+            \ })
+    endif
+    " ----------------------------------------
+    noremap [lsp] <Nop>
+    nmap <Space>l [lsp]
+    noremap <silent> [lsp]l :LspDefinition<CR>
+    noremap <silent> [lsp]s :split \| :LspDefinition <CR>
+    noremap <silent> [lsp]v :vsplit \| :LspDefinition <CR>
+'''

@@ -1,0 +1,3 @@
+[[plugins]]
+repo = 'severin-lemaignan/vim-minimap'
+on_cmd = 'Minimap'

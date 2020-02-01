@@ -1,0 +1,3 @@
+# vim-lsp用
+[[plugins]]
+repo = 'prabirshrestha/async.vim'

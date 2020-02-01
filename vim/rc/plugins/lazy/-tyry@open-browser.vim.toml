@@ -1,0 +1,3 @@
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft = ['md', 'markdown', 'text']
