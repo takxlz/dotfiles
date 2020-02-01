@@ -21,6 +21,18 @@
 
 
 " --------------------------------------------------------------------------------
+" たまに使う機能（固有）
+noremap [any] <Nop>
+map <Space>a [any]
+
+
+" --------------------------------------------------------------------------------
+" たまに使う機能（プラグイン）
+noremap [anyplug] <Nop>
+map <Space>s [anyplug]
+
+
+" --------------------------------------------------------------------------------
 " 一般
 
 " escをjjにマッピング
@@ -52,7 +64,7 @@ nnoremap <silent> <C-k> :<C-u>call append(expand('.'), '')<Cr>j
 nnoremap <CR> i<CR><ESC>
 
 " 行番号の絶対行表示と相対行表示のトグル
-nnoremap <silent> [general]l :<C-u>setlocal relativenumber!<CR>
+nnoremap <silent> [any]l :<C-u>setlocal relativenumber!<CR>
 
 " terminal-insertからterminal-normalに抜ける
 tnoremap jj <C-\><C-n>
@@ -140,14 +152,4 @@ noremap [fold]m zf
 
 " カーソル下の折りたたみマーカーを削除
 nnoremap [fold]d zd
-
-" --------------------------------------------------------------------------------
-" たまに使う機能（固有）
-noremap [any] <Nop>
-map <Space>a [any]
-
-" --------------------------------------------------------------------------------
-" たまに使う機能（プラグイン）
-noremap [anyplug] <Nop>
-map <Space>s [anyplug]
 
