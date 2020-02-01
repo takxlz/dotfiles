@@ -1,8 +1,12 @@
 [[plugins]]
 repo = 'Shougo/defx.nvim'
+
 hook_add = '''
-    nnoremap <silent>   <Space>f :<C-u>Defx -listed -resume -buffer-name=tab`tabpagenr()`<CR>
+    nnoremap [defx] <Nop>
+    nmap <Space>f [defx]
+    nnoremap <silent> [defx]f :<C-u>Defx -listed -resume -buffer-name=tab`tabpagenr()`<CR>
 '''
+
 hook_source = '''
     call defx#custom#column('mark', {'readonly_icon': '✗','selected_icon': '✓',})
     call defx#custom#column('icon', {'directory_icon': '▸','opened_icon': '▾','root_icon': ' ',})

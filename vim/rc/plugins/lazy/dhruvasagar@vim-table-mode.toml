@@ -1,9 +1,10 @@
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
-on_ft = ['md', 'markdown', 'text']
+on_ft = ['md', 'markdown', 'text', 'toml']
+
 hook_source = '''
     let g:table_mode_corner = '|'
-    " ----------------------------------------
+
     noremap [tbl] <Nop>
     map <Space>t [tbl]
     noremap [tbl]t :TableModeToggle<CR>

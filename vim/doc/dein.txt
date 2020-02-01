@@ -26,6 +26,8 @@ hook_add = 'execute "source" g:vimrc_dir . "/rc/subrc/lightline.rc.vim"'
 変数なし「source path」
 変数あり「execute "source" "path1" . 変数名 . "path2"」(.は連結)
 
+# 「on_if」は「on_event」も併記しないとerrorMsgが表示される（機能的には問題ない，バグ？）
+# __通常__ならデフォルトで「BunRead」などが設定されるので併記する必要はない
 
 ## 遅延ロードについて
 - 自動で遅延ロードプラグインのプラグイン名をプレフィックスとしたコマンドを登録する

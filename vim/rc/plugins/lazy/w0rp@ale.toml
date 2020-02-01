@@ -1,10 +1,12 @@
 [[plugins]]
 repo = 'w0rp/ale'
 on_ft = ['javascript']
+
 hook_source = '''
     let g:ale_sign_column_always = 1
     let g:ale_linters = { 'javascript': ['eslint']}
-    " ----------------------------------------
+
+
     function! AleListToggle()
         " ALEが起動していないときは終了する
         if !exists('g:ale_open_list') | return | endif
@@ -20,9 +22,10 @@ hook_source = '''
             execute ":q"
         endif
     endfunction
-    " ----------------------------------------
+
+
     nnoremap [ale] <Nop>
-    nmap <Space>a [ale]
+    nmap <Space>e [ale]
     nnoremap <silent> [ale]t :call AleListToggle()<CR>
     " エラー間の移動
     call submode#enter_with('alemove', 'n', 'r', '[ale]k', '<Plug>(ale_previous_wrap)')

@@ -21,11 +21,7 @@
 
 
 " --------------------------------------------------------------------------------
-" general
-
-noremap [general] <Nop>
-map <Space>g [general]
-
+" 一般
 
 " escをjjにマッピング
 inoremap jj <ESC>
@@ -73,8 +69,8 @@ vnoremap <C-Down> "zx"zp`[V`]
 " ウィンドウ操作
 
 nnoremap [pane] <Nop>
-nnoremap s <Nop>
 " nmap <Space>s [pane]
+nnoremap s <Nop>
 nmap s [pane]
 
 " ウィンドウの分割
@@ -124,13 +120,13 @@ call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 " フォールディングの操作
 
 noremap [fold] <Nop>
-map <Space>b [fold]
+map <Space>q [fold]
 
 " カーソル下の折りたたみを1段階トグル
-nnoremap [fold]b za
+nnoremap [fold]q za
 
 " カーソル下の折りたたみを全てトグル
-nnoremap [fold]B zA
+nnoremap [fold]Q zA
 
 " 全ての折りたたみを閉じる
 nnoremap [fold]c zM
@@ -144,4 +140,14 @@ noremap [fold]m zf
 
 " カーソル下の折りたたみマーカーを削除
 nnoremap [fold]d zd
+
+" --------------------------------------------------------------------------------
+" たまに使う機能（固有）
+noremap [any] <Nop>
+map <Space>a [any]
+
+" --------------------------------------------------------------------------------
+" たまに使う機能（プラグイン）
+noremap [anyplug] <Nop>
+map <Space>s [anyplug]
 

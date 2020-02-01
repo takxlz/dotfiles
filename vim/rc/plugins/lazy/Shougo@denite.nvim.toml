@@ -1,5 +1,3 @@
-# 「on_if」は「on_event」も併記しないとerrorMsgが表示される（機能的には問題ない，バグ？）
-  # __通常__ならデフォルトで「BunRead」などが設定されるので併記する必要はない
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'

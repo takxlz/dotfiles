@@ -1,6 +1,7 @@
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
 on_cmd = 'TComment'
+
 hook_add = '''
     noremap [tcomment] <Nop>
     map <Space>c [tcomment]
