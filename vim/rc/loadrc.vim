@@ -6,12 +6,9 @@
 " vimデフォルトのロード順
 " $VIM/vimrc(kaoriya) -> [g:vimrc_dir/vimrc | ~/.vimrc] -> $VIM/gvimrc(kaoriya) -> [g:vimrc_dir/gvimrc | ~/.gvimrc]
 
-" rcファイルの場所を設定
-let s:rc_dir = expand(g:vimrc_dir . '/rc')
-
 " rcファイルロード関数(引数で渡されたファイルがあったら、ロードする)
 function! s:source_rc(rc_file_name)
-    let rc_file = expand(s:rc_dir . '/' . a:rc_file_name)
+    let rc_file = g:vimrc_dir . '/rc/' . a:rc_file_name
     if filereadable(rc_file)
         execute 'source' rc_file
     endif
