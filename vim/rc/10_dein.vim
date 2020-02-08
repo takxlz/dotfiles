@@ -2,7 +2,7 @@
 " dein config
 
 " deinで使用するディレクトリの指定
-"let s:dein_dir = expand(g:vimrc_dir . '/bundle')
+" let s:dein_dir = expand(g:vimrc_dir . '/bundle')
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
@@ -19,15 +19,12 @@ if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
 
     " プラグインリストを収めた TOML ファイル
-    " 予め TOML ファイル（後述）を用意しておく
-    let g:rc_dir    = expand(g:vimrc_dir . '/rc')
-    let s:toml_dir = g:rc_dir . '/plugins'
     " let s:toml      = g:rc_dir . '/dein.toml'
     " let s:lazy_toml = g:rc_dir . '/deinlazy.toml'
-
-    " TOML を読み込み、キャッシュしておく
     " call dein#load_toml(s:toml,      {'lazy': 0})
     " call dein#load_toml(s:lazy_toml, {'lazy': 1})
+    let g:rc_dir    = expand(g:vimrc_dir . '/rc')
+    let s:toml_dir = g:rc_dir . '/pluginrc'
 
     " no lazy plugins
     call dein#load_toml(s:toml_dir . '/on/' . 'airblade@vim-gitgutter.toml', {'lazy': 0})
@@ -49,6 +46,7 @@ if dein#load_state(s:dein_dir)
     call dein#load_toml(s:toml_dir . '/on/' . 'tpope@vim-surround.toml', {'lazy': 0})
     call dein#load_toml(s:toml_dir . '/on/' . 'w0ng@vim-hybrid.toml', {'lazy': 0})
     call dein#load_toml(s:toml_dir . '/on/' . 'Yggdroot@indentline.toml', {'lazy': 0})
+    " call dein#load_toml(s:toml_dir . '/on/' . 'vim-vdebug@vdebug.toml', {'lazy': 0})
 
     " lazy plugins
     call dein#load_toml(s:toml_dir . '/lazy/' . 'cespare@vim-toml.toml', {'lazy': 1})
