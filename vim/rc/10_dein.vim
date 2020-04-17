@@ -64,6 +64,7 @@ if dein#load_state(s:dein_dir)
     call dein#load_toml(s:toml_dir . '/lazy/' . 'tomtom@tcomment_vim.toml', {'lazy': 1})
     call dein#load_toml(s:toml_dir . '/lazy/' . 'vim-python@python-syntax.toml', {'lazy': 1})
     call dein#load_toml(s:toml_dir . '/lazy/' . 'w0rp@ale.toml', {'lazy': 1})
+    call dein#load_toml(s:toml_dir . '/lazy/' . 'puremourning@vimspector.toml', {'lazy': 1})
     " call dein#load_toml(s:toml_dir . '/lazy/' . 'plasticboy@vim-markdown.toml', {'lazy': 1})
     " call dein#load_toml(s:toml_dir . '/lazy/' . 'tyry@open-browser.vim.toml', {'lazy': 1})
 

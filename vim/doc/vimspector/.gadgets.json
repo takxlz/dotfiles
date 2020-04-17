@@ -1,0 +1,14 @@
+{
+  "adapters": {
+    "debugpy": {
+      "command": [
+        "/usr/local/opt/python/bin/python3.7",
+        "${gadgetDir}/debugpy/build/lib/debugpy/adapter"
+      ],
+      "configuration": {
+        "python": "/usr/local/opt/python/bin/python3.7"
+      },
+      "name": "debugpy"
+    }
+  }
+}
