@@ -1,0 +1,13 @@
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+rev = 'release'
+merged = '0'
+# on_ft = ['python']
+
+hook_add = '''
+    nnoremap [coc] <Nop>
+    nmap <Space>l [coc]
+
+    nmap <silent> [coc]l <Plug>(coc-definition)
+    nmap <silent> [coc]r <Plug>(coc-references)
+'''
