@@ -12,8 +12,8 @@ hook_add = '''
         \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
         \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
         \ 'active': {
-        \   'right': [['ale','lineinfo'], ['percent'], ['winform'], ['fileencoding','fileformat','filetype']],
-        \   'left' : [['mode','paste'], ['fugitive','filename']]
+        \   'right': [['lineinfo'], ['percent'], ['winform'], ['fileencoding','fileformat','filetype']],
+        \   'left' : [['mode','paste'], ['fugitive','filename'], ['coc_error','coc_warn','coc_hint','coc_info']]
         \ },
         \ 'component': {
         \   'lineinfo': '%3l[%L]:%-2v',
@@ -28,11 +28,17 @@ hook_add = '''
         \   'filename': 'LightLineFilename',
         \ },
         \ 'component_expand': {
-        \   'ale': 'LightLineALE',
+        \   'coc_error': 'LightLineCocErrors',
+        \   'coc_warn': 'LightLineCocWarns',
+        \   'coc_hint': 'LightLineCocHint',
+        \   'coc_info': 'LightLineCocInfo',
         \ },
         \ 'component_type': {
-        \   'ale': 'error',
-        \ }
+        \   'coc_error': 'error',
+        \   'coc_warn': 'warning',
+        \   'coc_hint': 'middle',
+        \   'coc_info': 'tabsel',
+        \ },
     \ }
 
 
@@ -101,6 +107,30 @@ hook_add = '''
         return l:count.total == 0 ? '' : 'E:' . l:errors . ' W:' . l:warnings
     endfunction
 
+    function! s:lightline_coc_diagnostic(kind, sign) abort
+        let info = get(b:, 'coc_diagnostic_info', 0)
+        if empty(info) || get(info, a:kind, 0) == 0
+            return ''
+        endif
+        return printf('%s:%d', a:sign, info[a:kind])
+    endfunction
+
+    function! LightLineCocErrors()
+        return s:lightline_coc_diagnostic('error', 'E')
+    endfunction
+
+    function! LightLineCocWarns()
+        return s:lightline_coc_diagnostic('warning', 'W')
+    endfunction
+
+    function! LightLineCocHints()
+        return s:lightline_coc_diagnostic('hints', 'H')
+    endfunction
+
+    function! LightLineCocInfos()
+        return s:lightline_coc_diagnostic('information', 'I')
+    endfunction
+
 
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
@@ -108,6 +138,6 @@ hook_add = '''
     " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
     augroup LightLineUpdate
         autocmd!
-        autocmd User ALELintPost call lightline#update()
+        autocmd User ALELintPost,CocStatusChange,CocDiagnosticChange call lightline#update()
     augroup END
 '''
