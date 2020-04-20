@@ -1,0 +1,101 @@
+// Place your key bindings in this file to override the defaults
+
+// # Usage
+// ## when
+// - editorTextFocus: エディタの文字にフォーカスされているとき（カーソルが点滅しているとき）
+// - editorFocus: エディタにフォーカスされているとき
+// - textInputFocus: エディタ類（普通のエディタ、ターミナル...）にフォーカスされているとき
+// - inputFocus: 様々な入力エリアにフォーカスされているとき
+
+// ## my rule
+// - 基本的には「ctrl+space {key}」を使用する（入力が早すぎると反応しないので「ctrl+space+{key} ctrl+{key}」も設定しておく）
+// ※「ctrl+space ctrl+{key}」≒「ctrl+space+{key}」
+
+// - 各領域（エディタ、パネル等）内での上下左右の移動は「ctrl+{hjkl}を使用する（連続して入力できる）
+// - 各領域（エディタ、パネル等）を横断する上下左右の移動は「ctrl+space {hjkl}を使用する（「ctrl+space+{key} ctrl+{key}」も設定しておく）
+
+// - keybindings.jsonには必ず「ctrl」、「space」等のプレフィックスをつける
+// ※ settings.jsonよりも優先度が高いため、settings.jsonの入力途中のコマンドを奪ってしまう
+// ※ keybindings.jsonには、vscodevimで制御できない項目を設定するのに限定する
+
+
+[
+  // ================================================================================
+  // デフォルトキーバインドをアンバインド
+  // ================================================================================
+
+  { "key": "ctrl+space", "command": "-editor.action.triggerSuggest", "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly" },
+  { "key": "ctrl+space", "command": "-toggleSuggestionDetails", "when": "suggestWidgetVisible && textInputFocus" },
+
+
+
+  // ================================================================================
+  // 各領域内の移動
+  // ================================================================================
+
+  // ----------------------------------------
+  // 「あらゆる状態」
+  // コマンドパレットの表示
+  { "key": "ctrl+space u", "command": "workbench.action.showCommands" },
+  { "key": "ctrl+space ctrl+u", "command": "workbench.action.showCommands" },
+
+
+
+  // ----------------------------------------
+  // 「コマンドパレット」にフォーカスされているとき
+  // 候補の移動
+  { "key": "ctrl+j", "command": "workbench.action.quickOpenSelectNext", "when": "inQuickOpen" },
+  { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
+
+
+
+  // ----------------------------------------
+  // 「サイドバー」にフォーカスされている
+  { "key": "ctrl+j", "command": "workbench.action.nextSideBarView", "when": "sideBarFocus" },
+  { "key": "ctrl+k", "command": "workbench.action.previousSideBarView", "when": "sideBarFocus" },
+
+
+
+  // ----------------------------------------
+  // 「パネル」にフォーカスされているとき
+  { "key": "ctrl+h", "command": "workbench.action.previousPanelView", "when": "panelFocus" },
+  { "key": "ctrl+l", "command": "workbench.action.nextPanelView", "when": "panelFocus" },
+
+
+
+  // ----------------------------------------
+  // 「サジェスト」にフォーカスされている
+  // 候補の移動
+  { "key": "ctrl+j", "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
+  { "key": "ctrl+k", "command": "selectPrevSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
+
+
+
+
+
+  // ================================================================================
+  // 領域間の移動
+  // ================================================================================
+
+  // ----------------------------------------
+  // 「エディタ、サイドバー間」
+  // エディタ -> サイドバー
+  { "key": "ctrl+space h", "command": "workbench.action.focusSideBar", "when": "vim.mode == 'Normal' && editorFocus && !panelFocus" },
+  { "key": "ctrl+space ctrl+h", "command": "workbench.action.focusSideBar", "when": "vim.mode == 'Normal' && editorFocus && !panelFocus" },
+  // サイドバー -> エディタ
+  { "key": "ctrl+space l", "command": "workbench.action.focusFirstEditorGroup", "when": "sideBarFocus" },
+  { "key": "ctrl+space ctrl+l", "command": "workbench.action.focusFirstEditorGroup", "when": "sideBarFocus" },
+
+
+  // ----------------------------------------
+  // 「エディタ、ターミナル」
+  // エディタ -> ターミナル
+  { "key": "ctrl+space j", "command": "workbench.action.focusPanel", "when": "vim.mode == 'Normal' && !inQuickOpen && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible && editorFocus" },
+  { "key": "ctrl+space ctrl+j", "command": "workbench.action.focusPanel", "when": "vim.mode == 'Normal' && !inQuickOpen && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible && editorFocus" },
+
+  // パネル -> エディタ
+  { "key": "ctrl+space k", "command": "workbench.action.focusFirstEditorGroup", "when": "panelFocus" },
+  { "key": "ctrl+space ctrl+k", "command": "workbench.action.focusFirstEditorGroup", "when": "panelFocus" },
+
+
+]
