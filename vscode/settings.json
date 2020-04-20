@@ -1,0 +1,181 @@
+{
+  // ================================================================================
+  // エディタの設定
+  // ================================================================================
+
+  // フォント
+  "editor.fontFamily": "'Ricty Diminished', Consolas, 'Courier New', monospace",
+
+  // タブ
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+
+  // ミニマップの文字を曖昧にしてパフォーマンスをアップ
+  "editor.minimap.renderCharacters": false,
+
+  // 自動括弧，引用符挿入を無効化
+  "editor.autoClosingBrackets": "never",
+  "editor.autoClosingQuotes": "never",
+
+  // 制御文字の表示
+  "editor.renderControlCharacters": true,
+
+  // 文字間以外の半角スペースを可視化
+  "editor.renderWhitespace": "boundary",
+
+  // オートコンプリート（サジェスト）を自動にする
+  "editor.acceptSuggestionOnEnter": "smart",
+
+  // ターミナルで選択した文字を自動でコピーする
+  "terminal.integrated.copyOnSelection": true,
+
+  // ================================================================================
+  // vscodevim（一般・エクステンション）
+  // ================================================================================
+
+  // 付属の機能を有効化
+  "vim.easymotion": true,
+  "vim.camelCaseMotion.enable": true,
+
+  // 検索ハイライトを有効にする
+  "vim.hlsearch": true,
+
+  // カーソル上にあるワードを「*」で検索
+  "vim.visualstar": true,
+
+  // ステータスバーの色の設定
+  "vim.statusBarColorControl": true,
+  "vim.statusBarColors.normal": "#005f00",
+  "vim.statusBarColors.insert": "#005f87",
+  "vim.statusBarColors.visual": "#5f00af",
+  "vim.statusBarColors.visualline": "#5f00af",
+  "vim.statusBarColors.visualblock": "#5f00af",
+  "vim.statusBarColors.replace": "#5f0000",
+  "vim.statusBarColors.commandlineinprogress": ["#005f00"],
+  "vim.statusBarColors.searchinprogressmode": ["#005f00"],
+  "vim.statusBarColors.easymotionmode": ["#005f00"],
+  "vim.statusBarColors.easymotioninputmode": ["#005f00"],
+  "vim.statusBarColors.surroundinputmode": ["#005f00"],
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#005f00",
+    "statusBar.noFolderBackground": "#005f00",
+    "statusBar.debuggingBackground": "#005f00"
+  },
+
+  // vscode-icons
+  "workbench.iconTheme": "vscode-icons",
+
+  // settings sync
+  "sync.gist": "e6e575eb1d83d872de5b714ff8aac7bf",
+
+  // prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "window.zoomLevel": 0,
+  "vim.replaceWithRegister": true,
+  "vim.useSystemClipboard": true,
+  // "[json]": { "editor.formatOnSave": true }
+  // "editor.formatOnSave": true,
+
+
+  // ================================================================================
+  // vscodevim（キーバインド）
+  // ================================================================================
+
+  // leaderの設定
+  "vim.leader": "<space>",
+
+  // ------------------------------------------------------------------------
+  // インサートモード
+  "vim.insertModeKeyBindingsNonRecursive": [
+    // 「jj」をescにする
+    { "before": ["j", "j"], "after": ["<ESC>"] },
+
+    // オートコンプリート（サジェスト）の表示
+    { "before": [";", ";"], "commands": ["editor.action.triggerSuggest"] },
+
+    // インサートモード時のカーソル移動を追加
+    { "before": ["<C-h>"], "commands": ["cursorLeft"] },
+    { "before": ["<C-j>"], "commands": ["cursorDown"] },
+    { "before": ["<C-k>"], "commands": ["cursorUp"] },
+    { "before": ["<C-l>"], "commands": ["cursorRight"] },
+  ],
+
+  // ------------------------------------------------------------------------
+  // ノーマルモード
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // ----------------------------------------
+    // 一般
+    // 削除系コマンドではレジスタに登録しない（yのみレジスタに登録される）
+    { "before": ["x"], "after": ["\"", "_", "x"] },
+    { "before": ["X"], "after": ["\"", "_", "X"] },
+    { "before": ["S"], "after": ["\"", "_", "S"] },
+    { "before": ["c"], "after": ["\"", "_", "c"] },
+    { "before": ["C"], "after": ["\"", "_", "C"] },
+    // { "before": ["s"], "after": ["\"", "_", "s"] },
+    // { "before": ["d"], "after": ["\"", "_", "d"] },
+    // { "before": ["D"], "after": ["\"", "_", "D"] },
+
+    // カーソル位置に改行を挿入
+    { "before": ["<CR>"], "commands": ["editor.action.insertLineAfter"] },
+
+    // ウィンドウの分割
+    { "before": ["<leader>", "s", "s"], "commands": [":split"] },
+    { "before": ["<leader>", "s", "v"], "commands": [":vsplit"] },
+
+    // ウィンドウ移動
+    { "before": ["<leader>", "s", "h"], "commands": ["workbench.action.focusLeftGroup"] },
+    { "before": ["<leader>", "s", "j"], "commands": ["workbench.action.focusBelowGroup"] },
+    { "before": ["<leader>", "s", "k"], "commands": ["workbench.action.focusAboveGroup"] },
+    { "before": ["<leader>", "s", "l"], "commands": ["workbench.action.focusRightGroup"] },
+
+    // 次のタブ、前のタブに移動
+    { "before": ["<leader>", "s", "n"], "commands": ["workbench.action.nextEditor"] },
+    { "before": ["<leader>", "s", "p"], "commands": ["workbench.action.previousEditor"] },
+
+    // ----------------------------------------
+    // デバッグ系
+    // 変数の型定義を参照
+    { "before": ["<leader>", "d", "d"], "commands": ["editor.action.goToTypeDefinition"] },
+
+    // 変数の参照箇所の表示
+    { "before": ["<leader>", "d", "r"], "commands": ["editor.action.referenceSearch.trigger"] },
+
+    // カーソル移動を速くする
+    { "before": ["J"], "after": ["1", "0", "j"] },
+    { "before": ["K"], "after": ["1", "0", "k"] },
+
+    // 行頭、行末への移動
+    { "before": ["H"], "after": ["0"] },
+    { "before": ["L"], "after": ["$"] },
+
+
+    // ----------------------------------------
+    // CamelCaseMotion
+    // 次の大文字まで移動
+    { "before": ["<leader>", "m", "m"], "after": ["<leader>", "w"] },
+    { "before": ["<leader>", "w"], "after": [""] },
+
+    // 次の大文字の前まで移動
+    { "before": ["<leader>", "m", "n"], "after": ["<leader>", "b"] },
+    { "before": ["<leader>", "b"], "after": [""] },
+  ],
+
+  // ----------------------------------------
+  // Intellicode
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+  // ----------------------------------------
+  // Trailing Spaces
+  // 保存時に行末のスペースを削除する
+  "trailing-spaces.trimOnSave": true,
+
+  // ----------------------------------------
+  // Java
+  "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"/Users/takxlz/.vscode/extensions/gabrielbb.vscode-lombok-1.0.1/server/lombok.jar\"",
+  "java.home": "/Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home/",
+  // ================================================================================
+  "editor.suggestSelection": "first",
+
+
+
+}
