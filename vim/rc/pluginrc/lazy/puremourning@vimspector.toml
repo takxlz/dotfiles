@@ -2,5 +2,8 @@
 repo = 'puremourning/vimspector'
 on_ft = ['python']
 
+# ①ガジェットのインストール（./install_dadget.py --enable-<language>）
+# ③プロジェクトルートに.vimspector.jsonを作成してデバッグの構成を記述
+# ②~/.cache/dein/repos/github.com/puremourning/vimspector/gadgets/macosにアダプターの情報を記述
 hook_source = '''
 '''

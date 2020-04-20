@@ -19,6 +19,9 @@ colorscheme onedark
 " カラースキームを適用していても、背景をターミナルの背景色に合わせる
 hi Normal ctermbg=NONE
 
+" 左矢印で上行末、右矢印で下行頭に移動する 
+set whichwrap=<,>,[,]
+
 " マークダウンで*や_が隠れるのを無効化する
 " ※ indentlineプラグインが設定を上書きしてしまうのでindentlineの設定でマークダウン、helpを除外している
 set conceallevel=0

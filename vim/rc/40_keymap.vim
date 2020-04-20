@@ -38,6 +38,12 @@ map <Space>s [anyplug]
 " escをjjにマッピング
 inoremap jj <ESC>
 
+" カーソル移動を表示行単位にする
+nnoremap j gj
+nnoremap k gk
+nnoremap <Down> g
+nnoremap <Up> gk
+
 " インサートモード時のカーソル移動を追加
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
