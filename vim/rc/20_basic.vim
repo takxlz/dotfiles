@@ -32,8 +32,9 @@ set shortmess+=I
 " 行番号を表示
 set number
 
-" カレント行をハイライト ※重くなる
-" set cursorline
+" カレント行/列をハイライト ※重くなる
+set cursorline
+set cursorcolumn
 
 " コマンドの補完
 set wildmenu
