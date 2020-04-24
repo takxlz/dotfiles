@@ -38,6 +38,9 @@ map <Space>s [anyplug]
 " escをjjにマッピング
 inoremap jj <ESC>
 
+" terminal-insertからterminal-normalに抜ける
+tnoremap jj <C-\><C-n>
+
 " カーソル移動を表示行単位にする
 nnoremap j gj
 nnoremap k gk
@@ -71,9 +74,6 @@ nnoremap <CR> i<CR><ESC>
 
 " 行番号の絶対行表示と相対行表示のトグル
 nnoremap <silent> [any]l :<C-u>setlocal relativenumber!<CR>
-
-" terminal-insertからterminal-normalに抜ける
-tnoremap jj <C-\><C-n>
 
 " 行を移動
 nnoremap <C-Up> "zdd<Up>"zP

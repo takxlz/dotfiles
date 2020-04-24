@@ -1,9 +1,25 @@
 [[plugins]]
 repo = 'puremourning/vimspector'
-on_ft = ['python']
+# on_ft = ['python']
+on_func = 'vimspector#'
+on_map  = '<Plug>Vimspector'
+# on_cmd  = '<Plug>Vimspector'
 
 # ①ガジェットのインストール（./install_dadget.py --enable-<language>）
+#  ※ 追加でdapをインストールするときは、現在インストール済みのものも一緒にインストールする
+#  （./install_gadget.py --enable-python --enable-bash）
+#  （./install_gadget.pyで.gadget.jsonが最後にインストールしたもので上書きされてしまうから）
 # ③プロジェクトルートに.vimspector.jsonを作成してデバッグの構成を記述
 # ②~/.cache/dein/repos/github.com/puremourning/vimspector/gadgets/macosにアダプターの情報を記述
-hook_source = '''
+hook_add = '''
+    " let g:vimspector_enable_mappings = 'HUMAN'
+
+    nmap <F2>  <Plug>VimspectorContinue
+    nmap <F3>  <Plug>VimspectorStop
+    nmap <F4>  :<C-u>call vimspector#Reset()<CR>
+    nmap <F7>  <Plug>VimspectorToggleBreakpoint
+    nmap <F8>  <Plug>VimspectorAddFunctionBreadkpoint
+    nmap <F10> <Plug>VimspectorStepOver
+    nmap <F11> <Plug>VimspectorStepInto
+    nmap <F12> <Plug>VimspectorStepOut
 '''
