@@ -1,0 +1,16 @@
+[[plugins]]
+repo = 'kristijanhusak/defx-git'
+on_source = 'defx.nvim'
+
+hook_source = '''
+    call defx#custom#column('git', 'indicators', {
+        \ 'Modified'  : 'M',
+        \ 'Staged'    : 'S',
+        \ 'Untracked' : 'U',
+        \ 'Renamed'   : 'R',
+        \ 'Unmerged'  : '=',
+        \ 'Ignored'   : 'I',
+        \ 'Deleted'   : 'D',
+        \ 'Unknown'   : '?'
+    \ })
+'''
