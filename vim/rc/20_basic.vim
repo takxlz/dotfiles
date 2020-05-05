@@ -4,7 +4,7 @@
 " basic
 
 " 起動時に「~/」に移動
-execute 'cd' expand('~/')
+" execute 'cd' expand('~/')
 
 " 自動で開いたファイルの場所に移動
 set autochdir
