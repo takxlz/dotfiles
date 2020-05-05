@@ -2,7 +2,7 @@
 repo = 'neoclide/coc.nvim'
 rev = 'release'
 merged = '0'
-on_ft = ['python', 'sh']
+on_ft = ['python', 'sh', 'java']
 
 hook_add = '''
     nnoremap [coc] <Nop>

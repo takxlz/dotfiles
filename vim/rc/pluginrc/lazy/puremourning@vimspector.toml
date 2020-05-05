@@ -9,8 +9,8 @@ on_map  = '<Plug>Vimspector'
 #  ※ 追加でdapをインストールするときは、現在インストール済みのものも一緒にインストールする
 #  （./install_gadget.py --enable-python --enable-bash）
 #  （./install_gadget.pyで.gadget.jsonが最後にインストールしたもので上書きされてしまうから）
+# ②~/.cache/dein/repos/github.com/puremourning/vimspector/gadgets/macosにアダプターの情報を記述（変更する場合）
 # ③プロジェクトルートに.vimspector.jsonを作成してデバッグの構成を記述
-# ②~/.cache/dein/repos/github.com/puremourning/vimspector/gadgets/macosにアダプターの情報を記述
 hook_add = '''
     " let g:vimspector_enable_mappings = 'HUMAN'
 
