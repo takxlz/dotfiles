@@ -78,34 +78,11 @@ let g:vim_markdown_folding_disabled=1
 " ウィンドウ分割したときのウィンドウ境界線の色を指定
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
 
-
-" 不要なスペースを削除する関数
-" リプレースする対象が見つからないとエラーになるのでtry-endtryで囲む
-function! s:remove_dust()
-    let cursor_point = getpos(".")
-    try
-        " 空行の空白を削除(改行は残る)
-        execute ":%s/^ *$//g"
-    catch
-    finally
-        call setpos(".", cursor_point)
-        unlet cursor_point
-    endtry
-endfunction
-
-" 保存時の直前に実行される処理
-augroup executeBufWritePre
-    autocmd!
-    autocmd BufWritePre * call <SID>remove_dust()
-augroup END
-
-
 " macとunixだけの設定
 if has('mac') || has('unix')
     set mouse=a  " マウス・トラックパッドを有効化
     set backspace=indent,eol,start  " BSの設定(ターミナルではBSが効かないことがある)
 endif
-
 
 " nvimとvimの設定の違いは以下に記述
 if has('nvim')
@@ -118,5 +95,11 @@ else
     set undodir=~/.cache/vim_tmpfiles/
     set clipboard=unnamed,autoselect
 endif
+
+" 保存時の直前に実行される処理
+augroup executeBufWritePre
+    autocmd!
+    autocmd BufWritePre * call takxlz#util#remove_dust()
+augroup END
 
 
