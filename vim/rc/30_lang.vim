@@ -8,13 +8,6 @@ nnoremap o oX<C-h>
 nnoremap O OX<C-h>
 inoremap <CR> <CR>X<C-h>
 
-
-" 改行のときの自動コメントを無効化
-augroup newLineAutoComment
-    autocmd!
-    autocmd FileType * setlocal formatoptions-=ro
-augroup END
-
 " オートインデント（前の行のインデントを継続）を有効化
 set autoindent
 
@@ -33,14 +26,18 @@ set softtabstop=4
 " オートインデント時のインデント数
 set shiftwidth=4
 
+" 改行のときの自動コメントを無効化
+augroup newLineAutoComment
+    autocmd!
+    autocmd FileType * setlocal formatoptions-=ro
+augroup END
 
 " --------------------------------------------------------------------------------
 " filetype set
 augroup setFileType
     autocmd!
-    autocmd BufRead,BufNewFile *.toml setfiletype toml
+    autocmd BufNewFile,BufRead *.toml setfiletype toml
 augroup END
-
 
 " --------------------------------------------------------------------------------
 " filetype indent
