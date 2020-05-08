@@ -110,6 +110,8 @@ nnoremap [pane]H <C-w>H
 " 次のタブ、前のタブに移動
 nnoremap [pane]n gt
 nnoremap [pane]p gT
+" nnoremap <Tab> gt
+" nnoremap <S-Tab> gT
 
 " 大きさを揃える、縦横最大化
 nnoremap [pane]= <C-w>=
