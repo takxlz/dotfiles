@@ -96,10 +96,15 @@ else
     set clipboard=unnamed,autoselect
 endif
 
-" 保存時の直前に実行される処理
-augroup executeBufWritePre
+" 空行の空白を削除する（保存時の直前）
+augroup removeDust
     autocmd!
     autocmd BufWritePre * call takxlz#util#remove_dust()
 augroup END
 
+" 外部であった変更を反映する（vimのウィンドウに入るとき）
+augroup updateFile
+    autocmd!
+    autocmd WinEnter * checktime
+augroup END
 
