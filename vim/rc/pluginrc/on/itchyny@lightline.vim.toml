@@ -57,22 +57,25 @@ hook_add = '''
 
 
     function! LightLineReadonly()
-        return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? "⭤" : ''
+        return &ft !~? 'defx\|denite\|help\|gundo' && &readonly ? "⭤" : ''
     endfunction
 
 
     function! LightLineModified()
-        return &ft =~ 'help\|vimfiler\|gundo' ? '' : (&modified ? '+' : (&modifiable ? '' : '-'))
+        return &ft =~ 'defx\|denite\|help\|gundo' ? '' : (&modified ? '+' : (&modifiable ? '' : '-'))
     endfunction
 
 
     function! LightLineFugitive()
         try
-            if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && winwidth(0) > 55
+            " autoloadはcallされるまでロードされていないのでexists()で判定してはいけない
+            " if &ft !~? 'defx\|denite\|help\|gundo' && exists('*fugitive#head') && winwidth(0) > 35
+            if &ft !~? 'defx\|denite\|help\|gundo' && winwidth(0) > 55
                 let _ = fugitive#head()
                 return strlen(_) ? '⭠ '._ : ''
             endif
         catch
+            echo "[fugitive] is not loaded"
         endtry
         return ''
     endfunction
