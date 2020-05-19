@@ -1,3 +1,11 @@
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
-hook_add = 'set signcolumn=yes'
+hook_add = '''
+    set signcolumn=yes
+
+    " vimの外部でのgit操作を反映する
+    augroup updateGit
+        autocmd!
+        autocmd FocusGained * GitGutterEnable
+    augroup END
+'''
