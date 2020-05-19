@@ -102,9 +102,9 @@ augroup removeDust
     autocmd BufWritePre * call takxlz#util#remove_dust()
 augroup END
 
-" 外部であった変更を反映する（vimのウィンドウに入るとき）
+" 外部であった変更を反映する（vimがフォーカスを得たとき）
 augroup updateFile
     autocmd!
-    autocmd WinEnter * checktime
+    autocmd FocusGained * checktime
 augroup END
 
