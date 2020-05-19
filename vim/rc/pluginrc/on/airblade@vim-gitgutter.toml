@@ -6,6 +6,6 @@ hook_add = '''
     " vimの外部でのgit操作を反映する
     augroup updateGit
         autocmd!
-        autocmd FocusGained * GitGutterEnable
+        autocmd FocusGained,WinEnter,BufWinEnter * GitGutterEnable
     augroup END
 '''
