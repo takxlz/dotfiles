@@ -40,13 +40,11 @@
   { "key": "ctrl+space ctrl+u", "command": "workbench.action.showCommands" },
 
 
-
   // ----------------------------------------
   // 「コマンドパレット」にフォーカスされているとき
   // 候補の移動
   { "key": "ctrl+j", "command": "workbench.action.quickOpenSelectNext", "when": "inQuickOpen" },
   { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
-
 
 
   // ----------------------------------------
@@ -55,12 +53,10 @@
   { "key": "ctrl+k", "command": "workbench.action.previousSideBarView", "when": "sideBarFocus" },
 
 
-
   // ----------------------------------------
   // 「パネル」にフォーカスされているとき
   { "key": "ctrl+h", "command": "workbench.action.previousPanelView", "when": "panelFocus" },
   { "key": "ctrl+l", "command": "workbench.action.nextPanelView", "when": "panelFocus" },
-
 
 
   // ----------------------------------------
@@ -68,8 +64,6 @@
   // 候補の移動
   { "key": "ctrl+j", "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
   { "key": "ctrl+k", "command": "selectPrevSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
-
-
 
 
 
@@ -88,14 +82,35 @@
 
 
   // ----------------------------------------
-  // 「エディタ、ターミナル」
-  // エディタ -> ターミナル
+  // 「エディタ、パネル（ターミナル）」
+  // エディタ -> パネル
   { "key": "ctrl+space j", "command": "workbench.action.focusPanel", "when": "vim.mode == 'Normal' && !inQuickOpen && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible && editorFocus" },
   { "key": "ctrl+space ctrl+j", "command": "workbench.action.focusPanel", "when": "vim.mode == 'Normal' && !inQuickOpen && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible && editorFocus" },
-
   // パネル -> エディタ
   { "key": "ctrl+space k", "command": "workbench.action.focusFirstEditorGroup", "when": "panelFocus" },
   { "key": "ctrl+space ctrl+k", "command": "workbench.action.focusFirstEditorGroup", "when": "panelFocus" },
+
+
+
+  // ================================================================================
+  // 各領域の制御
+  // ================================================================================
+
+  // エディタの最大化のトグル
+  { "key": "ctrl+space z", "command": "multiCommand.toggleMaximizeEditor" },
+  { "key": "ctrl+space ctrl+z", "command": "multiCommand.toggleMaximizeEditor" },
+
+  // パネルのトグル
+  { "key": "ctrl+space p", "command": "workbench.action.togglePanel" },
+  { "key": "ctrl+space ctrl+p", "command": "workbench.action.togglePanel" },
+
+  // サイドバーのトグル
+  { "key": "ctrl+space s", "command": "workbench.action.toggleSidebarVisibility" },
+  { "key": "ctrl+space ctrl+s", "command": "workbench.action.toggleSidebarVisibility" },
+
+  // ミニマップのトグル
+  { "key": "ctrl+space m", "command": "editor.action.toggleMinimap" },
+  { "key": "ctrl+space ctrl+m", "command": "editor.action.toggleMinimap" },
 
 
 ]

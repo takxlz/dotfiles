@@ -3,8 +3,15 @@
   // エディタの設定
   // ================================================================================
 
+  // ウィンドウのズームレベル（これでしかタブサイズを変更できなかったので、ズームレベルを基準にフォントサイズ等を設定する）
+  "window.zoomLevel": -0.4,
+
   // フォント
-  "editor.fontFamily": "'Ricty Diminished', Consolas, 'Courier New', monospace",
+  "editor.fontFamily": "'Ricty Diminished for Powerline', Consolas, 'Courier New', monospace",
+  "editor.fontSize": 15,
+
+  // アイコンテーマ
+  "workbench.iconTheme": "material-icon-theme",
 
   // タブ
   "editor.insertSpaces": true,
@@ -26,11 +33,72 @@
   // オートコンプリート（サジェスト）を自動にする
   "editor.acceptSuggestionOnEnter": "smart",
 
+  // サジェスト表示時に一番上の項目を選択した状態にする
+  "editor.suggestSelection": "first",
+
+  // 起動時にUntitledファイルを作成
+  "workbench.startupEditor": "newUntitledFile",
+
+  // 新しいフォルダを開いたときに新しいウィンドウを開始しない
+  "window.openFoldersInNewWindow": "off",
+
   // ターミナルで選択した文字を自動でコピーする
   "terminal.integrated.copyOnSelection": true,
 
+  // ターミナルではvscodeのキーバインドを使用しない
+  "terminal.integrated.allowChords": false,
+
+
   // ================================================================================
-  // vscodevim（一般・エクステンション）
+  // エクステンション
+  // ================================================================================
+
+  // ----------------------------------------
+  // multi-command
+  "multiCommand.commands": [
+    {
+      "command": "multiCommand.toggleMaximizeEditor",
+      // 各コマンドの実行間隔を10msに設定（最後のフォーカスの移動するのに数ミリ秒必要だった）
+      "interval": 10,
+      "sequence": [
+        "workbench.action.togglePanel",
+        "workbench.action.toggleSidebarVisibility",
+        // パネルをトグルするとパネルにフォーカスされるので最後にエディタにフォーカスを移動する
+        "workbench.action.focusActiveEditorGroup",
+      ],
+    },
+  ],
+
+  // ----------------------------------------
+  // settings sync
+  "sync.gist": "e6e575eb1d83d872de5b714ff8aac7bf",
+
+  // ----------------------------------------
+  // prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vim.replaceWithRegister": true,
+  "vim.useSystemClipboard": true,
+  // "[json]": { "editor.formatOnSave": true }
+  // "editor.formatOnSave": true,
+
+  // ----------------------------------------
+  // Intellicode
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+  // ----------------------------------------
+  // Trailing Spaces
+  // 保存時に行末のスペースを削除する
+  "trailing-spaces.trimOnSave": true,
+
+  // ----------------------------------------
+  // Java
+  "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"/Users/takxlz/.vscode/extensions/gabrielbb.vscode-lombok-1.0.1/server/lombok.jar\"",
+  "java.home": "/Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home/",
+  "java.semanticHighlighting.enabled": true,
+  "java.configuration.checkProjectSettingsExclusions": false,
+
+  // ================================================================================
+  // エクステンション（vscodevim）
   // ================================================================================
 
   // 付属の機能を有効化
@@ -44,42 +112,23 @@
   "vim.visualstar": true,
 
   // ステータスバーの色の設定
-  "vim.statusBarColorControl": true,
-  "vim.statusBarColors.normal": "#005f00",
-  "vim.statusBarColors.insert": "#005f87",
-  "vim.statusBarColors.visual": "#5f00af",
-  "vim.statusBarColors.visualline": "#5f00af",
-  "vim.statusBarColors.visualblock": "#5f00af",
-  "vim.statusBarColors.replace": "#5f0000",
-  "vim.statusBarColors.commandlineinprogress": ["#005f00"],
-  "vim.statusBarColors.searchinprogressmode": ["#005f00"],
-  "vim.statusBarColors.easymotionmode": ["#005f00"],
-  "vim.statusBarColors.easymotioninputmode": ["#005f00"],
-  "vim.statusBarColors.surroundinputmode": ["#005f00"],
+  "vim.statusBarColorControl": false,
+  // "vim.statusBarColors.normal": "#005f00",
+  // "vim.statusBarColors.insert": "#005f87",
+  // "vim.statusBarColors.visual": "#5f00af",
+  // "vim.statusBarColors.visualline": "#5f00af",
+  // "vim.statusBarColors.visualblock": "#5f00af",
+  // "vim.statusBarColors.replace": "#5f0000",
+  // "vim.statusBarColors.commandlineinprogress": ["#005f00"],
+  // "vim.statusBarColors.searchinprogressmode": ["#005f00"],
+  // "vim.statusBarColors.easymotionmode": ["#005f00"],
+  // "vim.statusBarColors.easymotioninputmode": ["#005f00"],
+  // "vim.statusBarColors.surroundinputmode": ["#005f00"],
   "workbench.colorCustomizations": {
     "statusBar.background": "#005f00",
     "statusBar.noFolderBackground": "#005f00",
     "statusBar.debuggingBackground": "#005f00"
   },
-
-  // vscode-icons
-  "workbench.iconTheme": "vscode-icons",
-
-  // settings sync
-  "sync.gist": "e6e575eb1d83d872de5b714ff8aac7bf",
-
-  // prettier
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "window.zoomLevel": 0,
-  "vim.replaceWithRegister": true,
-  "vim.useSystemClipboard": true,
-  // "[json]": { "editor.formatOnSave": true }
-  // "editor.formatOnSave": true,
-
-
-  // ================================================================================
-  // vscodevim（キーバインド）
-  // ================================================================================
 
   // leaderの設定
   "vim.leader": "<space>",
@@ -148,7 +197,6 @@
     { "before": ["H"], "after": ["0"] },
     { "before": ["L"], "after": ["$"] },
 
-
     // ----------------------------------------
     // CamelCaseMotion
     // 次の大文字まで移動
@@ -159,23 +207,7 @@
     { "before": ["<leader>", "m", "n"], "after": ["<leader>", "b"] },
     { "before": ["<leader>", "b"], "after": [""] },
   ],
-
-  // ----------------------------------------
-  // Intellicode
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-
-  // ----------------------------------------
-  // Trailing Spaces
-  // 保存時に行末のスペースを削除する
-  "trailing-spaces.trimOnSave": true,
-
-  // ----------------------------------------
-  // Java
-  "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"/Users/takxlz/.vscode/extensions/gabrielbb.vscode-lombok-1.0.1/server/lombok.jar\"",
-  "java.home": "/Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home/",
+  "editor.minimap.enabled": false,
+  "python.pythonPath": "/usr/local/bin/python3",
   // ================================================================================
-  "editor.suggestSelection": "first",
-
-
-
 }
