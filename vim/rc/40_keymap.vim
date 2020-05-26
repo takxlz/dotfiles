@@ -84,7 +84,7 @@ vnoremap <C-Up> "zx<Up>"zP`[V`]
 vnoremap <C-Down> "zx"zp`[V`]
 
 " --------------------------------------------------------------------------------
-" ウィンドウ操作
+" ウィンドウ（ペイン）操作
 
 nnoremap [pane] <Nop>
 " nmap <Space>s [pane]
@@ -134,6 +134,12 @@ call submode#map('bufmove', 'n', '', '>', '<C-w>>')
 call submode#map('bufmove', 'n', '', '<', '<C-w><')
 call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+
+" ウィンドウの最大化トグル
+let g:takxlz_is_maximize = 0
+nnoremap <silent> [pane]z :call takxlz#util#toggle_maximize_window()<CR>
+
+
 
 
 " --------------------------------------------------------------------------------
