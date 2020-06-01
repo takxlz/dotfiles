@@ -10,12 +10,17 @@
   "editor.fontFamily": "'Ricty Diminished for Powerline', Consolas, 'Courier New', monospace",
   "editor.fontSize": 15,
 
+  // ターミナルのフォントサイズ
+  "terminal.integrated.fontSize": 15,
+
+  // エクスプローラでファイルをクリックしたときのプレビュー機能を無効化
+  "workbench.editor.enablePreview": false,
+
   // アイコンテーマ
   "workbench.iconTheme": "material-icon-theme",
 
   // タブ
   "editor.insertSpaces": true,
-  "editor.tabSize": 2,
 
   // ミニマップの文字を曖昧にしてパフォーマンスをアップ
   "editor.minimap.renderCharacters": false,
@@ -45,9 +50,14 @@
   // ターミナルで選択した文字を自動でコピーする
   "terminal.integrated.copyOnSelection": true,
 
-  // ターミナルではvscodeのキーバインドを使用しない
-  "terminal.integrated.allowChords": false,
+  "editor.minimap.enabled": false,
+  "python.pythonPath": "/usr/local/bin/python3",
 
+  // 監視対象から除外
+  "files.watcherExclude": {
+    "**/Google_Drive/**": true,
+    "**/Library/**": true
+  },
 
   // ================================================================================
   // エクステンション
@@ -57,14 +67,26 @@
   // multi-command
   "multiCommand.commands": [
     {
-      "command": "multiCommand.toggleMaximizeEditor",
+      "command": "multiCommand.maximizeEditor",
       // 各コマンドの実行間隔を10msに設定（最後のフォーカスの移動するのに数ミリ秒必要だった）
       "interval": 10,
       "sequence": [
-        "workbench.action.togglePanel",
-        "workbench.action.toggleSidebarVisibility",
-        // パネルをトグルするとパネルにフォーカスされるので最後にエディタにフォーカスを移動する
-        "workbench.action.focusActiveEditorGroup",
+        // "workbench.action.togglePanel",
+        // "workbench.action.toggleSidebarVisibility",
+        "workbench.action.closePanel",
+        "workbench.action.closeSidebar",
+        "workbench.action.maximizeEditor",
+      ],
+    },
+    {
+      "command": "multiCommand.minimizeEditor",
+      // 各コマンドの実行間隔を10msに設定（最後のフォーカスの移動するのに数ミリ秒必要だった）
+      "interval": 10,
+      "sequence": [
+        "workbench.action.focusPanel",
+        "workbench.action.focusSideBar",
+        "workbench.action.evenEditorWidths", // エディタサイズをリセットする
+        "workbench.action.focusActiveEditorGroup", // エディタにフォーカスを移動する
       ],
     },
   ],
@@ -206,8 +228,7 @@
     // 次の大文字の前まで移動
     { "before": ["<leader>", "m", "n"], "after": ["<leader>", "b"] },
     { "before": ["<leader>", "b"], "after": [""] },
-  ],
-  "editor.minimap.enabled": false,
-  "python.pythonPath": "/usr/local/bin/python3",
   // ================================================================================
+  // ================================================================================
+  ],
 }
