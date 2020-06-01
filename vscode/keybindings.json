@@ -96,9 +96,12 @@
   // 各領域の制御
   // ================================================================================
 
-  // エディタの最大化のトグル
-  { "key": "ctrl+space z", "command": "multiCommand.toggleMaximizeEditor" },
-  { "key": "ctrl+space ctrl+z", "command": "multiCommand.toggleMaximizeEditor" },
+  // エディタの最大化
+  { "key": "ctrl+space z", "command": "multiCommand.maximizeEditor", "when": "sideBarVisible" },
+  { "key": "ctrl+space ctrl+z", "command": "multiCommand.mximizeEditor", "when": "sideBarVisible" },
+  // エディタの最小化
+  { "key": "ctrl+space z", "command": "multiCommand.minimizeEditor", "when": "!sideBarVisible" },
+  { "key": "ctrl+space ctrl+z", "command": "multiCommand.minimizeEditor", "when": "!sideBarVisible" },
 
   // パネルのトグル
   { "key": "ctrl+space p", "command": "workbench.action.togglePanel" },
