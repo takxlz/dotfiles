@@ -24,6 +24,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+    Plug 'puremourning/vimspector', { 'on': '<Plug>Vimspector' }
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'easymotion/vim-easymotion'
@@ -41,7 +42,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'kana/vim-textobj-indent'  " kana/vim-textobj-userに依存 (i)
     Plug 'kana/vim-textobj-entire'  " kana/vim-textobj-userに依存 (e)
     Plug 'thinca/vim-textobj-between'  " kana/vim-textobj-userに依存 (f)
-    Plug 'lucapette/vim-textobj-underscore'  " kana/vim-textobj-userに依存 (_)
+    Plug 'Julian/vim-textobj-variable-segment'  " kana/vim-textobj-userに依存 (v)
     Plug 'tpope/vim-surround'  " (s)
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
@@ -495,6 +496,19 @@ augroup plugin_nerdtree-git-plugin
     \ 'Ignored'   : '☒',
     \ "Unknown"   : "?"
     \ }
+augroup END
+
+" vimspector
+augroup plugin_vimspector
+    autocmd!
+    nmap <F2>  <Plug>VimspectorContinue
+    nmap <F3>  <Plug>VimspectorStop
+    nmap <F4>  :<C-u>call vimspector#Reset()<CR>
+    nmap <F7>  <Plug>VimspectorToggleBreakpoint
+    nmap <F8>  <Plug>VimspectorAddFunctionBreadkpoint
+    nmap <F10> <Plug>VimspectorStepOver
+    nmap <F11> <Plug>VimspectorStepInto
+    nmap <F12> <Plug>VimspectorStepOut
 augroup END
 
 " lightline
