@@ -395,9 +395,17 @@ augroup END
 " プラグインのキーマップは基本的に<space>をプレフィックスとする
 " プラグインによっては利便性等を考慮して<space>を設定しないものもある（vim-commentary[gc]など）
 " <space>g => goto
+nnoremap [goto] <Nop>
+nmap <space>g [goto]
+
 " <space>v => vcs(git)
-" <space>f => filer, find(fzf)
-" <space>j => jump
+nnoremap [vcs] <Nop>
+nmap <space>v [vcs]
+
+" <space>f => find(filer, fzf)
+nnoremap [find] <Nop>
+nmap <space>f [find]
+
 
 " vim-table-mode
 augroup plugin_vim-table-mode
@@ -417,14 +425,14 @@ augroup END
 " coc
 augroup plugin_coc
     autocmd!
-    nmap <space>gd <Plug>(coc-definition)
-    nmap <space>gy <Plug>(coc-type-definition)
-    nmap <space>gi <Plug>(coc-implementation)
-    nmap <space>gr <Plug>(coc-references)
-    nmap <space>g[ <Plug>(coc-diagnostic-prev)
-    nmap <space>g] <Plug>(coc-diagnostic-next)
-    nmap <silent> <space>gp <Plug>(coc-diagnostic-prev-error)
-    nmap <silent> <space>gn <Plug>(coc-diagnostic-next-error)
+    nmap [goto]d <Plug>(coc-definition)
+    nmap [goto]y <Plug>(coc-type-definition)
+    nmap [goto]i <Plug>(coc-implementation)
+    nmap [goto]r <Plug>(coc-references)
+    nmap [goto][ <Plug>(coc-diagnostic-prev)
+    nmap [goto]] <Plug>(coc-diagnostic-next)
+    nmap <silent> [goto]p <Plug>(coc-diagnostic-prev-error)
+    nmap <silent> [goto]n <Plug>(coc-diagnostic-next-error)
     nmap <space>cr <Plug>(coc-rename)
     " nnoremap <space>cr :CocRestart
 augroup END
@@ -432,8 +440,8 @@ augroup END
 " fzf
 augroup plugin_fzf
     autocmd!
-    noremap <silent> <space>fm :Maps<CR>
-    noremap <silent> <space>fg :GFiles<CR>
+    noremap <silent> [find]m :Maps<CR>
+    noremap <silent> [find]g :GFiles<CR>
 
     " source：処理対象（リスト型）（1行でシェルをcall -> 'source': cat ~/dotfiles/vim/vimrc'）
     " sink：sourceに対する処理（関数型）
@@ -456,9 +464,9 @@ augroup END
 " vim-fugitive
 augroup plugin_vim-fugitive
     autocmd!
-    nnoremap <silent> <space>vb :Gblame<CR>
-    nnoremap <silent> <space>vd :Gdiff<CR>
-    nnoremap <silent> <space>vs :Gstatus<CR>
+    nnoremap <silent> [vcs]b :Gblame<CR>
+    nnoremap <silent> [vcs]d :Gdiff<CR>
+    nnoremap <silent> [vcs]s :Gstatus<CR>
 augroup END
 
 " vim-operator-replace
@@ -470,12 +478,12 @@ augroup END
 " vim-easymotion
 augroup plugin_vim-easymotion
     autocmd!
-    map <space>jw <Plug>(easymotion-bd-w)
-    nmap <space>jw <Plug>(easymotion-overwin-w)
-    map <space>jf <Plug>(easymotion-bd-f)
-    nmap <space>jf <Plug>(easymotion-overwin-f)
-    map <space>jl <Plug>(easymotion-bd-jk)
-    nmap <space>jl <Plug>(easymotion-overwin-line)
+    map [goto]w <Plug>(easymotion-bd-w)
+    nmap [goto]w <Plug>(easymotion-overwin-w)
+    map [goto]f <Plug>(easymotion-bd-f)
+    nmap [goto]f <Plug>(easymotion-overwin-f)
+    map [goto]l <Plug>(easymotion-bd-jk)
+    nmap [goto]l <Plug>(easymotion-overwin-line)
 augroup END
 
 " nerdtree
@@ -484,7 +492,7 @@ augroup plugin_nerdtree
     autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif  " 開いているペインがNERDTreeだけの場合はvimを閉じる
     let NERDTreeShowHidden = 1
 
-    map <silent> <space>ff :NERDTreeToggle<CR>
+    map <silent> [find]f :NERDTreeToggle<CR>
     let NERDTreeMapOpenVSplit='S'  " s -> S ※ ペイン操作と被るため
 augroup END
 
