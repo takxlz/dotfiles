@@ -395,8 +395,8 @@ augroup END
 " プラグインのキーマップは基本的に<space>をプレフィックスとする
 " プラグインによっては利便性等を考慮して<space>を設定しないものもある（vim-commentary[gc]など）
 " <space>g => goto
-" <space>v => version-control(git)
-" <space>f => file, fzf(search)
+" <space>v => vcs(git)
+" <space>f => filer, find(fzf)
 " <space>j => jump
 
 " vim-table-mode
@@ -433,15 +433,22 @@ augroup END
 augroup plugin_fzf
     autocmd!
     noremap <silent> <space>fm :Maps<CR>
+    noremap <silent> <space>fg :GFiles<CR>
 
-    " 自作ソースのテスト（vimrcを検索する）
+    " source：処理対象（リスト型）（1行でシェルをcall -> 'source': cat ~/dotfiles/vim/vimrc'）
+    " sink：sourceに対する処理（関数型）
     nnoremap <;>(fzf-open-vimrc) :call fzf#run({
-    \ 'source': 'cat ~/dotfiles/vim/vimrc',
-    \ 'sink': function('<SID>echo_vimrc'),
+    \ 'source': <SID>read_my_vimrc(),
+    \ 'sink': function('<SID>echo_vimrc_line'),
     \ 'down': '40%',
     \ })<CR>
 
-    function! s:echo_vimrc(line)
+    function! s:read_my_vimrc() abort
+        if has('win64') | return split(system('type %HOMEPATH%\dotfiles\vim\vimrc'), '\n') | endif
+        return split(system('cat ~/dotfiles/vim/vimrc'), '\n')
+    endfunction
+
+    function! s:echo_vimrc_line(line) abort
         echomsg a:line
     endfunction
 augroup END
@@ -449,7 +456,7 @@ augroup END
 " vim-fugitive
 augroup plugin_vim-fugitive
     autocmd!
-    nnoremap <silent> <space>vb :Gbrame<CR>
+    nnoremap <silent> <space>vb :Gblame<CR>
     nnoremap <silent> <space>vd :Gdiff<CR>
     nnoremap <silent> <space>vs :Gstatus<CR>
 augroup END
@@ -486,14 +493,14 @@ augroup plugin_nerdtree-git-plugin
     autocmd!
     let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "M",
-    \ "Staged"    : "S",
+    \ "Staged"    : "^",
     \ "Untracked" : "U",
     \ "Renamed"   : "R",
     \ "Unmerged"  : "═",
     \ "Deleted"   : "D",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
+    \ "Dirty"     : "X",
+    \ "Clean"     : "C",
+    \ 'Ignored'   : 'I',
     \ "Unknown"   : "?"
     \ }
 augroup END

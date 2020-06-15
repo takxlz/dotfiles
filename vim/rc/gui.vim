@@ -1,7 +1,7 @@
 " gvimでのメニューの文字化け対策
-"source $VIMRUNTIME/delmenu.vim
-"set langmenu=ja_jp.utf-8
-"source $VIMRUNTIME/menu.vim
+source $VIMRUNTIME/delmenu.vim
+set langmenu=ja_jp.utf-8
+source $VIMRUNTIME/menu.vim
 
 " カラースキーマの設定
 set t_Co=256
@@ -9,8 +9,8 @@ set termguicolors
 let g:onedark_termcolors=256
 "colorscheme onedark
 
-set background=dark  "hybridに必要な設定
-colorscheme hybrid
+" set background=dark  "hybridに必要な設定
+" colorscheme hybrid
 
 " メニューバーを非表示
 "set guioptions=Mc
