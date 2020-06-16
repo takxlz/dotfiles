@@ -31,7 +31,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'vim-python/python-syntax'
     Plug 'LeafCage/foldCC.vim'
     Plug 'joshdick/onedark.vim'
-    Plug 'morhetz/gruvbox'
+    " Plug 'morhetz/gruvbox'
     Plug 'Yggdroot/indentline'
     Plug 'airblade/vim-gitgutter'
     Plug 'itchyny/lightline.vim'
@@ -67,10 +67,10 @@ execute 'source' g:vimrc_dir . '/rc/disable_default_plugin.vim'
 
 "  カラースキーム
 set t_Co=256
-" let g:onedark_termcolors=256
-" colorscheme onedark
-set background=dark
-colorscheme gruvbox
+let g:onedark_termcolors=256
+colorscheme onedark
+" set background=dark
+" colorscheme gruvbox
 hi Normal ctermbg=NONE  " カラースキームを適用していてもターミナルの背景色に合わせる
 
 " その他オプション
