@@ -76,6 +76,7 @@ hi Normal ctermbg=NONE  " カラースキームを適用していてもターミ
 " その他オプション
 set shortmess+=I  " オープニングメッセージを非表示
 set number  " 行番号を表示
+set relativenumber
 set cursorline  " カレント行をハイライト
 set cursorcolumn  " カレント列をハイライト
 set shellslash  " windowsでのディレクトリ区切り文字を「/」にする
