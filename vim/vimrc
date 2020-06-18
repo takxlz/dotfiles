@@ -14,6 +14,7 @@ let g:vimrc_dir = expand('<sfile>:p:h')
 " }}}
 
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :plug config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -31,7 +32,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'vim-python/python-syntax'
     Plug 'LeafCage/foldCC.vim'
     Plug 'joshdick/onedark.vim'
-    " Plug 'morhetz/gruvbox'
+    Plug 'morhetz/gruvbox'
     Plug 'Yggdroot/indentline'
     Plug 'airblade/vim-gitgutter'
     Plug 'itchyny/lightline.vim'
@@ -50,6 +51,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'tpope/vim-commentary'  " (gc)
 call plug#end()
 
+
 " ------------------------------
 " post-plug config
 syntax on
@@ -59,19 +61,22 @@ set encoding=utf-8  " ※プラグイン（lightline）の読み込みより後�
 " }}}
 
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :basic config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " デフォルトプラグインの無効化
 execute 'source' g:vimrc_dir . '/rc/disable_default_plugin.vim'
 
+
 "  カラースキーム
 set t_Co=256
-let g:onedark_termcolors=256
-colorscheme onedark
-" set background=dark
-" colorscheme gruvbox
+" let g:onedark_termcolors=256
+" colorscheme onedark
+set background=dark
+colorscheme gruvbox
 hi Normal ctermbg=NONE  " カラースキームを適用していてもターミナルの背景色に合わせる
+
 
 " その他オプション
 set shortmess+=I  " オープニングメッセージを非表示
@@ -94,6 +99,7 @@ set updatetime=200  " vimでのプラグインなどの反映時間
 set fillchars=vert:\|,fold:\ ,diff:-  " 縦分割「|」、フォールディンを「 」、diffを「-」に変更
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE  " ペイン分割したときのペイン境界線の色を指定
 
+
 " フォールディングの設定
 set foldmethod=marker
 set foldtext=FoldCCtext()  " フォールディング文字列をLeafCage/foldCC.vimの文字列にする
@@ -102,14 +108,17 @@ let g:vim_markdown_folding_disabled=1  " mdを自動で折り畳まないよう�
 set fillchars=vert:\|,fold:\ ,diff:-  " 縦分割「|」、フォールディングを「 」、diffを「-」に変更
 hi Folded gui=NONE term=standout ctermbg=darkgray ctermfg=NONE guibg=gray23 guifg=NONE  " フォールディング行の色
 
+
 " 「~/.cache/vim_tmpfiles」がない場合は作成する
 if !isdirectory(expand('~/.cache/vim_tmpfiles')) | call mkdir(expand('~/.cache/vim_tmpfiles'), 'p') | endif
+
 
 " macとunixだけの設定
 if has('mac') || has('unix')
     set mouse=a  " マウス・トラックパッドを有効化
     set backspace=indent,eol,start  " BSの設定(ターミナルではBSが効かないことがある)
 endif
+
 
 " nvimとvimの設定の違いは以下に記述
 if has('nvim')
@@ -123,11 +132,13 @@ else
     set clipboard=unnamed,autoselect
 endif
 
+
 " 空行の空白を削除する（保存時の直前）
 augroup basic__remove_dust
     autocmd!
     autocmd BufWritePre * call takxlz#util#remove_dust()
 augroup END
+
 
 " 外部であった変更を反映する
 augroup basic__update_file
@@ -135,6 +146,7 @@ augroup basic__update_file
     autocmd FocusGained,WinEnter,InsertEnter * checktime
 augroup END
 " }}}
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -155,11 +167,13 @@ augroup filetype__general
     set shiftwidth=4  " オートインデント時のインデント量
 augroup END
 
+
 " vim
 augroup filetype__vim
     autocmd!
     autocmd FileType vim setlocal commentstring=\"\ %s
 augroup END
+
 
 " python
 augroup filetype__python
@@ -175,11 +189,13 @@ augroup filetype__python
     endif
 augroup END
 
+
 " ruby
 augroup filetype__ruby
     autocmd!
     autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
+
 
 " json
 augroup filetype__json
@@ -187,12 +203,14 @@ augroup filetype__json
     autocmd BufNewFile,BufRead *.json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
+
 " toml
 augroup filetype__toml
     autocmd!
     autocmd BufNewFile,BufRead *.toml setfiletype toml
 augroup END
 " }}}
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -215,6 +233,12 @@ augroup END
 " [submode#map]で作成したサブモード内でのキーバインドの定義する
 "   第1～3引数までは、enter_withと同じ、4:afterキーバインド、5:beforeキーバインド
 
+" vim固有の機能を割り当てるプレフィックス
+nnoremap [core] <Nop>
+nnoremap s <Nop>
+nmap s [core]
+
+
 " escape
 augroup keymap__escape
     autocmd!
@@ -224,6 +248,7 @@ augroup keymap__escape
     " terminal-insertからterminal-normalに抜ける
     tnoremap jj <C-\><C-n>
 augroup END
+
 
 " カーソル移動
 augroup keymap__move_cursor
@@ -245,6 +270,7 @@ augroup keymap__move_cursor
     nnoremap K 10k
 augroup END
 
+
 " ペースト
 augroup keymap__paste
     autocmd!
@@ -252,13 +278,15 @@ augroup keymap__paste
     nnoremap <C-p> "0p
 augroup END
 
+
 " レジストリ
 augroup keymap__registry
     autocmd!
     " xとsではヤンクしない(_レジスタは消去用レジスタ)
     nnoremap x "_x
-    nnoremap s "_s
+    " nnoremap s "_s
 augroup END
+
 
 " 改行
 augroup keymap__new_line
@@ -281,6 +309,7 @@ augroup keymap__new_line
     nnoremap <CR> i<CR><ESC>
 augroup END
 
+
 " 行移動
 augroup keymap__move_line
     autocmd!
@@ -293,6 +322,7 @@ augroup keymap__move_line
     vnoremap <C-Down> "zx"zp`[V`]
 augroup END
 
+
 " トグル
 augroup keymap__toggle
     autocmd!
@@ -300,69 +330,66 @@ augroup keymap__toggle
     nnoremap <silent> <;>(toggle_cursor_column) :<C-u>setlocal cursorcolumn!<CR>
 augroup END
 
+
 " ハイライト
 augroup keymap__highlight
     autocmd!
     " カーソル下の単語をハイライト
-    nnoremap <silent> <space><space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+    nnoremap <silent> [core]<space><space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 augroup END
+
 
 " ペイン
 augroup keymap__pane
     autocmd!
-    " プレフィックスキーを設定
-    nnoremap [pane] <Nop>
-    nnoremap s <Nop>
-    nmap s [pane]
-
     " ペイン分割
-    nnoremap <silent> [pane]s :<C-u>sp<CR>
-    nnoremap <silent> [pane]v :<C-u>vs<CR>
+    nnoremap <silent> [core]s :<C-u>sp<CR>
+    nnoremap <silent> [core]v :<C-u>vs<CR>
 
     " ペイン移動
-    nnoremap [pane]j <C-w>j
-    nnoremap [pane]k <C-w>k
-    nnoremap [pane]l <C-w>l
-    nnoremap [pane]h <C-w>h
+    nnoremap [core]j <C-w>j
+    nnoremap [core]k <C-w>k
+    nnoremap [core]l <C-w>l
+    nnoremap [core]h <C-w>h
 
     " ペイン自体を移動
-    nnoremap [pane]J <C-w>J
-    nnoremap [pane]K <C-w>K
-    nnoremap [pane]L <C-w>L
-    nnoremap [pane]H <C-w>H
+    nnoremap [core]J <C-w>J
+    nnoremap [core]K <C-w>K
+    nnoremap [core]L <C-w>L
+    nnoremap [core]H <C-w>H
 
     " 次のタブ、前のタブに移動
-    nnoremap [pane]n gt
-    nnoremap [pane]p gT
+    nnoremap [core]n gt
+    nnoremap [core]p gT
     " nnoremap <Tab> gt
     " nnoremap <S-Tab> gT
 
-    " 大きさを揃える、縦横最大化
-    nnoremap [pane]= <C-w>=
-    nnoremap [pane]o <C-w>_<C-w>|
+    " 大きさを揃える
+    nnoremap [core]= <C-w>=
+
+    " ペインの最大化トグル
+    let g:takxlz_is_maximize = 0
+    nnoremap <silent> [core]z :call takxlz#util#toggle_maximize_window()<CR>
 
     " 新規タブ
-    nnoremap <silent> [pane]t :<C-u>tabnew<CR>
+    nnoremap <silent> [core]t :<C-u>tabnew<CR>
 
     " ペインを閉じる、バッファを閉じる
-    nnoremap <silent> [pane]q :<C-u>q<CR>
-    nnoremap <silent> [pane]Q :<C-u>bd<CR>
+    nnoremap <silent> [core]q :<C-u>q<CR>
+    nnoremap <silent> [core]Q :<C-u>bd<CR>
 
     " s>...でw幅を増やす、s<...でw幅を減らす
     " s+...でw高さを増やす、s-...でw高さを減らす
-    call submode#enter_with('bufmove', 'n', '', '[pane]>', '<C-w>>')
-    call submode#enter_with('bufmove', 'n', '', '[pane]<', '<C-w><')
-    call submode#enter_with('bufmove', 'n', '', '[pane]+', '<C-w>+')
-    call submode#enter_with('bufmove', 'n', '', '[pane]-', '<C-w>-')
+    call submode#enter_with('bufmove', 'n', '', '[core]>', '<C-w>>')
+    call submode#enter_with('bufmove', 'n', '', '[core]<', '<C-w><')
+    call submode#enter_with('bufmove', 'n', '', '[core]+', '<C-w>+')
+    call submode#enter_with('bufmove', 'n', '', '[core]-', '<C-w>-')
     call submode#map('bufmove', 'n', '', '>', '<C-w>>')
     call submode#map('bufmove', 'n', '', '<', '<C-w><')
     call submode#map('bufmove', 'n', '', '+', '<C-w>+')
     call submode#map('bufmove', 'n', '', '-', '<C-w>-')
-
-    " ペインの最大化トグル
-    let g:takxlz_is_maximize = 0
-    nnoremap <silent> [pane]z :call takxlz#util#toggle_maximize_window()<CR>
 augroup END
+
 
 " フォールディング
 augroup keymap__fold
@@ -372,25 +399,26 @@ augroup keymap__fold
     map <space>a [fold]
 
     " カーソル下の折りたたみを1段階トグル
-    nnoremap [fold]a za
+    nnoremap [core]a za
 
     " カーソル下の折りたたみを全てトグル
-    nnoremap [fold]A zA
+    nnoremap [core]A zA
 
     " 全ての折りたたみを閉じる
-    nnoremap [fold]c zM
+    nnoremap [core]c zM
 
     " 全ての折りたたみを開く
-    nnoremap [fold]o zR
+    nnoremap [core]o zR
 
     " 選択範囲にマーカーを埋め込む(vモードで[fold]が反応しなかったので直接<space>を書く)
     "noremap <silent> <space>fm zf
-    noremap [fold]m zf
+    noremap [core]m zf
 
     " カーソル下の折りたたみマーカーを削除
-    nnoremap [fold]d zd
+    nnoremap [core]d zd
 augroup END
 " }}}
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -398,9 +426,13 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " プラグインのキーマップは基本的に<space>をプレフィックスとする
 " プラグインによっては利便性等を考慮して<space>を設定しないものもある（vim-commentary[gc]など）
-" <space>g => goto
-" <space>v => vcs(git)
-" <space>f => find(filer, fzf)
+
+" よく使うプラグイン機能のプレフィックスを「m」にする
+" mのもともとの機能（マーク）は「\」に割り当てる
+nnoremap [useful] <Nop>
+nnoremap \ m
+nmap m [useful]
+
 
 " vim-table-mode
 augroup plugin__vim_table_mode
@@ -411,32 +443,41 @@ augroup plugin__vim_table_mode
     noremap <silent> <space>tc :Tableize<CR>
 augroup END
 
+
 " vim-easy-align
 augroup plugin__vim_easy_align
     autocmd!
     vmap <Enter> <Plug>(EasyAlign)
 augroup END
 
+
 " coc
 augroup plugin__coc
     autocmd!
-    nmap <space>gd <Plug>(coc-definition)
-    nmap <space>gy <Plug>(coc-type-definition)
-    nmap <space>gi <Plug>(coc-implementation)
-    nmap <space>gr <Plug>(coc-references)
-    nmap <space>g[ <Plug>(coc-diagnostic-prev)
-    nmap <space>g] <Plug>(coc-diagnostic-next)
-    nmap <silent> <space>gp <Plug>(coc-diagnostic-prev-error)
-    nmap <silent> <space>gn <Plug>(coc-diagnostic-next-error)
-    nmap <space>cr <Plug>(coc-rename)
+    nmap [useful]d <Plug>(coc-definition)
+    nmap [useful]t <Plug>(coc-type-definition)
+    nmap [useful]i <Plug>(coc-implementation)
+    nmap [useful]r <Plug>(coc-references)
+    nmap [useful][ <Plug>(coc-diagnostic-prev)
+    nmap [useful]] <Plug>(coc-diagnostic-next)
+    nmap <silent> [useful]p <Plug>(coc-diagnostic-prev-error)
+    nmap <silent> [useful]n <Plug>(coc-diagnostic-next-error)
+    nmap <space>lr <Plug>(coc-rename)
     " nnoremap <space>cr :CocRestart
 augroup END
+
 
 " fzf
 augroup plugin__fzf
     autocmd!
-    noremap <silent> <space>fm :Maps<CR>
-    noremap <silent> <space>fg :GFiles<CR>
+    noremap <silent> [useful]f :Files<CR>
+    noremap <silent> [useful]g :GFiles<CR>
+    noremap <silent> [useful]s :Rg<CR>
+    noremap <silent> [useful]hh :History<CR>
+    noremap <silent> [useful]hc :History:<CR>
+    noremap <silent> [useful]hs :History/<CR>
+    noremap <silent> [useful]m :Maps<CR>
+    noremap <silent> [useful]\ :Marks<CR>
 
     " source：処理対象（リスト型）（1行でシェルをcall -> 'source': cat ~/dotfiles/vim/vimrc'）
     " sink：sourceに対する処理（関数型）
@@ -456,6 +497,7 @@ augroup plugin__fzf
     endfunction
 augroup END
 
+
 " vim-fugitive
 augroup plugin__vim_fugitive
     autocmd!
@@ -464,32 +506,36 @@ augroup plugin__vim_fugitive
     nnoremap <silent> <space>vs :Gstatus<CR>
 augroup END
 
+
 " vim-operator-replace
 augroup plugin__vim_operator_replace
     autocmd!
     map _ <Plug>(operator-replace)
 augroup END
 
+
 " vim-easymotion
 augroup plugin__vim_easymotion
     autocmd!
-    map <space>gw <Plug>(easymotion-bd-w)
-    nmap <space>gw <Plug>(easymotion-overwin-w)
-    map <space>gf <Plug>(easymotion-bd-f)
-    nmap <space>gf <Plug>(easymotion-overwin-f)
-    map <space>gl <Plug>(easymotion-bd-jk)
-    nmap <space>gl <Plug>(easymotion-overwin-line)
+    map <space><space>w <Plug>(easymotion-bd-w)
+    nmap <space><space>w <Plug>(easymotion-overwin-w)
+    map <space><space>f <Plug>(easymotion-bd-f)
+    nmap <space><space>f <Plug>(easymotion-overwin-f)
+    map <space><space>l <Plug>(easymotion-bd-jk)
+    nmap <space><space>l <Plug>(easymotion-overwin-line)
 augroup END
+
 
 " nerdtree
 augroup plugin__nerdtree
     autocmd!
     autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif  " 開いているペインがNERDTreeだけの場合はvimを閉じる
     let NERDTreeShowHidden = 1
-
-    map <silent> <space>ff :NERDTreeToggle<CR>
     let NERDTreeMapOpenVSplit='S'  " s -> S ※ ペイン操作と被るため
+
+    map <silent> [useful]n :NERDTreeToggle<CR>
 augroup END
+
 
 " nerdtree-git-plugin
 augroup plugin__nerdtree_git_plugin
@@ -508,6 +554,7 @@ augroup plugin__nerdtree_git_plugin
     \ }
 augroup END
 
+
 " vimspector
 augroup plugin__vimspector
     autocmd!
@@ -521,17 +568,20 @@ augroup plugin__vimspector
     nmap <F12> <Plug>VimspectorStepOut
 augroup END
 
+
 " lightline
 augroup plugin__lightline
     autocmd!
     execute 'source' g:vimrc_dir . '/rc/plugin/lightline.vim'
 augroup END
 
+
 " indentline
 augroup plugin__indentline
     autocmd!
     let g:indentLine_fileTypeExclude = ["help", "markdown", "md", "json"]
 augroup END
+
 
 " vim-gitgutter
 augroup plugin__vim_gitgutter
@@ -540,6 +590,7 @@ augroup plugin__vim_gitgutter
     autocmd FocusGained,WinEnter,BufWinEnter * GitGutterEnable
 augroup END
 
+
 " vim-coloresque
 augroup plugin__vim_coloresque
     autocmd!
@@ -547,6 +598,7 @@ augroup plugin__vim_coloresque
     autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
 augroup END
 " }}}
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
