@@ -46,9 +46,10 @@ call plug#begin('~/.cache/plugged')
     Plug 'thinca/vim-textobj-between'  " kana/vim-textobj-userに依存 (f)
     Plug 'Julian/vim-textobj-variable-segment'  " kana/vim-textobj-userに依存 (v)
     Plug 'tpope/vim-surround'  " (s)
+    Plug 'tpope/vim-commentary'  " (gc)
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-commentary'  " (gc)
+    Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 
@@ -598,6 +599,13 @@ augroup plugin__vim_coloresque
     autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
 augroup END
 " }}}
+
+
+" vim-autopairs
+augroup plugin__vim_autopairs
+    autocmd!
+    let g:AutoPairsMapCh = 0
+augroup END
 
 
 
