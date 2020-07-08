@@ -49,7 +49,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'tpope/vim-commentary'  " (gc)
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
-    Plug 'jiangmiao/auto-pairs'
+    " Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 
@@ -98,6 +98,8 @@ set listchars=tab:>-,trail:_  " タブを>-で表示
 set timeout timeoutlen=1000 ttimeoutlen=0  " キーバインドの待機時間の設定
 set updatetime=200  " vimでのプラグインなどの反映時間
 set fillchars=vert:\|,fold:\ ,diff:-  " 縦分割「|」、フォールディンを「 」、diffを「-」に変更
+set splitbelow  " ウィンドウを横分割したときにカーソルを下に移動する
+set splitright  " ウィンドウを立て分割したときにカーソルを右に移動する
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE  " ペイン分割したときのペイン境界線の色を指定
 
 
@@ -601,11 +603,18 @@ augroup END
 " }}}
 
 
-" vim-autopairs
-augroup plugin__vim_autopairs
+" vim-commentary
+augroup plugin__vim_commentary
     autocmd!
-    let g:AutoPairsMapCh = 0
+    autocmd FileType typescript setlocal commentstring=\/\/\ %s
 augroup END
+
+
+" vim-autopairs
+" augroup plugin__vim_autopairs
+    " autocmd!
+    " let g:AutoPairsMapCh = 0
+" augroup END
 
 
 
