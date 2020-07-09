@@ -27,6 +27,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
     Plug 'puremourning/vimspector', { 'on': '<Plug>Vimspector' }
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'html'] }
     Plug 'junegunn/fzf.vim'
     Plug 'easymotion/vim-easymotion'
     Plug 'vim-python/python-syntax'
@@ -537,6 +538,13 @@ augroup plugin__nerdtree
     let NERDTreeMapOpenVSplit='S'  " s -> S ※ ペイン操作と被るため
 
     map <silent> [useful]n :NERDTreeToggle<CR>
+augroup END
+
+
+" vim-prettier
+augroup plugin__vim_prettier
+    autocmd!
+    nmap <space>pp <Plug>(PrettierAsync)
 augroup END
 
 
