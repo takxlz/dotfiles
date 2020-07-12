@@ -211,7 +211,15 @@ augroup END
 " toml
 augroup filetype__toml
     autocmd!
-    autocmd BufNewFile,BufRead *.toml setfiletype toml
+    autocmd BufNewFile,BufRead *.toml setlocal filetype=toml
+augroup END
+
+
+
+" typescript-tsx
+augroup filetype__tsx
+    autocmd!
+    autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 augroup END
 " }}}
 
