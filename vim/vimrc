@@ -9,7 +9,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :init config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" このファイルの場所を定義
+" このファイルの場所を定義（以降、この変数を使用する）
 let g:vimrc_dir = expand('<sfile>:p:h')
 " }}}
 
@@ -27,7 +27,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
     Plug 'puremourning/vimspector', { 'on': '<Plug>Vimspector' }
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'html'] }
+    Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'typescript.tsx', 'css', 'html', 'json'] }
     Plug 'junegunn/fzf.vim'
     Plug 'easymotion/vim-easymotion'
     Plug 'vim-python/python-syntax'
@@ -50,6 +50,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'tpope/vim-commentary'  " (gc)
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
+    " Plug 'alvan/vim-closetag'
     " Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
@@ -208,12 +209,24 @@ augroup filetype__json
 augroup END
 
 
+" html
+augroup filetype__html
+    autocmd!
+    autocmd BufNewFile,BufRead *.html setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+" css
+augroup filetype__css
+    autocmd!
+    autocmd BufNewFile,BufRead *.css setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+
 " toml
 augroup filetype__toml
     autocmd!
     autocmd BufNewFile,BufRead *.toml setlocal filetype=toml
 augroup END
-
 
 
 " typescript-tsx
@@ -440,9 +453,9 @@ augroup END
 " プラグインによっては利便性等を考慮して<space>を設定しないものもある（vim-commentary[gc]など）
 
 " よく使うプラグイン機能のプレフィックスを「m」にする
-" mのもともとの機能（マーク）は「\」に割り当てる
+" mのもともとの機能（マーク）は「F12」に割り当てる
 nnoremap [useful] <Nop>
-nnoremap \ m
+nnoremap <F12> m
 nmap m [useful]
 
 
@@ -489,7 +502,7 @@ augroup plugin__fzf
     noremap <silent> [useful]hc :History:<CR>
     noremap <silent> [useful]hs :History/<CR>
     noremap <silent> [useful]m :Maps<CR>
-    noremap <silent> [useful]\ :Marks<CR>
+    noremap <silent> [useful]<F12> :Marks<CR>
 
     " source：処理対象（リスト型）（1行でシェルをcall -> 'source': cat ~/dotfiles/vim/vimrc'）
     " sink：sourceに対する処理（関数型）
@@ -580,11 +593,11 @@ augroup plugin__vimspector
     nmap <F2>  <Plug>VimspectorContinue
     nmap <F3>  <Plug>VimspectorStop
     nmap <F4>  :<C-u>call vimspector#Reset()<CR>
-    nmap <F7>  <Plug>VimspectorToggleBreakpoint
-    nmap <F8>  <Plug>VimspectorAddFunctionBreadkpoint
-    nmap <F10> <Plug>VimspectorStepOver
-    nmap <F11> <Plug>VimspectorStepInto
-    nmap <F12> <Plug>VimspectorStepOut
+    nmap <F5>  <Plug>VimspectorToggleBreakpoint
+    nmap <F6>  <Plug>VimspectorAddFunctionBreadkpoint
+    nmap <F7> <Plug>VimspectorStepOver
+    nmap <F8> <Plug>VimspectorStepInto
+    nmap <F9> <Plug>VimspectorStepOut
 augroup END
 
 
@@ -616,7 +629,6 @@ augroup plugin__vim_coloresque
     autocmd BufNewFile,BufRead *.html call plug#load('vim-coloresque')
     autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
 augroup END
-" }}}
 
 
 " vim-commentary
@@ -626,11 +638,19 @@ augroup plugin__vim_commentary
 augroup END
 
 
+" " vim-closetag
+" augroup plugin__vim_closetag
+"     autocmd!
+"     let g:closetag_filenames = '*.html,*.tsx'
+" augroup END
+
+
 " vim-autopairs
 " augroup plugin__vim_autopairs
     " autocmd!
     " let g:AutoPairsMapCh = 0
 " augroup END
+" }}}
 
 
 
