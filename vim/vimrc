@@ -215,6 +215,7 @@ augroup filetype__html
     autocmd BufNewFile,BufRead *.html setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
+
 " css
 augroup filetype__css
     autocmd!
@@ -229,10 +230,19 @@ augroup filetype__toml
 augroup END
 
 
+" javascript
+augroup filetype__js
+    autocmd!
+    autocmd BufNewFile,BufRead *.js setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+
 " typescript-tsx
 augroup filetype__tsx
     autocmd!
     autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
+    autocmd BufNewFile,BufRead *.ts setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.tsx setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 " }}}
 
