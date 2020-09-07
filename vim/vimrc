@@ -50,6 +50,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'tpope/vim-commentary'  " (gc)
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
+    Plug 'APZelos/blamer.nvim'
     " Plug 'alvan/vim-closetag'
     " Plug 'jiangmiao/auto-pairs'
 call plug#end()
@@ -645,6 +646,16 @@ augroup END
 augroup plugin__vim_commentary
     autocmd!
     autocmd FileType typescript setlocal commentstring=\/\/\ %s
+augroup END
+
+
+" blamer
+augroup plugin__blamer
+    autocmd!
+    let g:blamer_enabled = 1
+    let g:blamer_delay = 250
+    let g:blamer_prefix = '  # '
+    let g:blamer_date_format = '%y/%m/%d %H:%M'
 augroup END
 
 
