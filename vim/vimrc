@@ -51,6 +51,8 @@ call plug#begin('~/.cache/plugged')
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
     Plug 'APZelos/blamer.nvim'
+    Plug 'kshenoy/vim-signature'
+
     " Plug 'alvan/vim-closetag'
     " Plug 'jiangmiao/auto-pairs'
 call plug#end()
@@ -464,9 +466,8 @@ augroup END
 " プラグインによっては利便性等を考慮して<space>を設定しないものもある（vim-commentary[gc]など）
 
 " よく使うプラグイン機能のプレフィックスを「m」にする
-" mのもともとの機能（マーク）は「F12」に割り当てる
 nnoremap [useful] <Nop>
-nnoremap <F12> m
+nnoremap [core]m m
 nmap m [useful]
 
 
@@ -508,12 +509,12 @@ augroup plugin__fzf
     autocmd!
     noremap <silent> [useful]f :Files<CR>
     noremap <silent> [useful]g :GFiles<CR>
-    noremap <silent> [useful]s :Rg<CR>
+    noremap <silent> [useful]r :Rg<CR>
     noremap <silent> [useful]hh :History<CR>
     noremap <silent> [useful]hc :History:<CR>
     noremap <silent> [useful]hs :History/<CR>
     noremap <silent> [useful]m :Maps<CR>
-    noremap <silent> [useful]<F12> :Marks<CR>
+    noremap <silent> [useful]s :Marks<CR>
 
     " source：処理対象（リスト型）（1行でシェルをcall -> 'source': cat ~/dotfiles/vim/vimrc'）
     " sink：sourceに対する処理（関数型）
@@ -656,6 +657,23 @@ augroup plugin__blamer
     let g:blamer_delay = 250
     let g:blamer_prefix = '  # '
     let g:blamer_date_format = '%y/%m/%d %H:%M'
+augroup END
+
+
+" vim-signature
+augroup plugin__vim_signature
+    autocmd!
+    let g:SignatureMap = {
+        \ 'Leader'             :  "sm",
+        \ 'PlaceNextMark'      :  "sm,",
+        \ 'ToggleMarkAtLine'   :  "sm.",
+        \ 'PurgeMarksAtLine'   :  "sm-",
+        \ 'PurgeMarks'         :  "sm<Space>",
+        \ 'GotoNextLineByPos'  :  "sm]",
+        \ 'GotoPrevLineByPos'  :  "sm[",
+        \ 'ListBufferMarks'    :  "sm/",
+        \ 'ListBufferMarkers'  :  "sm?"
+        \ }
 augroup END
 
 
