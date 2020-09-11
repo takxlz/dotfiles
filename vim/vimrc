@@ -373,7 +373,9 @@ augroup END
 augroup keymap__highlight
     autocmd!
     " カーソル下の単語をハイライト
-    nnoremap <silent> [core]<space><space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+    " nnoremap <silent> [core]<space><space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+    nnoremap <silent> [core]<space><space> :call takxlz#util#hilight_words()<CR>:set hlsearch<CR>
+    nnoremap <silent> [core]<space>s :let g:hlstate = ''<CR>:let @/ = ''<CR>
 augroup END
 
 
@@ -665,6 +667,7 @@ augroup END
 augroup plugin__blamer
     autocmd!
     let g:blamer_enabled = 1
+    let g:blamer_show_in_visual_modes = 0
     let g:blamer_delay = 250
     let g:blamer_prefix = '  # '
     let g:blamer_date_format = '%y/%m/%d %H:%M'
