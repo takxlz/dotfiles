@@ -551,9 +551,9 @@ augroup END
 " vim-fugitive
 augroup plugin__vim_fugitive
     autocmd!
-    nnoremap <silent> <space>vb :Gblame<CR>
-    nnoremap <silent> <space>vd :Gdiff<CR>
-    nnoremap <silent> <space>vs :Gstatus<CR>
+    nnoremap <silent> <space>gb :Gblame<CR>
+    nnoremap <silent> <space>gd :Gdiff<CR>
+    nnoremap <silent> <space>gs :Gstatus<CR>
 augroup END
 
 
