@@ -29,31 +29,37 @@ endfunction
 
 " カーソル下の単語をハイライトする関数
 function! takxlz#util#hilight_words() abort
-
     " 初回呼び出しの場合はハイライト状態を初期化する
     if exists('g:hlstate') == 0
         let g:hlstate = ''
     endif
 
-    let g:hlstate = takxlz#util#toggle_escape(g:hlstate, 0)  " アンエスケープ化
+    " アンエスケープ化
+    let g:hlstate = takxlz#util#toggle_escape(g:hlstate, 0)
 
     " zレジストリにカーソル下の単語をヤンク(yiw)
     exec 'silent normal "zyiw'
 
+    " カーソル下の単語が既にハイライト対象の場合は対象から削除する
     if stridx(g:hlstate, '<' . @z . '>') != -1
+
+        " ハイライト対象の2単語目以降に登録されている場合
         if stridx(g:hlstate, '|<' . @z . '>') != -1
             let g:hlstate = substitute(g:hlstate, '|<' . @z . '>', '', 'g')
+
+        " ハイライト対象の1単語目に登録されている場合
         else
-            let g:hlstate = substitute(g:hlstate, '<' . @z . '>|', '', 'g')
+            let g:hlstate = substitute(g:hlstate, '<' . @z . '>', '', 'g')
         endif
+
+    " カーソル下の単語がハイライト対象でない場合は対象に追加する
     else
         let g:hlstate = g:hlstate == '' ? (g:hlstate . '<' . @z . '>') : (g:hlstate . '|<' . @z . '>')
     endif
 
-    let @/ = takxlz#util#toggle_escape(g:hlstate, 1)  " エスケープ化
-
+    " エスケープ化
+    let @/ = takxlz#util#toggle_escape(g:hlstate, 1)
 endfunction
-
 
 
 " ヘルパー関数
@@ -68,11 +74,13 @@ function! takxlz#util#toggle_escape(target, flg) abort
         let l:tgt = substitute(l:tgt, '<', '\\<', 'g')
         let l:tgt = substitute(l:tgt, '>', '\\>', 'g')
         let l:tgt = substitute(l:tgt, '|', '\\|', 'g')
+        let l:tgt = substitute(l:tgt, '#', '\\#', 'g')
     " アンエスケープ化
     elseif a:flg == 0
         let l:tgt = substitute(l:tgt, '\\<', '<', 'g')
         let l:tgt = substitute(l:tgt, '\\>', '>', 'g')
         let l:tgt = substitute(l:tgt, '\\|', '|', 'g')
+        let l:tgt = substitute(l:tgt, '\\#', '#', 'g')
     endif
     call setpos('.', cursor_point)
     return tgt
