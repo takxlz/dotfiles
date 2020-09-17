@@ -87,9 +87,10 @@ hi Normal ctermbg=NONE  " カラースキームを適用していてもターミ
 " その他オプション
 set shortmess+=I  " オープニングメッセージを非表示
 set number  " 行番号を表示
-set relativenumber
+set relativenumber  " 行番号を相対表示
 set cursorline  " カレント行をハイライト
 set cursorcolumn  " カレント列をハイライト
+set showtabline=2  " タブラインを常に表示
 set shellslash  " windowsでのディレクトリ区切り文字を「/」にする
 " set autochdir  " 自動で開いたファイルの場所に移動
 set nrformats=  " 数値の形式を10進数にする（デフォルトは8進数）
@@ -398,21 +399,12 @@ augroup keymap__pane
     nnoremap [core]L <C-w>L
     nnoremap [core]H <C-w>H
 
-    " 次のタブ、前のタブに移動
-    nnoremap [core]n gt
-    nnoremap [core]p gT
-    " nnoremap <Tab> gt
-    " nnoremap <S-Tab> gT
-
     " 大きさを揃える
     nnoremap [core]= <C-w>=
 
     " ペインの最大化トグル
     let g:takxlz_is_maximize = 0
     nnoremap <silent> [core]z :call takxlz#util#toggle_maximize_window()<CR>
-
-    " 新規タブ
-    nnoremap <silent> [core]t :<C-u>tabnew<CR>
 
     " ペインを閉じる、バッファを閉じる
     nnoremap <silent> [core]q :<C-u>q<CR>
@@ -431,6 +423,23 @@ augroup keymap__pane
 augroup END
 
 
+" タブ
+augroup keymap__tab
+    " 新規タブ
+    nnoremap <silent> [core]t :<C-u>tabnew<CR>
+
+    " 次のタブ、前のタブに移動
+    nnoremap [core]n gt
+    nnoremap [core]p gT
+
+    " 現在のタブを閉じる
+    nnoremap <silent> [core]c :tabclose<CR>
+
+    " 現在のタブ以外を閉じる
+    nnoremap <silent> [core]C :tabonly<CR>
+augroup END
+
+
 " フォールディング
 augroup keymap__fold
     autocmd!
@@ -444,11 +453,11 @@ augroup keymap__fold
     " カーソル下の折りたたみを全てトグル
     nnoremap [core]A zA
 
-    " 全ての折りたたみを閉じる
-    nnoremap [core]c zM
-
     " 全ての折りたたみを開く
     nnoremap [core]o zR
+
+    " 全ての折りたたみを閉じる
+    nnoremap [core]O zM
 
     " 選択範囲にマーカーを埋め込む(vモードで[fold]が反応しなかったので直接<space>を書く)
     "noremap <silent> <space>fm zf
@@ -552,8 +561,27 @@ augroup END
 augroup plugin__vim_fugitive
     autocmd!
     nnoremap <silent> <space>gb :Gblame<CR>
-    nnoremap <silent> <space>gd :Gdiff<CR>
-    nnoremap <silent> <space>gs :Gstatus<CR>
+    " 新タブで表示
+    nnoremap <silent> <space>gd :tab Gdiff<CR>
+    nnoremap <silent> <space>gs :tab Gstatus<CR>
+
+    " Gstatusで独自設定したキーマップでペイン操作等ができるように「s」を無効にして上書き
+    " fugitiveの「s」はファイルをステージするのに割り当てられているが「-」でステージ/アンステージをトグルできるので不要
+    autocmd FileType fugitive nnoremap <buffer> s <Nop>
+
+    " ペイン移動
+    autocmd FileType fugitive nnoremap <buffer> sj <C-w>j
+    autocmd FileType fugitive nnoremap <buffer> sk <C-w>k
+    autocmd FileType fugitive nnoremap <buffer> sl <C-w>l
+    autocmd FileType fugitive nnoremap <buffer> sh <C-w>h
+
+    " タブ移動
+    autocmd FileType fugitive nnoremap <buffer> sn gt
+    autocmd FileType fugitive nnoremap <buffer> sp gT
+
+    " タブを閉じる
+    autocmd FileType fugitive nnoremap <buffer> sc :tabclose<CR>
+    autocmd FileType fugitive nnoremap <buffer> sC :tabonly<CR>
 augroup END
 
 
@@ -722,4 +750,6 @@ augroup END
 augroup xxx__xxx
     autocmd!
 augroup END
+
+
 
