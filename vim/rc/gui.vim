@@ -27,6 +27,9 @@ set guioptions-=L
 " 水平スクロールバーを非表示
 set guioptions-=b
 
+" テキストベースのタブラインにする
+set guioptions-=e
+
 " 画面分割などしたときのウィンドウ境界線の色
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
 
