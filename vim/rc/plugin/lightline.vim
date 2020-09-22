@@ -79,7 +79,7 @@ function! LightLineFileformat()
 endfunction
 
 function! LightLineFiletype()
-    return winwidth(0) > 80 ? (strlen(&filetype) ? &filetype : 'no_ft') : ''
+    return winwidth(0) > 80 ? (strlen(&filetype) ? '@' . &filetype : '[no_ft]') : ''
 endfunction
 
 function! LightLineMode()
