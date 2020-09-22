@@ -569,6 +569,10 @@ augroup plugin__vim_fugitive
     " fugitiveの「s」はファイルをステージするのに割り当てられているが「-」でステージ/アンステージをトグルできるので不要
     autocmd FileType fugitive nnoremap <buffer> s <Nop>
 
+    " ペイン分割
+    autocmd FileType fugitive nnoremap <buffer><silent> ss :<C-u>sp<CR>
+    autocmd FileType fugitive nnoremap <buffer><silent> sv :<C-u>vs<CR>
+
     " ペイン移動
     autocmd FileType fugitive nnoremap <buffer> sj <C-w>j
     autocmd FileType fugitive nnoremap <buffer> sk <C-w>k
