@@ -90,7 +90,7 @@ set number  " 行番号を表示
 set relativenumber  " 行番号を相対表示
 set cursorline  " カレント行をハイライト
 set cursorcolumn  " カレント列をハイライト
-set showtabline=2  " タブラインを常に表示
+" set showtabline=2  " タブラインを常に表示
 set shellslash  " windowsでのディレクトリ区切り文字を「/」にする
 " set autochdir  " 自動で開いたファイルの場所に移動
 set nrformats=  " 数値の形式を10進数にする（デフォルトは8進数）
