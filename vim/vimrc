@@ -19,6 +19,8 @@ let g:vimrc_dir = expand('<sfile>:p:h')
 " :plug config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.cache/plugged')
+    Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
+    Plug 'morhetz/gruvbox'
     Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
     Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
     Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
@@ -32,8 +34,6 @@ call plug#begin('~/.cache/plugged')
     Plug 'easymotion/vim-easymotion'
     Plug 'vim-python/python-syntax'
     Plug 'LeafCage/foldCC.vim'
-    Plug 'joshdick/onedark.vim'
-    Plug 'morhetz/gruvbox'
     Plug 'Yggdroot/indentline'
     Plug 'airblade/vim-gitgutter'
     Plug 'itchyny/lightline.vim'
@@ -77,10 +77,10 @@ execute 'source' g:vimrc_dir . '/rc/disable_default_plugin.vim'
 
 "  カラースキーム
 set t_Co=256
-" let g:onedark_termcolors=256
-" colorscheme onedark
 set background=dark
 colorscheme gruvbox
+" let g:onedark_termcolors=256
+" colorscheme onedark
 hi Normal ctermbg=NONE  " カラースキームを適用していてもターミナルの背景色に合わせる
 
 
