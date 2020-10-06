@@ -52,7 +52,6 @@ call plug#begin('~/.cache/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'APZelos/blamer.nvim'
     Plug 'kshenoy/vim-signature'
-
     " Plug 'alvan/vim-closetag'
     " Plug 'jiangmiao/auto-pairs'
 call plug#end()
@@ -565,9 +564,10 @@ augroup plugin__vim_fugitive
     nnoremap <silent> <space>gd :tab Gdiff<CR>
     nnoremap <silent> <space>gs :tab Gstatus<CR>
 
-    " Gstatusで独自設定したキーマップでペイン操作等ができるように「s」を無効にして上書き
-    " fugitiveの「s」はファイルをステージするのに割り当てられているが「-」でステージ/アンステージをトグルできるので不要
-    autocmd FileType fugitive nnoremap <buffer> s <Nop>
+    " Gstatusで独自設定したキーマップでペイン操作等ができるように「s」を無効化（別のキーに変更）
+    " autocmd FileType fugitive nnoremap <buffer> s <Nop>
+    " keyキーへの割り当てをvalueキーに変更
+    let g:nremap = {'s': '' }
 
     " ペイン分割
     autocmd FileType fugitive nnoremap <buffer><silent> ss :<C-u>sp<CR>
