@@ -8,7 +8,7 @@ let g:lightline = {
     \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
     \ 'active': {
     \   'right': [['lineinfo'], ['percent'], ['winform'], ['fileencoding','fileformat','filetype'], ['coc_error','coc_warn','coc_hint','coc_info']],
-    \   'left' : [['mode','paste'], ['fugitive','filename']]
+    \   'left' : [['mode','paste'], ['fugitive','filename'], ['vista']]
     \ },
     \ 'component': {
     \   'lineinfo': '%3l[%L]:%-2v',
@@ -21,6 +21,7 @@ let g:lightline = {
     \   'mode': 'LightLineMode',
     \   'fugitive': 'LightLineFugitive',
     \   'filename': 'LightLineFilename',
+    \   'vista': 'NearestMethodOrFunction',
     \ },
     \ 'component_expand': {
     \   'coc_error': 'LightLineCocErrors',
@@ -46,6 +47,10 @@ function! LightLineFilename()
         \  &ft == 'denite' ? '' :
         \ '' != expand('%:t') ? (winwidth(0) <=200 ? expand('%:t') : expand('%:p')) : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
 function! LightLineReadonly()
@@ -122,8 +127,17 @@ function! LightLineCocInfos()
 endfunction
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
 " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
 augroup LightLineUpdate
     autocmd!
     autocmd User ALELintPost,CocStatusChange,CocDiagnosticChange call lightline#update()
 augroup END
+
+" vim起動時に実行
+augroup LightLineStartUp
+    autocmd!
+    autocmd BufReadPost * call vista#RunForNearestMethodOrFunction()
+    autocmd User  call RunForNearestMethodOrFunction lightline#update()
+augroup END
+
