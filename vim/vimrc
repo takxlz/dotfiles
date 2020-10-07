@@ -25,6 +25,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
     Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'liuchengxu/vista.vim'
     Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
     Plug 'puremourning/vimspector', { 'on': '<Plug>Vimspector' }
@@ -512,6 +513,31 @@ augroup plugin__coc
     nmap <silent> [useful]n <Plug>(coc-diagnostic-next-error)
     nmap <space>lr <Plug>(coc-rename)
     " nnoremap <space>cr :CocRestart
+augroup END
+
+
+" vista
+augroup plugin__vista
+    autocmd!
+    let g:vista#renderer#icons = {
+        \   'function': '(f)',
+        \   'variable': '(v)',
+        \   'property': '(p)',
+        \  }
+
+    let g:vista_icon_indent = ['A', 'B']
+
+    " vistaのキーマップを無効化する
+    " （個別で無効化できないため）
+    let g:vista_no_mappings = 1
+
+    " 上で全マップを無効化したので、<CR>でカーソル下のシンボルへのジャンプだけ再マップする
+    autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <CR>
+        \ :<C-u>call vista#cursor#FoldOrJump()<CR>
+
+    noremap <silent> [useful]v :<C-u>Vista coc<CR>
+    noremap <silent> [useful]V :<C-u>Vista finder coc<CR>
+
 augroup END
 
 
