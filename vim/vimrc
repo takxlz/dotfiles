@@ -596,22 +596,22 @@ augroup plugin__vim_fugitive
     let g:nremap = {'s': '' }
 
     " ペイン分割
-    autocmd FileType fugitive nnoremap <buffer><silent> ss :<C-u>sp<CR>
-    autocmd FileType fugitive nnoremap <buffer><silent> sv :<C-u>vs<CR>
+    autocmd FileType fugitive nnoremap <buffer> <silent> ss :<C-u>sp<CR>
+    autocmd FileType fugitive nnoremap <buffer> <silent> sv :<C-u>vs<CR>
 
     " ペイン移動
-    autocmd FileType fugitive nnoremap <buffer> sj <C-w>j
-    autocmd FileType fugitive nnoremap <buffer> sk <C-w>k
-    autocmd FileType fugitive nnoremap <buffer> sl <C-w>l
-    autocmd FileType fugitive nnoremap <buffer> sh <C-w>h
+    autocmd FileType fugitive nnoremap <buffer> <silent> sj <C-w>j
+    autocmd FileType fugitive nnoremap <buffer> <silent> sk <C-w>k
+    autocmd FileType fugitive nnoremap <buffer> <silent> sl <C-w>l
+    autocmd FileType fugitive nnoremap <buffer> <silent> sh <C-w>h
 
     " タブ移動
-    autocmd FileType fugitive nnoremap <buffer> sn gt
-    autocmd FileType fugitive nnoremap <buffer> sp gT
+    autocmd FileType fugitive nnoremap <buffer> <silent> sn gt
+    autocmd FileType fugitive nnoremap <buffer> <silent> sp gT
 
     " タブを閉じる
-    autocmd FileType fugitive nnoremap <buffer> sc :tabclose<CR>
-    autocmd FileType fugitive nnoremap <buffer> sC :tabonly<CR>
+    autocmd FileType fugitive nnoremap <buffer> <silent> sc :tabclose<CR>
+    autocmd FileType fugitive nnoremap <buffer> <silent> sC :tabonly<CR>
 augroup END
 
 
