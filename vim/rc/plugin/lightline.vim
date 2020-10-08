@@ -50,7 +50,17 @@ function! LightLineFilename()
 endfunction
 
 function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
+    " 「b:」バッファローカルの「変数名:値」の辞書の一覧を参照できる
+    " バッファローカル変数一覧にvista_nearest...が存在すればその値を返し、なければ空を返す
+    " return get(b:, 'vista_nearest_method_or_function', '')
+
+    " 表示文字等を編集したいためgetは使用しない
+    if exists('b:vista_nearest_method_or_function')
+        if b:vista_nearest_method_or_function != ''
+            return ' [f] ' . b:vista_nearest_method_or_function
+        endif
+    endif
+    return ''
 endfunction
 
 function! LightLineReadonly()
