@@ -520,9 +520,9 @@ augroup END
 augroup plugin__vista
     autocmd!
     let g:vista#renderer#icons = {
-        \   'function': '(f)',
-        \   'variable': '(v)',
-        \   'property': '(p)',
+        \   'function': '[f]',
+        \   'variable': '[v]',
+        \   'property': '[p]',
         \  }
 
     let g:vista_icon_indent = ['A', 'B']
