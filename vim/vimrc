@@ -584,31 +584,32 @@ augroup plugin__vim_fugitive
     autocmd!
     nnoremap <silent> <space>gb :Gblame<CR>
     " 新タブで表示
-    nnoremap <silent> <space>gd :tab Gdiff<CR>
     nnoremap <silent> <space>gs :tab Gstatus<CR>
+    nnoremap <silent> <space>gd :tab Gdiff<CR>
+    nnoremap <silent> <space>gl :tab Glog<CR>
 
     " Gstatusで独自設定したキーマップでペイン操作等ができるように「s」を無効化（別のキーに変更）
-    " autocmd FileType fugitive nnoremap <buffer> s <Nop>
+    " autocmd FileType fugitive,git nnoremap <buffer> s <Nop>
     " keyキーへの割り当てをvalueキーに変更
     let g:nremap = {'s': '' }
 
     " ペイン分割
-    autocmd FileType fugitive nnoremap <buffer> <silent> ss :<C-u>sp<CR>
+    autocmd FileType fugitive,git nnoremap <buffer> <silent> ss :<C-u>sp<CR>
     autocmd FileType fugitive nnoremap <buffer> <silent> sv :<C-u>vs<CR>
 
     " ペイン移動
-    autocmd FileType fugitive nnoremap <buffer> <silent> sj <C-w>j
-    autocmd FileType fugitive nnoremap <buffer> <silent> sk <C-w>k
-    autocmd FileType fugitive nnoremap <buffer> <silent> sl <C-w>l
-    autocmd FileType fugitive nnoremap <buffer> <silent> sh <C-w>h
+    autocmd FileType fugitive,git nnoremap <buffer> <silent> sj <C-w>j
+    autocmd FileType fugitive,git nnoremap <buffer> <silent> sk <C-w>k
+    autocmd FileType fugitive,git nnoremap <buffer> <silent> sl <C-w>l
+    autocmd FileType fugitive,git nnoremap <buffer> <silent> sh <C-w>h
 
     " タブ移動
-    autocmd FileType fugitive nnoremap <buffer> <silent> sn gt
-    autocmd FileType fugitive nnoremap <buffer> <silent> sp gT
+    autocmd FileType fugitive,git nnoremap <buffer> <silent> sn gt
+    autocmd FileType fugitive,git nnoremap <buffer> <silent> sp gT
 
     " タブを閉じる
-    autocmd FileType fugitive nnoremap <buffer> <silent> sc :tabclose<CR>
-    autocmd FileType fugitive nnoremap <buffer> <silent> sC :tabonly<CR>
+    autocmd FileType fugitive,git nnoremap <buffer> <silent> sc :tabclose<CR>
+    autocmd FileType fugitive,git nnoremap <buffer> <silent> sC :tabonly<CR>
 augroup END
 
 
