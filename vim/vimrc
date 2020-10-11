@@ -461,7 +461,7 @@ augroup keymap__fold
 
     " 選択範囲にマーカーを埋め込む(vモードで[fold]が反応しなかったので直接<space>を書く)
     "noremap <silent> <space>fm zf
-    noremap [core]m zf
+    noremap [core]f zf
 
     " カーソル下の折りたたみマーカーを削除
     nnoremap [core]d zd
@@ -525,8 +525,6 @@ augroup plugin__vista
         \   'property': '[p]',
         \  }
 
-    let g:vista_icon_indent = ['A', 'B']
-
     " vistaのキーマップを無効化する
     " （個別で無効化できないため）
     let g:vista_no_mappings = 1
@@ -537,7 +535,6 @@ augroup plugin__vista
 
     noremap <silent> [useful]v :<C-u>Vista coc<CR>
     noremap <silent> [useful]V :<C-u>Vista finder coc<CR>
-
 augroup END
 
 
@@ -660,7 +657,7 @@ augroup plugin__nerdtree_git_plugin
     autocmd!
     let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "M",
-    \ "Staged"    : "^",
+    \ "Staged"    : "S",
     \ "Untracked" : "U",
     \ "Renamed"   : "R",
     \ "Unmerged"  : "═",
