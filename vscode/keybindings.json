@@ -1,5 +1,3 @@
-// Place your key bindings in this file to override the defaults
-
 // # Usage
 // ## when
 // - editorTextFocus: エディタの文字にフォーカスされているとき（カーソルが点滅しているとき）
@@ -18,90 +16,18 @@
 // ※ settings.jsonよりも優先度が高いため、settings.jsonの入力途中のコマンドを奪ってしまう
 // ※ keybindings.jsonには、vscodevimで制御できない項目を設定するのに限定する
 
-
 [
   // ===========================================================================================================================
-  // デフォルトキーバインドをアンバインド
+  // 共通
   // ===========================================================================================================================
 
+  // デフォルトキーバインドをアンバインド
   { "key": "ctrl+space", "command": "-editor.action.triggerSuggest", "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly" },
   { "key": "ctrl+space", "command": "-toggleSuggestionDetails", "when": "suggestWidgetVisible && textInputFocus" },
 
-
-
-  // ===========================================================================================================================
-  // 各領域内の移動
-  // ===========================================================================================================================
-
-  // ----------------------------------------
-  // 「あらゆる状態」
   // コマンドパレットの表示
   { "key": "ctrl+space u", "command": "workbench.action.showCommands" },
   { "key": "ctrl+space ctrl+u", "command": "workbench.action.showCommands" },
-
-
-  // ----------------------------------------
-  // 「コマンドパレット」にフォーカスされているとき
-  // 候補の移動
-  { "key": "ctrl+j", "command": "workbench.action.quickOpenSelectNext", "when": "inQuickOpen" },
-  { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
-
-
-  // ----------------------------------------
-  // 「サイドバー」にフォーカスされている
-  // サイドバー項目の移動
-  { "key": "ctrl+j", "command": "workbench.action.nextSideBarView", "when": "sideBarFocus" },
-  { "key": "ctrl+k", "command": "workbench.action.previousSideBarView", "when": "sideBarFocus" },
-
-
-  // ----------------------------------------
-  // 「パネル」にフォーカスされているとき
-  // パネル項目の移動
-  { "key": "ctrl+h", "command": "workbench.action.previousPanelView", "when": "panelFocus" },
-  { "key": "ctrl+l", "command": "workbench.action.nextPanelView", "when": "panelFocus" },
-
-  // 分割されたターミナルの移動
-  { "key": "ctrl+space h", "command": "workbench.action.terminal.focusPreviousPane", "when": "terminalFocus" },
-  { "key": "ctrl+space ctrl+h", "command": "workbench.action.terminal.focusPreviousPane", "when": "terminalFocus" },
-  { "key": "ctrl+space l", "command": "workbench.action.terminal.focusNextPane", "when": "terminalFocus" },
-  { "key": "ctrl+space ctrl+l", "command": "workbench.action.terminal.focusNextPane", "when": "terminalFocus" },
-
-
-  // ----------------------------------------
-  // 「サジェスト」にフォーカスされている
-  // 候補の移動
-  { "key": "ctrl+j", "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
-  { "key": "ctrl+k", "command": "selectPrevSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
-
-
-
-  // ===========================================================================================================================
-  // 領域間の移動
-  // ===========================================================================================================================
-
-  // ----------------------------------------
-  // 「エディタ、サイドバー間」
-  // エディタ -> サイドバー
-  { "key": "ctrl+space h", "command": "workbench.action.focusSideBar", "when": "vim.mode == 'Normal' && editorFocus && !panelFocus" },
-  { "key": "ctrl+space ctrl+h", "command": "workbench.action.focusSideBar", "when": "vim.mode == 'Normal' && editorFocus && !panelFocus" },
-  // サイドバー -> エディタ
-  { "key": "ctrl+space l", "command": "workbench.action.focusFirstEditorGroup", "when": "sideBarFocus" },
-  { "key": "ctrl+space ctrl+l", "command": "workbench.action.focusFirstEditorGroup", "when": "sideBarFocus" },
-
-
-  // ----------------------------------------
-  // 「エディタ、パネル（ターミナル）」
-  // エディタ -> パネル
-  { "key": "ctrl+space j", "command": "workbench.action.focusPanel", "when": "vim.mode == 'Normal' && !inQuickOpen && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible && editorFocus" },
-  { "key": "ctrl+space ctrl+j", "command": "workbench.action.focusPanel", "when": "vim.mode == 'Normal' && !inQuickOpen && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible && editorFocus" },
-  // パネル -> エディタ
-  { "key": "ctrl+space k", "command": "workbench.action.focusFirstEditorGroup", "when": "panelFocus" },
-  { "key": "ctrl+space ctrl+k", "command": "workbench.action.focusFirstEditorGroup", "when": "panelFocus" },
-
-
-  // ===========================================================================================================================
-  // 各領域の制御
-  // ===========================================================================================================================
 
   // エディタの最大化
   { "key": "ctrl+space z", "command": "multiCommand.maximizeEditor", "when": "sideBarVisible" },
@@ -121,6 +47,66 @@
   // ミニマップのトグル
   { "key": "ctrl+space m", "command": "editor.action.toggleMinimap" },
   { "key": "ctrl+space ctrl+m", "command": "editor.action.toggleMinimap" },
+
+
+
+  // ===========================================================================================================================
+  // 領域間の移動
+  // ===========================================================================================================================
+
+  // エディタ -> サイドバー
+  { "key": "ctrl+space h", "command": "workbench.action.focusSideBar", "when": "vim.mode == 'Normal' && editorFocus && !panelFocus" },
+  { "key": "ctrl+space ctrl+h", "command": "workbench.action.focusSideBar", "when": "vim.mode == 'Normal' && editorFocus && !panelFocus" },
+
+  // サイドバー -> エディタ
+  { "key": "ctrl+space l", "command": "workbench.action.focusFirstEditorGroup", "when": "sideBarFocus" },
+  { "key": "ctrl+space ctrl+l", "command": "workbench.action.focusFirstEditorGroup", "when": "sideBarFocus" },
+
+  // エディタ -> パネル
+  { "key": "ctrl+space j", "command": "workbench.action.focusPanel", "when": "vim.mode == 'Normal' && !inQuickOpen && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible && editorFocus" },
+  { "key": "ctrl+space ctrl+j", "command": "workbench.action.focusPanel", "when": "vim.mode == 'Normal' && !inQuickOpen && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible && editorFocus" },
+
+  // パネル -> エディタ
+  { "key": "ctrl+space k", "command": "workbench.action.focusFirstEditorGroup", "when": "panelFocus" },
+  { "key": "ctrl+space ctrl+k", "command": "workbench.action.focusFirstEditorGroup", "when": "panelFocus" },
+
+
+
+  // ===========================================================================================================================
+  // 領域内の移動
+  // ===========================================================================================================================
+
+  // 候補の移動（コマンドパレットにフォーカスされているとき）
+  { "key": "ctrl+j", "command": "workbench.action.quickOpenSelectNext", "when": "inQuickOpen" },
+  { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
+
+  // サイドバー項目の移動（サイドバーにフォーカスされているとき）
+  { "key": "ctrl+j", "command": "workbench.action.nextSideBarView", "when": "sideBarFocus" },
+  { "key": "ctrl+k", "command": "workbench.action.previousSideBarView", "when": "sideBarFocus" },
+
+  // パネル項目の移動（パネルにフォーカスされているとき）
+  { "key": "ctrl+h", "command": "workbench.action.previousPanelView", "when": "panelFocus" },
+  { "key": "ctrl+l", "command": "workbench.action.nextPanelView", "when": "panelFocus" },
+
+  // ターミナルの分割（パネル（ターミナル）にフォーカスされているとき）
+  { "key": "ctrl+space v", "command": "workbench.action.terminal.split", "when": "terminalFocus" },
+  { "key": "ctrl+space ctrl+v", "command": "workbench.action.terminal.split", "when": "terminalFocus" },
+
+  // 分割されたターミナルの移動（パネル（ターミナル）にフォーカスされているとき）
+  { "key": "ctrl+space h", "command": "workbench.action.terminal.focusPreviousPane", "when": "terminalFocus" },
+  { "key": "ctrl+space ctrl+h", "command": "workbench.action.terminal.focusPreviousPane", "when": "terminalFocus" },
+  { "key": "ctrl+space l", "command": "workbench.action.terminal.focusNextPane", "when": "terminalFocus" },
+  { "key": "ctrl+space ctrl+l", "command": "workbench.action.terminal.focusNextPane", "when": "terminalFocus" },
+
+  // ターミナルの切り替え（パネル（ターミナル）にフォーカスされているとき）
+  { "key": "ctrl+space n", "command": "workbench.action.terminal.focusNext", "when": "terminalFocus" },
+  { "key": "ctrl+space ctrl+n", "command": "workbench.action.terminal.focusNext", "when": "terminalFocus" },
+  { "key": "ctrl+space p", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus" },
+  { "key": "ctrl+space ctrl+p", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus" },
+
+  // 候補の移動（サジェストにフォーカスされているとき）
+  { "key": "ctrl+j", "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
+  { "key": "ctrl+k", "command": "selectPrevSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
 
 
 ]

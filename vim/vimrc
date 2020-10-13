@@ -503,6 +503,7 @@ augroup END
 " coc
 augroup plugin__coc
     autocmd!
+    nnoremap [useful]l :<C-u>CocList diagnostic<CR>
     nmap [useful]d <Plug>(coc-definition)
     nmap [useful]t <Plug>(coc-type-definition)
     nmap [useful]i <Plug>(coc-implementation)
@@ -653,17 +654,17 @@ augroup END
 " nerdtree-git-plugin
 augroup plugin__nerdtree_git_plugin
     autocmd!
-    let g:NERDTreeIndicatorMapCustom = {
+    let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "M",
     \ "Staged"    : "S",
     \ "Untracked" : "U",
     \ "Renamed"   : "R",
-    \ "Unmerged"  : "═",
     \ "Deleted"   : "D",
-    \ "Dirty"     : "X",
-    \ "Clean"     : "C",
-    \ 'Ignored'   : 'I',
-    \ "Unknown"   : "?"
+    \ "Unmerged"  : "═",
+    \ "Dirty"     : "",
+    \ "Clean"     : "",
+    \ 'Ignored'   : "",
+    \ "Unknown"   : ""
     \ }
 augroup END
 
@@ -725,8 +726,8 @@ augroup plugin__blamer
     let g:blamer_enabled = 1
     let g:blamer_show_in_visual_modes = 0
     let g:blamer_delay = 250
-    let g:blamer_prefix = '  # '
     let g:blamer_date_format = '%y/%m/%d %H:%M'
+    " let g:blamer_prefix = '  # '
 augroup END
 
 
