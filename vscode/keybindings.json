@@ -26,8 +26,10 @@
   { "key": "ctrl+space", "command": "-toggleSuggestionDetails", "when": "suggestWidgetVisible && textInputFocus" },
 
   // コマンドパレットの表示
-  { "key": "ctrl+space u", "command": "workbench.action.showCommands" },
-  { "key": "ctrl+space ctrl+u", "command": "workbench.action.showCommands" },
+  // { "key": "ctrl+space u", "command": "workbench.action.showCommands" },
+  // { "key": "ctrl+space ctrl+u", "command": "workbench.action.showCommands" },
+  { "key": "ctrl+space u", "command": "workbench.action.quickOpen" },
+  { "key": "ctrl+space ctrl+u", "command": "workbench.action.quickOpen" },
 
   // エディタの最大化
   { "key": "ctrl+space z", "command": "multiCommand.maximizeEditor", "when": "sideBarVisible" },
