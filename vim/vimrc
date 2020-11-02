@@ -546,6 +546,8 @@ augroup END
 " fzf
 augroup plugin__fzf
     autocmd!
+    let g:fzf_layout = { 'down': '~40%' }
+
     command! -bang -nargs=* GGrep
         \ call fzf#vim#grep(
         \   'git grep --line-number -- '.shellescape(<q-args>), 0,
@@ -667,6 +669,7 @@ augroup END
 " defx
 augroup plugin__defx
     autocmd!
+    " =~ 正規表現に一致する
     autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'defx') | q | endif  " 開いているペインがDefxだけの場合はvimを閉じる
 
     nnoremap <silent> mn :<C-u>Defx -listed -resume -split=vertical -winwidth=30 -direction=topleft
