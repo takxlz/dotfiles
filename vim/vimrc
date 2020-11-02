@@ -53,6 +53,10 @@ call plug#begin('~/.cache/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'APZelos/blamer.nvim'
     Plug 'kshenoy/vim-signature'
+    Plug 'kristijanhusak/defx-git'
+    Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'roxma/nvim-yarp', has('nvim') ? { 'on': [] } : {}
+    Plug 'roxma/vim-hug-neovim-rpc', has('nvim') ? { 'on': [] } : {}
     " Plug 'alvan/vim-closetag'
     " Plug 'jiangmiao/auto-pairs'
 call plug#end()
@@ -633,39 +637,10 @@ augroup plugin__vim_easymotion
 augroup END
 
 
-" nerdtree
-augroup plugin__nerdtree
-    autocmd!
-    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif  " 開いているペインがNERDTreeだけの場合はvimを閉じる
-    let NERDTreeShowHidden = 1
-    let NERDTreeMapOpenVSplit='S'  " s -> S ※ ペイン操作と被るため
-
-    map <silent> [useful]n :NERDTreeToggle<CR>
-augroup END
-
-
 " vim-prettier
 augroup plugin__vim_prettier
     autocmd!
     nmap <space>pp <Plug>(PrettierAsync)
-augroup END
-
-
-" nerdtree-git-plugin
-augroup plugin__nerdtree_git_plugin
-    autocmd!
-    let g:NERDTreeGitStatusIndicatorMapCustom = {
-    \ "Modified"  : "M",
-    \ "Staged"    : "S",
-    \ "Untracked" : "U",
-    \ "Renamed"   : "R",
-    \ "Deleted"   : "D",
-    \ "Unmerged"  : "═",
-    \ "Dirty"     : "",
-    \ "Clean"     : "",
-    \ 'Ignored'   : "",
-    \ "Unknown"   : ""
-    \ }
 augroup END
 
 
@@ -687,6 +662,19 @@ augroup END
 augroup plugin__lightline
     autocmd!
     execute 'source' g:vimrc_dir . '/rc/plugin/lightline.vim'
+augroup END
+
+" defx
+augroup plugin__defx
+    autocmd!
+    autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'defx') | q | endif  " 開いているペインがDefxだけの場合はvimを閉じる
+
+    nnoremap <silent> mn :<C-u>Defx -listed -resume -split=vertical -winwidth=30 -direction=topleft
+        \ -columns=icon:git:filename:size
+        \ -buffer-name=tab`tabpagenr()`
+        \ `expand('%:p:h')` -search=`expand('%:p')`<CR>
+
+    execute 'source' g:vimrc_dir . '/rc/plugin/defx.vim'
 augroup END
 
 
@@ -746,6 +734,35 @@ augroup plugin__vim_signature
         \ 'ListBufferMarkers'  :  "[core]m?"
         \ }
 augroup END
+
+
+" " nerdtree
+" augroup plugin__nerdtree
+"     autocmd!
+"     autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif  " 開いているペインがNERDTreeだけの場合はvimを閉じる
+"     let NERDTreeShowHidden = 1
+"     let NERDTreeMapOpenVSplit='S'  " s -> S ※ ペイン操作と被るため
+
+"     map <silent> [useful]n :NERDTreeToggle<CR>
+" augroup END
+
+
+" " nerdtree-git-plugin
+" augroup plugin__nerdtree_git_plugin
+"     autocmd!
+"     let g:NERDTreeGitStatusIndicatorMapCustom = {
+"     \ "Modified"  : "M",
+"     \ "Staged"    : "S",
+"     \ "Untracked" : "U",
+"     \ "Renamed"   : "R",
+"     \ "Deleted"   : "D",
+"     \ "Unmerged"  : "═",
+"     \ "Dirty"     : "",
+"     \ "Clean"     : "",
+"     \ 'Ignored'   : "",
+"     \ "Unknown"   : ""
+"     \ }
+" augroup END
 
 
 " " vim-closetag
