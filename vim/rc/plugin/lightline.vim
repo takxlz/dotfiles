@@ -4,8 +4,8 @@ set laststatus=2
 let g:lightline = {
     \ 'colorscheme': 'onedark',
     \ 'mode_map': {'c': 'NORMAL'},
-    \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
-    \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
+    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
     \ 'active': {
     \   'right': [['lineinfo'], ['percent'], ['winform'], ['fileencoding','fileformat','filetype'], ['coc_error','coc_warn','coc_hint','coc_info']],
     \   'left' : [['mode','paste'], ['fugitive','filename'], ['vista']]
@@ -64,7 +64,7 @@ function! NearestMethodOrFunction() abort
 endfunction
 
 function! LightLineReadonly()
-    return &ft !~? 'defx\|denite\|help\|gundo' && &readonly ? "⭤" : ''
+    return &ft !~? 'defx\|denite\|help\|gundo' && &readonly ? "\ue0a2" : ''
 endfunction
 
 function! LightLineModified()
@@ -77,7 +77,7 @@ function! LightLineFugitive()
         " if &ft !~? 'defx\|denite\|help\|gundo' && exists('*fugitive#head') && winwidth(0) > 35
         if &ft !~? 'defx\|denite\|help\|gundo' && winwidth(0) > 55
             let _ = fugitive#head()
-            return strlen(_) ? '⭠ '._ : ''
+            return strlen(_) ? "\ue0a0 "._ : ""
         endif
     catch
         echo "[fugitive] is not loaded"
@@ -94,7 +94,7 @@ function! LightLineFileformat()
 endfunction
 
 function! LightLineFiletype()
-    return winwidth(0) > 80 ? (strlen(&filetype) ? '@' . &filetype : '[no_ft]') : ''
+    return winwidth(0) > 80 ? (strlen(&filetype) ? "\ue7a3 " . &filetype : '[no_ft]') : ''
 endfunction
 
 function! LightLineMode()
