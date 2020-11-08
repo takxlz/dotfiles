@@ -39,6 +39,10 @@ function! s:defx_my_settings() abort
     nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ? ':<C-u>wincmd w<CR>' : ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
 endfunction
 
+call defx#custom#option('_', {
+    \ 'show_ignored_files': 1,
+    \ })
+
 
 call defx#custom#column('icon', {
     \ 'directory_icon': '▸',
