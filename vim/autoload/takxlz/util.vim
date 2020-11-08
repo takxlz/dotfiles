@@ -27,6 +27,21 @@ function! takxlz#util#toggle_maximize_window() abort
 endfunction
 
 
+" タブのラベル文字を変更する関数（lightline依存）
+function! takxlz#util#change_tab_label() abort
+    let l:instr = input('INPUT NEW TAB LABEL: ')
+    if l:instr == ''
+        return
+    endif
+
+    let t:name = l:instr
+    " タブのラベルを更新する
+    redraw!
+    " コマンドラインの文字をクリアする
+    echo ''
+endfunction
+
+
 " カーソル下の単語をハイライトする関数
 function! takxlz#util#hilight_words() abort
     " 初回呼び出しの場合はハイライト状態を初期化する
