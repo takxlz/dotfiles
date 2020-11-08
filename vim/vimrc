@@ -55,11 +55,11 @@ call plug#begin('~/.cache/plugged')
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
     Plug 'APZelos/blamer.nvim'
-    Plug 'kshenoy/vim-signature'
     Plug 'kristijanhusak/defx-git'
     Plug 'kristijanhusak/defx-icons'
     Plug 'ryanoasis/vim-devicons'
     Plug 'vim-python/python-syntax'
+    " Plug 'kshenoy/vim-signature'
     " Plug 'alvan/vim-closetag'
     " Plug 'jiangmiao/auto-pairs'
 call plug#end()
@@ -436,14 +436,19 @@ augroup keymap__tab
     nnoremap <silent> [core]t :<C-u>tabnew<CR>
 
     " 次のタブ、前のタブに移動
-    nnoremap [core]n gt
-    nnoremap [core]p gT
+    " nnoremap [core]n gt
+    " nnoremap [core]N gT
+    nnoremap <TAB> gt
+    nnoremap <S-TAB> gT
 
     " 現在のタブを閉じる
     nnoremap <silent> [core]c :tabclose<CR>
 
     " 現在のタブ以外を閉じる
     nnoremap <silent> [core]C :tabonly<CR>
+
+    " ラベル文字列を変更する
+    nnoremap <silent> [core], :call takxlz#util#change_tab_label()<CR>
 augroup END
 
 
@@ -473,8 +478,7 @@ augroup keymap__fold
     " カーソル下の折りたたみマーカーを削除
     nnoremap [core]d zd
 augroup END
-" }}}
-
+" 
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -652,15 +656,16 @@ augroup END
 " vimspector
 augroup plugin__vimspector
     autocmd!
-    let g:vimspector_enable_mapping = 'HUMAN'
-    " nmap <F2>  <Plug>VimspectorContinue
-    " nmap <F3>  <Plug>VimspectorStop
-    " nmap <F4>  :<C-u>call vimspector#Reset()<CR>
-    " nmap <F5>  <Plug>VimspectorToggleBreakpoint
-    " nmap <F6>  <Plug>VimspectorAddFunctionBreadkpoint
-    " nmap <F7> <Plug>VimspectorStepOver
-    " nmap <F8> <Plug>VimspectorStepInto
-    " nmap <F9> <Plug>VimspectorStepOut
+    " let g:vimspector_enable_mapping = 'HUMAN'
+    nmap <F5>    <Plug>VimspectorContinue
+    nmap <S-F5>  <Plug>VimspectorStop
+    nmap <F4>    <Plug>VimspectorRestart
+    nmap <S-F4>  :<C-u>call vimspector#Reset()<CR>
+    nmap <F9>    <Plug>VimspectorToggleBreakpoint
+    nmap <S-F9>  <Plug>VimspectorAddFunctionBreadkpoint
+    nmap <F10>   <Plug>VimspectorStepOver
+    nmap <F11>   <Plug>VimspectorStepInto
+    nmap <S-F11> <Plug>VimspectorStepOut
 augroup END
 
 
@@ -670,14 +675,16 @@ augroup plugin__lightline
     execute 'source' g:vimrc_dir . '/rc/plugin/lightline.vim'
 augroup END
 
+
 " defx
 augroup plugin__defx
     autocmd!
+    " autocmd FileType defx setlocal tabstop=2 softtabstop=2 shiftwidth=2
     " =~ 正規表現に一致する
     autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'defx') | q | endif  " 開いているペインがDefxだけの場合はvimを閉じる
 
     nnoremap <silent> mn :<C-u>Defx -listed -resume -split=vertical -winwidth=30 -direction=topleft
-        \ -columns=mark:git:indent:icon:icons:filename
+        \ -columns=:mark:git:indent:icon:icons:filename
         \ -buffer-name=tab`tabpagenr()`
         \ `expand('%:p:h')` -search=`expand('%:p')`<CR>
 
@@ -731,23 +738,6 @@ augroup plugin__blamer
 augroup END
 
 
-" vim-signature
-augroup plugin__vim_signature
-    autocmd!
-    let g:SignatureMap = {
-        \ 'Leader'             :  "[core]m",
-        \ 'PlaceNextMark'      :  "[core]m,",
-        \ 'ToggleMarkAtLine'   :  "[core]m.",
-        \ 'PurgeMarksAtLine'   :  "[core]m-",
-        \ 'PurgeMarks'         :  "[core]m<Space>",
-        \ 'GotoNextLineByPos'  :  "[core]m]",
-        \ 'GotoPrevLineByPos'  :  "[core]m[",
-        \ 'ListBufferMarks'    :  "[core]m/",
-        \ 'ListBufferMarkers'  :  "[core]m?"
-        \ }
-augroup END
-
-
 " vim-python
 augroup plugin__vim_python
     autocmd!
@@ -795,6 +785,23 @@ augroup END
 " augroup plugin__vim_autopairs
     " autocmd!
     " let g:AutoPairsMapCh = 0
+" augroup END
+
+
+" vim-signature
+" augroup plugin__vim_signature
+"     autocmd!
+"     let g:SignatureMap = {
+"         \ 'Leader'             :  "[core]m",
+"         \ 'PlaceNextMark'      :  "[core]m,",
+"         \ 'ToggleMarkAtLine'   :  "[core]m.",
+"         \ 'PurgeMarksAtLine'   :  "[core]m-",
+"         \ 'PurgeMarks'         :  "[core]m<Space>",
+"         \ 'GotoNextLineByPos'  :  "[core]m]",
+"         \ 'GotoPrevLineByPos'  :  "[core]m[",
+"         \ 'ListBufferMarks'    :  "[core]m/",
+"         \ 'ListBufferMarkers'  :  "[core]m?"
+"         \ }
 " augroup END
 " }}}
 

@@ -6,6 +6,20 @@ let g:lightline = {
     \ 'mode_map': {'c': 'NORMAL'},
     \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
     \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
+    \ 'tabline': {
+    \   'left': [['tabs']],
+    \   'right': [['close']]
+    \ },
+    \ 'tab': {
+    \   'active': ['tabnum', 'filename', 'modified'],
+    \   'inactive': ['tabnum', 'filename', 'modified']
+    \ },
+    \ 'tab_component_function': {
+    \   'filename': 'LightLineTabFilename',
+    \   'modified': 'lightline#tab#modified',
+    \   'readonly': 'lightline#tab#readonly',
+    \   'tabnum': 'lightline#tab#tabnum'
+    \ },
     \ 'active': {
     \   'right': [['lineinfo'], ['percent'], ['winform'], ['fileencoding','fileformat','filetype'], ['coc_error','coc_warn','coc_hint','coc_info']],
     \   'left' : [['mode','paste'], ['fugitive','filename'], ['vista']]
@@ -37,15 +51,41 @@ let g:lightline = {
     \ },
 \ }
 
+" デフォルトではlightline#tab#filenameが使用されるが、加工したいため自作する
+function! LightLineTabFilename(n) abort
+    "指定したタブ番号のページにt:nameが存在するときはt:nameを返し、存在しなければ""を返す
+    " takxlz#util#change_tab_label()で変更可能
+    let l:tabname = gettabvar(a:n, 'name', '')
+    if l:tabname != ''
+        return l:tabname
+    endif
+
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    let l:bname = bufname(buflist[winnr - 1])
+    " let l:bname = expand('#' . buflist[winnr - 1] . ':p')
+    if l:bname == ''
+        let l:bname = '[No Name]'
+    elseif l:bname =~ '#FZF'
+        let l:bname = '#FZF'
+    endif
+
+    return l:bname
+endfunction
+
 function! LightLineWinform()
     return winwidth(0) > 50 ? 'w' . winwidth(0) . ':' . 'h' . winheight(0) : ''
 endfunction
 
 function! LightLineFilename()
+    let l:filepath_tmp = expand('%:p')
+    " ファイルパスが30文字を超える場合は、末尾から30文字文切り出す
+    let l:filepath = strlen(l:filepath_tmp) >= 30 ? l:filepath_tmp[-30:] : l:filepath_tmp
+
     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ (&ft == 'defx' ? '' :
-        \  &ft == 'denite' ? '' :
-        \ '' != expand('%:t') ? (winwidth(0) <=200 ? expand('%:t') : expand('%:p')) : '[No Name]') .
+        \ (&ft =~ 'defx\|denite' ? '' :
+        \  &ft == 'fzf' ? '#FZF' :
+        \ '' != expand('%:t') ? (winwidth(0) <=110 ? expand('%:t') : l:filepath) : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
