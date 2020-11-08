@@ -1,8 +1,19 @@
 #!/bin/zsh
 
 if [ $# -eq 0 ]; then
-    tmux split-window -v -p 30
-    tmux split-window -h -p 40
+    echo " 1              2              3"
+    echo "+--------+     +--------+     +--------+"
+    echo "|        |     |        |     | |      |"
+    echo "|--------|     |--------|     | |------|"
+    echo "|    |   |     |  |  |  |     | |  |   |"
+    echo "+--------+     +--------+     +--------+"
+    echo
+    echo " 4              5              6"
+    echo "+--------+     +--------+     +--------+"
+    echo "| |      |     |      | |     |      | |"
+    echo "|--------|     |------| |     |--------|"
+    echo "|    |   |     |   |  | |     |   |    |"
+    echo "+--------+     +--------+     +--------+"
 
 elif [ $# -eq 1 ]; then
 
@@ -12,7 +23,7 @@ elif [ $# -eq 1 ]; then
     # |    |   |
     # +--------+
     if [ $1 -eq 1 ]; then
-        tmux split-window -v -p 30
+        tmux split-window -v -p 25
         tmux split-window -h -p 40
 
     # +--------+
@@ -21,7 +32,7 @@ elif [ $# -eq 1 ]; then
     # |  |  |  |
     # +--------+
     elif [ $1 -eq 2 ]; then
-        tmux split-window -v -p 30
+        tmux split-window -v -p 25
         tmux split-window -h -p 66
         tmux split-window -h -p 50
 
@@ -32,7 +43,7 @@ elif [ $# -eq 1 ]; then
     # +--------+
     elif [ $1 -eq 3 ]; then
         tmux split-window -h -p 80
-        tmux split-window -v -p 30
+        tmux split-window -v -p 25
         tmux split-window -h -p 40
 
     # +--------+
@@ -41,7 +52,7 @@ elif [ $# -eq 1 ]; then
     # |    |   |
     # +--------+
     elif [ $1 -eq 4 ]; then
-        tmux split-window -v -p 30
+        tmux split-window -v -p 25
         tmux select-pane -t 1
         tmux split-window -h -p 80
         tmux select-pane -t 3
@@ -55,7 +66,7 @@ elif [ $# -eq 1 ]; then
     elif [ $1 -eq 5 ]; then
         tmux split-window -h -p 20
         tmux select-pane -t 1
-        tmux split-window -v -p 30
+        tmux split-window -v -p 25
         tmux split-window -h -p 40
 
     # +--------+
@@ -64,26 +75,11 @@ elif [ $# -eq 1 ]; then
     # |   |    |
     # +--------+
     elif [ $1 -eq 6 ]; then
-        tmux split-window -v -p 30
+        tmux split-window -v -p 25
         tmux select-pane -t 1
         tmux split-window -h -p 20
         tmux select-pane -t 3
         tmux split-window -h -p 40
-
-    elif [ $1 = "h" ]; then
-        echo "1              2              3"
-        echo "+--------+     +--------+     +--------+"
-        echo "|        |     |        |     | |      |"
-        echo "|--------|     |--------|     | |------|"
-        echo "|    |   |     |  |  |  |     | |  |   |"
-        echo "+--------+     +--------+     +--------+"
-        echo
-        echo "4              5              6"
-        echo "+--------+     +--------+     +--------+"
-        echo "| |      |     |      | |     |      | |"
-        echo "|--------|     |------| |     |--------|"
-        echo "|    |   |     |   |  | |     |   |    |"
-        echo "+--------+     +--------+     +--------+"
     fi
 fi
 
