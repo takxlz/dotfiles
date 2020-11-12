@@ -50,6 +50,7 @@ call plug#begin('~/.cache/plugged')
     Plug 'kana/vim-textobj-entire'  " kana/vim-textobj-userに依存 (e)
     Plug 'thinca/vim-textobj-between'  " kana/vim-textobj-userに依存 (f)
     Plug 'Julian/vim-textobj-variable-segment'  " kana/vim-textobj-userに依存 (v)
+    Plug 'vim-scripts/ReplaceWithRegister'  " (gr)
     Plug 'tpope/vim-surround'  " (s)
     Plug 'tpope/vim-commentary'  " (gc)
     Plug 'tpope/vim-fugitive'
@@ -86,9 +87,9 @@ execute 'source' g:vimrc_dir . '/rc/disable_default_plugin.vim'
 set t_Co=256
 set background=dark
 colorscheme gruvbox
+hi Normal ctermbg=NONE  " カラースキームを適用していてもターミナルの背景色に合わせる
 " let g:onedark_termcolors=256
 " colorscheme onedark
-hi Normal ctermbg=NONE  " カラースキームを適用していてもターミナルの背景色に合わせる
 
 
 " その他オプション
@@ -160,6 +161,21 @@ augroup END
 augroup basic__update_file
     autocmd!
     autocmd FocusGained,WinEnter,InsertEnter * checktime
+augroup END
+
+
+" Todo等のハイライトの設定
+" TODO: NOTE: XXX:
+augroup basic__todo_highlight
+  autocmd!
+  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyTodo', '\(TODO:\|TODO\|todo:\|todo\)')
+  autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyTodo cterm=bold gui=bold ctermfg=0 ctermbg=220 guifg=0 guibg=220
+
+  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyNote', '\(NOTE:\|NOTE\|note:\|note\)')
+  autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyNote cterm=bold gui=bold ctermfg=0 ctermbg=45 guifg=0 guibg=45
+
+  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyXxx', '\(XXX:\|XXX\|xxx:\|xxx\)')
+  autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyXxx cterm=bold gui=bold ctermfg=0 ctermbg=9 guifg=0 guibg=9
 augroup END
 " }}}
 
@@ -302,8 +318,8 @@ augroup keymap__move_cursor
     " カーソル移動を表示行単位にする
     nnoremap j gj
     nnoremap k gk
-    nnoremap <Down> g
-    nnoremap <Up> gk
+    nnoremap gj j
+    nnoremap gk k
 
     " インサートモード時のカーソル移動を追加
     inoremap <C-j> <Down>
@@ -488,10 +504,10 @@ augroup END
 " プラグインによっては利便性等を考慮して<space>を設定しないものもある（vim-commentary[gc]など）
 
 " よく使うプラグイン機能のプレフィックスを「m」にする
-nnoremap [useful] <Nop>
+nnoremap [meta] <Nop>
 nnoremap m <Nop>
-nnoremap [core]m m
-nmap m [useful]
+nnoremap M m
+nmap m [meta]
 
 
 " vim-table-mode
@@ -514,15 +530,15 @@ augroup END
 " coc
 augroup plugin__coc
     autocmd!
-    nnoremap [useful]l :<C-u>CocList diagnostic<CR>
-    nmap [useful]d <Plug>(coc-definition)
-    nmap [useful]t <Plug>(coc-type-definition)
-    nmap [useful]i <Plug>(coc-implementation)
-    nmap [useful]r <Plug>(coc-references)
-    nmap [useful][ <Plug>(coc-diagnostic-prev)
-    nmap [useful]] <Plug>(coc-diagnostic-next)
-    nmap <silent> [useful]p <Plug>(coc-diagnostic-prev-error)
-    nmap <silent> [useful]n <Plug>(coc-diagnostic-next-error)
+    nnoremap <space>ld :<C-u>CocList diagnostic<CR>
+    nmap <space>ld <Plug>(coc-definition)
+    nmap <space>lt <Plug>(coc-type-definition)
+    nmap <space>li <Plug>(coc-implementation)
+    nmap <space>lr <Plug>(coc-references)
+    nmap <space>l[ <Plug>(coc-diagnostic-prev)
+    nmap <space>l] <Plug>(coc-diagnostic-next)
+    nmap <silent> <space>lp <Plug>(coc-diagnostic-prev-error)
+    nmap <silent> <space>ln <Plug>(coc-diagnostic-next-error)
     nmap <space>lr <Plug>(coc-rename)
     " nnoremap <space>cr :CocRestart
 augroup END
@@ -545,8 +561,8 @@ augroup plugin__vista
     autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <CR>
         \ :<C-u>call vista#cursor#FoldOrJump()<CR>
 
-    noremap <silent> [useful]v :<C-u>Vista coc<CR>
-    noremap <silent> [useful]V :<C-u>Vista finder coc<CR>
+    noremap <silent> [meta]v :<C-u>Vista coc<CR>
+    noremap <silent> [meta]V :<C-u>Vista finder coc<CR>
 augroup END
 
 
@@ -560,19 +576,19 @@ augroup plugin__fzf
         \   'git grep --line-number -- '.shellescape(<q-args>), 0,
         \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
-    noremap <silent> [useful]f :Files<CR>
-    noremap <silent> [useful]g :GFiles<CR>
-    noremap <silent> [useful]r :Rg<CR>
-    noremap <silent> [useful]R :GGrep<CR>
+    noremap <silent> [meta]f :Files<CR>
+    noremap <silent> [meta]g :GFiles<CR>
+    noremap <silent> [meta]r :Rg<CR>
+    noremap <silent> [meta]R :GGrep<CR>
     " file history
-    noremap <silent> [useful]hh :History<CR>
+    noremap <silent> [meta]hh :History<CR>
     " command history
-    noremap <silent> [useful]hc :History:<CR>
+    noremap <silent> [meta]hc :History:<CR>
     " search history
-    noremap <silent> [useful]hs :History/<CR>
-    noremap <silent> [useful]m :Maps<CR>
-    noremap <silent> [useful]s :Marks<CR>
-    noremap <silent> [useful]c :Commands<CR>
+    noremap <silent> [meta]hs :History/<CR>
+    noremap <silent> [meta]m :Maps<CR>
+    noremap <silent> [meta]s :Marks<CR>
+    noremap <silent> [meta]c :Commands<CR>
 
     " source：処理対象（リスト型）（1行でシェルをcall -> 'source': cat ~/dotfiles/vim/vimrc'）
     " sink：sourceに対する処理（関数型）
@@ -752,7 +768,7 @@ augroup END
 "     let NERDTreeShowHidden = 1
 "     let NERDTreeMapOpenVSplit='S'  " s -> S ※ ペイン操作と被るため
 
-"     map <silent> [useful]n :NERDTreeToggle<CR>
+"     map <silent> [meta]n :NERDTreeToggle<CR>
 " augroup END
 
 
