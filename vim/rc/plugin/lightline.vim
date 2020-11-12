@@ -79,13 +79,13 @@ endfunction
 
 function! LightLineFilename()
     let l:filepath_tmp = expand('%:p')
-    " ファイルパスが30文字を超える場合は、末尾から30文字文切り出す
-    let l:filepath = strlen(l:filepath_tmp) >= 30 ? l:filepath_tmp[-30:] : l:filepath_tmp
+    " ファイルパスが30文字を超える場合は、末尾から50文字文切り出す
+    let l:filepath = strlen(l:filepath_tmp) >= 50 ? l:filepath_tmp[-50:] : l:filepath_tmp
 
     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ (&ft =~ 'defx\|denite' ? '' :
         \  &ft == 'fzf' ? '#FZF' :
-        \ '' != expand('%:t') ? (winwidth(0) <=110 ? expand('%:t') : l:filepath) : '[No Name]') .
+        \ '' != expand('%:t') ? (winwidth(0) <=120 ? expand('%:t') : l:filepath) : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
