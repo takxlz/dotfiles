@@ -30,14 +30,15 @@ endfunction
 " タブのラベル文字を変更する関数（lightline依存）
 function! takxlz#util#change_tab_label() abort
     let l:instr = input('INPUT NEW TAB LABEL: ')
-    if l:instr == ''
+    if l:instr == '' || l:instr == ' '
+        redraw!
+        echo ''
         return
     endif
 
     let t:name = l:instr
-    " タブのラベルを更新する
+    " 画面の更新
     redraw!
-    " コマンドラインの文字をクリアする
     echo ''
 endfunction
 
