@@ -616,7 +616,11 @@ augroup plugin__vim_fugitive
     " 新タブで表示
     nnoremap <silent> <space>gs :tab Gstatus<CR>
     nnoremap <silent> <space>gd :tab Gdiff<CR>
+    nnoremap <silent> <space>gD :tab Gvdiff<CR>
     nnoremap <silent> <space>gl :tab Glog<CR>
+    " マージ
+    nmap <space>gh :deffget //2<CR>
+    nmap <space>gt :deffget //3<CR>
 
     " Gstatusで独自設定したキーマップでペイン操作等ができるように「s」を無効化（別のキーに変更）
     " autocmd FileType fugitive,git nnoremap <buffer> s <Nop>
