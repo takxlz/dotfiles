@@ -40,4 +40,4 @@ $ ln -sf ~/dotfiles/vim ~/.vim
     - npmで各言語のLinterをインストール
 
 - Python3をインストール
-    - [$ pip3 install pynvim] or [$ pip3 install --upgrade pynvit]
+    - [$ pip3 install pynvim] or [$ pip3 install --upgrade pynvin]
