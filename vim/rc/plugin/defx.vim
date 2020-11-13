@@ -1,4 +1,3 @@
-
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
     " Define mappings
@@ -17,8 +16,6 @@ function! s:defx_my_settings() abort
     nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
     nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'mark:filename:type:size:time')
     nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'Time')
-    " nnoremap <silent><buffer><expr> se defx#do_action('add_session')
-    " nnoremap <silent><buffer><expr> sl defx#do_action('load_session')
     nnoremap <silent><buffer><expr> d defx#do_action('remove_trash')
     nnoremap <silent><buffer><expr> r defx#do_action('rename')
     nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
@@ -37,6 +34,8 @@ function! s:defx_my_settings() abort
     xnoremap <silent><buffer><expr> <CR> defx#do_action('toggle_select_visual')
     nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
     nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ? ':<C-u>wincmd w<CR>' : ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
+    " nnoremap <silent><buffer><expr> se defx#do_action('add_session')
+    " nnoremap <silent><buffer><expr> sl defx#do_action('load_session')
 endfunction
 
 call defx#custom#option('_', {

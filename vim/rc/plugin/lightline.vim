@@ -51,6 +51,7 @@ let g:lightline = {
     \ },
 \ }
 
+
 " デフォルトではlightline#tab#filenameが使用されるが、加工したいため自作する
 function! LightLineTabFilename(n) abort
     "指定したタブ番号のページにt:nameが存在するときはt:nameを返し、存在しなければ""を返す
@@ -73,21 +74,38 @@ function! LightLineTabFilename(n) abort
     return l:bname
 endfunction
 
+
+
 function! LightLineWinform()
     return winwidth(0) > 50 ? 'w' . winwidth(0) . ':' . 'h' . winheight(0) : ''
 endfunction
 
+
+
+" ファイル名
 function! LightLineFilename()
-    let l:filepath_tmp = expand('%:p')
+    let l:filepath = expand('%:p')
+
     " ファイルパスが30文字を超える場合は、末尾から50文字文切り出す
-    let l:filepath = strlen(l:filepath_tmp) >= 50 ? l:filepath_tmp[-50:] : l:filepath_tmp
+    let l:filepath_short = strlen(l:filepath) >= 30 ? l:filepath[-30:] : l:filepath
+
 
     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ (&ft =~ 'defx\|denite' ? '' :
         \  &ft == 'fzf' ? '#FZF' :
-        \ '' != expand('%:t') ? (winwidth(0) <=120 ? expand('%:t') : l:filepath) : '[No Name]') .
+        \ '' != expand('%:t') ? (winwidth(0) <=120 ? l:filepath_short : l:filepath) : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
+
+function! LightLineReadonly()
+    return &ft !~? 'defx\|denite\|help\|gundo' && &readonly ? "\ue0a2" : ''
+endfunction
+
+function! LightLineModified()
+    return &ft =~ 'defx\|denite\|help\|gundo' ? '' : (&modified ? '+' : (&modifiable ? '' : '-'))
+endfunction
+
+
 
 function! NearestMethodOrFunction() abort
     " 「b:」バッファローカルの「変数名:値」の辞書の一覧を参照できる
@@ -103,13 +121,7 @@ function! NearestMethodOrFunction() abort
     return ''
 endfunction
 
-function! LightLineReadonly()
-    return &ft !~? 'defx\|denite\|help\|gundo' && &readonly ? "\ue0a2" : ''
-endfunction
 
-function! LightLineModified()
-    return &ft =~ 'defx\|denite\|help\|gundo' ? '' : (&modified ? '+' : (&modifiable ? '' : '-'))
-endfunction
 
 function! LightLineFugitive()
     try
@@ -125,17 +137,25 @@ function! LightLineFugitive()
     return ''
 endfunction
 
+
+
 function! LightLineFileencoding()
     return winwidth(0) > 60 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
+
+
 
 function! LightLineFileformat()
     return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 
+
+
 function! LightLineFiletype()
     return winwidth(0) > 80 ? (strlen(&filetype) ? "\ue7a3 " . &filetype : '[no_ft]') : ''
 endfunction
+
+
 
 function! LightLineMode()
     if &ft == 'defx' | return 'Defx' | endif
@@ -144,22 +164,9 @@ function! LightLineMode()
     return winwidth(0) > 30 ? lightline#mode() : ''
 endfunction
 
-function! LightLineALE()
-    if dein#is_sourced('ale') == 0 | return '' | endif
-    let l:count = ale#statusline#Count(bufnr(''))
-    let l:errors = l:count.error + l:count.style_error
-    let l:warnings = l:count.warning + l:count.style_warning
-    return l:count.total == 0 ? '' : 'E:' . l:errors . ' W:' . l:warnings
-endfunction
 
-function! s:lightline_coc_diagnostic(kind, sign) abort
-    let info = get(b:, 'coc_diagnostic_info', 0)
-    if empty(info) || get(info, a:kind, 0) == 0
-        return ''
-    endif
-    return printf('%s:%d', a:sign, info[a:kind])
-endfunction
 
+" coc
 function! LightLineCocErrors()
     return s:lightline_coc_diagnostic('error', 'E')
 endfunction
@@ -176,13 +183,23 @@ function! LightLineCocInfos()
     return s:lightline_coc_diagnostic('information', 'I')
 endfunction
 
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+function! s:lightline_coc_diagnostic(kind, sign) abort
+    let info = get(b:, 'coc_diagnostic_info', 0)
+    if empty(info) || get(info, a:kind, 0) == 0
+        return ''
+    endif
+    return printf('%s:%d', a:sign, info[a:kind])
+endfunction
+
+
 
 " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
 augroup LightLineUpdate
     autocmd!
     autocmd User ALELintPost,CocStatusChange,CocDiagnosticChange call lightline#update()
 augroup END
+
+
 
 " vim起動時に実行
 augroup LightLineStartUp
@@ -191,3 +208,14 @@ augroup LightLineStartUp
     autocmd User  call RunForNearestMethodOrFunction lightline#update()
 augroup END
 
+
+
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" function! LightLineALE()
+"     if dein#is_sourced('ale') == 0 | return '' | endif
+"     let l:count = ale#statusline#Count(bufnr(''))
+"     let l:errors = l:count.error + l:count.style_error
+"     let l:warnings = l:count.warning + l:count.style_warning
+"     return l:count.total == 0 ? '' : 'E:' . l:errors . ' W:' . l:warnings
+" endfunction
