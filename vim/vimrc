@@ -1,12 +1,5 @@
-" init config
-" plug config
-" basic config
-" filetype config
-" keymap config
-" plugin config
-" finish config
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " :init config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " このファイルの場所を定義（以降、この変数を使用する）
@@ -19,50 +12,71 @@ let g:vimrc_dir = expand('<sfile>:p:h')
 " :plug config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.cache/plugged')
-    Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
-    Plug 'morhetz/gruvbox'
-    Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-    Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
-    Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
-    Plug 'junegunn/fzf.vim'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'liuchengxu/vista.vim'
-    Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-    Plug 'puremourning/vimspector', { 'on': '<Plug>Vimspector' }
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'typescript.tsx', 'css', 'html', 'json'] }
-    Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'roxma/nvim-yarp', has('nvim') ? { 'on': [] } : {}
-    Plug 'roxma/vim-hug-neovim-rpc', has('nvim') ? { 'on': [] } : {}
-    Plug 'easymotion/vim-easymotion'
-    Plug 'vim-python/python-syntax'
-    Plug 'LeafCage/foldCC.vim'
-    Plug 'Yggdroot/indentline'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'itchyny/lightline.vim'
-    Plug 'itchyny/vim-parenmatch'
-    Plug 'kana/vim-submode'
-    Plug 'kana/vim-textobj-user'
-    Plug 'kana/vim-operator-user'
-    Plug 'kana/vim-operator-replace'  " kana/vim-operator-userに依存 (_)
-    Plug 'kana/vim-textobj-indent'  " kana/vim-textobj-userに依存 (i)
-    Plug 'kana/vim-textobj-entire'  " kana/vim-textobj-userに依存 (e)
-    Plug 'thinca/vim-textobj-between'  " kana/vim-textobj-userに依存 (f)
-    Plug 'Julian/vim-textobj-variable-segment'  " kana/vim-textobj-userに依存 (v)
-    Plug 'vim-scripts/ReplaceWithRegister'  " (gr)
-    Plug 'tpope/vim-surround'  " (s)
-    Plug 'tpope/vim-commentary'  " (gc)
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-repeat'
-    Plug 'APZelos/blamer.nvim'
-    Plug 'kristijanhusak/defx-git'
-    Plug 'kristijanhusak/defx-icons'
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'vim-python/python-syntax'
-    " Plug 'kshenoy/vim-signature'
-    " Plug 'alvan/vim-closetag'
-    " Plug 'jiangmiao/auto-pairs'
+
+
+" COLOR
+Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
+Plug 'morhetz/gruvbox'
+Plug 'ryanoasis/vim-devicons'
+Plug 'kristijanhusak/defx-git'
+Plug 'kristijanhusak/defx-icons'
+Plug 'vim-python/python-syntax'
+
+" EXTEND-VISUAL
+Plug 'itchyny/lightline.vim'
+Plug 'Yggdroot/indentline'
+Plug 'LeafCage/foldCC.vim'
+Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
+
+" EXTEND-ACTION
+Plug 'tpope/vim-repeat'
+Plug 'kana/vim-submode'
+Plug 'itchyny/vim-parenmatch'
+
+" TEXTOBJ_OPERATOR
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-indent'              " kana/vim-textobj-userに依存 (i)
+Plug 'kana/vim-textobj-entire'              " kana/vim-textobj-userに依存 (e)
+Plug 'thinca/vim-textobj-between'           " kana/vim-textobj-userに依存 (f)
+Plug 'Julian/vim-textobj-variable-segment'  " kana/vim-textobj-userに依存 (v)
+Plug 'kana/vim-operator-user'
+Plug 'kana/vim-operator-replace'            " kana/vim-operator-userに依存 (_)
+Plug 'tpope/vim-surround'                   " (s)
+Plug 'tpope/vim-commentary'                 " (gc)
+
+" FORMAT
+Plug 'prettier/vim-prettier',      { 'do': 'npm install', 'for': ['javascript', 'typescript', 'typescript.tsx', 'css', 'html', 'json'] }
+Plug 'junegunn/vim-easy-align',    { 'on': '<Plug>(EasyAlign)' }
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
+
+" GIT
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'APZelos/blamer.nvim'
+
+" LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" DEBUG
+Plug 'puremourning/vimspector', { 'on': '<Plug>Vimspector' }
+
+" MISC
+Plug 'roxma/nvim-yarp',          has('nvim') ? { 'on': [] } : {}  " nvim:plugに登録するがロードはしない（not nvim:無条件でロードする）
+Plug 'roxma/vim-hug-neovim-rpc', has('nvim') ? { 'on': [] } : {}
+
+" MOTION
+Plug 'easymotion/vim-easymotion'
+Plug 'liuchengxu/vista.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf',     { 'do': { -> fzf#install() } }
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" TMP
+" Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+" Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+" Plug 'kshenoy/vim-signature'
+" Plug 'alvan/vim-closetag'
+" Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 
@@ -93,36 +107,35 @@ hi Normal ctermbg=NONE  " カラースキームを適用していてもターミ
 
 
 " その他オプション
-set shortmess+=I  " オープニングメッセージを非表示
-set number  " 行番号を表示
-set relativenumber  " 行番号を相対表示
-set cursorline  " カレント行をハイライト
-set cursorcolumn  " カレント列をハイライト
-set showtabline=2  " タブラインを常に表示
-set shellslash  " windowsでのディレクトリ区切り文字を「/」にする
-" set autochdir  " 自動で開いたファイルの場所に移動
-set nrformats=  " 数値の形式を10進数にする（デフォルトは8進数）
-set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動する
+set shortmess+=I
+set number
+set relativenumber
+set cursorline
+set cursorcolumn
+set showtabline=2
+set shellslash
+set nrformats=
+set wildmenu
+set history=5000
+set showcmd
+set list
+set listchars=tab:>-,trail:_
+set timeout timeoutlen=1000 ttimeoutlen=0
+set updatetime=200
+set splitbelow
+set splitright
 set conceallevel=0  " mdで_等が隠れるのを無効化(indentlineが設定を上書きしてしまうのでindentlineの設定でmdとhelpを除外する)
-set wildmenu  " コマンドの補完
-set history=5000  " コマンドのヒストリの変更
-set showcmd  " 入力中のコマンドを右下に表示
-set list  " 不可視文字を表示
-set listchars=tab:>-,trail:_  " タブを>-で表示
-set timeout timeoutlen=1000 ttimeoutlen=0  " キーバインドの待機時間の設定
-set updatetime=200  " vimでのプラグインなどの反映時間
-set fillchars=vert:\|,fold:\ ,diff:-  " 縦分割「|」、フォールディンを「 」、diffを「-」に変更
-set splitbelow  " ウィンドウを横分割したときにカーソルを下に移動する
-set splitright  " ウィンドウを立て分割したときにカーソルを右に移動する
-hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE  " ペイン分割したときのペイン境界線の色を指定
+set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動する
+hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
+" set autochdir
 
 
 " フォールディングの設定
 set foldmethod=marker
-set foldtext=FoldCCtext()  " フォールディング文字列をLeafCage/foldCC.vimの文字列にする
+set foldtext=FoldCCtext()
 set commentstring=%s
+set fillchars=vert:\|,fold:\ ,diff:-
 let g:vim_markdown_folding_disabled=1  " mdを自動で折り畳まないようにする
-set fillchars=vert:\|,fold:\ ,diff:-  " 縦分割「|」、フォールディングを「 」、diffを「-」に変更
 hi Folded gui=NONE term=standout ctermbg=darkgray ctermfg=NONE guibg=gray23 guifg=NONE  " フォールディング行の色
 
 
@@ -168,13 +181,13 @@ augroup END
 " TODO: NOTE: XXX:
 augroup basic__todo_highlight
   autocmd!
-  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyTodo', '\(TODO:\|TODO\|todo:\|todo\)')
+  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyTodo', '\(TODO:\|todo:\)')
   autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyTodo cterm=bold gui=bold ctermfg=0 ctermbg=220 guifg=0 guibg=220
 
-  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyNote', '\(NOTE:\|NOTE\|note:\|note\)')
+  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyNote', '\(NOTE:\|note:\)')
   autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyNote cterm=bold gui=bold ctermfg=0 ctermbg=45 guifg=0 guibg=45
 
-  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyXxx', '\(XXX:\|XXX\|xxx:\|xxx\)')
+  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyXxx', '\(XXX:\|xxx:\)')
   autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyXxx cterm=bold gui=bold ctermfg=0 ctermbg=9 guifg=0 guibg=9
 augroup END
 " }}}
@@ -396,10 +409,14 @@ augroup END
 " ハイライト
 augroup keymap__highlight
     autocmd!
+    " もともとタブ移動のキーマップだが、sキーに割り当てているので不要
+    nnoremap gt <Nop>
+    nnoremap gT <Nop>
+
     " カーソル下の単語をハイライト
-    " nnoremap <silent> [core]<space><space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
-    nnoremap <silent> [core]<space><space> :call takxlz#util#hilight_words()<CR>:set hlsearch<CR>
-    nnoremap <silent> [core]<space>s :let g:hlstate = ''<CR>:let @/ = ''<CR>
+    " nnoremap <silent> gt "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+    nnoremap <silent> gt :call takxlz#util#hilight_words()<CR>:set hlsearch<CR>
+    nnoremap <silent> gT :let g:hlstate = ''<CR>:let @/ = ''<CR>
 augroup END
 
 
@@ -494,335 +511,269 @@ augroup keymap__fold
     " カーソル下の折りたたみマーカーを削除
     nnoremap [core]d zd
 augroup END
-" 
+" }}}
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :plugin config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" プラグインのキーマップは基本的に<space>をプレフィックスとする
-" プラグインによっては利便性等を考慮して<space>を設定しないものもある（vim-commentary[gc]など）
+" 「let g:plugin__XXX = 0」等して左記の変数を存在させればプラグインの設定を読み込まない
 
-" よく使うプラグイン機能のプレフィックスを「m」にする
-nnoremap [meta] <Nop>
-nnoremap m <Nop>
-nnoremap M m
-nmap m [meta]
-
-
-" vim-table-mode
-augroup plugin__vim_table_mode
+" COLOR {{{
+augroup plugin__color
     autocmd!
-    let g:table_mode_corner = '|'
 
-    noremap <silent> <space>tt :TableModeToggle<CR>
-    noremap <silent> <space>tc :Tableize<CR>
+    " python-syntax
+    if !exists('g:plugin__python_syntax')
+        let g:python_highlight_all = 1
+    endif
 augroup END
+" }}}
 
 
-" vim-easy-align
-augroup plugin__vim_easy_align
+" EXTEND-VISUAL {{{
+augroup plugin__extend_visual
     autocmd!
-    vmap <Enter> <Plug>(EasyAlign)
+
+    " lightline
+    if !exists('g:plugin__lightline')
+        execute 'source' g:vimrc_dir . '/rc/plugin/lightline.vim'
+    endif
+
+    " indentline
+    if !exists('g:plugin__indentline')
+        let g:indentLine_fileTypeExclude = ["help", "markdown", "md", "json"]
+    endif
+
+    " vim-coloresque
+    if !exists('g:plugin__vim_colorsque')
+        autocmd BufNewFile,BufRead *.html call plug#load('vim-coloresque')
+        autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
+    endif
 augroup END
+" }}}
 
 
-" coc
-augroup plugin__coc
+" TEXTOBJ_OPERATOR {{{
+augroup plugin__textobj_operator
     autocmd!
-    nnoremap <space>ld :<C-u>CocList diagnostic<CR>
-    nmap <space>ld <Plug>(coc-definition)
-    nmap <space>lt <Plug>(coc-type-definition)
-    nmap <space>li <Plug>(coc-implementation)
-    nmap <space>lr <Plug>(coc-references)
-    nmap <space>l[ <Plug>(coc-diagnostic-prev)
-    nmap <space>l] <Plug>(coc-diagnostic-next)
-    nmap <silent> <space>lp <Plug>(coc-diagnostic-prev-error)
-    nmap <silent> <space>ln <Plug>(coc-diagnostic-next-error)
-    nmap <space>lr <Plug>(coc-rename)
-    " nnoremap <space>cr :CocRestart
+
+    " vim-operator-replace
+    if !exists('g:plugin__vim_operator_replace')
+        map _ <Plug>(operator-replace)
+    endif
+
+    " vim-commentary
+    if !exists('g:plugin__vim_commentary')
+        autocmd FileType typescript setlocal commentstring=\/\/\ %s
+    endif
 augroup END
+" }}}
 
 
-" vista
-augroup plugin__vista
+" FORMAT {{{
+augroup plugin__format
     autocmd!
-    let g:vista#renderer#icons = {
-        \   'function': '[f]',
-        \   'variable': '[v]',
-        \   'property': '[p]',
-        \  }
+    nnoremap [format] <Nop>
+    nmap <space>f [format]
 
-    " vistaのキーマップを無効化する
-    " （個別で無効化できないため）
-    let g:vista_no_mappings = 1
+    " vim-prettier
+    if !exists('g:plugin__vim_prettier')
+        nmap [format]p <Plug>(PrettierAsync)
+    endif
 
-    " 上で全マップを無効化したので、<CR>でカーソル下のシンボルへのジャンプだけ再マップする
-    autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <CR>
-        \ :<C-u>call vista#cursor#FoldOrJump()<CR>
+    " vim-easy-align
+    if !exists('g:plugin__vim_easy-align')
+        vmap <Enter> <Plug>(EasyAlign)
+    endif
 
-    noremap <silent> [meta]v :<C-u>Vista coc<CR>
-    noremap <silent> [meta]V :<C-u>Vista finder coc<CR>
+    " vim-table-mode
+    if !exists('g:plugin__vim_table_mode')
+        let g:table_mode_corner = '|'
+        noremap <silent> [format]t :TableModeToggle<CR>
+        noremap <silent> [format]T :Tableize<CR>
+    endif
 augroup END
+" }}}
 
 
-" fzf
-augroup plugin__fzf
+" GIT {{{
+augroup plugin__git
     autocmd!
-    let g:fzf_layout = { 'down': '~40%' }
+    nnoremap [git] <Nop>
+    nmap <space>g [git]
 
-    command! -bang -nargs=* GGrep
-        \ call fzf#vim#grep(
-        \   'git grep --line-number -- '.shellescape(<q-args>), 0,
-        \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+    " vim-fugitive
+    if !exists('g:plugin__vim_fugitive')
+        nnoremap <silent> [git]b :Gblame<CR>
+        nnoremap <silent> [git]s :tab Gstatus<CR>
+        nnoremap <silent> [git]d :tab Gdiff<CR>
+        nnoremap <silent> [git]D :tab Gvdiff<CR>
+        nnoremap <silent> [git]l :tab Glog<CR>
+        nmap [git]h :diffget //2<CR>
+        nmap [git]u :diffget //3<CR>
 
-    noremap <silent> [meta]f :Files<CR>
-    noremap <silent> [meta]g :GFiles<CR>
-    noremap <silent> [meta]r :Rg<CR>
-    noremap <silent> [meta]R :GGrep<CR>
-    " file history
-    noremap <silent> [meta]hh :History<CR>
-    " command history
-    noremap <silent> [meta]hc :History:<CR>
-    " search history
-    noremap <silent> [meta]hs :History/<CR>
-    noremap <silent> [meta]m :Maps<CR>
-    noremap <silent> [meta]s :Marks<CR>
-    noremap <silent> [meta]c :Commands<CR>
+        " Gstatusで独自設定したキーマップでペイン操作等ができるように「s」を無効化（別のキーに変更）
+        " autocmd FileType fugitive,git nnoremap <buffer> s <Nop>
+        " keyキーへの割り当てをvalueキーに変更
+        let g:nremap = {'s': '' }
 
-    " source：処理対象（リスト型）（1行でシェルをcall -> 'source': cat ~/dotfiles/vim/vimrc'）
-    " sink：sourceに対する処理（関数型）
-    nnoremap <;>(fzf-open-vimrc) :call fzf#run({
-    \ 'source': <SID>read_my_vimrc(),
-    \ 'sink': function('<SID>echo_vimrc_line'),
-    \ 'down': '40%',
-    \ })<CR>
+        " ペイン分割
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> ss :<C-u>sp<CR>
+        autocmd FileType fugitive nnoremap <buffer> <silent> sv :<C-u>vs<CR>
+        " ペイン移動
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> sj <C-w>j
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> sk <C-w>k
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> sl <C-w>l
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> sh <C-w>h
+        " タブ移動
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> sn gt
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> sp gT
+        " タブを閉じる
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> sc :tabclose<CR>
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> sC :tabonly<CR>
+    endif
 
-    function! s:read_my_vimrc() abort
-        if has('win64') | return split(system('type %HOMEPATH%\dotfiles\vim\vimrc'), '\n') | endif
-        return split(system('cat ~/dotfiles/vim/vimrc'), '\n')
-    endfunction
+    " vim-gitgutter
+    if !exists('g:plugin__vim_gitgutter')
+        set signcolumn=yes
+        autocmd FocusGained,WinEnter,BufWinEnter * GitGutterEnable
+    endif
 
-    function! s:echo_vimrc_line(line) abort
-        echomsg a:line
-    endfunction
+    " blamer
+    if !exists('g:plugin__blamer')
+        let g:blamer_enabled = 1
+        let g:blamer_show_in_visual_modes = 0
+        let g:blamer_delay = 250
+        let g:blamer_date_format = '%y/%m/%d %H:%M'
+        " let g:blamer_prefix = '  # '
+    endif
 augroup END
+" }}}
 
 
-" vim-fugitive
-augroup plugin__vim_fugitive
+" LSP {{{
+augroup plugin__lsp
     autocmd!
-    nnoremap <silent> <space>gb :Gblame<CR>
-    " 新タブで表示
-    nnoremap <silent> <space>gs :tab Gstatus<CR>
-    nnoremap <silent> <space>gd :tab Gdiff<CR>
-    nnoremap <silent> <space>gD :tab Gvdiff<CR>
-    nnoremap <silent> <space>gl :tab Glog<CR>
-    " マージ
-    nmap <space>gh :diffget //2<CR>
-    nmap <space>gt :diffget //3<CR>
+    nnoremap [lsp] <Nop>
+    nmap <space>l [lsp]
 
-    " Gstatusで独自設定したキーマップでペイン操作等ができるように「s」を無効化（別のキーに変更）
-    " autocmd FileType fugitive,git nnoremap <buffer> s <Nop>
-    " keyキーへの割り当てをvalueキーに変更
-    let g:nremap = {'s': '' }
-
-    " ペイン分割
-    autocmd FileType fugitive,git nnoremap <buffer> <silent> ss :<C-u>sp<CR>
-    autocmd FileType fugitive nnoremap <buffer> <silent> sv :<C-u>vs<CR>
-
-    " ペイン移動
-    autocmd FileType fugitive,git nnoremap <buffer> <silent> sj <C-w>j
-    autocmd FileType fugitive,git nnoremap <buffer> <silent> sk <C-w>k
-    autocmd FileType fugitive,git nnoremap <buffer> <silent> sl <C-w>l
-    autocmd FileType fugitive,git nnoremap <buffer> <silent> sh <C-w>h
-
-    " タブ移動
-    autocmd FileType fugitive,git nnoremap <buffer> <silent> sn gt
-    autocmd FileType fugitive,git nnoremap <buffer> <silent> sp gT
-
-    " タブを閉じる
-    autocmd FileType fugitive,git nnoremap <buffer> <silent> sc :tabclose<CR>
-    autocmd FileType fugitive,git nnoremap <buffer> <silent> sC :tabonly<CR>
+    " coc
+    if !exists('g:plugin__coc')
+        nmap [lsp]l <Plug>(coc-definition)
+        nmap [lsp]t <Plug>(coc-type-definition)
+        nmap [lsp]i <Plug>(coc-implementation)
+        nmap [lsp]r <Plug>(coc-references)
+        nmap [lsp][ <Plug>(coc-diagnostic-prev)
+        nmap [lsp]] <Plug>(coc-diagnostic-next)
+        nmap [lsp]R <Plug>(coc-rename)
+        nmap <silent> [lsp]p <Plug>(coc-diagnostic-prev-error)
+        nmap <silent> [lsp]n <Plug>(coc-diagnostic-next-error)
+        nnoremap [lsp]d :<C-u>CocList diagnostic<CR>
+        " nnoremap <space>cr :CocRestart
+    endif
 augroup END
+" }}}
 
 
-" vim-operator-replace
-augroup plugin__vim_operator_replace
+" DEBUG {{{
+augroup plugin__debug
     autocmd!
-    map _ <Plug>(operator-replace)
+
+    " vimspector
+    if !exists('g:plugin__vimspector')
+        " let g:vimspector_enable_mapping = 'HUMAN'
+        nmap <F5>    <Plug>VimspectorContinue
+        nmap <S-F5>  <Plug>VimspectorStop
+        nmap <F4>    <Plug>VimspectorRestart
+        nmap <S-F4>  :<C-u>call vimspector#Reset()<CR>
+        nmap <F9>    <Plug>VimspectorToggleBreakpoint
+        nmap <S-F9>  <Plug>VimspectorAddFunctionBreadkpoint
+        nmap <F10>   <Plug>VimspectorStepOver
+        nmap <F11>   <Plug>VimspectorStepInto
+        nmap <S-F11> <Plug>VimspectorStepOut
+    endif
 augroup END
+" }}}
 
 
-" vim-easymotion
-augroup plugin__vim_easymotion
+" MOTION {{{
+augroup plugin__motion
+    nnoremap [motion] <Nop>
+    nmap <space><space> [motion]
     autocmd!
-    map <space><space>w <Plug>(easymotion-bd-w)
-    nmap <space><space>w <Plug>(easymotion-overwin-w)
-    map <space><space>f <Plug>(easymotion-bd-f)
-    nmap <space><space>f <Plug>(easymotion-overwin-f)
-    map <space><space>l <Plug>(easymotion-bd-jk)
-    nmap <space><space>l <Plug>(easymotion-overwin-line)
+
+    " vim-easymotion
+    if !exists('g:plugin__vim_easymotion')
+        map  [motion]1 <Plug>(easymotion-bd-w)
+        nmap [motion]1 <Plug>(easymotion-overwin-w)
+        map  [motion]2 <Plug>(easymotion-bd-jk)
+        nmap [motion]2 <Plug>(easymotion-overwin-line)
+        map  [motion]3 <Plug>(easymotion-bd-f)
+        nmap [motion]3 <Plug>(easymotion-overwin-f)
+    endif
+
+    " vista
+    if !exists('g:plugin__vista')
+        let g:vista#renderer#icons = { 'function': '[f]', 'variable': '[v]', 'property': '[p]' }
+        " vistaのキーマップを無効化する（個別で無効化できないため）
+        let g:vista_no_mappings = 1
+        " 上で全マップを無効化したので、<CR>でカーソル下のシンボルへのジャンプだけ再マップする
+        autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <CR> :<C-u>call vista#cursor#FoldOrJump()<CR>
+        noremap <silent> [motion]v :<C-u>Vista coc<CR>
+        noremap <silent> [motion]V :<C-u>Vista finder coc<CR>
+    endif
+
+    " fzf
+    if !exists('g:plugin__fzf')
+        let g:fzf_layout = { 'down': '~40%' }
+
+        command! -bang -nargs=* GGrep
+            \ call fzf#vim#grep('git grep --line-number -- '.shellescape(<q-args>),
+            \ 0,
+            \ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}),
+            \ <bang>0)
+
+        noremap <silent> [motion]f :GFiles<CR>
+        noremap <silent> [motion]F :Files<CR>
+        noremap <silent> [motion]r :Rg<CR>
+        noremap <silent> [motion]R :GGrep<CR>
+        noremap <silent> [motion]h :History<CR>
+        noremap <silent> [motion]H :History:<CR>
+        noremap <silent> [motion]m :Maps<CR>
+        noremap <silent> [motion]M :Marks<CR>
+        noremap <silent> [motion]c :Commands<CR>
+        " noremap <silent> [motion]hs :History/<CR>
+        execute 'source' g:vimrc_dir . '/rc/plugin/fzf.vim'
+    endif
+
+    " defx
+    if !exists('g:plugin__defx')
+        " autocmd FileType defx setlocal tabstop=2 softtabstop=2 shiftwidth=2
+        " =~ 正規表現に一致する
+        autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'defx') | q | endif  " 開いているペインがDefxだけの場合はvimを閉じる
+
+        nnoremap <silent> [motion]n :<C-u>Defx 
+            \ -listed -resume
+            \ -split=vertical
+            \ -winwidth=30
+            \ -direction=topleft
+            \ -columns=:mark:git:indent:icon:icons:filename
+            \ -buffer-name=tab`tabpagenr()``expand('%:p:h')`
+            \ -search=`expand('%:p')`<CR>
+
+        nnoremap <silent> [motion]N :<C-u>Defx
+            \ -listed
+            \ -resume
+            \ -columns=mark:indent:icon:icons:filename:git:type:time:size
+            \ -buffer-name=tab`tabpagenr()``expand('%:p:h')`
+            \ -search=`expand('%:p')`<CR>
+
+        execute 'source' g:vimrc_dir . '/rc/plugin/defx.vim'
+    endif
 augroup END
-
-
-" vim-prettier
-augroup plugin__vim_prettier
-    autocmd!
-    nmap <space>pp <Plug>(PrettierAsync)
-augroup END
-
-
-" vimspector
-augroup plugin__vimspector
-    autocmd!
-    " let g:vimspector_enable_mapping = 'HUMAN'
-    nmap <F5>    <Plug>VimspectorContinue
-    nmap <S-F5>  <Plug>VimspectorStop
-    nmap <F4>    <Plug>VimspectorRestart
-    nmap <S-F4>  :<C-u>call vimspector#Reset()<CR>
-    nmap <F9>    <Plug>VimspectorToggleBreakpoint
-    nmap <S-F9>  <Plug>VimspectorAddFunctionBreadkpoint
-    nmap <F10>   <Plug>VimspectorStepOver
-    nmap <F11>   <Plug>VimspectorStepInto
-    nmap <S-F11> <Plug>VimspectorStepOut
-augroup END
-
-
-" lightline
-augroup plugin__lightline
-    autocmd!
-    execute 'source' g:vimrc_dir . '/rc/plugin/lightline.vim'
-augroup END
-
-
-" defx
-augroup plugin__defx
-    autocmd!
-    " autocmd FileType defx setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    " =~ 正規表現に一致する
-    autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'defx') | q | endif  " 開いているペインがDefxだけの場合はvimを閉じる
-
-    nnoremap <silent> mn :<C-u>Defx -listed -resume -split=vertical -winwidth=30 -direction=topleft
-        \ -columns=:mark:git:indent:icon:icons:filename
-        \ -buffer-name=tab`tabpagenr()`
-        \ `expand('%:p:h')` -search=`expand('%:p')`<CR>
-
-    nnoremap <silent> mN :<C-u>Defx -listed -resume
-        \ -columns=mark:indent:icon:icons:filename:git:type:time:size
-        \ -buffer-name=tab`tabpagenr()`
-        \ `expand('%:p:h')` -search=`expand('%:p')`<CR>
-
-    execute 'source' g:vimrc_dir . '/rc/plugin/defx.vim'
-augroup END
-
-
-" indentline
-augroup plugin__indentline
-    autocmd!
-    let g:indentLine_fileTypeExclude = ["help", "markdown", "md", "json"]
-augroup END
-
-
-" vim-gitgutter
-augroup plugin__vim_gitgutter
-    autocmd!
-    set signcolumn=yes
-    autocmd FocusGained,WinEnter,BufWinEnter * GitGutterEnable
-augroup END
-
-
-" vim-coloresque
-augroup plugin__vim_coloresque
-    autocmd!
-    autocmd BufNewFile,BufRead *.html call plug#load('vim-coloresque')
-    autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
-augroup END
-
-
-" vim-commentary
-augroup plugin__vim_commentary
-    autocmd!
-    autocmd FileType typescript setlocal commentstring=\/\/\ %s
-augroup END
-
-
-" blamer
-augroup plugin__blamer
-    autocmd!
-    let g:blamer_enabled = 1
-    let g:blamer_show_in_visual_modes = 0
-    let g:blamer_delay = 250
-    let g:blamer_date_format = '%y/%m/%d %H:%M'
-    " let g:blamer_prefix = '  # '
-augroup END
-
-
-" vim-python
-augroup plugin__vim_python
-    autocmd!
-    let g:python_highlight_all = 1
-augroup END
-
-
-" " nerdtree
-" augroup plugin__nerdtree
-"     autocmd!
-"     autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif  " 開いているペインがNERDTreeだけの場合はvimを閉じる
-"     let NERDTreeShowHidden = 1
-"     let NERDTreeMapOpenVSplit='S'  " s -> S ※ ペイン操作と被るため
-
-"     map <silent> [meta]n :NERDTreeToggle<CR>
-" augroup END
-
-
-" " nerdtree-git-plugin
-" augroup plugin__nerdtree_git_plugin
-"     autocmd!
-"     let g:NERDTreeGitStatusIndicatorMapCustom = {
-"     \ "Modified"  : "M",
-"     \ "Staged"    : "S",
-"     \ "Untracked" : "U",
-"     \ "Renamed"   : "R",
-"     \ "Deleted"   : "D",
-"     \ "Unmerged"  : "═",
-"     \ "Dirty"     : "",
-"     \ "Clean"     : "",
-"     \ 'Ignored'   : "",
-"     \ "Unknown"   : ""
-"     \ }
-" augroup END
-
-
-" " vim-closetag
-" augroup plugin__vim_closetag
-"     autocmd!
-"     let g:closetag_filenames = '*.html,*.tsx'
-" augroup END
-
-
-" vim-autopairs
-" augroup plugin__vim_autopairs
-    " autocmd!
-    " let g:AutoPairsMapCh = 0
-" augroup END
-
-
-" vim-signature
-" augroup plugin__vim_signature
-"     autocmd!
-"     let g:SignatureMap = {
-"         \ 'Leader'             :  "[core]m",
-"         \ 'PlaceNextMark'      :  "[core]m,",
-"         \ 'ToggleMarkAtLine'   :  "[core]m.",
-"         \ 'PurgeMarksAtLine'   :  "[core]m-",
-"         \ 'PurgeMarks'         :  "[core]m<Space>",
-"         \ 'GotoNextLineByPos'  :  "[core]m]",
-"         \ 'GotoPrevLineByPos'  :  "[core]m[",
-"         \ 'ListBufferMarks'    :  "[core]m/",
-"         \ 'ListBufferMarkers'  :  "[core]m?"
-"         \ }
-" augroup END
+" }}}
 " }}}
 
 
