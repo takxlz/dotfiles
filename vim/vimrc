@@ -26,6 +26,7 @@ Plug 'vim-python/python-syntax'
 Plug 'itchyny/lightline.vim'
 Plug 'Yggdroot/indentline'
 Plug 'LeafCage/foldCC.vim'
+Plug 'machakann/vim-highlightedyank'
 Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
 
 " EXTEND-ACTION
@@ -51,6 +52,7 @@ Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 
 " GIT
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
 
@@ -64,7 +66,7 @@ Plug 'puremourning/vimspector', { 'on': '<Plug>Vimspector' }
 Plug 'roxma/nvim-yarp',          has('nvim') ? { 'on': [] } : {}  " nvim:plugに登録するがロードはしない（not nvim:無条件でロードする）
 Plug 'roxma/vim-hug-neovim-rpc', has('nvim') ? { 'on': [] } : {}
 
-" MOTION
+" MOTION_SEARCH
 Plug 'easymotion/vim-easymotion'
 Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/fzf.vim'
@@ -111,7 +113,7 @@ set shortmess+=I
 set number
 set relativenumber
 set cursorline
-set cursorcolumn
+" set cursorcolumn
 set showtabline=2
 set shellslash
 set nrformats=
@@ -519,6 +521,7 @@ augroup END
 " :plugin config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 「let g:plugin__XXX = 0」等して左記の変数を存在させればプラグインの設定を読み込まない
+" ※ 以下で行っている独自設定を無効にするだけでプラグイン自体を無効にするわけではない
 
 " COLOR {{{
 augroup plugin__color
@@ -544,6 +547,11 @@ augroup plugin__extend_visual
     " indentline
     if !exists('g:plugin__indentline')
         let g:indentLine_fileTypeExclude = ["help", "markdown", "md", "json"]
+    endif
+
+    " vim-highlightedyank
+    if !exists('g:plugin__vim_highlightedyank')
+        let g:highlightedyank_highlight_duration = 400
     endif
 
     " vim-coloresque
@@ -610,7 +618,7 @@ augroup plugin__git
         nnoremap <silent> [git]s :tab Gstatus<CR>
         nnoremap <silent> [git]d :tab Gdiff<CR>
         nnoremap <silent> [git]D :tab Gvdiff<CR>
-        nnoremap <silent> [git]l :tab Glog<CR>
+        " nnoremap <silent> [git]l :tab Glog<CR>
         nmap [git]h :diffget //2<CR>
         nmap [git]u :diffget //3<CR>
 
@@ -633,6 +641,12 @@ augroup plugin__git
         " タブを閉じる
         autocmd FileType fugitive,git nnoremap <buffer> <silent> sc :tabclose<CR>
         autocmd FileType fugitive,git nnoremap <buffer> <silent> sC :tabonly<CR>
+    endif
+
+    " gv
+    if !exists('g:plugin__gv')
+        nnoremap <silent> [git]l :GV<CR>
+        nnoremap <silent> [git]L :GV!<CR>
     endif
 
     " vim-gitgutter
@@ -698,7 +712,7 @@ augroup END
 " }}}
 
 
-" MOTION {{{
+" MOTION_SEARCH {{{
 augroup plugin__motion
     nnoremap [motion] <Nop>
     nmap <space><space> [motion]
