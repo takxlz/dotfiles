@@ -113,7 +113,6 @@ set shortmess+=I
 set number
 set relativenumber
 set cursorline
-" set cursorcolumn
 set showtabline=2
 set shellslash
 set nrformats=
@@ -130,6 +129,7 @@ set conceallevel=0  " mdで_等が隠れるのを無効化(indentlineが設定�
 set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動する
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
 " set autochdir
+" set cursorcolumn
 
 
 " フォールディングの設定
@@ -316,6 +316,11 @@ nnoremap s <Nop>
 nmap s [core]
 
 
+" 自作関数を割り当てるプレフィックス
+nnoremap [util] <Nop>
+nmap [core]s [util]
+
+
 " escape
 augroup keymap__escape
     autocmd!
@@ -416,9 +421,12 @@ augroup keymap__highlight
     nnoremap gT <Nop>
 
     " カーソル下の単語をハイライト
-    " nnoremap <silent> gt "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
-    nnoremap <silent> gt :call takxlz#util#hilight_words()<CR>:set hlsearch<CR>
-    nnoremap <silent> gT :let g:hlstate = ''<CR>:let @/ = ''<CR>
+    " nnoremap <silent> [util]w "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+    nnoremap <silent> [util]s :call takxlz#util#hi_words()<CR>:set hlsearch<CR>
+    nnoremap <silent> [util]S :let g:hlstate = ''<CR>:let @/ = ''<CR>
+
+    " カレント列を3秒間だけハイライト
+    nnoremap <silent> [util]f :call takxlz#util#hi_cursorcolumn_3sec()<CR>
 augroup END
 
 
@@ -426,7 +434,7 @@ augroup END
 augroup keymap__pane
     autocmd!
     " ペイン分割
-    nnoremap <silent> [core]s :<C-u>sp<CR>
+    nnoremap <silent> [core]V :<C-u>sp<CR>
     nnoremap <silent> [core]v :<C-u>vs<CR>
 
     " ペイン移動
@@ -628,7 +636,7 @@ augroup plugin__git
         let g:nremap = {'s': '' }
 
         " ペイン分割
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> ss :<C-u>sp<CR>
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> sV :<C-u>sp<CR>
         autocmd FileType fugitive nnoremap <buffer> <silent> sv :<C-u>vs<CR>
         " ペイン移動
         autocmd FileType fugitive,git nnoremap <buffer> <silent> sj <C-w>j
