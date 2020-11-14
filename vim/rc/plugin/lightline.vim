@@ -67,8 +67,12 @@ function! LightLineTabFilename(n) abort
     " let l:bname = expand('#' . buflist[winnr - 1] . ':p')
     if l:bname == ''
         let l:bname = '[No Name]'
-    elseif l:bname =~ '#FZF'
+    elseif l:bname =~ 'FZF'
         let l:bname = '#FZF'
+    elseif l:bname =~ 'defx'
+        let l:bname = '#DEFX'
+    elseif l:bname =~ 'fugitive'
+        let l:bname = '#FUGITIVE'
     endif
 
     return l:bname
