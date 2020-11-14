@@ -43,8 +43,18 @@ function! takxlz#util#change_tab_label() abort
 endfunction
 
 
+" カレント行を3秒間だけハイライトする関数
+function! takxlz#util#hi_cursorcolumn_3sec(...) abort
+    setlocal cursorcolumn
+    call timer_start(3000, function('takxlz#util#hi_nocursorcolumn_3sec'))
+endfunction
+function! takxlz#util#hi_nocursorcolumn_3sec(...) abort
+    setlocal nocursorcolumn
+endfunction
+
+
 " カーソル下の単語をハイライトする関数
-function! takxlz#util#hilight_words() abort
+function! takxlz#util#hi_words() abort
     " 初回呼び出しの場合はハイライト状態を初期化する
     if exists('g:hlstate') == 0
         let g:hlstate = ''
