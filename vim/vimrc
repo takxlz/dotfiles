@@ -179,6 +179,16 @@ augroup basic__update_file
 augroup END
 
 
+" 一定時間操作がされない場合だけ、カレンド列をハイライトする
+augroup basic__auto_cursorline_cursorcolmn
+    autocmd!
+    " autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline
+    " autocmd CursorHold,CursorHoldI * setlocal cursorline
+    autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorcolumn
+    autocmd CursorHold,CursorHoldI * setlocal cursorcolumn
+augroup END
+
+
 " Todo等のハイライトの設定
 " TODO: NOTE: XXX:
 augroup basic__todo_highlight
