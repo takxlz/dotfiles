@@ -574,8 +574,8 @@ augroup plugin__extend_visual
 
     " vim-coloresque
     if !exists('g:plugin__vim_colorsque')
-        autocmd BufNewFile,BufRead *.html call plug#load('vim-coloresque')
-        autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
+        " autocmd BufNewFile,BufRead *.html call plug#load('vim-coloresque')
+        " autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
     endif
 augroup END
 " }}}
