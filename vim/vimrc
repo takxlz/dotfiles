@@ -87,7 +87,7 @@ call plug#end()
 syntax on
 filetype on
 filetype plugin indent on  " filetypeが変更されたときにfiletype用のプラグイン/インデント設定を自動ロードする
-set encoding=utf-8  " ※プラグイン（lightline）の読み込みより後に設定する
+set encoding=utf-8  " ※ プラグイン（lightline）の読み込みより後に設定する
 " }}}
 
 
@@ -111,7 +111,6 @@ hi Normal ctermbg=NONE  " カラースキームを適用していてもターミ
 " その他オプション
 set shortmess+=I
 set number
-set relativenumber
 set cursorline
 set showtabline=2
 set shellslash
@@ -130,6 +129,7 @@ set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動�
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
 " set autochdir
 " set cursorcolumn
+" set relativenumber
 
 
 " フォールディングの設定
@@ -767,8 +767,8 @@ augroup plugin__motion
             \ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}),
             \ <bang>0)
 
-        noremap <silent> [motion]f :GFiles<CR>
-        noremap <silent> [motion]F :Files<CR>
+        noremap <silent> [motion]g :GFiles<CR>
+        noremap <silent> [motion]f :Files<CR>
         noremap <silent> [motion]r :Rg<CR>
         noremap <silent> [motion]R :GGrep<CR>
         noremap <silent> [motion]h :History<CR>
@@ -786,7 +786,7 @@ augroup plugin__motion
         " =~ 正規表現に一致する
         autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'defx') | q | endif  " 開いているペインがDefxだけの場合はvimを閉じる
 
-        nnoremap <silent> [motion]n :<C-u>Defx 
+        nnoremap <silent> [motion]d :<C-u>Defx
             \ -listed -resume
             \ -split=vertical
             \ -winwidth=30
