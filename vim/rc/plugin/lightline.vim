@@ -22,7 +22,7 @@ let g:lightline = {
     \ },
     \ 'active': {
     \   'right': [['lineinfo'], ['percent'], ['winform'], ['fileencoding','fileformat','filetype'], ['coc_error','coc_warn','coc_hint','coc_info']],
-    \   'left' : [['mode','paste'], ['fugitive','filename'], ['vista']]
+    \   'left' : [['mode','paste'], ['fugitive','filename']]
     \ },
     \ 'component': {
     \   'lineinfo': '%3l[%L]:%-2v',
@@ -35,7 +35,6 @@ let g:lightline = {
     \   'mode': 'LightLineMode',
     \   'fugitive': 'LightLineFugitive',
     \   'filename': 'LightLineFilename',
-    \   'vista': 'NearestMethodOrFunction',
     \ },
     \ 'component_expand': {
     \   'coc_error': 'LightLineCocErrors',
@@ -50,6 +49,11 @@ let g:lightline = {
     \   'coc_info': 'tabsel',
     \ },
 \ }
+
+" active
+" \   'left' : [['mode','paste'], ['fugitive','filename'], ['vista']]
+" component_function
+" \   'vista': 'NearestMethodOrFunction',
 
 
 " デフォルトではlightline#tab#filenameが使用されるが、加工したいため自作する
@@ -111,19 +115,19 @@ endfunction
 
 
 
-function! NearestMethodOrFunction() abort
-    " 「b:」バッファローカルの「変数名:値」の辞書の一覧を参照できる
-    " バッファローカル変数一覧にvista_nearest...が存在すればその値を返し、なければ空を返す
-    " return get(b:, 'vista_nearest_method_or_function', '')
+" function! NearestMethodOrFunction() abort
+"     " 「b:」バッファローカルの「変数名:値」の辞書の一覧を参照できる
+"     " バッファローカル変数一覧にvista_nearest...が存在すればその値を返し、なければ空を返す
+"     " return get(b:, 'vista_nearest_method_or_function', '')
 
-    " 表示文字等を編集したいためgetは使用しない
-    if exists('b:vista_nearest_method_or_function')
-        if b:vista_nearest_method_or_function != ''
-            return ' [f] ' . b:vista_nearest_method_or_function
-        endif
-    endif
-    return ''
-endfunction
+"     " 表示文字等を編集したいためgetは使用しない
+"     if exists('b:vista_nearest_method_or_function')
+"         if b:vista_nearest_method_or_function != ''
+"             return ' [f] ' . b:vista_nearest_method_or_function
+"         endif
+"     endif
+"     return ''
+" endfunction
 
 
 
@@ -206,11 +210,11 @@ augroup END
 
 
 " vim起動時に実行
-augroup LightLineStartUp
-    autocmd!
-    autocmd BufReadPost * call vista#RunForNearestMethodOrFunction()
-    autocmd User  call RunForNearestMethodOrFunction lightline#update()
-augroup END
+" augroup LightLineStartUp
+"     autocmd!
+"     autocmd BufReadPost * call vista#RunForNearestMethodOrFunction()
+"     autocmd User  call RunForNearestMethodOrFunction lightline#update()
+" augroup END
 
 
 

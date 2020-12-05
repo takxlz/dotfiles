@@ -43,12 +43,14 @@ function! takxlz#util#change_tab_label() abort
 endfunction
 
 
-" カレント行を3秒間だけハイライトする関数
-function! takxlz#util#hi_cursorcolumn_3sec(...) abort
+" カレント行/列を3秒間だけハイライトする関数
+function! takxlz#util#hi_cursorrc_3sec(...) abort
+    set cursorline
     setlocal cursorcolumn
-    call timer_start(3000, function('takxlz#util#hi_nocursorcolumn_3sec'))
+    call timer_start(3000, function('takxlz#util#hi_nocursorrc_3sec'))
 endfunction
-function! takxlz#util#hi_nocursorcolumn_3sec(...) abort
+function! takxlz#util#hi_nocursorrc_3sec(...) abort
+    set nocursorline
     setlocal nocursorcolumn
 endfunction
 

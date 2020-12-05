@@ -52,26 +52,25 @@ Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 
 " GIT
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
+Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 " LSP
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " DEBUG
 Plug 'puremourning/vimspector', { 'on': '<Plug>Vimspector' }
 
 " MISC
-Plug 'roxma/nvim-yarp',          has('nvim') ? { 'on': [] } : {}  " nvim:plugに登録するがロードはしない（not nvim:無条件でロードする）
+Plug 'roxma/nvim-yarp',          has('nvim') ? { 'on': [] } : {}  " nvimのとき:plugに登録するがロードはしない（nvimでないとき:無条件でロードする）
 Plug 'roxma/vim-hug-neovim-rpc', has('nvim') ? { 'on': [] } : {}
 
 " MOTION_SEARCH
 Plug 'easymotion/vim-easymotion'
-Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf',     { 'do': { -> fzf#install() } }
-Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'junegunn/fzf',              { 'do': { -> fzf#install() } }
+Plug 'Shougo/defx.nvim',          { 'do': ':UpdateRemotePlugins' }
 
 " TMP
 " Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -79,6 +78,7 @@ Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'kshenoy/vim-signature'
 " Plug 'alvan/vim-closetag'
 " Plug 'jiangmiao/auto-pairs'
+" Plug 'liuchengxu/vista.vim'
 call plug#end()
 
 
@@ -111,7 +111,6 @@ hi Normal ctermbg=NONE  " カラースキームを適用していてもターミ
 " その他オプション
 set shortmess+=I
 set number
-set cursorline
 set showtabline=2
 set shellslash
 set nrformats=
@@ -129,6 +128,7 @@ set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動�
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
 " set autochdir
 " set cursorcolumn
+" set cursorline
 " set relativenumber
 
 
@@ -179,16 +179,6 @@ augroup basic__update_file
 augroup END
 
 
-" 一定時間操作がされない場合だけ、カレンド列をハイライトする
-augroup basic__auto_cursorline_cursorcolmn
-    autocmd!
-    " autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline
-    " autocmd CursorHold,CursorHoldI * setlocal cursorline
-    autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorcolumn
-    autocmd CursorHold,CursorHoldI * setlocal cursorcolumn
-augroup END
-
-
 " Todo等のハイライトの設定
 " TODO: NOTE: XXX:
 augroup basic__todo_highlight
@@ -202,6 +192,19 @@ augroup basic__todo_highlight
   autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyXxx', '\(XXX:\|xxx:\)')
   autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyXxx cterm=bold gui=bold ctermfg=0 ctermbg=9 guifg=0 guibg=9
 augroup END
+
+
+" 普通にcorsorline,corsorcolumnするより重い気がするので無効化
+" 一定時間操作がされない場合だけ、カレンド行/列をハイライトする
+" augroup basic__auto_cursorline_cursorcolmn
+"     autocmd!
+"     " 行
+"     autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline
+"     autocmd CursorHold,CursorHoldI * setlocal cursorline
+"     " 列
+"     autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorcolumn
+"     autocmd CursorHold,CursorHoldI * setlocal cursorcolumn
+" augroup END
 " }}}
 
 
@@ -419,6 +422,7 @@ augroup END
 augroup keymap__toggle
     autocmd!
     nnoremap <silent> <;>(toggle_relative_num) :<C-u>setlocal relativenumber!<CR>
+    nnoremap <silent> <;>(toggle_cursor_line) :<C-u>setlocal cursorline!<CR>
     nnoremap <silent> <;>(toggle_cursor_column) :<C-u>setlocal cursorcolumn!<CR>
 augroup END
 
@@ -435,8 +439,8 @@ augroup keymap__highlight
     nnoremap <silent> [util]s :call takxlz#util#hi_words()<CR>:set hlsearch<CR>
     nnoremap <silent> [util]S :let g:hlstate = ''<CR>:let @/ = ''<CR>
 
-    " カレント列を3秒間だけハイライト
-    nnoremap <silent> [util]f :call takxlz#util#hi_cursorcolumn_3sec()<CR>
+    " カレント行/列を3秒間だけハイライト
+    nnoremap <silent> [util]f :call takxlz#util#hi_cursorrc_3sec()<CR>
 augroup END
 
 
@@ -747,15 +751,15 @@ augroup plugin__motion
     endif
 
     " vista
-    if !exists('g:plugin__vista')
-        let g:vista#renderer#icons = { 'function': '[f]', 'variable': '[v]', 'property': '[p]' }
-        " vistaのキーマップを無効化する（個別で無効化できないため）
-        let g:vista_no_mappings = 1
-        " 上で全マップを無効化したので、<CR>でカーソル下のシンボルへのジャンプだけ再マップする
-        autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <CR> :<C-u>call vista#cursor#FoldOrJump()<CR>
-        noremap <silent> [motion]v :<C-u>Vista coc<CR>
-        noremap <silent> [motion]V :<C-u>Vista finder coc<CR>
-    endif
+    " if !exists('g:plugin__vista')
+    "     let g:vista#renderer#icons = { 'function': '[f]', 'variable': '[v]', 'property': '[p]' }
+    "     " vistaのキーマップを無効化する（個別で無効化できないため）
+    "     let g:vista_no_mappings = 1
+    "     " 上で全マップを無効化したので、<CR>でカーソル下のシンボルへのジャンプだけ再マップする
+    "     autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <CR> :<C-u>call vista#cursor#FoldOrJump()<CR>
+    "     noremap <silent> [motion]v :<C-u>Vista coc<CR>
+    "     noremap <silent> [motion]V :<C-u>Vista finder coc<CR>
+    " endif
 
     " fzf
     if !exists('g:plugin__fzf')
