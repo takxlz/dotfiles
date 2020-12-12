@@ -17,10 +17,14 @@ call plug#begin('~/.cache/plugged')
 " COLOR
 Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
 Plug 'morhetz/gruvbox'
+Plug 'jacoborus/tender.vim'
+Plug 'lifepillar/vim-solarized8'
+Plug 'w0ng/vim-hybrid'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 Plug 'vim-python/python-syntax'
+" Plug 'cocopon/iceberg.vim'
 
 " EXTEND-VISUAL
 Plug 'itchyny/lightline.vim'
@@ -99,13 +103,20 @@ set encoding=utf-8  " ※ プラグイン（lightline）の読み込みより後
 execute 'source' g:vimrc_dir . '/rc/disable_default_plugin.vim'
 
 
-"  カラースキーム
+" カラースキーム
 set t_Co=256
+set termguicolors  " 有効化するときはterminalでもguiのhiになる（+ guiはHEX方式でカラーコードを指定する必要がある）
 set background=dark
-colorscheme gruvbox
-hi Normal ctermbg=NONE  " カラースキームを適用していてもターミナルの背景色に合わせる
-" let g:onedark_termcolors=256
-" colorscheme onedark
+colorscheme hybrid
+" colorscheme solarized8
+" colorscheme tender
+" colorscheme gruvbox
+
+hi Search gui=NONE guifg=black guibg=#ff8700 cterm=NONE ctermfg=black ctermbg=208
+hi SignColumn gui=NONE guifg=NONE guibg=NONE cterm=NONE ctermfg=NONE ctermbg=NONE
+hi Folded gui=NONE term=standout ctermbg=darkgray ctermfg=NONE guibg=gray23 guifg=NONE
+hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
+hi Normal guibg=NONE ctermbg=NONE
 
 
 " その他オプション
@@ -125,7 +136,6 @@ set splitbelow
 set splitright
 set conceallevel=0  " mdで_等が隠れるのを無効化(indentlineが設定を上書きしてしまうのでindentlineの設定でmdとhelpを除外する)
 set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動する
-hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
 " set autochdir
 " set cursorcolumn
 " set cursorline
@@ -136,9 +146,9 @@ hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermb
 set foldmethod=marker
 set foldtext=FoldCCtext()
 set commentstring=%s
-set fillchars=vert:\|,fold:\ ,diff:-
+set fillchars=fold:\ ,diff:-
 let g:vim_markdown_folding_disabled=1  " mdを自動で折り畳まないようにする
-hi Folded gui=NONE term=standout ctermbg=darkgray ctermfg=NONE guibg=gray23 guifg=NONE  " フォールディング行の色
+" set fillchars=vert:\|,fold:\ ,diff:-
 
 
 " 「~/.cache/vim_tmpfiles」がない場合は作成する
@@ -178,19 +188,16 @@ augroup basic__update_file
     autocmd FocusGained,WinEnter,InsertEnter * checktime
 augroup END
 
-
 " Todo等のハイライトの設定
 " TODO: NOTE: XXX:
 augroup basic__todo_highlight
-  autocmd!
-  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyTodo', '\(TODO:\|todo:\)')
-  autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyTodo cterm=bold gui=bold ctermfg=0 ctermbg=220 guifg=0 guibg=220
-
-  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyNote', '\(NOTE:\|note:\)')
-  autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyNote cterm=bold gui=bold ctermfg=0 ctermbg=45 guifg=0 guibg=45
-
-  autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyXxx', '\(XXX:\|xxx:\)')
-  autocmd WinEnter,BufRead,BufNew,Syntax * highlight MyXxx cterm=bold gui=bold ctermfg=0 ctermbg=9 guifg=0 guibg=9
+    autocmd!
+    autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyTodo', '\(TODO:\|todo:\)')
+    autocmd WinEnter,BufRead,BufNew,Syntax * hi MyTodo cterm=bold gui=bold ctermfg=0 ctermbg=220 guifg=black guibg=#ffd700
+    autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyNote', '\(NOTE:\|note:\)')
+    autocmd WinEnter,BufRead,BufNew,Syntax * hi MyNote cterm=bold gui=bold ctermfg=0 ctermbg=45 guifg=black guibg=#00d7ff
+    autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyXxx', '\(XXX:\|xxx:\)')
+    autocmd WinEnter,BufRead,BufNew,Syntax * hi MyXxx cterm=bold gui=bold ctermfg=0 ctermbg=9 guifg=black guibg=#ff0000
 augroup END
 
 
