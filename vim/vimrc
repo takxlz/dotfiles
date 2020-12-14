@@ -37,6 +37,7 @@ Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと�
 Plug 'tpope/vim-repeat'
 Plug 'kana/vim-submode'
 Plug 'itchyny/vim-parenmatch'
+Plug 'sharat87/roast.vim'
 
 " TEXTOBJ_OPERATOR
 Plug 'kana/vim-textobj-user'
@@ -408,7 +409,7 @@ augroup keymap__new_line
     nnoremap <silent> <C-k> :<C-u>call append(expand('.'), '')<CR>j
 
     " カーソル位置に改行を挿入(カーソル右は折り返される)
-    nnoremap <CR> i<CR><ESC>
+    " nnoremap <CR> i<CR><ESC>
 augroup END
 
 
@@ -504,6 +505,10 @@ augroup keymap__tab
     " nnoremap [core]N gT
     nnoremap <TAB> gt
     nnoremap <S-TAB> gT
+
+    " タブの位置を変更する
+    nnoremap <silent> <S-RIGHT> :tabm +1<CR>
+    nnoremap <silent> <S-LEFT> :tabm -1<CR>
 
     " 現在のタブを閉じる
     nnoremap <silent> [core]c :tabclose<CR>
