@@ -84,6 +84,9 @@ Plug 'Shougo/defx.nvim',          { 'do': ':UpdateRemotePlugins' }
 " Plug 'alvan/vim-closetag'
 " Plug 'jiangmiao/auto-pairs'
 " Plug 'liuchengxu/vista.vim'
+
+" LOCAL
+Plug '~/dev/plugin/indicator.vim'
 call plug#end()
 
 
@@ -141,6 +144,7 @@ set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動�
 " set cursorcolumn
 " set cursorline
 " set relativenumber
+" set virtualedit=all
 
 
 " フォールディングの設定
@@ -379,6 +383,11 @@ augroup keymap__paste
     autocmd!
     " ヤンクレジストリからペーストC-pに設定
     nnoremap <C-p> "0p
+
+    " virtualeditの際のpがカーソル末尾からペーストされるようにする
+    if has('virtualedit') && &virtualedit =~# '\<all\>'
+        nnoremap <expr> p (col('.') >= col('$') ? '$' : '') . 'p'
+    endif
 augroup END
 
 
