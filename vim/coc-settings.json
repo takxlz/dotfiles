@@ -3,14 +3,16 @@
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
-      "filetypes": ["sh"],
-    },
+      "filetypes": ["sh"]
+    }
   },
 
   "python.jediEnabled": false,
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
   "python.analysis.diagnosticEnabled": true,
+
+  "java.home": "/Library/Java/JavaVirtualMachines/jdk-14.0.1.jdk/Contents/Home",
   "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"/Users/takxlz/.vscode/extensions/gabrielbb.vscode-lombok-1.0.1/server/lombok.jar\"",
-  "java.home": "/Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home/",
+  "java.errors.incompleteClasspath.severity": "ignore"
 }
