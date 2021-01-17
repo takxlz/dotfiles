@@ -86,7 +86,7 @@ Plug 'Shougo/defx.nvim',          { 'do': ':UpdateRemotePlugins' }
 " Plug 'liuchengxu/vista.vim'
 
 " LOCAL
-Plug '~/dev/plugin/indicator.vim'
+" Plug '~/dev/plugin/indicator.vim'
 call plug#end()
 
 
@@ -244,6 +244,13 @@ augroup END
 augroup filetype__vim
     autocmd!
     autocmd FileType vim setlocal commentstring=\"\ %s
+augroup END
+
+
+" go
+augroup filetype__go
+    autocmd!
+    autocmd BufNewFile,BufRead *.go setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab!
 augroup END
 
 
@@ -727,7 +734,7 @@ augroup plugin__lsp
         nmap [lsp]R <Plug>(coc-rename)
         nmap <silent> [lsp]p <Plug>(coc-diagnostic-prev-error)
         nmap <silent> [lsp]n <Plug>(coc-diagnostic-next-error)
-        nnoremap [lsp]d :<C-u>CocList diagnostic<CR>
+        nnoremap [lsp]d :<C-u>CocList diagnostics<CR>
         " nnoremap <space>cr :CocRestart
     endif
 augroup END
