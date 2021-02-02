@@ -375,10 +375,10 @@ augroup keymap__move_cursor
 
     " インサートモード時のカーソル移動を追加
     if exists('g:vscode')
-        inoremap <C-j> <Cmd>call VSCodeNotify('cursorDown')<CR>
-        inoremap <C-k> <Cmd>call VSCodeNotify('cursorUp')<CR>
-        inoremap <C-h> <Cmd>call VSCodeNotify('cursorLeft')<CR>
-        inoremap <C-l> <Cmd>call VSCodeNotify('cursorRight')<CR>
+        " inoremap <C-j> <Cmd>call VSCodeNotify('cursorDown')<CR>
+        " inoremap <C-k> <Cmd>call VSCodeNotify('cursorUp')<CR>
+        " inoremap <C-h> <Cmd>call VSCodeNotify('cursorLeft')<CR>
+        " inoremap <C-l> <Cmd>call VSCodeNotify('cursorRight')<CR>
     else
         inoremap <C-j> <Down>
         inoremap <C-k> <Up>
@@ -418,8 +418,7 @@ augroup END
 augroup keymap__new_line
     autocmd!
     " 空行で改行しても、インデントのスペースを削除しない
-    if exists('g:vscode')
-    else
+    if !exists('g:vscode')
         nnoremap o oX<C-h>
         nnoremap O OX<C-h>
         inoremap <CR> <CR>X<C-h>
@@ -428,14 +427,16 @@ augroup keymap__new_line
     " 改行のときの自動コメントを無効化
     autocmd FileType * setlocal formatoptions-=ro
 
-    " インデントを維持したまま、カーソル下に行を挿入し、その行に移動
-    nnoremap <C-j> oX<C-h><ESC>
+    if !exists('g:vscode')
+        " インデントを維持したまま、カーソル下に行を挿入し、その行に移動
+        nnoremap <C-j> oX<C-h><ESC>
 
-    " インデントを維持しないで、カーソル下に行を挿入し、その行に移動
-    nnoremap <silent> <C-k> :<C-u>call append(expand('.'), '')<CR>j
+        " インデントを維持しないで、カーソル下に行を挿入し、その行に移動
+        nnoremap <silent> <C-k> :<C-u>call append(expand('.'), '')<CR>j
 
-    " カーソル位置に改行を挿入(カーソル右は折り返される)
-    " nnoremap <CR> i<CR><ESC>
+        " カーソル位置に改行を挿入(カーソル右は折り返される)
+        " nnoremap <CR> i<CR><ESC>
+    endif
 augroup END
 
 
@@ -493,7 +494,6 @@ augroup keymap__pane
         nnoremap [core]< <Cmd>call VSCodeNotify('workbench.action.decreaseViewWidth')<CR>
         nnoremap [core]+ <Cmd>call VSCodeNotify('workbench.action.increaseViewHeight')<CR>
         nnoremap [core]- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
-
     else
         " ペイン分割
         nnoremap <silent> [core]V :<C-u>sp<CR>
@@ -587,6 +587,16 @@ augroup keymap__fold
 
     " カーソル下の折りたたみマーカーを削除
     nnoremap [core]d zd
+augroup END
+
+
+" vscode-nvim
+augroup keymap__vscode_nvim
+    autocmd!
+    if exists('g:vscode')
+        " nnoremap <C-j> <Cmd>call VSCodeNotify('selectNextSuggestion')<CR>
+        " nnoremap <C-k> <Cmd>call VSCodeNotify('selectPrevSuggestion')<CR>
+    endif
 augroup END
 " }}}
 
