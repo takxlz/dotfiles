@@ -193,6 +193,7 @@ augroup basic__update_file
     autocmd FocusGained,WinEnter,InsertEnter * checktime
 augroup END
 
+
 " Todo等のハイライトの設定
 " TODO: NOTE: XXX:
 augroup basic__todo_highlight

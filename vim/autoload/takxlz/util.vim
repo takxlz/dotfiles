@@ -5,7 +5,8 @@ function! takxlz#util#remove_dust() abort
     let l:cursor_point = getpos('.')
     " 置換対象が見つからないとエラーになるのでtry-endtryで囲む
     try
-        exec ':%s/^ *$//g'
+        " exec ':%s/^ *$//g'
+        exec '%s/\s\+$//ge'
     catch
     finally
         call setpos('.', cursor_point)
