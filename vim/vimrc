@@ -777,6 +777,7 @@ augroup plugin__lsp
         nmap <silent> [lsp]p <Plug>(coc-diagnostic-prev-error)
         nmap <silent> [lsp]n <Plug>(coc-diagnostic-next-error)
         nnoremap [lsp]d :<C-u>CocList diagnostics<CR>
+        nnoremap gh :<C-u>call CocActionAsync('doHover')<CR>
         " nnoremap <space>cr :CocRestart
     endif
 augroup END
