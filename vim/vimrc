@@ -510,10 +510,10 @@ augroup keymap__pane
         call submode#enter_with('p_move', 'n', '', '[core]k', '<C-w>k')
         call submode#enter_with('p_move', 'n', '', '[core]l', '<C-w>l')
         call submode#enter_with('p_move', 'n', '', '[core]h', '<C-w>h')
-        call submode#map('p_move', 'n', '', 'j', '<C-w>j')
-        call submode#map('p_move', 'n', '', 'k', '<C-w>k')
-        call submode#map('p_move', 'n', '', 'l', '<C-w>l')
-        call submode#map('p_move', 'n', '', 'h', '<C-w>h')
+        call submode#map('p_move', 'n', '', 'J', '<C-w>j')
+        call submode#map('p_move', 'n', '', 'K', '<C-w>k')
+        call submode#map('p_move', 'n', '', 'L', '<C-w>l')
+        call submode#map('p_move', 'n', '', 'H', '<C-w>h')
 
         " ペイン自体を移動
         nnoremap [core]J <C-w>J
