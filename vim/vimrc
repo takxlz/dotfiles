@@ -126,6 +126,7 @@ hi Normal guibg=NONE ctermbg=NONE
 " その他オプション
 set shortmess+=I
 set number
+set relativenumber
 set showtabline=2
 set shellslash
 set nrformats=
@@ -143,7 +144,6 @@ set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動�
 " set autochdir
 " set cursorcolumn
 " set cursorline
-" set relativenumber
 " set virtualedit=all
 
 
@@ -338,6 +338,7 @@ augroup END
 " +------------------------------------+
 
 " submode
+" ★ 第1引数は8文字以内にしないとエラーになる
 " [submode#enter_with]でサブモードを作成する
 "   1:作成するサブモード名、2:対象モード(n,i,ni)、3:オプション(リマップするときは[r])、4:サブモードに入るキーバインド、5:サブモードに入った際に行う処理
 " [submode#map]で作成したサブモード内でのキーバインドの定義する
@@ -501,10 +502,18 @@ augroup keymap__pane
         nnoremap <silent> [core]v :<C-u>vs<CR>
 
         " ペイン移動
-        nnoremap [core]j <C-w>j
-        nnoremap [core]k <C-w>k
-        nnoremap [core]l <C-w>l
-        nnoremap [core]h <C-w>h
+        " nnoremap [core]j <C-w>j
+        " nnoremap [core]k <C-w>k
+        " nnoremap [core]l <C-w>l
+        " nnoremap [core]h <C-w>h
+        call submode#enter_with('p_move', 'n', '', '[core]j', '<C-w>j')
+        call submode#enter_with('p_move', 'n', '', '[core]k', '<C-w>k')
+        call submode#enter_with('p_move', 'n', '', '[core]l', '<C-w>l')
+        call submode#enter_with('p_move', 'n', '', '[core]h', '<C-w>h')
+        call submode#map('p_move', 'n', '', 'j', '<C-w>j')
+        call submode#map('p_move', 'n', '', 'k', '<C-w>k')
+        call submode#map('p_move', 'n', '', 'l', '<C-w>l')
+        call submode#map('p_move', 'n', '', 'h', '<C-w>h')
 
         " ペイン自体を移動
         nnoremap [core]J <C-w>J
@@ -525,14 +534,14 @@ augroup keymap__pane
 
         " s>...でw幅を増やす、s<...でw幅を減らす
         " s+...でw高さを増やす、s-...でw高さを減らす
-        call submode#enter_with('bufmove', 'n', '', '[core]>', '<C-w>>')
-        call submode#enter_with('bufmove', 'n', '', '[core]<', '<C-w><')
-        call submode#enter_with('bufmove', 'n', '', '[core]+', '<C-w>+')
-        call submode#enter_with('bufmove', 'n', '', '[core]-', '<C-w>-')
-        call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-        call submode#map('bufmove', 'n', '', '<', '<C-w><')
-        call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-        call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+        call submode#enter_with('p_resize', 'n', '', '[core]>', '<C-w>>')
+        call submode#enter_with('p_resize', 'n', '', '[core]<', '<C-w><')
+        call submode#enter_with('p_resize', 'n', '', '[core]+', '<C-w>+')
+        call submode#enter_with('p_resize', 'n', '', '[core]-', '<C-w>-')
+        call submode#map('p_resize', 'n', '', '>', '<C-w>>')
+        call submode#map('p_resize', 'n', '', '<', '<C-w><')
+        call submode#map('p_resize', 'n', '', '+', '<C-w>+')
+        call submode#map('p_resize', 'n', '', '-', '<C-w>-')
     endif
 augroup END
 
