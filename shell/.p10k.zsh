@@ -41,8 +41,8 @@
     time
     dir                     # current directory
     vcs                     # git status
-    command_execution_time
     # prompt_char           # prompt symbol
+    # command_execution_time  # duration of the last command
   )
 
   # The list of segments shown on the right. Fill it with less important segments.
@@ -51,7 +51,6 @@
   # last prompt line gets hidden if it would overlap with left prompt.
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     # status                  # exit code of the last command
-    # command_execution_time  # duration of the last command
     # background_jobs         # presence of background jobs
     # direnv                  # direnv status (https://direnv.net/)
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
@@ -486,9 +485,10 @@
   # typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE_BACKGROUND=1
 
   ###################[ command_execution_time: duration of the last command ]###################
+  # NOTE:
   # Execution time color.
-  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=45
-  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=
+  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=255
+  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=186
   # Show duration of the last command if takes longer than this many seconds.
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3
   # Show this many fractional digits. Zero means round to seconds.
