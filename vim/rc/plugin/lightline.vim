@@ -94,7 +94,7 @@ endfunction
 function! LightLineFilename()
     let l:filepath = expand('%:p')
 
-    " ファイルパスが30文字を超える場合は、末尾から50文字文切り出す
+    " ファイルパスが30文字を超える場合は、末尾から30文字文切り出す
     let l:filepath_short = strlen(l:filepath) >= 30 ? l:filepath[-30:] : l:filepath
 
 
