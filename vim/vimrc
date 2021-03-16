@@ -280,7 +280,7 @@ augroup END
 " json
 augroup filetype__json
     autocmd!
-    autocmd BufNewFile,BufRead *.json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.json setlocal tabstop=2 softtabstop=2 shiftwidth=2 conceallevel=0
 augroup END
 
 
@@ -753,6 +753,7 @@ augroup plugin__git
     " vim-gitgutter
     if !exists('g:plugin__vim_gitgutter')
         set signcolumn=yes
+        let g:gitgutter_sign_priority = 1
         autocmd FocusGained,WinEnter,BufWinEnter * GitGutterEnable
     endif
 
