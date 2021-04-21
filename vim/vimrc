@@ -24,7 +24,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 Plug 'vim-python/python-syntax'
-" Plug 'cocopon/iceberg.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " EXTEND-VISUAL
 Plug 'itchyny/lightline.vim'
@@ -65,7 +65,7 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " DEBUG
-Plug 'puremourning/vimspector', { 'on': '<Plug>Vimspector' }
+Plug 'puremourning/vimspector'
 
 " MISC
 Plug 'roxma/nvim-yarp',          has('nvim') ? { 'on': [] } : {}  " nvimのとき:plugに登録するがロードはしない（nvimでないとき:無条件でロードする）
@@ -111,16 +111,22 @@ execute 'source' g:vimrc_dir . '/rc/disable_default_plugin.vim'
 set t_Co=256
 set termguicolors  " 有効化するときはterminalでもguiのhiになる（+ guiはHEX方式でカラーコードを指定する必要がある）
 set background=dark
-colorscheme hybrid
+" colorscheme hybrid
+colorscheme gruvbox
 " colorscheme solarized8
 " colorscheme tender
-" colorscheme gruvbox
 
 hi Search gui=NONE guifg=black guibg=#ff8700 cterm=NONE ctermfg=black ctermbg=208
 hi SignColumn gui=NONE guifg=NONE guibg=NONE cterm=NONE ctermfg=NONE ctermbg=NONE
 hi Folded gui=NONE term=standout ctermbg=darkgray ctermfg=NONE guibg=gray23 guifg=NONE
 hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermbg=NONE
 hi Normal guibg=NONE ctermbg=NONE
+hi LineNr guibg=NONE guifg=#696969
+hi CursorLineNr guibg=NONE guifg=#ffa500
+hi GitGutterAdd    guibg=NONE
+hi GitGutterChange guibg=NONE
+hi GitGutterDelete guibg=NONE
+hi GitGutterChangeDelete guibg=NONE
 
 
 " その他オプション
@@ -141,6 +147,7 @@ set splitbelow
 set splitright
 set conceallevel=0  " mdで_等が隠れるのを無効化(indentlineが設定を上書きしてしまうのでindentlineの設定でmdとhelpを除外する)
 set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動する
+set colorcolumn=100
 " set autochdir
 " set cursorcolumn
 " set cursorline
@@ -618,6 +625,7 @@ augroup END
 " 「let g:plugin__XXX = 0」等して左記の変数を存在させればプラグインの設定を読み込まない
 " ※ 以下で行っている独自設定を無効にするだけでプラグイン自体を無効にするわけではない
 
+
 " COLOR {{{
 augroup plugin__color
     autocmd!
@@ -626,6 +634,12 @@ augroup plugin__color
     if !exists('g:plugin__python_syntax')
         let g:python_highlight_all = 1
     endif
+
+    " nvim-treesitter
+    if !exists('g:plugin__nvim_treesitter')
+        execute 'source' g:vimrc_dir . '/rc/plugin/treesitter.vim'
+    endif
+
 augroup END
 " }}}
 
@@ -797,19 +811,12 @@ augroup END
 " DEBUG {{{
 augroup plugin__debug
     autocmd!
+    nnoremap [debug] <Nop>
+    nmap <space>d [debug]
 
     " vimspector
     if !exists('g:plugin__vimspector')
-        " let g:vimspector_enable_mapping = 'HUMAN'
-        nmap <F5>    <Plug>VimspectorContinue
-        nmap <S-F5>  <Plug>VimspectorStop
-        nmap <F4>    <Plug>VimspectorRestart
-        nmap <S-F4>  :<C-u>call vimspector#Reset()<CR>
-        nmap <F9>    <Plug>VimspectorToggleBreakpoint
-        nmap <S-F9>  <Plug>VimspectorAddFunctionBreadkpoint
-        nmap <F10>   <Plug>VimspectorStepOver
-        nmap <F11>   <Plug>VimspectorStepInto
-        nmap <S-F11> <Plug>VimspectorStepOut
+        execute 'source' g:vimrc_dir . '/rc/plugin/vimspector.vim'
     endif
 augroup END
 " }}}
@@ -871,7 +878,7 @@ augroup plugin__motion
         " =~ 正規表現に一致する
         autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'defx') | q | endif  " 開いているペインがDefxだけの場合はvimを閉じる
 
-        nnoremap <silent> [motion]d :<C-u>Defx
+        nnoremap <silent> [motion]e :<C-u>Defx
             \ -listed -resume
             \ -split=vertical
             \ -winwidth=30
@@ -880,7 +887,7 @@ augroup plugin__motion
             \ -buffer-name=tab`tabpagenr()``expand('%:p:h')`
             \ -search=`expand('%:p')`<CR>
 
-        nnoremap <silent> [motion]N :<C-u>Defx
+        nnoremap <silent> [motion]E :<C-u>Defx
             \ -listed
             \ -resume
             \ -columns=mark:indent:icon:icons:filename:git:type:time:size
