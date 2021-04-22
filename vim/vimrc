@@ -17,14 +17,14 @@ call plug#begin('~/.cache/plugged')
 " COLOR
 Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
 Plug 'morhetz/gruvbox'
-Plug 'jacoborus/tender.vim'
-Plug 'lifepillar/vim-solarized8'
 Plug 'w0ng/vim-hybrid'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
-Plug 'vim-python/python-syntax'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'jacoborus/tender.vim'
+" Plug 'lifepillar/vim-solarized8'
+" Plug 'vim-python/python-syntax'
 
 " EXTEND-VISUAL
 Plug 'itchyny/lightline.vim'
@@ -111,8 +111,8 @@ execute 'source' g:vimrc_dir . '/rc/disable_default_plugin.vim'
 set t_Co=256
 set termguicolors  " 有効化するときはterminalでもguiのhiになる（+ guiはHEX方式でカラーコードを指定する必要がある）
 set background=dark
-" colorscheme hybrid
 colorscheme gruvbox
+" colorscheme hybrid
 " colorscheme solarized8
 " colorscheme tender
 
@@ -164,7 +164,7 @@ let g:vim_markdown_folding_disabled=1  " mdを自動で折り畳まないよう�
 
 
 " 「~/.cache/vim_tmpfiles」がない場合は作成する
-if !isdirectory(expand('~/.cache/vim_tmpfiles')) | call mkdir(expand('~/.cache/vim_tmpfiles'), 'p') | endif
+if !isdirectory(expand('~/.cache/vim_tmpfiles/')) | call mkdir(expand('~/.cache/vim_tmpfiles'), 'p') | endif
 
 
 " macとunixだけの設定
@@ -631,12 +631,12 @@ augroup plugin__color
     autocmd!
 
     " python-syntax
-    if !exists('g:plugin__python_syntax')
+    if isdirectory(expand("~/.cache/plugged/python-syntax/"))
         let g:python_highlight_all = 1
     endif
 
     " nvim-treesitter
-    if !exists('g:plugin__nvim_treesitter')
+    if isdirectory(expand("~/.cache/plugged/nvim-treesitter/"))
         execute 'source' g:vimrc_dir . '/rc/plugin/treesitter.vim'
     endif
 
@@ -649,22 +649,22 @@ augroup plugin__extend_visual
     autocmd!
 
     " lightline
-    if !exists('g:plugin__lightline')
+    if isdirectory(expand("~/.cache/plugged/lightline.vim/"))
         execute 'source' g:vimrc_dir . '/rc/plugin/lightline.vim'
     endif
 
     " indentline
-    if !exists('g:plugin__indentline')
+    if isdirectory(expand("~/.cache/plugged/indentline/"))
         let g:indentLine_fileTypeExclude = ["help", "markdown", "md", "json"]
     endif
 
     " vim-highlightedyank
-    if !exists('g:plugin__vim_highlightedyank')
+    if isdirectory(expand("~/.cache/plugged/vim-highlightedyank/"))
         let g:highlightedyank_highlight_duration = 400
     endif
 
     " vim-coloresque
-    if !exists('g:plugin__vim_colorsque')
+    if isdirectory(expand("~/.cache/plugged/vim-coloresque/"))
         " autocmd BufNewFile,BufRead *.html call plug#load('vim-coloresque')
         " autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
     endif
@@ -677,12 +677,12 @@ augroup plugin__textobj_operator
     autocmd!
 
     " vim-operator-replace
-    if !exists('g:plugin__vim_operator_replace')
+    if isdirectory(expand("~/.cache/plugged/vim-operator-replace/"))
         map _ <Plug>(operator-replace)
     endif
 
     " vim-commentary
-    if !exists('g:plugin__vim_commentary')
+    if isdirectory(expand("~/.cache/plugged/vim-commentary/"))
         autocmd FileType typescript setlocal commentstring=\/\/\ %s
         if exists('g:vscode')
             xmap gc  <Plug>VSCodeCommentary
@@ -702,17 +702,17 @@ augroup plugin__format
     nmap <space>f [format]
 
     " vim-prettier
-    if !exists('g:plugin__vim_prettier')
+    if isdirectory(expand("~/.cache/plugged/vim-prettier/"))
         nmap [format]p <Plug>(PrettierAsync)
     endif
 
     " vim-easy-align
-    if !exists('g:plugin__vim_easy-align')
+    if isdirectory(expand("~/.cache/plugged/vim-easy-align/"))
         vmap <Enter> <Plug>(EasyAlign)
     endif
 
     " vim-table-mode
-    if !exists('g:plugin__vim_table_mode')
+    if isdirectory(expand("~/.cache/plugged/vim-table-mode/"))
         let g:table_mode_corner = '|'
         noremap <silent> [format]t :TableModeToggle<CR>
         noremap <silent> [format]T :Tableize<CR>
@@ -728,9 +728,10 @@ augroup plugin__git
     nmap <space>g [git]
 
     " vim-fugitive
-    if !exists('g:plugin__vim_fugitive')
+    if isdirectory(expand("~/.cache/plugged/vim-fugitive/"))
         nnoremap <silent> [git]b :Gblame<CR>
-        nnoremap <silent> [git]s :tab Gstatus<CR>
+        nnoremap <silent> [git]s :tab Git<CR>
+        " nnoremap <silent> [git]s :tab Gstatus<CR>
         nnoremap <silent> [git]d :tab Gdiff<CR>
         nnoremap <silent> [git]D :tab Gvdiff<CR>
         " nnoremap <silent> [git]l :tab Glog<CR>
@@ -759,20 +760,20 @@ augroup plugin__git
     endif
 
     " gv
-    if !exists('g:plugin__gv')
+    if isdirectory(expand("~/.cache/plugged/gv.vim/"))
         nnoremap <silent> [git]l :GV<CR>
         nnoremap <silent> [git]L :GV!<CR>
     endif
 
     " vim-gitgutter
-    if !exists('g:plugin__vim_gitgutter')
+    if isdirectory(expand("~/.cache/plugged/vim-gitgutter/"))
         set signcolumn=yes
         let g:gitgutter_sign_priority = 1
         autocmd FocusGained,WinEnter,BufWinEnter * GitGutterEnable
     endif
 
     " blamer
-    if !exists('g:plugin__blamer')
+    if isdirectory(expand("~/.cache/plugged/blamer.nvim/"))
         let g:blamer_enabled = 1
         let g:blamer_show_in_visual_modes = 0
         let g:blamer_delay = 250
@@ -790,7 +791,7 @@ augroup plugin__lsp
     nmap <space>l [lsp]
 
     " coc
-    if !exists('g:plugin__coc')
+    if isdirectory(expand("~/.cache/plugged/coc.nvim/"))
         nmap [lsp]l <Plug>(coc-definition)
         nmap [lsp]t <Plug>(coc-type-definition)
         nmap [lsp]i <Plug>(coc-implementation)
@@ -815,7 +816,7 @@ augroup plugin__debug
     nmap <space>d [debug]
 
     " vimspector
-    if !exists('g:plugin__vimspector')
+    if isdirectory(expand("~/.cache/plugged/vimspector/"))
         execute 'source' g:vimrc_dir . '/rc/plugin/vimspector.vim'
     endif
 augroup END
@@ -829,7 +830,7 @@ augroup plugin__motion
     autocmd!
 
     " vim-easymotion
-    if !exists('g:plugin__vim_easymotion')
+    if isdirectory(expand("~/.cache/plugged/vim-easymotion/"))
         map  [motion]1 <Plug>(easymotion-bd-w)
         nmap [motion]1 <Plug>(easymotion-overwin-w)
         map  [motion]2 <Plug>(easymotion-bd-jk)
@@ -850,7 +851,7 @@ augroup plugin__motion
     " endif
 
     " fzf
-    if !exists('g:plugin__fzf')
+    if isdirectory(expand("~/.cache/plugged/fzf.vim/"))
         let g:fzf_layout = { 'down': '~40%' }
 
         command! -bang -nargs=* GGrep
@@ -873,7 +874,7 @@ augroup plugin__motion
     endif
 
     " defx
-    if !exists('g:plugin__defx')
+    if isdirectory(expand("~/.cache/plugged/defx.nvim/"))
         " autocmd FileType defx setlocal tabstop=2 softtabstop=2 shiftwidth=2
         " =~ 正規表現に一致する
         autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'defx') | q | endif  " 開いているペインがDefxだけの場合はvimを閉じる
