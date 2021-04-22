@@ -38,6 +38,7 @@ Plug 'tpope/vim-repeat'
 Plug 'kana/vim-submode'
 Plug 'itchyny/vim-parenmatch'
 Plug 'sharat87/roast.vim'
+Plug 'mbbill/undotree'
 
 " TEXTOBJ_OPERATOR
 Plug 'kana/vim-textobj-user'
@@ -534,8 +535,6 @@ augroup keymap__pane
         " ペインの最大化トグル
         let g:takxlz_is_maximize = 0
         nnoremap <silent> [core]z :call takxlz#util#toggle_maximize_window()<CR>
-
-        " ペインを閉じる、バッファを閉じる
         nnoremap <silent> [core]q :<C-u>q<CR>
         nnoremap <silent> [core]Q :<C-u>bd<CR>
 
@@ -582,9 +581,6 @@ augroup END
 " フォールディング
 augroup keymap__fold
     autocmd!
-    " プレフィックスキーを設定
-    noremap [fold] <Nop>
-    map <space>a [fold]
 
     " カーソル下の折りたたみを1段階トグル
     nnoremap [core]a za
@@ -667,6 +663,20 @@ augroup plugin__extend_visual
     if isdirectory(expand("~/.cache/plugged/vim-coloresque/"))
         " autocmd BufNewFile,BufRead *.html call plug#load('vim-coloresque')
         " autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
+    endif
+augroup END
+" }}}
+
+
+" EXTEND-ACTION {{{
+augroup plugin__extend_action
+    autocmd!
+    nnoremap [action] <Nop>
+    nmap <space>a [action]
+
+    " undotree
+    if isdirectory(expand("~/.cache/plugged/undotree/"))
+        nnoremap [action]u :UndotreeToggle<CR>
     endif
 augroup END
 " }}}
@@ -918,6 +928,4 @@ augroup END
 augroup xxx__xxx
     autocmd!
 augroup END
-
-
 
