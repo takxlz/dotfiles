@@ -14,7 +14,6 @@ function! takxlz#util#remove_dust() abort
 endfunction
 
 
-
 " ペインの最大化トグル関数
 function! takxlz#util#toggle_maximize_window() abort
     if g:takxlz_is_maximize == 1

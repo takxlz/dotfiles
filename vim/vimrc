@@ -115,7 +115,6 @@ set background=dark
 colorscheme gruvbox
 " colorscheme hybrid
 " colorscheme solarized8
-" colorscheme tender
 
 hi Search gui=NONE guifg=black guibg=#ff8700 cterm=NONE ctermfg=black ctermbg=208
 hi SignColumn gui=NONE guifg=NONE guibg=NONE cterm=NONE ctermfg=NONE ctermbg=NONE
@@ -124,7 +123,7 @@ hi VertSplit gui=NONE guifg=gray30 guibg=NONE cterm=NONE ctermfg=darkgray ctermb
 hi Normal guibg=NONE ctermbg=NONE
 hi LineNr guibg=NONE guifg=#696969
 hi CursorLineNr guibg=NONE guifg=#ffa500
-hi GitGutterAdd    guibg=NONE
+hi GitGutterAdd guibg=NONE
 hi GitGutterChange guibg=NONE
 hi GitGutterDelete guibg=NONE
 hi GitGutterChangeDelete guibg=NONE
