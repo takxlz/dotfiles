@@ -801,18 +801,29 @@ augroup plugin__lsp
 
     " coc
     if isdirectory(expand("~/.cache/plugged/coc.nvim/"))
-        nmap [lsp]l <Plug>(coc-definition)
-        nmap [lsp]t <Plug>(coc-type-definition)
-        nmap [lsp]i <Plug>(coc-implementation)
-        nmap [lsp]r <Plug>(coc-references)
-        nmap [lsp][ <Plug>(coc-diagnostic-prev)
-        nmap [lsp]] <Plug>(coc-diagnostic-next)
-        nmap [lsp]R <Plug>(coc-rename)
-        nmap <silent> [lsp]p <Plug>(coc-diagnostic-prev-error)
-        nmap <silent> [lsp]n <Plug>(coc-diagnostic-next-error)
+        " 定義へ移動
+        nnoremap <silent> [lsp]l :<C-u>call CocActionAsync('jumpDefinition', 'tab drop')<CR>
+        nnoremap <silent> [lsp]L :<C-u>call CocAction('jumpDefinition', 'vsplit')<CR>
+        " 型定義へ移動
+        nnoremap <silent> [lsp]t :<C-u>call CocActionAsync('jumpTypeDefinition', 'tab drop')<CR>
+        nnoremap <silent> [lsp]T :<C-u>call CocActionAsync('jumpTypeDefinition', 'vsplit')<CR>
+        " 実装へ移動
+        nnoremap <silent> [lsp]i :<C-u>call CocActionAsync('jumpImplementation', 'tab drop')<CR>
+        nnoremap <silent> [lsp]I :<C-u>call CocActionAsync('jumpImplementation', 'vsplit')<CR>
+        " diagnostic
         nnoremap [lsp]d :<C-u>CocList diagnostics<CR>
+        nnoremap [lsp][ <Plug>(coc-diagnostic-prev)
+        nnoremap [lsp]] <Plug>(coc-diagnostic-next)
+        nnoremap <silent> [lsp]p <Plug>(coc-diagnostic-prev-error)
+        nnoremap <silent> [lsp]n <Plug>(coc-diagnostic-next-error)
+        " 参照へ移動
+        nnoremap [lsp]r <Plug>(coc-references)
+        " リネーム
+        nnoremap [lsp]R <Plug>(coc-rename)
+        " 型を表示
         nnoremap gh :<C-u>call CocActionAsync('doHover')<CR>
-        " nnoremap <space>cr :CocRestart
+        " リスタート
+        nnoremap <silent> [lsp]<space>l :<C-u>CocRestart<CR>
     endif
 augroup END
 " }}}
