@@ -17,11 +17,11 @@ call plug#begin('~/.cache/plugged')
 " COLOR
 Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
 Plug 'morhetz/gruvbox'
-" Plug 'w0ng/vim-hybrid'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'w0ng/vim-hybrid'
 " Plug 'jacoborus/tender.vim'
 " Plug 'lifepillar/vim-solarized8'
 " Plug 'vim-python/python-syntax'
@@ -584,10 +584,13 @@ augroup keymap__other
     autocmd!
 
     " vimrcの再読み込み
-    nnoremap [sc]R <C-u>:source ~/dotfiles/vim/vimrc<CR>
+    nnoremap <silent> [sc]R <C-u>:source ~/dotfiles/vim/vimrc<CR>
 
     " 置換コマンドを途中まで入力
     nnoremap [sc]r :%s/
+
+    " カーソル下の単語をカウントする
+    nnoremap <silent> [util]c :call takxlz#util#count_word(takxlz#util#get_word_under_cursor())<CR>
 augroup END
 
 
