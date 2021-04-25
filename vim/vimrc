@@ -17,7 +17,7 @@ call plug#begin('~/.cache/plugged')
 " COLOR
 Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
 Plug 'morhetz/gruvbox'
-Plug 'w0ng/vim-hybrid'
+" Plug 'w0ng/vim-hybrid'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
@@ -25,6 +25,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'jacoborus/tender.vim'
 " Plug 'lifepillar/vim-solarized8'
 " Plug 'vim-python/python-syntax'
+" Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 
 " EXTEND-VISUAL
 Plug 'itchyny/lightline.vim'
@@ -32,13 +33,17 @@ Plug 'Yggdroot/indentline'
 Plug 'LeafCage/foldCC.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
+" Plug 'kshenoy/vim-signature'
 
 " EXTEND-ACTION
 Plug 'tpope/vim-repeat'
 Plug 'kana/vim-submode'
 Plug 'itchyny/vim-parenmatch'
-Plug 'sharat87/roast.vim'
 Plug 'mbbill/undotree'
+" Plug 'sharat87/roast.vim'
+" Plug 'alvan/vim-closetag'
+" Plug 'jiangmiao/auto-pairs'
+" Plug 'liuchengxu/vista.vim'
 
 " TEXTOBJ_OPERATOR
 Plug 'kana/vim-textobj-user'
@@ -77,14 +82,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf',              { 'do': { -> fzf#install() } }
 Plug 'Shougo/defx.nvim',          { 'do': ':UpdateRemotePlugins' }
-
-" TMP
 " Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-" Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-" Plug 'kshenoy/vim-signature'
-" Plug 'alvan/vim-closetag'
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'liuchengxu/vista.vim'
 
 " LOCAL
 " Plug '~/dev/plugin/indicator.vim'
@@ -351,15 +349,16 @@ augroup END
 " [submode#map]で作成したサブモード内でのキーバインドの定義する
 "   第1～3引数までは、enter_withと同じ、4:afterキーバインド、5:beforeキーバインド
 
-" vim固有の機能を割り当てるプレフィックス
-nnoremap [core] <Nop>
+" ショートカット用プレフィックス
+" 基本的にvim固有の機能を割り当てる
+nnoremap [sc] <Nop>
 nnoremap s <Nop>
-nmap s [core]
+nmap s [sc]
 
 
 " 自作関数を割り当てるプレフィックス
 nnoremap [util] <Nop>
-nmap [core]s [util]
+nmap [sc]s [util]
 
 
 " escape
@@ -396,8 +395,8 @@ augroup keymap__move_cursor
     endif
 
     " カーソル移動を早くする
-    nnoremap J 10j
-    nnoremap K 10k
+    " nnoremap J 10j
+    " nnoremap K 10k
 augroup END
 
 
@@ -474,13 +473,12 @@ augroup END
 " ハイライト
 augroup keymap__highlight
     autocmd!
-    " もともとタブ移動のキーマップだが、sキーに割り当てているので不要
-    nnoremap gt <Nop>
-    nnoremap gT <Nop>
 
-    " カーソル下の単語をハイライト
+    " カーソル下の単語をハイライトをトグル
     " nnoremap <silent> [util]w "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
-    nnoremap <silent> [util]s :call takxlz#util#hi_words()<CR>:set hlsearch<CR>
+    nnoremap <silent> [util]s :call takxlz#util#hi_words(takxlz#util#get_word_under_cursor())<CR>:set hlsearch<CR>
+
+    " ハイライトをすべて削除
     nnoremap <silent> [util]S :let g:hlstate = ''<CR>:let @/ = ''<CR>
 
     " カレント行/列を3秒間だけハイライト
@@ -493,56 +491,56 @@ augroup keymap__pane
     autocmd!
 
     if exists('g:vscode')
-        nnoremap <silent> [core]V <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
-        nnoremap <silent> [core]v <Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>
-        nnoremap [core]j <Cmd>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
-        nnoremap [core]k <Cmd>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
-        nnoremap [core]l <Cmd>call VSCodeNotify('workbench.action.focusRightGroup')<CR>
-        nnoremap [core]h <Cmd>call VSCodeNotify('workbench.action.focusLeftGroup')<CR>
-        nnoremap [core]> <Cmd>call VSCodeNotify('workbench.action.increaseViewWidth')<CR>
-        nnoremap [core]< <Cmd>call VSCodeNotify('workbench.action.decreaseViewWidth')<CR>
-        nnoremap [core]+ <Cmd>call VSCodeNotify('workbench.action.increaseViewHeight')<CR>
-        nnoremap [core]- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
+        nnoremap <silent> [sc]V <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
+        nnoremap <silent> [sc]v <Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>
+        nnoremap [sc]j <Cmd>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
+        nnoremap [sc]k <Cmd>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
+        nnoremap [sc]l <Cmd>call VSCodeNotify('workbench.action.focusRightGroup')<CR>
+        nnoremap [sc]h <Cmd>call VSCodeNotify('workbench.action.focusLeftGroup')<CR>
+        nnoremap [sc]> <Cmd>call VSCodeNotify('workbench.action.increaseViewWidth')<CR>
+        nnoremap [sc]< <Cmd>call VSCodeNotify('workbench.action.decreaseViewWidth')<CR>
+        nnoremap [sc]+ <Cmd>call VSCodeNotify('workbench.action.increaseViewHeight')<CR>
+        nnoremap [sc]- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
     else
         " ペイン分割
-        nnoremap <silent> [core]V :<C-u>sp<CR>
-        nnoremap <silent> [core]v :<C-u>vs<CR>
+        nnoremap <silent> [sc]V :<C-u>sp<CR>
+        nnoremap <silent> [sc]v :<C-u>vs<CR>
 
         " ペイン移動
-        " nnoremap [core]j <C-w>j
-        " nnoremap [core]k <C-w>k
-        " nnoremap [core]l <C-w>l
-        " nnoremap [core]h <C-w>h
-        call submode#enter_with('p_move', 'n', '', '[core]j', '<C-w>j')
-        call submode#enter_with('p_move', 'n', '', '[core]k', '<C-w>k')
-        call submode#enter_with('p_move', 'n', '', '[core]l', '<C-w>l')
-        call submode#enter_with('p_move', 'n', '', '[core]h', '<C-w>h')
-        call submode#map('p_move', 'n', '', 'J', '<C-w>j')
-        call submode#map('p_move', 'n', '', 'K', '<C-w>k')
-        call submode#map('p_move', 'n', '', 'L', '<C-w>l')
-        call submode#map('p_move', 'n', '', 'H', '<C-w>h')
+        nnoremap [sc]j <C-w>j
+        nnoremap [sc]k <C-w>k
+        nnoremap [sc]l <C-w>l
+        nnoremap [sc]h <C-w>h
+        " call submode#enter_with('p_move', 'n', '', '[sc]j', '<C-w>j')
+        " call submode#enter_with('p_move', 'n', '', '[sc]k', '<C-w>k')
+        " call submode#enter_with('p_move', 'n', '', '[sc]l', '<C-w>l')
+        " call submode#enter_with('p_move', 'n', '', '[sc]h', '<C-w>h')
+        " call submode#map('p_move', 'n', '', 'J', '<C-w>j')
+        " call submode#map('p_move', 'n', '', 'K', '<C-w>k')
+        " call submode#map('p_move', 'n', '', 'L', '<C-w>l')
+        " call submode#map('p_move', 'n', '', 'H', '<C-w>h')
 
         " ペイン自体を移動
-        nnoremap [core]J <C-w>J
-        nnoremap [core]K <C-w>K
-        nnoremap [core]L <C-w>L
-        nnoremap [core]H <C-w>H
+        nnoremap [sc]J <C-w>J
+        nnoremap [sc]K <C-w>K
+        nnoremap [sc]L <C-w>L
+        nnoremap [sc]H <C-w>H
 
         " 大きさを揃える
-        nnoremap [core]= <C-w>=
+        nnoremap [sc]= <C-w>=
 
         " ペインの最大化トグル
         let g:takxlz_is_maximize = 0
-        nnoremap <silent> [core]z :call takxlz#util#toggle_maximize_window()<CR>
-        nnoremap <silent> [core]q :<C-u>q<CR>
-        nnoremap <silent> [core]Q :<C-u>bd<CR>
+        nnoremap <silent> [sc]z :call takxlz#util#toggle_maximize_window()<CR>
+        nnoremap <silent> [sc]q :<C-u>q<CR>
+        nnoremap <silent> [sc]Q :<C-u>bd<CR>
 
         " s>...でw幅を増やす、s<...でw幅を減らす
         " s+...でw高さを増やす、s-...でw高さを減らす
-        call submode#enter_with('p_resize', 'n', '', '[core]>', '<C-w>>')
-        call submode#enter_with('p_resize', 'n', '', '[core]<', '<C-w><')
-        call submode#enter_with('p_resize', 'n', '', '[core]+', '<C-w>+')
-        call submode#enter_with('p_resize', 'n', '', '[core]-', '<C-w>-')
+        call submode#enter_with('p_resize', 'n', '', '[sc]>', '<C-w>>')
+        call submode#enter_with('p_resize', 'n', '', '[sc]<', '<C-w><')
+        call submode#enter_with('p_resize', 'n', '', '[sc]+', '<C-w>+')
+        call submode#enter_with('p_resize', 'n', '', '[sc]-', '<C-w>-')
         call submode#map('p_resize', 'n', '', '>', '<C-w>>')
         call submode#map('p_resize', 'n', '', '<', '<C-w><')
         call submode#map('p_resize', 'n', '', '+', '<C-w>+')
@@ -554,11 +552,15 @@ augroup END
 " タブ
 augroup keymap__tab
     " 新規タブ
-    nnoremap <silent> [core]t :<C-u>tabnew<CR>
+    nnoremap <silent> [sc]t :<C-u>tabnew<CR>
+
+    " もともとタブ移動のキーマップだが、sキーに割り当てているので不要
+    nnoremap gt <Nop>
+    nnoremap gT <Nop>
 
     " 次のタブ、前のタブに移動
-    " nnoremap [core]n gt
-    " nnoremap [core]N gT
+    " nnoremap [sc]n gt
+    " nnoremap [sc]N gT
     nnoremap <TAB> gt
     nnoremap <S-TAB> gT
 
@@ -567,38 +569,25 @@ augroup keymap__tab
     nnoremap <silent> <S-LEFT> :tabm -1<CR>
 
     " 現在のタブを閉じる
-    nnoremap <silent> [core]c :tabclose<CR>
+    nnoremap <silent> [sc]c :tabclose<CR>
 
     " 現在のタブ以外を閉じる
-    nnoremap <silent> [core]C :tabonly<CR>
+    nnoremap <silent> [sc]C :tabonly<CR>
 
     " ラベル文字列を変更する
-    nnoremap <silent> [core], :call takxlz#util#change_tab_label()<CR>
+    nnoremap <silent> [sc], :call takxlz#util#change_tab_label()<CR>
 augroup END
 
 
-" フォールディング
-augroup keymap__fold
+" その他
+augroup keymap__other
     autocmd!
 
-    " カーソル下の折りたたみを1段階トグル
-    nnoremap [core]a za
+    " vimrcの再読み込み
+    nnoremap [sc]R <C-u>:source ~/dotfiles/vim/vimrc<CR>
 
-    " カーソル下の折りたたみを全てトグル
-    nnoremap [core]A zA
-
-    " 全ての折りたたみを開く
-    nnoremap [core]o zR
-
-    " 全ての折りたたみを閉じる
-    nnoremap [core]O zM
-
-    " 選択範囲にマーカーを埋め込む(vモードで[fold]が反応しなかったので直接<space>を書く)
-    "noremap <silent> <space>fm zf
-    noremap [core]f zf
-
-    " カーソル下の折りたたみマーカーを削除
-    nnoremap [core]d zd
+    " 置換コマンドを途中まで入力
+    nnoremap [sc]r :%s/
 augroup END
 
 

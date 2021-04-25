@@ -55,8 +55,62 @@ function! takxlz#util#hi_nocursorrc_3sec(...) abort
 endfunction
 
 
-" カーソル下の単語をハイライトする関数
-function! takxlz#util#hi_words() abort
+" 現在のカーソル位置を保ったまま置換する関数
+function! takxlz#util#substitute(src, from, to) abort
+    let l:cursor_point = getpos('.')
+    let l:result = substitute(a:src, a:from, a:to, 'g');
+    call setpos('.', cursor_point)
+    return l:result
+endfunction
+
+
+" カーソル下の単語を取得する関数
+function! takxlz#util#get_word_under_cursor() abort
+    " zレジストリにカーソル下の単語をヤンク(yiw)
+    exec 'silent normal "zyiw'
+    return @z
+endfunction
+
+
+" function! takxlz#util#test(word) abort
+"     " 初回呼び出しの場合はハイライト状態を初期化する
+"     if exists('g:hlstate') == 0
+"         let g:hlstate = ''
+"     endif
+
+"     " let l:pattern1 = '\<hello\|world\>'
+
+"     let g:hlstate = takxlz#util#substitute(g:hlstate, '\<', '')
+"     let g:hlstate = takxlz#util#substitute(g:hlstate, '\>', '')
+
+"     let l:split_hlstate = split(g:hlstate, '\|')
+
+"     " g:hlstateを「\\<」で初期化する
+"     let g:hlstate = '\\<'
+
+
+"     for i in range(0, len(l:split_hlstate))
+
+"         " すでに登録されているwordはスキップする
+"         if a:word == l:split_hlstate[i]
+"             continue
+"         endif
+
+"         let g:hlstate += '\\|' . l:split_hlstate[i]
+"     endfor
+
+
+
+    " for l:sh in l:split_hlstate
+    "     if a:word == l:sh
+    "     endif
+
+    " endfor
+" endfunction
+
+
+" パラメータの単語をハイライトする関数
+function! takxlz#util#hi_words(word) abort
     " 初回呼び出しの場合はハイライト状態を初期化する
     if exists('g:hlstate') == 0
         let g:hlstate = ''
@@ -65,27 +119,24 @@ function! takxlz#util#hi_words() abort
     " アンエスケープ化
     let g:hlstate = takxlz#util#toggle_escape(g:hlstate, 0)
 
-    " zレジストリにカーソル下の単語をヤンク(yiw)
-    exec 'silent normal "zyiw'
-
     " カーソル下の単語が既にハイライト対象の場合は対象から削除する
-    if stridx(g:hlstate, '<' . @z . '>') != -1
+    if stridx(g:hlstate, '<' . a:word . '>') != -1
 
         " ハイライト対象の2単語目以降に登録されている場合
-        if stridx(g:hlstate, '|<' . @z . '>') != -1
-            let g:hlstate = substitute(g:hlstate, '|<' . @z . '>', '', 'g')
+        if stridx(g:hlstate, '|<' . a:word . '>') != -1
+            let g:hlstate = substitute(g:hlstate, '|<' . a:word . '>', '', 'g')
 
         " ハイライト対象の1単語目に登録されている場合
         else
-            let g:hlstate = substitute(g:hlstate, '<' . @z . '>', '', 'g')
+            let g:hlstate = substitute(g:hlstate, '<' . a:word . '>', '', 'g')
         endif
 
     " カーソル下の単語がハイライト対象でない場合は対象に追加する
     else
-        let g:hlstate = g:hlstate == '' ? (g:hlstate . '<' . @z . '>') : (g:hlstate . '|<' . @z . '>')
+        let g:hlstate = g:hlstate == '' ? (g:hlstate . '<' . a:word . '>') : (g:hlstate . '|<' . a:word . '>')
     endif
 
-    " エスケープ化
+    " エスケープ化+ハイライト
     let @/ = takxlz#util#toggle_escape(g:hlstate, 1)
 endfunction
 
