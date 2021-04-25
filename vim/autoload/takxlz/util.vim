@@ -2,14 +2,14 @@
 
 " 空行の空白を削除する関数
 function! takxlz#util#remove_dust() abort
-    let l:cursor_point = getpos('.')
+    let l:pos = getpos('.')
     " 置換対象が見つからないとエラーになるのでtry-endtryで囲む
     try
-        " exec ':%s/^ *$//g'
-        exec '%s/\s\+$//ge'
+        " execute ':%s/^ *$//g'
+        execute '%s/\s\+$//ge'
     catch
     finally
-        call setpos('.', cursor_point)
+        call setpos('.', l:pos)
     endtry
 endfunction
 
@@ -17,7 +17,7 @@ endfunction
 " ペインの最大化トグル関数
 function! takxlz#util#toggle_maximize_window() abort
     if g:takxlz_is_maximize == 1
-        exec "normal \<C-w>="
+        execute "normal \<C-w>="
         let g:takxlz_is_maximize = 0
     else
         :resize
@@ -57,22 +57,24 @@ endfunction
 
 " 現在のカーソル位置を保ったまま置換する関数
 function! takxlz#util#substitute(src, from, to) abort
-    let l:cursor_point = getpos('.')
+    let l:pos = getpos('.')
     let l:result = substitute(a:src, a:from, a:to, 'g');
-    call setpos('.', cursor_point)
+    call setpos('.', l:pos)
     return l:result
 endfunction
 
 
 " カーソル下の単語を取得する関数
 function! takxlz#util#get_word_under_cursor() abort
+    let l:pos = getpos('.')
     " zレジストリにカーソル下の単語をヤンク(yiw)
-    exec 'silent normal "zyiw'
+    execute 'silent normal "zyiw'
+    call setpos('.', l:pos)
     return @z
 endfunction
 
 
-" function! takxlz#util#test(word) abort
+" function! takxlz#util#test(word) abort {{{
 "     " 初回呼び出しの場合はハイライト状態を初期化する
 "     if exists('g:hlstate') == 0
 "         let g:hlstate = ''
@@ -107,9 +109,18 @@ endfunction
 
     " endfor
 " endfunction
+" }}}
 
 
-" パラメータの単語をハイライトする関数
+" パラメータで渡された単語の出現数をカウントする関数
+function! takxlz#util#count_word(word) abort
+    let l:pos = getpos('.')
+    execute '%s/\<' . a:word . '\>//gn'
+    call setpos('.', l:pos)
+endfunction
+
+
+" パラメータで渡された単語をハイライトする関数
 function! takxlz#util#hi_words(word) abort
     " 初回呼び出しの場合はハイライト状態を初期化する
     if exists('g:hlstate') == 0
@@ -147,7 +158,7 @@ endfunction
 " 渡された文字列から対象の文字をエスケープ/アンエスケープ化する関数
 function! takxlz#util#toggle_escape(target, flg) abort
     let l:tgt = a:target
-    let l:cursor_point = getpos('.')
+    let l:pos = getpos('.')
     " エスケープ化
     if a:flg == 1
         let l:tgt = substitute(l:tgt, '<', '\\<', 'g')
@@ -161,6 +172,6 @@ function! takxlz#util#toggle_escape(target, flg) abort
         let l:tgt = substitute(l:tgt, '\\|', '|', 'g')
         let l:tgt = substitute(l:tgt, '\\#', '#', 'g')
     endif
-    call setpos('.', cursor_point)
+    call setpos('.', l:pos)
     return tgt
 endfunction
