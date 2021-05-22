@@ -6,7 +6,7 @@ function! s:defx_my_settings() abort
     nnoremap <silent><buffer><expr> ! defx#do_action('execute_command')
     nnoremap <silent><buffer><expr> m defx#do_action('move')
     nnoremap <silent><buffer><expr> p defx#do_action('paste')
-    nnoremap <silent><buffer><expr> l defx#async_action('drop')
+    nnoremap <silent><buffer><expr> l defx#async_action('drop', 'tabnew')
     nnoremap <silent><buffer><expr> E defx#do_action('open', 'vsplit')
     nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
     nnoremap <silent><buffer><expr> o defx#async_action('open_or_close_tree')
