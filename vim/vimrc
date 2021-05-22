@@ -33,6 +33,7 @@ Plug 'Yggdroot/indentline'
 Plug 'LeafCage/foldCC.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug', 'puml', 'pu']}
 " Plug 'kshenoy/vim-signature'
 
 " EXTEND-ACTION
@@ -40,6 +41,7 @@ Plug 'tpope/vim-repeat'
 Plug 'kana/vim-submode'
 Plug 'itchyny/vim-parenmatch'
 Plug 'mbbill/undotree'
+Plug 'rhysd/clever-f.vim'
 " Plug 'sharat87/roast.vim'
 " Plug 'alvan/vim-closetag'
 " Plug 'jiangmiao/auto-pairs'
@@ -323,6 +325,14 @@ augroup filetype__tsx
     autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
     autocmd BufNewFile,BufRead *.ts setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.tsx setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+
+" typescript-tsx
+augroup filetype__puml
+    autocmd!
+    autocmd BufNewFile,BufRead *.puml setlocal filetype=puml
+    autocmd BufNewFile,BufRead *.pu setlocal filetype=puml
 augroup END
 " }}}
 
@@ -654,6 +664,11 @@ augroup plugin__extend_visual
     if isdirectory(expand("~/.cache/plugged/vim-coloresque/"))
         " autocmd BufNewFile,BufRead *.html call plug#load('vim-coloresque')
         " autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
+    endif
+
+    " markdown-preview
+    if isdirectory(expand("~/.cache/plugged/markdown-preview.nvim/"))
+        let g:mkdp_filetypes = ['markdown', 'puml']
     endif
 augroup END
 " }}}
