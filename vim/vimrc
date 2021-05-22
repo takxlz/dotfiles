@@ -364,8 +364,9 @@ nmap s [sc]
 
 
 " 自作関数/便利キーマップを割り当てるプレフィックス ※ 一部プラグインでも使用する
-nnoremap [;] <Nop>
-nmap ; [;]
+" fzfのMapsで「;」を検索したときに、下のラベルまで出ると邪魔なのでラベルの割当はしない
+" nnoremap [;] <Nop>
+" nmap ; [;]
 
 
 " escape
@@ -482,14 +483,14 @@ augroup keymap__highlight
     autocmd!
 
     " カーソル下の単語をハイライトをトグル
-    " nnoremap <silent> [;]w "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
-    nnoremap <silent> [;]s :call takxlz#util#hi_words(takxlz#util#get_word_under_cursor())<CR>:set hlsearch<CR>
+    " nnoremap <silent> ;w "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+    nnoremap <silent> ;s :call takxlz#util#hi_words(takxlz#util#get_word_under_cursor())<CR>:set hlsearch<CR>
 
     " ハイライトをすべて削除
-    nnoremap <silent> [;]S :let g:hlstate = ''<CR>:let @/ = ''<CR>
+    nnoremap <silent> ;S :let g:hlstate = ''<CR>:let @/ = ''<CR>
 
     " カレント行/列を3秒間だけハイライト
-    nnoremap <silent> [;]f :call takxlz#util#hi_cursorrc_3sec()<CR>
+    nnoremap <silent> ;f :call takxlz#util#hi_cursorrc_3sec()<CR>
 augroup END
 
 
@@ -591,13 +592,13 @@ augroup keymap__other
     autocmd!
 
     " vimrcの再読み込み
-    nnoremap <silent> [;]R <C-u>:source ~/dotfiles/vim/vimrc<CR>
+    nnoremap <silent> ;R <C-u>:source ~/dotfiles/vim/vimrc<CR>
 
     " 置換コマンドを途中まで入力
-    nnoremap [;]r :%s/
+    nnoremap ;r :%s/
 
     " カーソル下の単語をカウントする
-    nnoremap <silent> [;]c :call takxlz#util#count_word(takxlz#util#get_word_under_cursor())<CR>
+    nnoremap <silent> ;c :call takxlz#util#count_word(takxlz#util#get_word_under_cursor())<CR>
 augroup END
 
 
@@ -809,7 +810,7 @@ augroup plugin__lsp_dap
         autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'coc-explorer') | q | endif
 
         " coc-explorer
-        nnoremap <silent> [;]; :CocCommand explorer
+        nnoremap <silent> ;; :CocCommand explorer
             \ --width 30
             \ --toggle<CR>
     endif
