@@ -18,9 +18,9 @@ call plug#begin('~/.cache/plugged')
 Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
 Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
-Plug 'kristijanhusak/defx-git'
-Plug 'kristijanhusak/defx-icons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'kristijanhusak/defx-git'
+" Plug 'kristijanhusak/defx-icons'
 " Plug 'w0ng/vim-hybrid'
 " Plug 'jacoborus/tender.vim'
 " Plug 'lifepillar/vim-solarized8'
@@ -34,6 +34,9 @@ Plug 'LeafCage/foldCC.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug', 'puml', 'pu']}
+Plug 'markonm/traces.vim'
+Plug 'google/vim-searchindex'
+Plug 'itchyny/vim-cursorword'
 " Plug 'kshenoy/vim-signature'
 
 " EXTEND-ACTION
@@ -362,12 +365,10 @@ nnoremap [sc] <Nop>
 nnoremap s <Nop>
 nmap s [sc]
 
-
 " 自作関数/便利キーマップを割り当てるプレフィックス ※ 一部プラグインでも使用する
 " fzfのMapsで「;」を検索したときに、下のラベルまで出ると邪魔なのでラベルの割当はしない
 " nnoremap [;] <Nop>
 " nmap ; [;]
-
 
 " escape
 augroup keymap__escape
@@ -481,7 +482,6 @@ augroup END
 " ハイライト
 augroup keymap__highlight
     autocmd!
-
     " カーソル下の単語をハイライトをトグル
     " nnoremap <silent> ;w "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
     nnoremap <silent> ;s :call takxlz#util#hi_words(takxlz#util#get_word_under_cursor())<CR>:set hlsearch<CR>
@@ -499,7 +499,7 @@ augroup keymap__pane
     autocmd!
 
     if exists('g:vscode')
-        nnoremap <silent> [sc]V <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
+        nnoremap <silent> [sc]s <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
         nnoremap <silent> [sc]v <Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>
         nnoremap [sc]j <Cmd>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
         nnoremap [sc]k <Cmd>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
@@ -511,7 +511,7 @@ augroup keymap__pane
         nnoremap [sc]- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
     else
         " ペイン分割
-        nnoremap <silent> [sc]V :<C-u>sp<CR>
+        nnoremap <silent> [sc]s :<C-u>sp<CR>
         nnoremap <silent> [sc]v :<C-u>vs<CR>
 
         " ペイン移動
@@ -668,6 +668,14 @@ augroup plugin__extend_visual
     if isdirectory(expand("~/.cache/plugged/markdown-preview.nvim/"))
         let g:mkdp_filetypes = ['markdown', 'puml']
     endif
+
+    " vim-cursorword
+    if isdirectory(expand("~/.cache/plugged/vim-cursorword/"))
+        let g:cursorword_delay = 300
+        let g:cursorword_highlight = 0
+        hi CursorWord0 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
+        hi CursorWord1 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
+    endif
 augroup END
 " }}}
 
@@ -805,6 +813,7 @@ augroup plugin__lsp_dap
     nmap , [protocol]
 
     " coc-explorer
+    " キーマップの設定等はcoc-settings.json
     if isdirectory(expand("~/.cache/plugged/coc.nvim/"))
         " 開いているペインがcoc-explorerだけの場合はvimを閉じる
         autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'coc-explorer') | q | endif
