@@ -16,27 +16,28 @@ call plug#begin('~/.cache/plugged')
 
 " COLOR
 Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
-Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" Plug 'kristijanhusak/defx-git'
-" Plug 'kristijanhusak/defx-icons'
-" Plug 'w0ng/vim-hybrid'
+Plug 'w0ng/vim-hybrid'
+" Plug 'morhetz/gruvbox'
 " Plug 'jacoborus/tender.vim'
 " Plug 'lifepillar/vim-solarized8'
-" Plug 'vim-python/python-syntax'
-" Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+
+" LANGUAGE
+Plug 'aklt/plantuml-syntax'
+
 
 " EXTEND-VISUAL
 Plug 'itchyny/lightline.vim'
 Plug 'Yggdroot/indentline'
 Plug 'LeafCage/foldCC.vim'
 Plug 'machakann/vim-highlightedyank'
-Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug', 'puml', 'pu']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug', 'plantuml', 'puml', 'pu']}
 Plug 'markonm/traces.vim'
 Plug 'google/vim-searchindex'
 Plug 'itchyny/vim-cursorword'
+Plug 'ap/vim-css-color'
+" Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
 " Plug 'kshenoy/vim-signature'
 
 " EXTEND-ACTION
@@ -113,8 +114,8 @@ execute 'source' g:vimrc_dir . '/rc/disable_default_plugin.vim'
 set t_Co=256
 set termguicolors  " 有効化するときはterminalでもguiのhiになる（+ guiはHEX方式でカラーコードを指定する必要がある）
 set background=dark
-colorscheme gruvbox
-" colorscheme hybrid
+colorscheme hybrid
+" colorscheme gruvbox
 " colorscheme solarized8
 
 hi Search gui=NONE guifg=black guibg=#ff8700 cterm=NONE ctermfg=black ctermbg=208
@@ -329,11 +330,11 @@ augroup filetype__tsx
 augroup END
 
 
-" typescript-tsx
+" plantuml
 augroup filetype__puml
     autocmd!
-    autocmd BufNewFile,BufRead *.puml setlocal filetype=puml
-    autocmd BufNewFile,BufRead *.pu setlocal filetype=puml
+    " autocmd BufNewFile,BufRead *.puml setlocal filetype=puml
+    " autocmd BufNewFile,BufRead *.pu setlocal filetype=puml
 augroup END
 " }}}
 
@@ -599,6 +600,9 @@ augroup keymap__other
 
     " カーソル下の単語をカウントする
     nnoremap <silent> ;c :call takxlz#util#count_word(takxlz#util#get_word_under_cursor())<CR>
+
+    " カーソル行の関連を入れ替える
+    nnoremap <silent> ;p :call takxlz#plantuml#swap_current_line_relation()<CR>
 augroup END
 
 
@@ -666,12 +670,12 @@ augroup plugin__extend_visual
 
     " markdown-preview
     if isdirectory(expand("~/.cache/plugged/markdown-preview.nvim/"))
-        let g:mkdp_filetypes = ['markdown', 'puml']
+        let g:mkdp_filetypes = ['markdown', 'plantuml']
     endif
 
     " vim-cursorword
     if isdirectory(expand("~/.cache/plugged/vim-cursorword/"))
-        let g:cursorword_delay = 300
+        let g:cursorword_delay = 600
         let g:cursorword_highlight = 0
         hi CursorWord0 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
         hi CursorWord1 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
