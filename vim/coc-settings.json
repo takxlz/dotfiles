@@ -14,7 +14,9 @@
   },
 
   // その他
-  "suggest.noselect": false,
+  "suggest.noselect": true,
+
+  // python
   "python.jediEnabled": false,
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,

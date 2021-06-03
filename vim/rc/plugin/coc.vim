@@ -1,6 +1,6 @@
 " 定義へ移動
-nnoremap <silent> [protocol]l :<C-u>call CocActionAsync('jumpDefinition', 'tab drop')<CR>
-nnoremap <silent> [protocol]L :<C-u>call CocAction('jumpDefinition', 'vsplit')<CR>
+nnoremap <silent> [protocol]d :<C-u>call CocActionAsync('jumpDefinition', 'tab drop')<CR>
+nnoremap <silent> [protocol]D :<C-u>call CocAction('jumpDefinition', 'vsplit')<CR>
 
 " 型定義へ移動
 nnoremap <silent> [protocol]t :<C-u>call CocActionAsync('jumpTypeDefinition', 'tab drop')<CR>
@@ -11,9 +11,9 @@ nnoremap <silent> [protocol]i :<C-u>call CocActionAsync('jumpImplementation', 't
 nnoremap <silent> [protocol]I :<C-u>call CocActionAsync('jumpImplementation', 'vsplit')<CR>
 
 " diagnostic
-nnoremap [protocol]d :<C-u>CocList diagnostics<CR>
-nnoremap [protocol][ <Plug>(coc-diagnostic-prev)
-nnoremap [protocol]] <Plug>(coc-diagnostic-next)
+nnoremap [protocol], :<C-u>CocList diagnostics<CR>
+nnoremap [protocol]k <Plug>(coc-diagnostic-prev)
+nnoremap [protocol]j <Plug>(coc-diagnostic-next)
 nnoremap <silent> [protocol]p <Plug>(coc-diagnostic-prev-error)
 nnoremap <silent> [protocol]n <Plug>(coc-diagnostic-next-error)
 
