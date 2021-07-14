@@ -11,10 +11,12 @@
   // EXPLORER
   "explorer.keyMappings.global": {
      "s": false,
+     "<tab>": false,
+     ",": "actionMenu",
   },
 
   // その他
-  "suggest.noselect": true,
+  "suggest.noselect": false,
 
   // python
   "python.jediEnabled": false,

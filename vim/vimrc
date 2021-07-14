@@ -17,11 +17,10 @@ call plug#begin('~/.cache/plugged')
 " COLOR
 Plug 'joshdick/onedark.vim'  " lightlineのテーマで使用
 Plug 'ryanoasis/vim-devicons'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'w0ng/vim-hybrid'
 " Plug 'morhetz/gruvbox'
-" Plug 'jacoborus/tender.vim'
 " Plug 'lifepillar/vim-solarized8'
+" Plug 'jacoborus/tender.vim'
 
 " LANGUAGE
 Plug 'aklt/plantuml-syntax'
@@ -37,6 +36,7 @@ Plug 'markonm/traces.vim'
 Plug 'google/vim-searchindex'
 Plug 'itchyny/vim-cursorword'
 Plug 'ap/vim-css-color'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
 " Plug 'kshenoy/vim-signature'
 
@@ -115,8 +115,8 @@ set t_Co=256
 set termguicolors  " 有効化するときはterminalでもguiのhiになる（+ guiはHEX方式でカラーコードを指定する必要がある）
 set background=dark
 colorscheme hybrid
-" colorscheme gruvbox
 " colorscheme solarized8
+" colorscheme gruvbox
 
 hi Search gui=NONE guifg=black guibg=#ff8700 cterm=NONE ctermfg=black ctermbg=208
 hi SignColumn gui=NONE guifg=NONE guibg=NONE cterm=NONE ctermfg=NONE ctermbg=NONE
@@ -343,6 +343,11 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :keymap config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" [s]:     ウィンドウ、タブ操作用のプレフィックス
+" [;]:     自作関数用のプレフィックス（;;のみファイラを開く）
+" [,]:     LSP、DAP用のプレフィックス
+" [space]: プラグイン用のプレフィックス
+
 " +------------------------------------+
 " |        mode      |   no_re  |  re  |
 " |------------------------------------|
@@ -633,12 +638,6 @@ augroup plugin__color
     if isdirectory(expand("~/.cache/plugged/python-syntax/"))
         let g:python_highlight_all = 1
     endif
-
-    " nvim-treesitter
-    if isdirectory(expand("~/.cache/plugged/nvim-treesitter/"))
-        execute 'source' g:vimrc_dir . '/rc/plugin/treesitter.vim'
-    endif
-
 augroup END
 " }}}
 
@@ -680,6 +679,11 @@ augroup plugin__extend_visual
         hi CursorWord0 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
         hi CursorWord1 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
     endif
+
+    " nvim-treesitter
+    " if isdirectory(expand("~/.cache/plugged/nvim-treesitter/"))
+        " execute 'source' g:vimrc_dir . '/rc/plugin/treesitter.vim'
+    " endif
 augroup END
 " }}}
 
