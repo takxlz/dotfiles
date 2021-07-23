@@ -214,6 +214,14 @@ augroup basic__todo_highlight
     autocmd WinEnter,BufRead,BufNew,Syntax * hi MyXxx cterm=bold gui=bold ctermfg=0 ctermbg=9 guifg=black guibg=#ff0000
 augroup END
 
+" ejs(dejs)のハイライト設定
+augroup basic__ejs_highlight
+    autocmd!
+    " 「<%.\{-}%>」=> 「<%」「%>」で囲まれた何らかの文字（最短一致）に一致する
+    autocmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyEjs', '<%.\{-}%>')
+    autocmd WinEnter,BufRead,BufNew,Syntax * hi MyEjs cterm=NONE gui=NONE ctermfg=0 ctermbg=NONE guifg=#696969 guibg=NONE
+augroup END
+
 
 " 普通にcorsorline,corsorcolumnするより重い気がするので無効化
 " 一定時間操作がされない場合だけ、カレンド行/列をハイライトする
