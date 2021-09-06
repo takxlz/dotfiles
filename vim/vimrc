@@ -133,7 +133,7 @@ hi GitGutterChangeDelete guibg=NONE
 " その他オプション
 set shortmess+=I
 set number
-set relativenumber
+" set relativenumber
 set showtabline=2
 set shellslash
 set nrformats=
@@ -350,7 +350,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :keymap config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" [s]:     ウィンドウ、タブ操作用のプレフィックス
+" s:     ウィンドウ、タブ操作用のプレフィックス
 " [;]:     自作関数用のプレフィックス（;;のみファイラを開く）
 " [,]:     LSP、DAP用のプレフィックス
 " [space]: プラグイン用のプレフィックス
@@ -374,9 +374,9 @@ augroup END
 "   第1～3引数までは、enter_withと同じ、4:afterキーバインド、5:beforeキーバインド
 
 " ペイン/タブ操作用のショートカット用プレフィックス
-nnoremap [sc] <Nop>
 nnoremap s <Nop>
-nmap s [sc]
+nnoremap s <Nop>
+nmap s s
 
 " 自作関数/便利キーマップを割り当てるプレフィックス ※ 一部プラグインでも使用する
 " fzfのMapsで「;」を検索したときに、下のラベルまで出ると邪魔なのでラベルの割当はしない
@@ -512,56 +512,56 @@ augroup keymap__pane
     autocmd!
 
     if exists('g:vscode')
-        nnoremap <silent> [sc]s <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
-        nnoremap <silent> [sc]v <Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>
-        nnoremap [sc]j <Cmd>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
-        nnoremap [sc]k <Cmd>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
-        nnoremap [sc]l <Cmd>call VSCodeNotify('workbench.action.focusRightGroup')<CR>
-        nnoremap [sc]h <Cmd>call VSCodeNotify('workbench.action.focusLeftGroup')<CR>
-        nnoremap [sc]> <Cmd>call VSCodeNotify('workbench.action.increaseViewWidth')<CR>
-        nnoremap [sc]< <Cmd>call VSCodeNotify('workbench.action.decreaseViewWidth')<CR>
-        nnoremap [sc]+ <Cmd>call VSCodeNotify('workbench.action.increaseViewHeight')<CR>
-        nnoremap [sc]- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
+        nnoremap <silent> ss <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
+        nnoremap <silent> sv <Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>
+        nnoremap sj <Cmd>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
+        nnoremap sk <Cmd>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
+        nnoremap sl <Cmd>call VSCodeNotify('workbench.action.focusRightGroup')<CR>
+        nnoremap sh <Cmd>call VSCodeNotify('workbench.action.focusLeftGroup')<CR>
+        nnoremap s> <Cmd>call VSCodeNotify('workbench.action.increaseViewWidth')<CR>
+        nnoremap s< <Cmd>call VSCodeNotify('workbench.action.decreaseViewWidth')<CR>
+        nnoremap s+ <Cmd>call VSCodeNotify('workbench.action.increaseViewHeight')<CR>
+        nnoremap s- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
     else
         " ペイン分割
-        nnoremap <silent> [sc]s :<C-u>sp<CR>
-        nnoremap <silent> [sc]v :<C-u>vs<CR>
+        nnoremap <silent> ss :<C-u>sp<CR>
+        nnoremap <silent> sv :<C-u>vs<CR>
 
         " ペイン移動
-        nnoremap [sc]j <C-w>j
-        nnoremap [sc]k <C-w>k
-        nnoremap [sc]l <C-w>l
-        nnoremap [sc]h <C-w>h
-        " call submode#enter_with('p_move', 'n', '', '[sc]j', '<C-w>j')
-        " call submode#enter_with('p_move', 'n', '', '[sc]k', '<C-w>k')
-        " call submode#enter_with('p_move', 'n', '', '[sc]l', '<C-w>l')
-        " call submode#enter_with('p_move', 'n', '', '[sc]h', '<C-w>h')
+        nnoremap sj <C-w>j
+        nnoremap sk <C-w>k
+        nnoremap sl <C-w>l
+        nnoremap sh <C-w>h
+        " call submode#enter_with('p_move', 'n', '', 'sj', '<C-w>j')
+        " call submode#enter_with('p_move', 'n', '', 'sk', '<C-w>k')
+        " call submode#enter_with('p_move', 'n', '', 'sl', '<C-w>l')
+        " call submode#enter_with('p_move', 'n', '', 'sh', '<C-w>h')
         " call submode#map('p_move', 'n', '', 'J', '<C-w>j')
         " call submode#map('p_move', 'n', '', 'K', '<C-w>k')
         " call submode#map('p_move', 'n', '', 'L', '<C-w>l')
         " call submode#map('p_move', 'n', '', 'H', '<C-w>h')
 
         " ペイン自体を移動
-        nnoremap [sc]J <C-w>J
-        nnoremap [sc]K <C-w>K
-        nnoremap [sc]L <C-w>L
-        nnoremap [sc]H <C-w>H
+        nnoremap sJ <C-w>J
+        nnoremap sK <C-w>K
+        nnoremap sL <C-w>L
+        nnoremap sH <C-w>H
 
         " 大きさを揃える
-        nnoremap [sc]= <C-w>=
+        nnoremap s= <C-w>=
 
         " ペインの最大化トグル
         let g:takxlz_is_maximize = 0
-        nnoremap <silent> [sc]z :call takxlz#util#toggle_maximize_window()<CR>
-        nnoremap <silent> [sc]q :<C-u>q<CR>
-        nnoremap <silent> [sc]Q :<C-u>bd<CR>
+        nnoremap <silent> sz :call takxlz#util#toggle_maximize_window()<CR>
+        nnoremap <silent> sq :<C-u>q<CR>
+        nnoremap <silent> sQ :<C-u>bd<CR>
 
         " s>...でw幅を増やす、s<...でw幅を減らす
         " s+...でw高さを増やす、s-...でw高さを減らす
-        call submode#enter_with('p_resize', 'n', '', '[sc]>', '<C-w>>')
-        call submode#enter_with('p_resize', 'n', '', '[sc]<', '<C-w><')
-        call submode#enter_with('p_resize', 'n', '', '[sc]+', '<C-w>+')
-        call submode#enter_with('p_resize', 'n', '', '[sc]-', '<C-w>-')
+        call submode#enter_with('p_resize', 'n', '', 's>', '<C-w>>')
+        call submode#enter_with('p_resize', 'n', '', 's<', '<C-w><')
+        call submode#enter_with('p_resize', 'n', '', 's+', '<C-w>+')
+        call submode#enter_with('p_resize', 'n', '', 's-', '<C-w>-')
         call submode#map('p_resize', 'n', '', '>', '<C-w>>')
         call submode#map('p_resize', 'n', '', '<', '<C-w><')
         call submode#map('p_resize', 'n', '', '+', '<C-w>+')
@@ -573,15 +573,15 @@ augroup END
 " タブ
 augroup keymap__tab
     " 新規タブ
-    nnoremap <silent> [sc]t :<C-u>tabnew<CR>
+    nnoremap <silent> st :<C-u>tabnew<CR>
 
     " もともとタブ移動のキーマップだが、sキーに割り当てているので不要
     nnoremap gt <Nop>
     nnoremap gT <Nop>
 
     " 次のタブ、前のタブに移動
-    " nnoremap [sc]n gt
-    " nnoremap [sc]N gT
+    " nnoremap sn gt
+    " nnoremap sN gT
     nnoremap <TAB> gt
     nnoremap <S-TAB> gT
 
@@ -590,13 +590,13 @@ augroup keymap__tab
     nnoremap <silent> <S-LEFT> :tabm -1<CR>
 
     " 現在のタブを閉じる
-    nnoremap <silent> [sc]c :tabclose<CR>
+    nnoremap <silent> sc :tabclose<CR>
 
     " 現在のタブ以外を閉じる
-    nnoremap <silent> [sc]C :tabonly<CR>
+    nnoremap <silent> sC :tabonly<CR>
 
     " ラベル文字列を変更する
-    nnoremap <silent> [sc], :call takxlz#util#change_tab_label()<CR>
+    nnoremap <silent> s, :call takxlz#util#change_tab_label()<CR>
 augroup END
 
 
@@ -766,7 +766,7 @@ augroup plugin__git
 
     " vim-fugitive
     if isdirectory(expand("~/.cache/plugged/vim-fugitive/"))
-        nnoremap <silent> [git]b :Gblame<CR>
+        nnoremap <silent> [git]b :Git blame<CR>
         nnoremap <silent> [git]s :tab Git<CR>
         " nnoremap <silent> [git]s :tab Gstatus<CR>
         nnoremap <silent> [git]d :tab Gdiff<CR>

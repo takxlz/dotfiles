@@ -26,12 +26,12 @@ endfun
 " nmap [protocol]cb <Plug>VimspectorToggleConditionalBreakpoint
 
 " let g:vimspector_enable_mapping = 'HUMAN'
-" nmap <F5>    <Plug>VimspectorContinue
-" nmap <S-F5>  <Plug>VimspectorStop
-" nmap <F4>    <Plug>VimspectorRestart
-" nmap <S-F4>  :<C-u>call vimspector#Reset()<CR>
-" nmap <F9>    <Plug>VimspectorToggleBreakpoint
-" nmap <S-F9>  <Plug>VimspectorAddFunctionBreadkpoint
-" nmap <F10>   <Plug>VimspectorStepOver
-" nmap <F11>   <Plug>VimspectorStepInto
-" nmap <S-F11> <Plug>VimspectorStepOut
+nmap <F5>    <Plug>VimspectorContinue
+nmap <S-F5>  <Plug>VimspectorStop
+nmap <F4>    <Plug>VimspectorRestart
+nmap <S-F4>  :<C-u>call vimspector#Reset()<CR>
+nmap <F9>    <Plug>VimspectorToggleBreakpoint
+nmap <S-F9>  <Plug>VimspectorAddFunctionBreadkpoint
+nmap <F10>   <Plug>VimspectorStepOver
+nmap <F11>   <Plug>VimspectorStepInto
+nmap <S-F11> <Plug>VimspectorStepOut
