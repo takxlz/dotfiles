@@ -52,6 +52,9 @@ if !has('nvim')
     set undodir=~/.cache/vim_tmpfiles/
 endif
 
+" 改行のときの自動コメントを無効化
+autocmd FileType * setlocal formatoptions-=ro
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :keymap config
@@ -65,7 +68,7 @@ endif
 nnoremap x "_x
 nnoremap s "_s
 
-" ペイン
+" ペイン(vscode)
 nnoremap <silent> ss <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
 nnoremap <silent> sv <Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>
 nnoremap sj <Cmd>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
@@ -77,8 +80,11 @@ nnoremap s< <Cmd>call VSCodeNotify('workbench.action.decreaseViewWidth')<CR>
 nnoremap s+ <Cmd>call VSCodeNotify('workbench.action.increaseViewHeight')<CR>
 nnoremap s- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
 
-" カーソル下の単語をカウントする
-nnoremap <silent> ;c :call takxlz#util#count_word(takxlz#util#get_word_under_cursor())<CR>
+" フォーカス(vscode)
+nnoremap <silent> ,ee <Cmd>call VSCodeNotify('workbench.files.action.focusFilesExplorer')<CR>
+nnoremap <silent> ,ss <Cmd>call VSCodeNotify('workbench.view.search.focus')<CR>
+nnoremap <silent> ,gg <Cmd>call VSCodeNotify('workbench.scm.focus')<CR>
+nnoremap <silent> ,dd <Cmd>call VSCodeNotify('workbench.debug.welcome.focus')<CR>
 
 " nnoremap <C-j> <Cmd>call VSCodeNotify('selectNextSuggestion')<CR>
 " nnoremap <C-k> <Cmd>call VSCodeNotify('selectPrevSuggestion')<CR>
