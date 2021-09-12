@@ -74,7 +74,9 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 " LSP/DAP(EXPLORER)
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'puremourning/vimspector'
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+" Plug 'puremourning/vimspector'
 
 " MISC
 Plug 'roxma/nvim-yarp',          has('nvim') ? { 'on': [] } : {}  " nvimのとき:plugに登録するがロードはしない（nvimでないとき:無条件でロードする）
@@ -350,10 +352,10 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :keymap config  {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" s:     ウィンドウ、タブ操作用のプレフィックス
-" [;]:     自作関数用のプレフィックス（;;のみファイラを開く）
-" [,]:     LSP、DAP用のプレフィックス
-" [space]: プラグイン用のプレフィックス
+" 「s」:     ペイン/タブ（ウィンドウ）操作用のプレフィックス
+" 「,」:     自作関数用のプレフィックス（,,のみファイラを開く）
+" 「;」:
+" 「space」: プラグイン用のプレフィックス
 
 " +------------------------------------+
 " |        mode      |   no_re  |  re  |
@@ -375,8 +377,11 @@ augroup END
 
 " ペイン/タブ操作用のショートカット用プレフィックス
 nnoremap s <Nop>
-nnoremap s <Nop>
-nmap s s
+nnoremap [window] <Nop>
+nmap s [window]
+
+nnoremap [util] <Nop>
+nmap , [util]
 
 " 自作関数/便利キーマップを割り当てるプレフィックス ※ 一部プラグインでも使用する
 " fzfのMapsで「;」を検索したときに、下のラベルまで出ると邪魔なのでラベルの割当はしない
@@ -497,13 +502,13 @@ augroup keymap__highlight
     autocmd!
     " カーソル下の単語をハイライトをトグル
     " nnoremap <silent> ;w "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
-    nnoremap <silent> ;s :call takxlz#util#hi_words(takxlz#util#get_word_under_cursor())<CR>:set hlsearch<CR>
+    nnoremap <silent> [util]s :call takxlz#util#hi_words(takxlz#util#get_word_under_cursor())<CR>:set hlsearch<CR>
 
     " ハイライトをすべて削除
-    nnoremap <silent> ;S :let g:hlstate = ''<CR>:let @/ = ''<CR>
+    nnoremap <silent> [util]S :let g:hlstate = ''<CR>:let @/ = ''<CR>
 
     " カレント行/列を3秒間だけハイライト
-    nnoremap <silent> ;f :call takxlz#util#hi_cursorrc_3sec()<CR>
+    nnoremap <silent> [util]f :call takxlz#util#hi_cursorrc_3sec()<CR>
 augroup END
 
 
@@ -512,26 +517,26 @@ augroup keymap__pane
     autocmd!
 
     if exists('g:vscode')
-        nnoremap <silent> ss <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
-        nnoremap <silent> sv <Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>
-        nnoremap sj <Cmd>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
-        nnoremap sk <Cmd>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
-        nnoremap sl <Cmd>call VSCodeNotify('workbench.action.focusRightGroup')<CR>
-        nnoremap sh <Cmd>call VSCodeNotify('workbench.action.focusLeftGroup')<CR>
-        nnoremap s> <Cmd>call VSCodeNotify('workbench.action.increaseViewWidth')<CR>
-        nnoremap s< <Cmd>call VSCodeNotify('workbench.action.decreaseViewWidth')<CR>
-        nnoremap s+ <Cmd>call VSCodeNotify('workbench.action.increaseViewHeight')<CR>
-        nnoremap s- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
+        nnoremap <silent> [window]s <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
+        nnoremap <silent> [window]v <Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>
+        nnoremap [window]j <Cmd>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
+        nnoremap [window]k <Cmd>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
+        nnoremap [window]l <Cmd>call VSCodeNotify('workbench.action.focusRightGroup')<CR>
+        nnoremap [window]h <Cmd>call VSCodeNotify('workbench.action.focusLeftGroup')<CR>
+        nnoremap [window]> <Cmd>call VSCodeNotify('workbench.action.increaseViewWidth')<CR>
+        nnoremap [window]< <Cmd>call VSCodeNotify('workbench.action.decreaseViewWidth')<CR>
+        nnoremap [window]+ <Cmd>call VSCodeNotify('workbench.action.increaseViewHeight')<CR>
+        nnoremap [window]- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
     else
         " ペイン分割
-        nnoremap <silent> ss :<C-u>sp<CR>
-        nnoremap <silent> sv :<C-u>vs<CR>
+        nnoremap <silent> [window]s :<C-u>sp<CR>
+        nnoremap <silent> [window]v :<C-u>vs<CR>
 
         " ペイン移動
-        nnoremap sj <C-w>j
-        nnoremap sk <C-w>k
-        nnoremap sl <C-w>l
-        nnoremap sh <C-w>h
+        nnoremap [window]j <C-w>j
+        nnoremap [window]k <C-w>k
+        nnoremap [window]l <C-w>l
+        nnoremap [window]h <C-w>h
         " call submode#enter_with('p_move', 'n', '', 'sj', '<C-w>j')
         " call submode#enter_with('p_move', 'n', '', 'sk', '<C-w>k')
         " call submode#enter_with('p_move', 'n', '', 'sl', '<C-w>l')
@@ -542,19 +547,19 @@ augroup keymap__pane
         " call submode#map('p_move', 'n', '', 'H', '<C-w>h')
 
         " ペイン自体を移動
-        nnoremap sJ <C-w>J
-        nnoremap sK <C-w>K
-        nnoremap sL <C-w>L
-        nnoremap sH <C-w>H
+        nnoremap [window]J <C-w>J
+        nnoremap [window]K <C-w>K
+        nnoremap [window]L <C-w>L
+        nnoremap [window]H <C-w>H
 
         " 大きさを揃える
-        nnoremap s= <C-w>=
+        nnoremap [window]= <C-w>=
 
         " ペインの最大化トグル
         let g:takxlz_is_maximize = 0
-        nnoremap <silent> sz :call takxlz#util#toggle_maximize_window()<CR>
-        nnoremap <silent> sq :<C-u>q<CR>
-        nnoremap <silent> sQ :<C-u>bd<CR>
+        nnoremap <silent> [window]z :call takxlz#util#toggle_maximize_window()<CR>
+        nnoremap <silent> [window]q :<C-u>q<CR>
+        nnoremap <silent> [window]Q :<C-u>bd<CR>
 
         " s>...でw幅を増やす、s<...でw幅を減らす
         " s+...でw高さを増やす、s-...でw高さを減らす
@@ -573,15 +578,15 @@ augroup END
 " タブ
 augroup keymap__tab
     " 新規タブ
-    nnoremap <silent> st :<C-u>tabnew<CR>
+    nnoremap <silent> [window]t :<C-u>tabnew<CR>
 
     " もともとタブ移動のキーマップだが、sキーに割り当てているので不要
     nnoremap gt <Nop>
     nnoremap gT <Nop>
 
     " 次のタブ、前のタブに移動
-    " nnoremap sn gt
-    " nnoremap sN gT
+    " nnoremap [window]n gt
+    " nnoremap [window]N gT
     nnoremap <TAB> gt
     nnoremap <S-TAB> gT
 
@@ -590,13 +595,13 @@ augroup keymap__tab
     nnoremap <silent> <S-LEFT> :tabm -1<CR>
 
     " 現在のタブを閉じる
-    nnoremap <silent> sc :tabclose<CR>
+    nnoremap <silent> [window]c :tabclose<CR>
 
     " 現在のタブ以外を閉じる
-    nnoremap <silent> sC :tabonly<CR>
+    nnoremap <silent> [window]C :tabonly<CR>
 
     " ラベル文字列を変更する
-    nnoremap <silent> s, :call takxlz#util#change_tab_label()<CR>
+    nnoremap <silent> [window], :call takxlz#util#change_tab_label()<CR>
 augroup END
 
 
@@ -605,16 +610,16 @@ augroup keymap__other
     autocmd!
 
     " vimrcの再読み込み
-    nnoremap <silent> ;R <C-u>:source ~/dotfiles/vim/vimrc<CR>
+    nnoremap <silent> [util]R <C-u>:source ~/dotfiles/vim/vimrc<CR>
 
     " 置換コマンドを途中まで入力
-    nnoremap ;r :%s/
+    nnoremap [util]r :%s/
 
     " カーソル下の単語をカウントする
-    nnoremap <silent> ;c :call takxlz#util#count_word(takxlz#util#get_word_under_cursor())<CR>
+    nnoremap <silent> [util]c :call takxlz#util#count_word(takxlz#util#get_word_under_cursor())<CR>
 
     " カーソル行の関連を入れ替える
-    nnoremap <silent> ;p :call takxlz#plantuml#swap_current_line_relation()<CR>
+    nnoremap <silent> [util]p :call takxlz#plantuml#swap_current_line_relation()<CR>
 augroup END
 
 
@@ -806,7 +811,8 @@ augroup plugin__git
     if isdirectory(expand("~/.cache/plugged/vim-gitgutter/"))
         set signcolumn=yes
         let g:gitgutter_sign_priority = 1
-        autocmd FocusGained,WinEnter,BufWinEnter * GitGutterEnable
+        " let blacklist = ['
+        " autocmd FocusGained,WinEnter,BufWinEnter * GitGutterEnable
     endif
 
     " blamer
@@ -824,8 +830,11 @@ augroup END
 " LSP/DAP {{{
 augroup plugin__lsp_dap
     autocmd!
-    nnoremap [protocol] <Nop>
-    nmap , [protocol]
+    nnoremap [lsp] <Nop>
+    nmap <space>l [lsp]
+
+    nnoremap [dap] <Nop>
+    nmap <space>d [dap]
 
     " coc-explorer
     " キーマップの設定等はcoc-settings.json
@@ -834,7 +843,7 @@ augroup plugin__lsp_dap
         autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'coc-explorer') | q | endif
 
         " coc-explorer
-        nnoremap <silent> ;; :CocCommand explorer
+        nnoremap <silent> [util], :CocCommand explorer
             \ --width 30
             \ --toggle<CR>
     endif
@@ -846,7 +855,12 @@ augroup plugin__lsp_dap
 
     " vimspector
     if isdirectory(expand("~/.cache/plugged/vimspector/"))
-        execute 'source' g:vimrc_dir . '/rc/plugin/vimspector.vim'
+        " execute 'source' g:vimrc_dir . '/rc/plugin/vimspector.vim'
+    endif
+
+    " nvim-dap
+    if isdirectory(expand("~/.cache/plugged/nvim-dap/"))
+        execute 'source' g:vimrc_dir . '/rc/plugin/nvim-dap.vim'
     endif
 augroup END
 " }}}
