@@ -81,12 +81,13 @@ Plug 'rcarriga/nvim-dap-ui'
 " MISC
 Plug 'roxma/nvim-yarp',          has('nvim') ? { 'on': [] } : {}  " nvimのとき:plugに登録するがロードはしない（nvimでないとき:無条件でロードする）
 Plug 'roxma/vim-hug-neovim-rpc', has('nvim') ? { 'on': [] } : {}
+Plug 'vim-denops/denops.vim'
 
 " MOTION/SEARCH
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf',              { 'do': { -> fzf#install() } }
-Plug 'Shougo/defx.nvim',          { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/defx.nvim',          { 'do': ':UpdateRemotePlugins' }
 " Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " LOCAL
@@ -135,7 +136,6 @@ hi GitGutterChangeDelete guibg=NONE
 " その他オプション
 set shortmess+=I
 set number
-" set relativenumber
 set showtabline=2
 set shellslash
 set nrformats=
@@ -151,6 +151,7 @@ set splitright
 set conceallevel=0  " mdで_等が隠れるのを無効化(indentlineが設定を上書きしてしまうのでindentlineの設定でmdとhelpを除外する)
 set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動する
 set colorcolumn=100
+" set relativenumber
 " set autochdir
 " set cursorcolumn
 " set cursorline
@@ -383,10 +384,6 @@ nmap s [window]
 nnoremap [util] <Nop>
 nmap , [util]
 
-" 自作関数/便利キーマップを割り当てるプレフィックス ※ 一部プラグインでも使用する
-" fzfのMapsで「;」を検索したときに、下のラベルまで出ると邪魔なのでラベルの割当はしない
-" nnoremap [;] <Nop>
-" nmap ; [;]
 
 " escape
 augroup keymap__escape
@@ -409,21 +406,10 @@ augroup keymap__move_cursor
     nnoremap gk k
 
     " インサートモード時のカーソル移動を追加
-    if exists('g:vscode')
-        " inoremap <C-j> <Cmd>call VSCodeNotify('cursorDown')<CR>
-        " inoremap <C-k> <Cmd>call VSCodeNotify('cursorUp')<CR>
-        " inoremap <C-h> <Cmd>call VSCodeNotify('cursorLeft')<CR>
-        " inoremap <C-l> <Cmd>call VSCodeNotify('cursorRight')<CR>
-    else
-        inoremap <C-j> <Down>
-        inoremap <C-k> <Up>
-        inoremap <C-h> <Left>
-        inoremap <C-l> <Right>
-    endif
-
-    " カーソル移動を早くする
-    " nnoremap J 10j
-    " nnoremap K 10k
+    inoremap <C-j> <Down>
+    inoremap <C-k> <Up>
+    inoremap <C-h> <Left>
+    inoremap <C-l> <Right>
 augroup END
 
 
@@ -516,62 +502,49 @@ augroup END
 augroup keymap__pane
     autocmd!
 
-    if exists('g:vscode')
-        nnoremap <silent> [window]s <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
-        nnoremap <silent> [window]v <Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>
-        nnoremap [window]j <Cmd>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
-        nnoremap [window]k <Cmd>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
-        nnoremap [window]l <Cmd>call VSCodeNotify('workbench.action.focusRightGroup')<CR>
-        nnoremap [window]h <Cmd>call VSCodeNotify('workbench.action.focusLeftGroup')<CR>
-        nnoremap [window]> <Cmd>call VSCodeNotify('workbench.action.increaseViewWidth')<CR>
-        nnoremap [window]< <Cmd>call VSCodeNotify('workbench.action.decreaseViewWidth')<CR>
-        nnoremap [window]+ <Cmd>call VSCodeNotify('workbench.action.increaseViewHeight')<CR>
-        nnoremap [window]- <Cmd>call VSCodeNotify('workbench.action.decreaseViewHeight')<CR>
-    else
-        " ペイン分割
-        nnoremap <silent> [window]s :<C-u>sp<CR>
-        nnoremap <silent> [window]v :<C-u>vs<CR>
+    " ペイン分割
+    nnoremap <silent> [window]s :<C-u>sp<CR>
+    nnoremap <silent> [window]v :<C-u>vs<CR>
 
-        " ペイン移動
-        nnoremap [window]j <C-w>j
-        nnoremap [window]k <C-w>k
-        nnoremap [window]l <C-w>l
-        nnoremap [window]h <C-w>h
-        " call submode#enter_with('p_move', 'n', '', 'sj', '<C-w>j')
-        " call submode#enter_with('p_move', 'n', '', 'sk', '<C-w>k')
-        " call submode#enter_with('p_move', 'n', '', 'sl', '<C-w>l')
-        " call submode#enter_with('p_move', 'n', '', 'sh', '<C-w>h')
-        " call submode#map('p_move', 'n', '', 'J', '<C-w>j')
-        " call submode#map('p_move', 'n', '', 'K', '<C-w>k')
-        " call submode#map('p_move', 'n', '', 'L', '<C-w>l')
-        " call submode#map('p_move', 'n', '', 'H', '<C-w>h')
+    " ペイン移動
+    nnoremap [window]j <C-w>j
+    nnoremap [window]k <C-w>k
+    nnoremap [window]l <C-w>l
+    nnoremap [window]h <C-w>h
+    " call submode#enter_with('p_move', 'n', '', 'sj', '<C-w>j')
+    " call submode#enter_with('p_move', 'n', '', 'sk', '<C-w>k')
+    " call submode#enter_with('p_move', 'n', '', 'sl', '<C-w>l')
+    " call submode#enter_with('p_move', 'n', '', 'sh', '<C-w>h')
+    " call submode#map('p_move', 'n', '', 'J', '<C-w>j')
+    " call submode#map('p_move', 'n', '', 'K', '<C-w>k')
+    " call submode#map('p_move', 'n', '', 'L', '<C-w>l')
+    " call submode#map('p_move', 'n', '', 'H', '<C-w>h')
 
-        " ペイン自体を移動
-        nnoremap [window]J <C-w>J
-        nnoremap [window]K <C-w>K
-        nnoremap [window]L <C-w>L
-        nnoremap [window]H <C-w>H
+    " ペイン自体を移動
+    nnoremap [window]J <C-w>J
+    nnoremap [window]K <C-w>K
+    nnoremap [window]L <C-w>L
+    nnoremap [window]H <C-w>H
 
-        " 大きさを揃える
-        nnoremap [window]= <C-w>=
+    " 大きさを揃える
+    nnoremap [window]= <C-w>=
 
-        " ペインの最大化トグル
-        let g:takxlz_is_maximize = 0
-        nnoremap <silent> [window]z :call takxlz#util#toggle_maximize_window()<CR>
-        nnoremap <silent> [window]q :<C-u>q<CR>
-        nnoremap <silent> [window]Q :<C-u>bd<CR>
+    " ペインの最大化トグル
+    let g:takxlz_is_maximize = 0
+    nnoremap <silent> [window]z :call takxlz#util#toggle_maximize_window()<CR>
+    nnoremap <silent> [window]q :<C-u>q<CR>
+    nnoremap <silent> [window]Q :<C-u>bd<CR>
 
-        " s>...でw幅を増やす、s<...でw幅を減らす
-        " s+...でw高さを増やす、s-...でw高さを減らす
-        call submode#enter_with('p_resize', 'n', '', 's>', '<C-w>>')
-        call submode#enter_with('p_resize', 'n', '', 's<', '<C-w><')
-        call submode#enter_with('p_resize', 'n', '', 's+', '<C-w>+')
-        call submode#enter_with('p_resize', 'n', '', 's-', '<C-w>-')
-        call submode#map('p_resize', 'n', '', '>', '<C-w>>')
-        call submode#map('p_resize', 'n', '', '<', '<C-w><')
-        call submode#map('p_resize', 'n', '', '+', '<C-w>+')
-        call submode#map('p_resize', 'n', '', '-', '<C-w>-')
-    endif
+    " s>...でw幅を増やす、s<...でw幅を減らす
+    " s+...でw高さを増やす、s-...でw高さを減らす
+    call submode#enter_with('p_resize', 'n', '', 's>', '<C-w>>')
+    call submode#enter_with('p_resize', 'n', '', 's<', '<C-w><')
+    call submode#enter_with('p_resize', 'n', '', 's+', '<C-w>+')
+    call submode#enter_with('p_resize', 'n', '', 's-', '<C-w>-')
+    call submode#map('p_resize', 'n', '', '>', '<C-w>>')
+    call submode#map('p_resize', 'n', '', '<', '<C-w><')
+    call submode#map('p_resize', 'n', '', '+', '<C-w>+')
+    call submode#map('p_resize', 'n', '', '-', '<C-w>-')
 augroup END
 
 
@@ -621,16 +594,6 @@ augroup keymap__other
     " カーソル行の関連を入れ替える
     nnoremap <silent> [util]p :call takxlz#plantuml#swap_current_line_relation()<CR>
 augroup END
-
-
-" vscode-nvim
-augroup keymap__vscode_nvim
-    autocmd!
-    if exists('g:vscode')
-        " nnoremap <C-j> <Cmd>call VSCodeNotify('selectNextSuggestion')<CR>
-        " nnoremap <C-k> <Cmd>call VSCodeNotify('selectPrevSuggestion')<CR>
-    endif
-augroup END
 " }}}
 
 
@@ -674,10 +637,10 @@ augroup plugin__extend_visual
     endif
 
     " vim-coloresque
-    if isdirectory(expand("~/.cache/plugged/vim-coloresque/"))
+    " if isdirectory(expand("~/.cache/plugged/vim-coloresque/"))
         " autocmd BufNewFile,BufRead *.html call plug#load('vim-coloresque')
         " autocmd BufNewFile,BufRead *.css call plug#load('vim-coloresque')
-    endif
+    " endif
 
     " markdown-preview
     if isdirectory(expand("~/.cache/plugged/markdown-preview.nvim/"))
@@ -786,19 +749,19 @@ augroup plugin__git
         let g:nremap = {'s': '' }
 
         " ペイン分割
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> sV :<C-u>sp<CR>
-        autocmd FileType fugitive nnoremap <buffer> <silent> sv :<C-u>vs<CR>
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]V :<C-u>sp<CR>
+        autocmd FileType fugitive nnoremap <buffer> <silent> [window]v :<C-u>vs<CR>
         " ペイン移動
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> sj <C-w>j
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> sk <C-w>k
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> sl <C-w>l
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> sh <C-w>h
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]j <C-w>j
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]k <C-w>k
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]l <C-w>l
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]h <C-w>h
         " タブ移動
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> sn gt
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> sp gT
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]n gt
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]p gT
         " タブを閉じる
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> sc :tabclose<CR>
-        autocmd FileType fugitive,git nnoremap <buffer> <silent> sC :tabonly<CR>
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]c :tabclose<CR>
+        autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]C :tabonly<CR>
     endif
 
     " gv
