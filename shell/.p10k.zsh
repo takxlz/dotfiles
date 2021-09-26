@@ -13,7 +13,7 @@
 #   for i in {0..255}; do print -Pn "%${i}F${(l:3::0:)i}%f " ${${(M)$((i%8)):#7}:+$'\n'}; done
 
 # Temporarily change options.
-'builtin' 'local' '-a''p10k_config_opts'
+'builtin' 'local' '-a' 'p10k_config_opts'
 [[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
 [[ ! -o 'sh_glob'         ]] || p10k_config_opts+=('sh_glob')
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
@@ -621,13 +621,13 @@
   # Context color when running with privileges.
   # NOTE:
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=250
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=066
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=238
   # Context color in SSH without privileges.
   typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND=250
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_BACKGROUND=066
+  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_BACKGROUND=238
   # Default context color (no privileges, no SSH).
   typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=250
-  typeset -g POWERLEVEL9K_CONTEXT_BACKGROUND=066
+  typeset -g POWERLEVEL9K_CONTEXT_BACKGROUND=238
 
   # Context format when running with privileges: user@hostname.
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%n@%m'
