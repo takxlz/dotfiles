@@ -267,6 +267,13 @@ augroup filetype__vim
 augroup END
 
 
+" makefile
+augroup filetype__makefile
+    autocmd!
+    autocmd BufNewFile,BufRead Makefile setlocal noexpandtab tabstop=4 shiftwidth=4
+augroup END
+
+
 " go
 augroup filetype__go
     autocmd!
