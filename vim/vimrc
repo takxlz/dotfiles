@@ -389,7 +389,7 @@ nnoremap [window] <Nop>
 nmap s [window]
 
 nnoremap [util] <Nop>
-nmap , [util]
+nmap ; [util]
 
 
 " escape
