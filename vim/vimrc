@@ -388,6 +388,7 @@ nnoremap s <Nop>
 nnoremap [window] <Nop>
 nmap s [window]
 
+nnoremap ; <Nop>
 nnoremap [util] <Nop>
 nmap ; [util]
 
@@ -813,7 +814,7 @@ augroup plugin__lsp_dap
         autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'coc-explorer') | q | endif
 
         " coc-explorer
-        nnoremap <silent> [util], :CocCommand explorer
+        nnoremap <silent> [util]; :CocCommand explorer
             \ --width 30
             \ --toggle<CR>
     endif
