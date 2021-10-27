@@ -35,6 +35,7 @@ Plug 'markonm/traces.vim'
 Plug 'google/vim-searchindex'
 Plug 'itchyny/vim-cursorword'
 Plug 'ap/vim-css-color'
+Plug 'wfxr/minimap.vim'
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
 " Plug 'kshenoy/vim-signature'
@@ -131,6 +132,7 @@ hi GitGutterAdd guibg=NONE
 hi GitGutterChange guibg=NONE
 hi GitGutterDelete guibg=NONE
 hi GitGutterChangeDelete guibg=NONE
+hi CurrentPage gui=NONE guifg=NONE guibg=#696970 cterm=NONE ctermfg=NONE ctermbg=NONE
 
 
 " その他オプション
@@ -667,6 +669,20 @@ augroup plugin__extend_visual
     " if isdirectory(expand("~/.cache/plugged/nvim-treesitter/"))
         " execute 'source' g:vimrc_dir . '/rc/plugin/treesitter.vim'
     " endif
+
+    " minimap.vim
+    if isdirectory(expand("~/.cache/plugged/minimap.vim/"))
+        let g:minimap_auto_start = 1
+        let g:minimap_auto_start_win_enter = 1
+        let g:minimap_highlight = 'CurrentPage'
+        let g:minimap_width = 2
+        let g:minimap_highlight_search = 1
+        let g:minimap_highlight_range = 1
+        let g:minimap_git_colors = 1
+        let g:minimap_cursor_color_priority = 100
+        let g:minimap_git_color_priority = 110
+        let g:minimap_search_color_priority = 120
+    endif
 augroup END
 " }}}
 
@@ -930,7 +946,3 @@ augroup END
 
 
 " xxx
-augroup xxx__xxx
-    autocmd!
-augroup END
-
