@@ -46,6 +46,7 @@ Plug 'kana/vim-submode'
 Plug 'itchyny/vim-parenmatch'
 Plug 'mbbill/undotree'
 Plug 'rhysd/clever-f.vim'
+Plug 'othree/eregex.vim'
 " Plug 'sharat87/roast.vim'
 " Plug 'alvan/vim-closetag'
 " Plug 'jiangmiao/auto-pairs'
@@ -696,6 +697,12 @@ augroup plugin__extend_action
     " undotree
     if isdirectory(expand("~/.cache/plugged/undotree/"))
         nnoremap [action]u :UndotreeToggle<CR>
+    endif
+
+    " eregex.vim
+    if isdirectory(expand("~/.cache/plugged/eregex.vim/"))
+        let g:eregex_forward_delim = '<space>/'
+        let g:eregex_backward_delim = '<space>?'
     endif
 augroup END
 " }}}
