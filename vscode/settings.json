@@ -1,83 +1,155 @@
 {
-  // ===========================================================================================================================
-  // エディタの設定
-  // ===========================================================================================================================
-
-  // ウィンドウのズームレベル（これでしかタブサイズを変更できなかったので、ズームレベルを基準にフォントサイズ等を設定する）
-  "window.zoomLevel": -0.4,
-
-  // フォント
-  "editor.fontFamily": "'Ricty Diminished for Powerline', Consolas, 'Courier New', monospace",
-  "editor.fontSize": 16,
-
-  // ターミナルのフォントサイズ
-  "terminal.integrated.fontSize": 15,
-
-  // エクスプローラでファイルをクリックしたときのプレビュー機能を無効化
-  "workbench.editor.enablePreview": false,
-
-  // アイコンテーマ
-  "workbench.iconTheme": "material-icon-theme",
-
-  // タブ
-  "editor.insertSpaces": true,
-
-  // ミニマップの文字を曖昧にしてパフォーマンスをアップ
+  /****************************************************************************************************
+  * basic
+  ****************************************************************************************************/
+  // basic(editor)
+  "editor.fontSize": 17,
+  "editor.fontFamily": "'Myrica', Consolas, 'Courier New', monospace",
   "editor.minimap.renderCharacters": false,
-
-  // ミニマップの制御
   "editor.minimap.enabled": false,
-
-  // 自動括弧，引用符挿入を無効化
   "editor.autoClosingBrackets": "never",
   "editor.autoClosingQuotes": "never",
-
-  // 制御文字の表示
   "editor.renderControlCharacters": true,
-
-  // 文字間以外の半角スペースを可視化
-  "editor.renderWhitespace": "boundary",
-
-  // オートコンプリート（サジェスト）を自動にする
   "editor.acceptSuggestionOnEnter": "smart",
-
-  // サジェスト表示時に一番上の項目を選択した状態にする
   "editor.suggestSelection": "first",
+  "editor.wordWrap": "on",
+  "editor.columnSelection": false,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.showFoldingControls": "always",
 
-  // 起動時にUntitledファイルを作成
+  // basic(workbench)
+  "workbench.editor.enablePreview": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.editor.pinnedTabSizing": "compact",
+  "workbench.editor.tabSizing": "shrink",
   "workbench.startupEditor": "newUntitledFile",
+  "workbench.list.automaticKeyboardNavigation": false,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#00612c",
+    "statusBar.noFolderBackground": "#00612c",
+    "statusBar.debuggingBackground": "#55006f"
+  },
 
-  // 新しいフォルダを開いたときに新しいウィンドウを開始しない
+  // basic(window)
+  "window.zoomLevel": -0.4,
   "window.openFoldersInNewWindow": "off",
 
-  // ターミナルで選択した文字を自動でコピーする
-  "terminal.integrated.copyOnSelection": true,
-
-  // pythonのパス
-  "python.pythonPath": "/usr/local/bin/python3",
-
-  // ステータスバーの色
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#111111",
-    "statusBar.noFolderBackground": "#111111",
-    "statusBar.debuggingBackground": "#111111"
-  },
-  // 監視対象から除外
+  // basic(files)
+  "files.trimTrailingWhitespace": true,
   "files.watcherExclude": {
     "**/Google_Drive/**": true,
-    "**/Library/**": true
+    "**/images/**": true,
+    "**/img/**": true,
+    "**/Library/**": true,
+    "**/__pycache__": true
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
   },
 
-  // ===========================================================================================================================
-  // エクステンション
-  // ===========================================================================================================================
+  // basic(terminal)
+  "terminal.integrated.fontSize": 17,
+  "terminal.integrated.copyOnSelection": true,
 
-  // ----------------------------------------
-  // multi-command
+
+  /****************************************************************************************************
+  * launguage
+  ****************************************************************************************************/
+  // language(javascript)
+  "debug.javascript.unmapMissingSources": true,
+  "[javascript]": {
+    "editor.tabSize": 2,
+  },
+
+  // language(javascript-react)
+  "[javascriptreact]": {
+    "editor.tabSize": 2,
+  },
+
+  // language(typescript)
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // language(python)
+  "python.languageServer": "Pylance",
+  "python.defaultInterpreterPath": "/usr/local/bin/python3",
+
+
+  /****************************************************************************************************
+  * extension
+  ****************************************************************************************************/
+  // extension(neovim)
+  // "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+  // "vscode-neovim.neovimInitVimPaths.darwin": "/Users/takxlz/dotfiles/vim/init-vscode.vim",
+
+  // extension(vscodevim)
+  "vim.leader": "<space>",
+  "vim.easymotion": true,
+  "vim.camelCaseMotion.enable": true,
+  "vim.autoSwitchInputMethod.defaultIM": "com.google.inputmethod.Japanese.Roman",
+  "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/local/bin/im-select",
+  "vim.autoSwitchInputMethod.switchIMCmd": "/usr/local/bin/im-select {im}",
+  "vim.autoSwitchInputMethod.enable": true,
+  "vim.hlsearch": true,
+  "vim.visualstar": true,
+  "vim.history": 5000,
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.color": "rgba(250, 240, 170, 0.2)",
+  "vim.highlightedyank.duration": 300,
+
+  // インサートモード
+  "vim.insertModeKeyBindingsNonRecursive": [
+    { "before": ["j", "j"], "after": ["<ESC>"] },
+    { "before": ["j", "k"], "commands": ["editor.action.triggerSuggest"] },
+
+    { "before": ["<C-h>"], "commands": ["cursorLeft"] },
+    { "before": ["<C-j>"], "commands": ["cursorDown"] },
+    { "before": ["<C-k>"], "commands": ["cursorUp"] },
+    { "before": ["<C-l>"], "commands": ["cursorRight"] },
+  ],
+
+  // ノーマルモード
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["<CR>"], "commands": ["editor.action.insertLineAfter"] },
+
+    { "before": ["s"], "after": [""] },
+    { "before": ["m"], "after": [""] },
+
+    { "before": ["x"], "after": ["\"", "_", "x"] },
+    { "before": ["X"], "after": ["\"", "_", "X"] },
+    { "before": ["S"], "after": ["\"", "_", "S"] },
+    { "before": ["c"], "after": ["\"", "_", "c"] },
+    { "before": ["C"], "after": ["\"", "_", "C"] },
+
+    { "before": ["s", "s"], "commands": [":split"] },
+    { "before": ["s", "v"], "commands": [":vsplit"] },
+    { "before": ["s", "h"], "commands": ["workbench.action.focusLeftGroup"] },
+    { "before": ["s", "j"], "commands": ["workbench.action.focusBelowGroup"] },
+    { "before": ["s", "k"], "commands": ["workbench.action.focusAboveGroup"] },
+    { "before": ["s", "l"], "commands": ["workbench.action.focusRightGroup"] },
+    { "before": ["s", "n"], "commands": ["workbench.action.nextEditor"] },
+    { "before": ["s", "p"], "commands": ["workbench.action.previousEditor"] },
+    { "before": ["m", "s"], "commands": ["textmarker.toggleHighlight"] },
+    { "before": [";", "S"], "commands": ["textmarker.clearAllHighlight"] },
+
+    // 変数の参照箇所の表示
+    { "before": ["<leader>", "d", "r"], "commands": ["editor.action.referenceSearch.trigger"] },
+
+    // サイドバーの表示状態をソース管理（git）にする
+    { "before": ["<space>", "g", "s"], "commands": ["multiCommand.dispGitStatus"] },
+
+    // サイドバーの表示状態をエクスプローラにする
+    { "before": ["<space>", "g", "e"], "commands": ["multiCommand.dispExplorer"] },
+  ],
+
+  // extension(multi-command)
   "multiCommand.commands": [
     {
       "command": "multiCommand.maximizeEditor",
-      // 各コマンドの実行間隔を10msに設定（最後のフォーカスの移動するのに数ミリ秒必要だった）
       "interval": 10,
       "sequence": [
         // "workbench.action.togglePanel",
@@ -89,7 +161,6 @@
     },
     {
       "command": "multiCommand.minimizeEditor",
-      // 各コマンドの実行間隔を10msに設定（最後のフォーカスの移動するのに数ミリ秒必要だった）
       "interval": 10,
       "sequence": [
         "workbench.action.focusPanel",
@@ -100,7 +171,6 @@
     },
     {
       "command": "multiCommand.dispGitStatus",
-      // 各コマンドの実行間隔を10msに設定（最後のフォーカスの移動するのに数ミリ秒必要だった）
       "interval": 10,
       "sequence": [
         "workbench.scm.focus",
@@ -109,7 +179,6 @@
     },
     {
       "command": "multiCommand.dispExplorer",
-      // 各コマンドの実行間隔を10msに設定（最後のフォーカスの移動するのに数ミリ秒必要だった）
       "interval": 10,
       "sequence": [
         "workbench.view.explorer",
@@ -118,180 +187,35 @@
     },
   ],
 
-  // ----------------------------------------
-  // settings sync
-  "sync.gist": "e6e575eb1d83d872de5b714ff8aac7bf",
-
-  // ----------------------------------------
-  // prettier
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "vim.replaceWithRegister": true,
-  "vim.useSystemClipboard": true,
-  // "[json]": { "editor.formatOnSave": true }
-  // "editor.formatOnSave": true,
-
-  // ----------------------------------------
-  // Intellicode
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-
-  // ----------------------------------------
-  // Trailing Spaces
-  // 保存時に行末のスペースを削除する
-  "trailing-spaces.trimOnSave": true,
-
-  // ----------------------------------------
-  // Java
-  "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"/Users/takxlz/.vscode/extensions/gabrielbb.vscode-lombok-1.0.1/server/lombok.jar\"",
-  "java.home": "/Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home/",
-  "java.semanticHighlighting.enabled": true,
-  "java.configuration.checkProjectSettingsExclusions": false,
-
-  // ----------------------------------------
-  // to-do-tree
-  "todo-tree.tree.showScanModeButton": false,
+  // extension(todo-tree)
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
   "todo-tree.filtering.excludeGlobs": [
     "**/*bundle.js"
   ],
-
-  // ===========================================================================================================================
-  // vscodevim
-  // ===========================================================================================================================
-
-  // 付属の機能を有効化
-  "vim.easymotion": true,
-  "vim.camelCaseMotion.enable": true,
-
-  // IMの設定（mac限定、im-selectを事前にインストールしておく）
-  "vim.autoSwitchInputMethod.defaultIM": "com.google.inputmethod.Japanese.Roman",
-  "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/local/bin/im-select",
-  "vim.autoSwitchInputMethod.switchIMCmd": "/usr/local/bin/im-select {im}",
-  "vim.autoSwitchInputMethod.enable": true,
-
-  // 検索ハイライトを有効にする
-  "vim.hlsearch": true,
-
-  // カーソル上にあるワードを「*」で検索
-  "vim.visualstar": true,
-
-  // ステータスバーの色の設定
-  "vim.statusBarColorControl": false,
-  // "vim.statusBarColors.normal": "#005f00",
-  // "vim.statusBarColors.insert": "#005f87",
-  // "vim.statusBarColors.visual": "#5f00af",
-  // "vim.statusBarColors.visualline": "#5f00af",
-  // "vim.statusBarColors.visualblock": "#5f00af",
-  // "vim.statusBarColors.replace": "#5f0000",
-  // "vim.statusBarColors.commandlineinprogress": ["#005f00"],
-  // "vim.statusBarColors.searchinprogressmode": ["#005f00"],
-  // "vim.statusBarColors.easymotionmode": ["#005f00"],
-  // "vim.statusBarColors.easymotioninputmode": ["#005f00"],
-  // "vim.statusBarColors.surroundinputmode": ["#005f00"],
-
-  // leaderの設定
-  "vim.leader": "<space>",
-
-  // インサートモード
-  "vim.insertModeKeyBindingsNonRecursive": [
-    // 「jj」をescにする
-    { "before": ["j", "j"], "after": ["<ESC>"] },
-
-    // オートコンプリート（サジェスト）の表示
-    // 行末のセミコロンがうまく入力できなくなるので無効
-    { "before": ["j", "k"], "commands": ["editor.action.triggerSuggest"] },
-
-    // インサートモード時のカーソル移動を追加
-    { "before": ["<C-h>"], "commands": ["cursorLeft"] },
-    { "before": ["<C-j>"], "commands": ["cursorDown"] },
-    { "before": ["<C-k>"], "commands": ["cursorUp"] },
-    { "before": ["<C-l>"], "commands": ["cursorRight"] },
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "NOTE",
+    "[ ]",
+    "[x]"
   ],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "foreground": "#eeeeee",
+      "background": "#ff8c00",
+    },
+    "NOTE": {
+      "foreground": "#eeeeee",
+      "background": "#1e90ff",
+    },
+  },
 
-  // ノーマルモード
-  "vim.normalModeKeyBindingsNonRecursive": [
-    // sキーを無効化
-    { "before": ["s"], "after": [""] },
-
-    // mキーを無効化
-    { "before": ["m"], "after": [""] },
-
-    // 削除系コマンドではレジスタに登録しない（yのみレジスタに登録される）
-    { "before": ["x"], "after": ["\"", "_", "x"] },
-    { "before": ["X"], "after": ["\"", "_", "X"] },
-    { "before": ["S"], "after": ["\"", "_", "S"] },
-    { "before": ["c"], "after": ["\"", "_", "c"] },
-    { "before": ["C"], "after": ["\"", "_", "C"] },
-
-    // カーソル位置に改行を挿入
-    { "before": ["<CR>"], "commands": ["editor.action.insertLineAfter"] },
-
-    // ウィンドウの分割
-    { "before": ["s", "s"], "commands": [":split"] },
-    { "before": ["s", "v"], "commands": [":vsplit"] },
-
-    // ウィンドウ移動
-    { "before": ["s", "h"], "commands": ["workbench.action.focusLeftGroup"] },
-    { "before": ["s", "j"], "commands": ["workbench.action.focusBelowGroup"] },
-    { "before": ["s", "k"], "commands": ["workbench.action.focusAboveGroup"] },
-    { "before": ["s", "l"], "commands": ["workbench.action.focusRightGroup"] },
-
-    // 次のタブ、前のタブに移動
-    { "before": ["s", "n"], "commands": ["workbench.action.nextEditor"] },
-    { "before": ["s", "p"], "commands": ["workbench.action.previousEditor"] },
-
-    // カーソル下の単語をハイライト
-    { "before": ["s", "<space>", "<space>"], "commands": ["textmarker.toggleHighlight"] },
-
-    // ハイライトをすべてクリア
-    { "before": ["s", "<space>", "s"], "commands": ["textmarker.clearAllHighlight"] },
-
-    // コマンドパレットの表示
-    { "before": ["m", "m"], "commands": ["workbench.action.showCommands"] },
-
-    // 検索/置換
-    { "before": ["m", "r"], "commands": ["workbench.action.replaceInFiles"] },
-
-    // ファイル検索
-    { "before": ["m", "g"], "commands": ["workbench.action.quickOpen"] },
-
-    // 変数の参照箇所の表示
-    { "before": ["<leader>", "d", "r"], "commands": ["editor.action.referenceSearch.trigger"] },
-
-    // カーソル移動を速くする
-    { "before": ["J"], "after": ["1", "0", "j"] },
-    { "before": ["K"], "after": ["1", "0", "k"] },
-
-    // 行頭、行末への移動
-    { "before": ["H"], "after": ["0"] },
-    { "before": ["L"], "after": ["$"] },
-
-    // サイドバーの表示状態をソース管理（git）にする
-    { "before": ["<space>", "g", "s"], "commands": ["multiCommand.dispGitStatus"] },
-
-    // サイドバーの表示状態をエクスプローラにする
-    { "before": ["<space>", "g", "e"], "commands": ["multiCommand.dispExplorer"] },
-
-
-
-    // 次の大文字まで移動
-    // { "before": ["<leader>", "m", "m"], "after": ["<leader>", "w"] },
-    // { "before": ["<leader>", "w"], "after": [""] },
-
-    // 次の大文字の前まで移動
-    // { "before": ["<leader>", "m", "n"], "after": ["<leader>", "b"] },
-    // { "before": ["<leader>", "b"], "after": [""] },
-
-    // ホバーを表示
-    // { "before": ["<leader>", ";"], "commands": ["editor.action.showDefinitionPreviewHover"] },
-    // vscodevimのデフォルトキーマップのghで可能
-    // { "before": ["<leader>", ";"], "commands": ["editor.action.showHover"] },
-
-    // 変数の型定義を参照
-    // vscodevimのデフォルトキーマップのgdで可能
-    // { "before": ["<leader>", "d", "d"], "commands": ["editor.action.goToTypeDefinition"] },
-  // ===========================================================================================================================
-  // ===========================================================================================================================
-  ],
-  "files.trimTrailingWhitespace": true,
-  "editor.columnSelection": true,
-  "typescript.updateImportsOnFileMove.enabled": "always",
+  /****************************************************************************************************
+  * other
+  ****************************************************************************************************/
+  "dummy": "dummy",
+  "security.workspace.trust.untrustedFiles": "open",
 }

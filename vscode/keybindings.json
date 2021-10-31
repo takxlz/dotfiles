@@ -14,27 +14,24 @@
 
 // - keybindings.jsonには必ず「ctrl」、「space」等のプレフィックスをつける
 // ※ settings.jsonよりも優先度が高いため、settings.jsonの入力途中のコマンドを奪ってしまう
-// ※ keybindings.jsonには、vscodevimで制御できない項目を設定するのに限定する
 
 [
-  // ===========================================================================================================================
-  // 共通
-  // ===========================================================================================================================
-
+  /****************************************************************************************************
+  * 共通
+  ****************************************************************************************************/
   // デフォルトキーバインドをアンバインド
   { "key": "ctrl+space", "command": "-editor.action.triggerSuggest", "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly" },
   { "key": "ctrl+space", "command": "-toggleSuggestionDetails", "when": "suggestWidgetVisible && textInputFocus" },
 
   // コマンドパレットの表示
-  // { "key": "ctrl+space u", "command": "workbench.action.showCommands" },
-  // { "key": "ctrl+space ctrl+u", "command": "workbench.action.showCommands" },
-  { "key": "ctrl+space u", "command": "workbench.action.quickOpen" },
-  { "key": "ctrl+space ctrl+u", "command": "workbench.action.quickOpen" },
+  { "key": "ctrl+space u", "command": "workbench.action.showCommands" },
+  { "key": "ctrl+space ctrl+u", "command": "workbench.action.showCommands" },
+  { "key": "ctrl+space o", "command": "workbench.action.quickOpen" },
+  { "key": "ctrl+space ctrl+o", "command": "workbench.action.quickOpen" },
 
-  // エディタの最大化
+  // エディタの最大化/最小化
   { "key": "ctrl+space z", "command": "multiCommand.maximizeEditor", "when": "sideBarVisible" },
   { "key": "ctrl+space ctrl+z", "command": "multiCommand.mximizeEditor", "when": "sideBarVisible" },
-  // エディタの最小化
   { "key": "ctrl+space z", "command": "multiCommand.minimizeEditor", "when": "!sideBarVisible" },
   { "key": "ctrl+space ctrl+z", "command": "multiCommand.minimizeEditor", "when": "!sideBarVisible" },
 
@@ -51,11 +48,9 @@
   { "key": "ctrl+space ctrl+m", "command": "editor.action.toggleMinimap" },
 
 
-
-  // ===========================================================================================================================
-  // 領域間の移動
-  // ===========================================================================================================================
-
+  /****************************************************************************************************
+  * 領域間の移動
+  ****************************************************************************************************/
   // エディタ -> サイドバー
   { "key": "ctrl+space h", "command": "workbench.action.focusSideBar", "when": "vim.mode == 'Normal' && editorFocus && !panelFocus" },
   { "key": "ctrl+space ctrl+h", "command": "workbench.action.focusSideBar", "when": "vim.mode == 'Normal' && editorFocus && !panelFocus" },
@@ -73,11 +68,9 @@
   { "key": "ctrl+space ctrl+k", "command": "workbench.action.focusFirstEditorGroup", "when": "panelFocus" },
 
 
-
-  // ===========================================================================================================================
-  // 領域内の移動
-  // ===========================================================================================================================
-
+  /****************************************************************************************************
+  * 領域内の移動
+  ****************************************************************************************************/
   // 候補の移動（コマンドパレットにフォーカスされているとき）
   { "key": "ctrl+j", "command": "workbench.action.quickOpenSelectNext", "when": "inQuickOpen" },
   { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
@@ -85,6 +78,12 @@
   // サイドバー項目の移動（サイドバーにフォーカスされているとき）
   { "key": "ctrl+j", "command": "workbench.action.nextSideBarView", "when": "sideBarFocus" },
   { "key": "ctrl+k", "command": "workbench.action.previousSideBarView", "when": "sideBarFocus" },
+
+  // サイドバー項目内の移動
+  // { "key": "j", "command": "list.focusDown", "when": "listFocus && !inputFocus" },
+  // { "key": "k", "command": "list.focusUp", "when": "listFocus && !inputFocus" },
+  // { "key": "h", "command": "list.collapse", "when": "listFocus && !inputFocus" },
+  // { "key": "l", "command": "list.select", "when": "listFocus && !inputFocus" },
 
   // パネル項目の移動（パネルにフォーカスされているとき）
   { "key": "ctrl+h", "command": "workbench.action.previousPanelView", "when": "panelFocus" },
@@ -100,15 +99,11 @@
   { "key": "ctrl+space l", "command": "workbench.action.terminal.focusNextPane", "when": "terminalFocus" },
   { "key": "ctrl+space ctrl+l", "command": "workbench.action.terminal.focusNextPane", "when": "terminalFocus" },
 
-  // ターミナルの切り替え（パネル（ターミナル）にフォーカスされているとき）
-  { "key": "ctrl+space n", "command": "workbench.action.terminal.focusNext", "when": "terminalFocus" },
-  { "key": "ctrl+space ctrl+n", "command": "workbench.action.terminal.focusNext", "when": "terminalFocus" },
-  { "key": "ctrl+space p", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus" },
-  { "key": "ctrl+space ctrl+p", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus" },
-
   // 候補の移動（サジェストにフォーカスされているとき）
-  { "key": "ctrl+j", "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
-  { "key": "ctrl+k", "command": "selectPrevSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
+  { "key": "ctrl+j", "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus" },
+  { "key": "ctrl+k", "command": "selectPrevSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus" },
 
-
+  // タブ移動
+  { "key": "tab", "command": "workbench.action.nextEditor", "when": "vim.mode == Normal && editorFocus" },
+  { "key": "shift+tab", "command": "workbench.action.previousEditor", "when": "vim.mode == Normal && editorFocus" },
 ]
