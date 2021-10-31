@@ -35,7 +35,7 @@ Plug 'markonm/traces.vim'
 Plug 'google/vim-searchindex'
 Plug 'itchyny/vim-cursorword'
 Plug 'ap/vim-css-color'
-Plug 'wfxr/minimap.vim'
+" Plug 'wfxr/minimap.vim'
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'gorodinskiy/vim-coloresque', { 'on': [] }  " cursorcolumnが有効だと重い（forロードが動作しないためautocmdでロード）
 " Plug 'kshenoy/vim-signature'
