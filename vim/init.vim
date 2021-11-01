@@ -1,1 +1,1 @@
-/Users/takxlz/dotfiles/vim/vimrc
+vimrc

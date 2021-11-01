@@ -1,6 +1,0 @@
-﻿# 発生した問題や解決した方法のログ
-
-## coc.nvim
-- 問題: coc-shで起動時に以下のエラーメッセージが表示されるが使用することはできる
-- 原因: macのセキュリティ的な問題だと思われる
-- 備考: [coc.nvim]Server bash-language-server failed to start: Request initialize failed with message: EPERM: operation not permitted, scandir '/Users/takxlz/Library/VoiceTrigger/SAT'

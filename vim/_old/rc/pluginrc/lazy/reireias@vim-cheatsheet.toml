@@ -1,8 +1,0 @@
-[[plugins]]
-repo = 'reireias/vim-cheatsheet'
-on_cmd = 'Cheat'
-
-hook_source = '''
-    let g:cheatsheet#cheat_file = g:vimrc_dir . '/doc/keymap.txt'
-    let g:cheatsheet#vsplit = 1
-'''
