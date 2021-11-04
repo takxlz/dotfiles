@@ -1,0 +1,1282 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Init settings {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup vimrc
+
+  autocmd!
+augroup END
+
+" このファイルの場所を定義（以降、この変数を使用する）
+let g:vimrc_dir = expand('<sfile>:p:h')
+
+" 会社フラグ
+let g:is_corp = !empty($CORP)
+" }}}
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Utils {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 行末の空白を除去する
+function! s:remove_dust() abort
+  let l:pos = getpos('.')
+  exec '%s/\s\+$//ge'
+  call setpos('.', l:pos)
+endfunction
+
+" ウィンドウの最大化をトグルする
+function! s:toggle_maximize_window() abort
+  if g:is_maximize__takxlz == 1
+    exec "normal \<C-w>="
+    let g:is_maximize__takxlz = 0
+  else
+    call resize
+    call vertical resize
+    let g:is_maximize__takxlz = 1
+  endif
+endfunction
+
+" UUIDを生成する
+function! s:uuid() abort
+  let r = system('uuidgen')
+  let r = substitute(r, '^[\r\n\s]*\|[\r\n\s]*$', '', 'g')
+  return r
+endfunction
+
+" {path}が存在しない場合は作成する
+function! s:makedir(path) abort
+  if !isdirectory(a:path)
+    call mkdir(a:path, 'p')
+  endif
+endfunction
+"}}}
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Basic settings {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" デフォルトプラグインの無効化
+let g:loaded_spellfile_plugin   = 1
+let g:loaded_tutor_mode_plugin  = 1
+let g:loaded_gzip               = 1
+let g:loaded_tar                = 1
+let g:loaded_tarPlugin          = 1
+let g:loaded_zip                = 1
+let g:loaded_zipPlugin          = 1
+let g:loaded_rrhelper           = 1
+let g:loaded_2html_plugin       = 1
+let g:loaded_vimball            = 1
+let g:loaded_vimballPlugin      = 1
+let g:loaded_getscript          = 1
+let g:loaded_getscriptPlugin    = 1
+let g:loaded_logipat            = 1
+let g:loaded_matchparen         = 1
+let g:loaded_man                = 1
+let g:loaded_netrw              = 1
+let g:loaded_netrwPlugin        = 1
+let g:loaded_netrwSettings      = 1
+let g:loaded_netrwFileHandlers  = 1
+let g:loaded_logiPat            = 1
+
+" オプション
+set shortmess+=I
+set number
+set showtabline=2
+set shellslash
+set nrformats=
+set wildmenu
+set history=5000
+set showcmd
+set list
+set listchars=tab:>-,trail:_
+set timeout timeoutlen=1000 ttimeoutlen=0
+set updatetime=200
+set splitbelow
+set splitright
+set whichwrap=<,>,[,]  " 左矢印で上行末、右矢印で下行頭に移動する
+set colorcolumn=100
+" set cursorline
+" set cursorcolumn
+" set shortmess-=F
+" set relativenumber
+" set autochdir
+" set virtualedit=all
+
+" フォールディングの設定
+set foldmethod=marker
+set foldtext=FoldCCtext()
+set commentstring=%s
+set fillchars=fold:\ ,diff:-
+let g:vim_markdown_folding_disabled=1  " mdを自動で折り畳まないようにする
+" set fillchars=vert:\|,fold:\ ,diff:-
+
+" プラグインロード後に必要な設定をする
+function! s:post_load_plug_basic_settings()
+  syntax on
+  filetype on
+  filetype plugin indent on
+  set encoding=utf-8
+  set conceallevel=0  " mdで_等が隠れるのを無効化
+endfunction
+
+" 必要なディレクトリを作成する
+call <SID>makedir(expand('~/.cache/vim_tmpfiles/'))
+
+if has('mac') || has('unix')
+  set mouse=a  " マウス・トラックパッドを有効化
+  set backspace=indent,eol,start  " BSの設定(ターミナルではBSが効かないことがある)
+endif
+
+if has('nvim')
+  set mouse=a
+  set clipboard=unnamed
+else
+  set directory=~/.cache/vim_tmpfiles/
+  set backupdir=~/.cache/vim_tmpfiles/
+  set viminfo+=n~/.cache/vim_tmpfiles/.viminfo
+  set undodir=~/.cache/vim_tmpfiles/
+  set clipboard=unnamed,autoselect
+endif
+
+" 保存時に行末の空白を除去する
+autocmd vimrc BufWritePre * call <SID>remove_dust()
+
+" 外部であった変更を反映する
+autocmd vimrc FocusGained,WinEnter,InsertEnter * checktime
+"}}}
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Load plugins {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" プラグインのインストール有無を判定する
+function! s:is_plugged(name) abort
+  if !exists('g:plugs')
+    return 0
+  endif
+  return has_key(g:plugs, a:name) && isdirectory(g:plugs[a:name].dir) ? 1 : 0
+endfunction
+
+" 条件,[opts]に応じてプラグインをロードする
+function! Load_at(cond, ...) abort
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
+call plug#begin('~/.cache/plugged')
+"" COLOR
+Plug 'joshdick/onedark.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'w0ng/vim-hybrid'
+" Plug 'morhetz/gruvbox'
+
+"" LANGUAGE
+Plug 'aklt/plantuml-syntax'
+
+"" APPEARANCE
+Plug 'itchyny/lightline.vim'
+Plug 'Yggdroot/indentline'
+Plug 'LeafCage/foldCC.vim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug', 'plantuml', 'puml', 'pu']}
+Plug 'markonm/traces.vim'
+Plug 'google/vim-searchindex'
+Plug 'itchyny/vim-cursorword'
+Plug 'ap/vim-css-color'
+" Plug 'wfxr/minimap.vim'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+"" ACTION
+Plug 'tpope/vim-repeat'
+Plug 'kana/vim-submode'
+Plug 'itchyny/vim-parenmatch'
+Plug 'mbbill/undotree'
+Plug 'rhysd/clever-f.vim'
+Plug 'othree/eregex.vim'
+
+"" MOTION/SEARCH
+Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+"" TEXTOBJ/OPERATOR
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-indent'              " kana/vim-textobj-userに依存 (i)
+Plug 'kana/vim-textobj-entire'              " kana/vim-textobj-userに依存 (e)
+Plug 'thinca/vim-textobj-between'           " kana/vim-textobj-userに依存 (f)
+Plug 'Julian/vim-textobj-variable-segment'  " kana/vim-textobj-userに依存 (v)
+Plug 'kana/vim-operator-user'
+Plug 'kana/vim-operator-replace'            " kana/vim-operator-userに依存 (_)
+Plug 'tpope/vim-surround'                   " (s)
+Plug 'tpope/vim-commentary'                 " (gc)
+
+"" FORMAT
+Plug 'junegunn/vim-easy-align',    { 'on': '<Plug>(EasyAlign)' }
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
+
+"" GIT
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'APZelos/blamer.nvim'
+Plug 'junegunn/gv.vim', { 'on': 'GV' }
+
+"" LSP/DAP
+Plug 'neoclide/coc.nvim',     { 'branch': 'release' }
+Plug 'mfussenegger/nvim-dap', Load_at(!g:is_corp)
+Plug 'rcarriga/nvim-dap-ui',  Load_at(!g:is_corp)
+
+"" MISC
+Plug 'roxma/nvim-yarp',          Load_at(!has('nvim'))
+Plug 'roxma/vim-hug-neovim-rpc', Load_at(!has('nvim'))
+Plug 'vim-denops/denops.vim',    Load_at(!g:is_corp)
+
+"" LOCAL
+" Plug '~/dev/plugin/indicator.vim'
+call plug#end()
+
+" プラグインロード後の設定
+call <SID>post_load_plug_basic_settings()
+"}}}
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Plugin settings {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" APPEARANCE
+" lightline.vim
+if <SID>is_plugged('lightline.vim') " {{{
+  " readonlyとmodifiedコンポーネントはデフォルトで使わずに、filename(LightLineFilename)で呼び出し加工して使用
+  " percentコンポーネントはデフォルトで使用
+  set laststatus=2
+  let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ 'mode_map': {'c': 'NORMAL'},
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
+      \ 'tabline': {
+      \   'left': [['tabs']],
+      \   'right': [['close']]
+      \ },
+      \ 'tab': {
+      \   'active': ['tabnum', 'filename', 'modified'],
+      \   'inactive': ['tabnum', 'filename', 'modified']
+      \ },
+      \ 'tab_component_function': {
+      \   'filename': 'LightLineTabFilename',
+      \   'modified': 'lightline#tab#modified',
+      \   'readonly': 'lightline#tab#readonly',
+      \   'tabnum': 'lightline#tab#tabnum'
+      \ },
+      \ 'active': {
+      \   'right': [['lineinfo'], ['percent'], ['winform'], ['fileencoding','fileformat','filetype'], ['coc_error','coc_warn','coc_hint','coc_info']],
+      \   'left' : [['mode','paste'], ['fugitive','filename']]
+      \ },
+      \ 'component': {
+      \   'lineinfo': '%3l[%L]:%-2v',
+      \ },
+      \ 'component_function': {
+      \   'winform': 'LightLineWinform',
+      \   'fileformat': 'LightLineFileformat',
+      \   'fileencoding': 'LightLineFileencoding',
+      \   'filetype': 'LightLineFiletype',
+      \   'mode': 'LightLineMode',
+      \   'fugitive': 'LightLineFugitive',
+      \   'filename': 'LightLineFilename',
+      \ },
+      \ 'component_expand': {
+      \   'coc_error': 'LightLineCocErrors',
+      \   'coc_warn': 'LightLineCocWarns',
+      \   'coc_hint': 'LightLineCocHint',
+      \   'coc_info': 'LightLineCocInfo',
+      \ },
+      \ 'component_type': {
+      \   'coc_error': 'error',
+      \   'coc_warn': 'warning',
+      \   'coc_hint': 'middle',
+      \   'coc_info': 'tabsel',
+      \ },
+  \ }
+
+  " デフォルトではlightline#tab#filenameが使用されるが、加工したいため自作する
+  function! LightLineTabFilename(n) abort
+      "指定したタブ番号のページにt:nameが存在するときはt:nameを返し、存在しなければ""を返す
+      " takxlz#util#change_tab_label()で変更可能
+      let l:tabname = gettabvar(a:n, 'name', '')
+      if l:tabname != ''
+          return l:tabname
+      endif
+      let buflist = tabpagebuflist(a:n)
+      let winnr = tabpagewinnr(a:n)
+      let l:bname = bufname(buflist[winnr - 1])
+      " let l:bname = expand('#' . buflist[winnr - 1] . ':p')
+      if l:bname == ''
+          let l:bname = '[No Name]'
+      elseif l:bname =~ 'FZF'
+          let l:bname = '#FZF'
+      elseif l:bname =~ 'defx'
+          let l:bname = '#DEFX'
+      elseif l:bname =~ 'fugitive'
+          let l:bname = '#FUGITIVE'
+      endif
+      return l:bname
+  endfunction
+
+  function! LightLineWinform()
+      return winwidth(0) > 50 ? 'w' . winwidth(0) . ':' . 'h' . winheight(0) : ''
+  endfunction
+
+  " ファイル名
+  function! LightLineFilename()
+      let l:filepath = expand('%:p')
+      " ファイルパスが30文字を超える場合は、末尾から30文字文切り出す
+      let l:filepath_short = strlen(l:filepath) >= 30 ? l:filepath[-30:] : l:filepath
+      return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+          \ (&ft =~ 'defx\|denite' ? '' :
+          \  &ft == 'fzf' ? '#FZF' :
+          \ '' != expand('%:t') ? (winwidth(0) <=120 ? l:filepath_short : l:filepath) : '[No Name]') .
+          \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+  endfunction
+
+  function! LightLineReadonly()
+      return &ft !~? 'defx\|denite\|help\|gundo' && &readonly ? "\ue0a2" : ''
+  endfunction
+
+  function! LightLineModified()
+      return &ft =~ 'defx\|denite\|help\|gundo' ? '' : (&modified ? '+' : (&modifiable ? '' : '-'))
+  endfunction
+
+  function! LightLineFugitive()
+      try
+          " autoloadはcallされるまでロードされていないのでexists()で判定してはいけない
+          " if &ft !~? 'defx\|denite\|help\|gundo' && exists('*fugitive#head') && winwidth(0) > 35
+          if &ft !~? 'defx\|denite\|help\|gundo' && winwidth(0) > 55
+              let _ = fugitive#head()
+              return strlen(_) ? "\ue0a0 "._ : ""
+          endif
+      catch
+          echo "[fugitive] is not loaded"
+      endtry
+      return ''
+  endfunction
+
+  function! LightLineFileencoding()
+      return winwidth(0) > 60 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  endfunction
+
+  function! LightLineFileformat()
+      return winwidth(0) > 70 ? &fileformat : ''
+  endfunction
+
+  function! LightLineFiletype()
+      return winwidth(0) > 80 ? (strlen(&filetype) ? "\ue7a3 " . &filetype : '[no_ft]') : ''
+  endfunction
+
+  function! LightLineMode()
+      if &ft == 'defx' | return 'Defx' | endif
+      " if &ft == 'denite' | return 'Denite' | endif
+      " if &ft == 'denite' | return denite#get_status_mode() | endif
+      return winwidth(0) > 30 ? lightline#mode() : ''
+  endfunction
+
+  function! LightLineCocErrors()
+      return s:lightline_coc_diagnostic('error', 'E')
+  endfunction
+
+  function! LightLineCocWarns()
+      return s:lightline_coc_diagnostic('warning', 'W')
+  endfunction
+
+  function! LightLineCocHints()
+      return s:lightline_coc_diagnostic('hints', 'H')
+  endfunction
+
+  function! LightLineCocInfos()
+      return s:lightline_coc_diagnostic('information', 'I')
+  endfunction
+
+  function! s:lightline_coc_diagnostic(kind, sign) abort
+      let info = get(b:, 'coc_diagnostic_info', 0)
+      if empty(info) || get(info, a:kind, 0) == 0
+          return ''
+      endif
+      return printf('%s:%d', a:sign, info[a:kind])
+  endfunction
+
+  " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
+  augroup LightLineUpdate
+      autocmd!
+      autocmd User ALELintPost,CocStatusChange,CocDiagnosticChange call lightline#update()
+  augroup END
+
+  " vim起動時に実行
+  " augroup LightLineStartUp
+  "     autocmd!
+  "     autocmd BufReadPost * call vista#RunForNearestMethodOrFunction()
+  "     autocmd User  call RunForNearestMethodOrFunction lightline#update()
+  " augroup END
+
+  " let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+  " function! LightLineALE()
+  "     if dein#is_sourced('ale') == 0 | return '' | endif
+  "     let l:count = ale#statusline#Count(bufnr(''))
+  "     let l:errors = l:count.error + l:count.style_error
+  "     let l:warnings = l:count.warning + l:count.style_warning
+  "     return l:count.total == 0 ? '' : 'E:' . l:errors . ' W:' . l:warnings
+  " endfunction
+endif
+"}}}
+
+" indentline
+if <SID>is_plugged('indentline')
+  let g:indentLine_fileTypeExclude = ["help", "markdown", "md", "json"]
+endif
+
+" vim-highlightedyank
+if <SID>is_plugged('vim-highlightedyank')
+  let g:highlightedyank_highlight_duration = 400
+endif
+
+" markdown-preview.nvim
+if <SID>is_plugged('markdown-preview.nvim')
+  let g:mkdp_filetypes = ['markdown', 'plantuml']
+endif
+
+" vim-cursorword
+if <SID>is_plugged('vim-cursorword')
+  let g:cursorword_delay = 600
+  let g:cursorword_highlight = 0
+endif
+
+" nvim-treesitter
+" if <SID>is_plugged('nvim-treesitter')
+" lua <<EOF
+"   require'nvim-treesitter.configs'.setup {
+"     highlight = {
+"       enable = true,
+"       disable = {
+"           'vue',
+"       }
+"     },
+"     indent = {
+"       enable = false,
+"     },
+"     ensure_installed = 'maintained'
+"   }
+" EOF
+" endif
+
+" minimap.vim
+if <SID>is_plugged('minimap.vim')
+  let g:minimap_auto_start = 1
+  let g:minimap_auto_start_win_enter = 1
+  let g:minimap_highlight = 'MyCurrentPage'
+  let g:minimap_width = 2
+  let g:minimap_highlight_search = 1
+  let g:minimap_highlight_range = 1
+  let g:minimap_git_colors = 1
+  let g:minimap_cursor_color_priority = 100
+  let g:minimap_git_color_priority = 110
+  let g:minimap_search_color_priority = 120
+endif
+
+"" ACTION
+nnoremap [action] <Nop>
+nmap <space>a [action]
+
+" undotree
+if <SID>is_plugged('undotree')
+  nnoremap [action]u :UndotreeToggle<CR>
+endif
+
+" eregex.vim
+if <SID>is_plugged('eregex.vim')
+  let g:eregex_forward_delim = '<space>/'
+  let g:eregex_backward_delim = '<space>?'
+endif
+
+"" MOTION/SEARCH
+nnoremap [motion] <Nop>
+nmap <space><space> [motion]
+
+" vim-easymotion
+if <SID>is_plugged('vim-easymotion')
+  map  [motion]1 <Plug>(easymotion-bd-w)
+  nmap [motion]1 <Plug>(easymotion-overwin-w)
+  map  [motion]2 <Plug>(easymotion-bd-jk)
+  nmap [motion]2 <Plug>(easymotion-overwin-line)
+  map  [motion]3 <Plug>(easymotion-bd-f)
+  nmap [motion]3 <Plug>(easymotion-overwin-f)
+endif
+
+" fzf
+if <SID>is_plugged('fzf.vim')
+  let g:fzf_layout = { 'down': '~40%' }
+
+  command! -bang -nargs=* GGrep
+        \ call fzf#vim#grep('git grep --line-number -- '.shellescape(<q-args>),
+        \ 0,
+        \ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}),
+        \ <bang>0)
+
+  noremap <silent> [motion]g :GFiles<CR>
+  noremap <silent> [motion]f :Files<CR>
+  noremap <silent> [motion]r :Rg<CR>
+  noremap <silent> [motion]R :GGrep<CR>
+  noremap <silent> [motion]h :History<CR>
+  noremap <silent> [motion]H :History:<CR>
+  noremap <silent> [motion]m :Maps<CR>
+  noremap <silent> [motion]M :Marks<CR>
+  noremap <silent> [motion]c :Commands<CR>
+
+  " source：処理対象（リスト型）（1行でシェルをcall -> 'source': cat ~/dotfiles/vim/vimrc'）
+  " sink：sourceに対する処理（関数型）
+  nnoremap <;>(fzf-open-vimrc) :call fzf#run({
+      \ 'source': <SID>read_my_vimrc(),
+      \ 'sink': function('<SID>echo_vimrc_line'),
+      \ 'down': '40%',
+      \ })<CR>
+
+  function! s:read_my_vimrc() abort
+      if has('win64') | return split(system('type %HOMEPATH%\dotfiles\vim\vimrc'), '\n') | endif
+      return split(system('cat ~/dotfiles/vim/vimrc'), '\n')
+  endfunction
+
+  function! s:echo_vimrc_line(line) abort
+      echomsg a:line
+  endfunction
+endif
+
+if <SID>is_plugged('')
+endif
+
+if <SID>is_plugged('')
+endif
+
+if <SID>is_plugged('')
+endif
+
+"" TEXTOBJ/OPERATOR
+" vim-operator-replace
+if <SID>is_plugged('vim-operator-replace/')
+  map _ <Plug>(operator-replace)
+endif
+
+" vim-commentary
+if <SID>is_plugged('vim-commentary')
+  autocmd vimrc FileType typescript setlocal commentstring=\/\/\ %s
+endif
+
+"" FORMAT
+nnoremap [format] <Nop>
+nmap <space>f [format]
+
+" vim-prettier
+if <SID>is_plugged('vim-prettier')
+  nmap [format]p <Plug>(PrettierAsync)
+endif
+
+" vim-easy-align
+if <SID>is_plugged('vim-easy-align')
+  vmap <Enter> <Plug>(EasyAlign)
+endif
+
+" vim-table-mode
+if <SID>is_plugged('vim-table-mode')
+  let g:table_mode_corner = '|'
+  noremap <silent> [format]t :TableModeToggle<CR>
+  noremap <silent> [format]T :Tableize<CR>
+endif
+
+"" GIT
+nnoremap [git] <Nop>
+nmap <space>g [git]
+
+" vim-fugitive
+if <SID>is_plugged('vim-fugitive')
+  nnoremap <silent> [git]b :Git blame<CR>
+  nnoremap <silent> [git]s :tab Git<CR>
+  " nnoremap <silent> [git]s :tab Gstatus<CR>
+  nnoremap <silent> [git]d :tab Gdiff<CR>
+  nnoremap <silent> [git]D :tab Gvdiff<CR>
+  " nnoremap <silent> [git]l :tab Glog<CR>
+  nmap [git]h :diffget //2<CR>
+  nmap [git]u :diffget //3<CR>
+
+  " Gstatusで独自設定したキーマップでペイン操作等ができるように「s」を無効化（別のキーに変更）
+  " autocmd FileType fugitive,git nnoremap <buffer> s <Nop>
+  " keyキーへの割り当てをvalueキーに変更
+  let g:nremap = {'s': '' }
+
+  " TODO: 関数にする
+  " ペイン分割
+  autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]V :<C-u>sp<CR>
+  autocmd FileType fugitive nnoremap <buffer> <silent> [window]v :<C-u>vs<CR>
+  " ペイン移動
+  autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]j <C-w>j
+  autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]k <C-w>k
+  autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]l <C-w>l
+  autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]h <C-w>h
+  " タブ移動
+  autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]n gt
+  autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]p gT
+  " タブを閉じる
+  autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]c :tabclose<CR>
+  autocmd FileType fugitive,git nnoremap <buffer> <silent> [window]C :tabonly<CR>
+endif
+
+" gv
+if <SID>is_plugged('gv.vim')
+  nnoremap <silent> [git]l :GV<CR>
+  nnoremap <silent> [git]L :GV!<CR>
+endif
+
+" vim-gitgutter
+if <SID>is_plugged('vim-gitgutter')
+  set signcolumn=yes
+  let g:gitgutter_sign_priority = 1
+  " let blacklist = ['
+  " autocmd FocusGained,WinEnter,BufWinEnter * GitGutterEnable
+endif
+
+" blamer.nvim
+if <SID>is_plugged('blamer.nvim')
+  let g:blamer_enabled = 1
+  let g:blamer_show_in_visual_modes = 0
+  let g:blamer_delay = 250
+  let g:blamer_date_format = '%y/%m/%d %H:%M'
+  " let g:blamer_prefix = '  # '
+endif
+
+"" LSP/DAP
+nnoremap [lsp] <Nop>
+nmap <space>l [lsp]
+
+nnoremap [dap] <Nop>
+nmap <space>d [dap]
+
+" coc
+if <SID>is_plugged('coc.nvim')
+  " 定義へ移動
+  nnoremap <silent> [lsp]d :<C-u>call CocActionAsync('jumpDefinition', 'tab drop')<CR>
+  nnoremap <silent> [lsp]D :<C-u>call CocAction('jumpDefinition', 'vsplit')<CR>
+  " 型定義へ移動
+  nnoremap <silent> [lsp]t :<C-u>call CocActionAsync('jumpTypeDefinition', 'tab drop')<CR>
+  nnoremap <silent> [lsp]T :<C-u>call CocActionAsync('jumpTypeDefinition', 'vsplit')<CR>
+  " 実装へ移動
+  nnoremap <silent> [lsp]i :<C-u>call CocActionAsync('jumpImplementation', 'tab drop')<CR>
+  nnoremap <silent> [lsp]I :<C-u>call CocActionAsync('jumpImplementation', 'vsplit')<CR>
+  " diagnostic
+  nnoremap [lsp], :<C-u>CocList diagnostics<CR>
+  nnoremap [lsp]k <Plug>(coc-diagnostic-prev)
+  nnoremap [lsp]j <Plug>(coc-diagnostic-next)
+  nnoremap <silent> [lsp]p <Plug>(coc-diagnostic-prev-error)
+  nnoremap <silent> [lsp]n <Plug>(coc-diagnostic-next-error)
+  " 参照へ移動
+  nnoremap [lsp]r <Plug>(coc-references)
+  " リネーム
+  nnoremap [lsp]R <Plug>(coc-rename)
+  " 型を表示
+  nnoremap gh :<C-u>call CocActionAsync('doHover')<CR>
+  " リスタート
+  nnoremap <silent> [lsp]<space>l :<C-u>CocRestart<CR>
+endif
+
+" coc-explorer
+if <SID>is_plugged('coc.nvim')
+  " 開いているペインがcoc-explorerだけの場合はvimを閉じる
+  autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'coc-explorer') | q | endif
+
+  " coc-explorer
+  nnoremap <silent> [util]; :CocCommand explorer
+        \ --width 30
+        \ --toggle<CR>
+endif
+
+
+" }}}
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Mapping {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"}}}
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Editing {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set autoindent
+set smartindent " 末尾の文字に合わせてインデントを増減する
+set expandtab   " タブキーによるソフトタブを有効化
+
+function! s:set_indent(tablen) abort
+  let &l:tabstop     = a:tablen
+  let &l:shiftwidth  = a:tablen " オートインデント時のインデント料
+  let &l:softtabstop = a:tablen " 連続した空白に対してBSなどでカーソルが動く量
+endfunction
+
+autocmd vimrc FileType * call <SID>filetype(expand('<amatch>'))
+
+function! s:filetype(ft) abort
+  if !empty(a:ft) && exists('*' . 's:filetype_' . a:ft)
+    exec 'call <SID>filetype_' . a:ft . '()'
+  endif
+endfunction
+
+" vim
+function! s:filetype_vim() abort
+  call <SID>set_indent(2)
+  setlocal commentstring=\"\ %s
+endfunction
+
+" make
+function! s:filetype_make() abort
+  call <SID>set_indent(2)
+  setlocal noexpandtab
+endfunction
+
+" toml
+function! s:filetype_toml() abort
+  call <SID>set_indent(2)
+endfunction
+
+" python
+function! s:filetype_python() abort
+  call <SID>set_indent(2)
+  " if has('mac') || has('unix')
+  "   let g:python3_host_prog=exepath('python3')
+  " else
+  "   " let g:python3_host_prog=expand('~/AppData/Local/Programs/Python/Python35/python')
+  "   let g:python3_host_prog=exepath('python')  " winではpythonとpython3はpythonというコマンドなので3はつけなくていい
+  "   " kaoriya版vimはpython3.5以外だとdllが見つけられずエラーになるので，直接dllの場所を指定する
+  "   if !has('nvim') | set pythonthreedll=~/AppData/Local/Programs/Python/Python38/python38.dll | endif
+  " endif
+endfunction
+
+" javascript
+function! s:filetype_javascript() abort
+  call <SID>set_indent(2)
+endfunction
+
+" typescript
+function! s:filetype_typescript() abort
+  call <SID>filetype_javascript()
+endfunction
+
+" typescriptreact
+function! s:filetype_typescriptreact() abort
+  call <SID>filetype_javascript()
+endfunction
+
+" html
+function! s:filetype_html() abort
+  call <SID>set_indent(2)
+endfunction
+
+" css
+function! s:filetype_css() abort
+  call <SID>filetype_html()
+endfunction
+
+" json
+function! s:filetype_json() abort
+  call <SID>filetype_html()
+  setlocal conceallevel=0
+endfunction
+"}}}
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Color settings {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
+set termguicolors  " 有効化するとterminalでもguiのhiになる（+ guiはHEX方式でカラーコードを指定する必要がある）
+
+set background=dark
+colorscheme hybrid
+
+hi Search                gui=NONE      guifg=black   guibg=#ff8700 cterm=NONE      ctermfg=black    ctermbg=208
+hi SignColumn            gui=NONE      guifg=NONE    guibg=NONE    cterm=NONE      ctermfg=NONE     ctermbg=NONE
+hi Folded                gui=NONE      guifg=NONE    guibg=gray23  cterm=standout  ctermfg=NONE     ctermbg=darkgray
+hi VertSplit             gui=NONE      guifg=gray30  guibg=NONE    cterm=NONE      ctermfg=darkgray ctermbg=NONE
+hi Normal                gui=NONE      guifg=NONE    guibg=NONE    cterm=NONE      ctermfg=NONE     ctermbg=NONE
+hi LineNr                gui=NONE      guifg=#696969 guibg=NONE    cterm=NONE      ctermfg=NONE     ctermbg=NONE
+hi CursorLineNr          gui=NONE      guifg=#ffa500 guibg=NONE    cterm=NONE      ctermfg=NONE     ctermbg=NONE
+hi GitGutterAdd          gui=NONE      guifg=NONE    guibg=NONE    cterm=NONE      ctermfg=NONE     ctermbg=NONE
+hi GitGutterChange       gui=NONE      guifg=NONE    guibg=NONE    cterm=NONE      ctermfg=NONE     ctermbg=NONE
+hi GitGutterDelete       gui=NONE      guifg=NONE    guibg=NONE    cterm=NONE      ctermfg=NONE     ctermbg=NONE
+hi GitGutterChangeDelete gui=NONE      guifg=NONE    guibg=NONE    cterm=NONE      ctermfg=NONE     ctermbg=NONE
+hi CursorWord0           gui=underline guifg=black   guibg=#ffd700 cterm=underline ctermfg=NONE     ctermbg=NONE
+hi CursorWord1           gui=underline guifg=black   guibg=#ffd700 cterm=underline ctermfg=NONE     ctermbg=NONE
+hi MyCurrentPage         gui=NONE      guifg=NONE    guibg=#696970 cterm=NONE      ctermfg=NONE     ctermbg=NONE
+hi MyTodo                gui=bold      guifg=black   guibg=#ffd700 cterm=bold      ctermfg=0        ctermbg=220
+hi MyNote                gui=bold      guifg=black   guibg=#00d7ff cterm=bold      ctermfg=0        ctermbg=45
+hi MyXxx                 gui=bold      guifg=black   guibg=#ff0000 cterm=bold      ctermfg=0        ctermbg=9
+hi MyEjs                 gui=NONE      guifg=#696969 guibg=NONE    cterm=NONE      ctermfg=0        ctermbg=NONE
+
+" Todo等のハイライトの設定
+function! s:highlight_todos() abort
+  silent! call matchadd('MyTodo', '\(TODO:\|todo:\)')
+  silent! call matchadd('MyNote', '\(NOTE:\|note:\)')
+  silent! call matchadd('MyXxx', '\(XXX:\|xxx:\)')
+endfunction
+autocmd vimrc WinEnter,BufRead,BufNew,Syntax * call <SID>highlight_todos()
+
+" ejs(dejs)のハイライト設定
+function! s:highlight_ejs() abort
+  " 「<%.\{-}%>」=> 「<%」「%>」で囲まれた何らかの文字（最短一致）に一致する
+  silent! call matchadd('MyEjs', '<%.\{-}%>')
+endfunction
+autocmd vimrc WinEnter,BufRead,BufNew,Syntax * call <SID>highlight_ejs()
+
+" " 普通にcorsorline,corsorcolumnするより重い気がするので無効化
+" " 一定時間操作がされない場合だけ、カレンド行/列をハイライトする
+" " augroup basic__auto_cursorline_cursorcolmn
+"     autocmd!
+"     " 行
+"     autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline
+"     autocmd CursorHold,CursorHoldI * setlocal cursorline
+"     " 列
+"     autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorcolumn
+"     autocmd CursorHold,CursorHoldI * setlocal cursorcolumn
+" augroup END
+"}}}
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :Finish settings {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" gui
+augroup gui__config
+  autocmd!
+  if has('gui_running') | execute 'source' g:vimrc_dir . '/rc/gui.vim' | endif
+augroup END
+"}}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :keymap config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 「s」:     ペイン/タブ（ウィンドウ）操作用のプレフィックス
+" 「,」:     自作関数用のプレフィックス（,,のみファイラを開く）
+" 「;」:
+" 「space」: プラグイン用のプレフィックス
+
+" +------------------------------------+
+" |        mode      |   no_re  |  re  |
+" |------------------------------------|
+" | normal  + visual | noremap  | map  |
+" | command + insert | noremap! | map! |
+" |       normal     | nnoremap | nmap |
+" |       visua      | vnoremap | vmap |
+" |      command     | cnoremap | cmap |
+" |       insert     | inoremap | imap |
+" +------------------------------------+
+
+" submode
+" ★ 第1引数は8文字以内にしないとエラーになる
+" [submode#enter_with]でサブモードを作成する
+"   1:作成するサブモード名、2:対象モード(n,i,ni)、3:オプション(リマップするときは[r])、4:サブモードに入るキーバインド、5:サブモードに入った際に行う処理
+" [submode#map]で作成したサブモード内でのキーバインドの定義する
+"   第1～3引数までは、enter_withと同じ、4:afterキーバインド、5:beforeキーバインド
+
+" ペイン/タブ操作用のショートカット用プレフィックス
+nnoremap s <Nop>
+nnoremap [window] <Nop>
+nmap s [window]
+
+nnoremap ; <Nop>
+nnoremap [util] <Nop>
+nmap ; [util]
+
+
+" escape
+augroup keymap__escape
+  autocmd!
+  " escをjjにマッピング
+  inoremap jj <ESC>
+
+  " terminal-insertからterminal-normalに抜ける
+  tnoremap jj <C-\><C-n>
+augroup END
+
+
+" カーソル移動
+augroup keymap__move_cursor
+  autocmd!
+  " カーソル移動を表示行単位にする
+  nnoremap j gj
+  nnoremap k gk
+  nnoremap gj j
+  nnoremap gk k
+
+  " インサートモード時のカーソル移動を追加
+  inoremap <C-j> <Down>
+  inoremap <C-k> <Up>
+  inoremap <C-h> <Left>
+  inoremap <C-l> <Right>
+augroup END
+
+
+" ペースト
+augroup keymap__paste
+  autocmd!
+  " ヤンクレジストリからペーストC-pに設定
+  nnoremap <C-p> "0p
+
+  " virtualeditの際のpがカーソル末尾からペーストされるようにする
+  if has('virtualedit') && &virtualedit =~# '\<all\>'
+    nnoremap <expr> p (col('.') >= col('$') ? '$' : '') . 'p'
+  endif
+augroup END
+
+
+" レジストリ
+augroup keymap__registry
+  autocmd!
+  " xとsではヤンクしない(_レジスタは消去用レジスタ)
+  nnoremap x "_x
+  " nnoremap s "_s
+augroup END
+
+
+" 改行
+augroup keymap__new_line
+  autocmd!
+  " 空行で改行しても、インデントのスペースを削除しない
+  if !exists('g:vscode')
+    nnoremap o oX<C-h>
+    nnoremap O OX<C-h>
+    inoremap <CR> <CR>X<C-h>
+  endif
+
+  " 改行のときの自動コメントを無効化
+  autocmd FileType * setlocal formatoptions-=ro
+
+  if !exists('g:vscode')
+    " インデントを維持したまま、カーソル下に行を挿入し、その行に移動
+    nnoremap <C-j> oX<C-h><ESC>
+
+    " インデントを維持しないで、カーソル下に行を挿入し、その行に移動
+    nnoremap <silent> <C-k> :<C-u>call append(expand('.'), '')<CR>j
+
+    " カーソル位置に改行を挿入(カーソル右は折り返される)
+    " nnoremap <CR> i<CR><ESC>
+  endif
+augroup END
+
+
+" 行移動
+augroup keymap__move_line
+  autocmd!
+  " 行を移動
+  nnoremap <C-Up> "zdd<Up>"zP
+  nnoremap <C-Down> "zdd"zp
+
+  " 複数行を移動
+  vnoremap <C-Up> "zx<Up>"zP`[V`]
+  vnoremap <C-Down> "zx"zp`[V`]
+augroup END
+
+
+" トグル
+augroup keymap__toggle
+  autocmd!
+  nnoremap <silent> <;>(toggle_relative_num) :<C-u>setlocal relativenumber!<CR>
+  nnoremap <silent> <;>(toggle_cursor_line) :<C-u>setlocal cursorline!<CR>
+  nnoremap <silent> <;>(toggle_cursor_column) :<C-u>setlocal cursorcolumn!<CR>
+augroup END
+
+
+" ハイライト
+augroup keymap__highlight
+  autocmd!
+  " カーソル下の単語をハイライトをトグル
+  " nnoremap <silent> ;w "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+  nnoremap <silent> [util]s :call takxlz#util#hi_words(takxlz#util#get_word_under_cursor())<CR>:set hlsearch<CR>
+
+  " ハイライトをすべて削除
+  nnoremap <silent> [util]S :let g:hlstate = ''<CR>:let @/ = ''<CR>
+
+  " カレント行/列を3秒間だけハイライト
+  nnoremap <silent> [util]f :call takxlz#util#hi_cursorrc_3sec()<CR>
+augroup END
+
+
+" ペイン
+augroup keymap__pane
+  autocmd!
+
+  " ペイン分割
+  nnoremap <silent> [window]s :<C-u>sp<CR>
+  nnoremap <silent> [window]v :<C-u>vs<CR>
+
+  " ペイン移動
+  nnoremap [window]j <C-w>j
+  nnoremap [window]k <C-w>k
+  nnoremap [window]l <C-w>l
+  nnoremap [window]h <C-w>h
+  " call submode#enter_with('p_move', 'n', '', 'sj', '<C-w>j')
+  " call submode#enter_with('p_move', 'n', '', 'sk', '<C-w>k')
+  " call submode#enter_with('p_move', 'n', '', 'sl', '<C-w>l')
+  " call submode#enter_with('p_move', 'n', '', 'sh', '<C-w>h')
+  " call submode#map('p_move', 'n', '', 'J', '<C-w>j')
+  " call submode#map('p_move', 'n', '', 'K', '<C-w>k')
+  " call submode#map('p_move', 'n', '', 'L', '<C-w>l')
+  " call submode#map('p_move', 'n', '', 'H', '<C-w>h')
+
+  " ペイン自体を移動
+  nnoremap [window]J <C-w>J
+  nnoremap [window]K <C-w>K
+  nnoremap [window]L <C-w>L
+  nnoremap [window]H <C-w>H
+
+  " 大きさを揃える
+  nnoremap [window]= <C-w>=
+
+  " ペインの最大化トグル
+  let g:takxlz_is_maximize = 0
+  nnoremap <silent> [window]z :call takxlz#util#toggle_maximize_window()<CR>
+  nnoremap <silent> [window]q :<C-u>q<CR>
+  nnoremap <silent> [window]Q :<C-u>bd<CR>
+
+  " s>...でw幅を増やす、s<...でw幅を減らす
+  " s+...でw高さを増やす、s-...でw高さを減らす
+  call submode#enter_with('p_resize', 'n', '', 's>', '<C-w>>')
+  call submode#enter_with('p_resize', 'n', '', 's<', '<C-w><')
+  call submode#enter_with('p_resize', 'n', '', 's+', '<C-w>+')
+  call submode#enter_with('p_resize', 'n', '', 's-', '<C-w>-')
+  call submode#map('p_resize', 'n', '', '>', '<C-w>>')
+  call submode#map('p_resize', 'n', '', '<', '<C-w><')
+  call submode#map('p_resize', 'n', '', '+', '<C-w>+')
+  call submode#map('p_resize', 'n', '', '-', '<C-w>-')
+augroup END
+
+
+" タブ
+augroup keymap__tab
+  " 新規タブ
+  nnoremap <silent> [window]t :<C-u>tabnew<CR>
+
+  " もともとタブ移動のキーマップだが、sキーに割り当てているので不要
+  nnoremap gt <Nop>
+  nnoremap gT <Nop>
+
+  " 次のタブ、前のタブに移動
+  " nnoremap [window]n gt
+  " nnoremap [window]N gT
+  nnoremap <TAB> gt
+  nnoremap <S-TAB> gT
+
+  " タブの位置を変更する
+  nnoremap <silent> <S-RIGHT> :tabm +1<CR>
+  nnoremap <silent> <S-LEFT> :tabm -1<CR>
+
+  " 現在のタブを閉じる
+  nnoremap <silent> [window]c :tabclose<CR>
+
+  " 現在のタブ以外を閉じる
+  nnoremap <silent> [window]C :tabonly<CR>
+
+  " ラベル文字列を変更する
+  nnoremap <silent> [window], :call takxlz#util#change_tab_label()<CR>
+augroup END
+
+
+" その他
+augroup keymap__other
+  autocmd!
+
+  " vimrcの再読み込み
+  nnoremap <silent> [util]R <C-u>:source ~/dotfiles/vim/vimrc<CR>
+
+  " 置換コマンドを途中まで入力
+  nnoremap [util]r :%s/
+
+  " カーソル下の単語をカウントする
+  nnoremap <silent> [util]c :call takxlz#util#count_word(takxlz#util#get_word_under_cursor())<CR>
+
+  " カーソル行の関連を入れ替える
+  nnoremap <silent> [util]p :call takxlz#plantuml#swap_current_line_relation()<CR>
+augroup END
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :plugin config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 「let g:plugin__XXX = 0」等して左記の変数を存在させればプラグインの設定を読み込まない
+" ※ 以下で行っている独自設定を無効にするだけでプラグイン自体を無効にするわけではない
+
+
+
+" LSP/DAP
+" augroup plugin__lsp_dap
+  " autocmd!
+  " nnoremap [lsp] <Nop>
+  " nmap <space>l [lsp]
+
+  " nnoremap [dap] <Nop>
+  " nmap <space>d [dap]
+
+  " coc-explorer
+  " キーマップの設定等はcoc-settings.json
+  " if isdirectory(expand("~/.cache/plugged/coc.nvim/"))
+  "   " 開いているペインがcoc-explorerだけの場合はvimを閉じる
+  "   autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'coc-explorer') | q | endif
+
+  "   " coc-explorer
+  "   nnoremap <silent> [util]; :CocCommand explorer
+  "         \ --width 30
+  "         \ --toggle<CR>
+  " endif
+
+  " coc
+  " if isdirectory(expand("~/.cache/plugged/coc.nvim/"))
+  "   execute 'source' g:vimrc_dir . '/rc/plugin/coc.vim'
+  " endif
+
+  " vimspector
+  " if isdirectory(expand("~/.cache/plugged/vimspector/"))
+    " execute 'source' g:vimrc_dir . '/rc/plugin/vimspector.vim'
+  " endif
+
+  " nvim-dap
+  " if isdirectory(expand("~/.cache/plugged/nvim-dap/"))
+  "     execute 'source' g:vimrc_dir . '/rc/plugin/nvim-dap.vim'
+  " endif
+" augroup END
+
+
+
+
+" MOTION_SEARCH
+" augroup plugin__motion
+  " nnoremap [motion] <Nop>
+  " nmap <space><space> [motion]
+  " autocmd!
+
+  " vim-easymotion
+  " if isdirectory(expand("~/.cache/plugged/vim-easymotion/"))
+  "   map  [motion]1 <Plug>(easymotion-bd-w)
+  "   nmap [motion]1 <Plug>(easymotion-overwin-w)
+  "   map  [motion]2 <Plug>(easymotion-bd-jk)
+  "   nmap [motion]2 <Plug>(easymotion-overwin-line)
+  "   map  [motion]3 <Plug>(easymotion-bd-f)
+  "   nmap [motion]3 <Plug>(easymotion-overwin-f)
+  " endif
+
+  " vista
+  " if !exists('g:plugin__vista')
+  "     let g:vista#renderer#icons = { 'function': '[f]', 'variable': '[v]', 'property': '[p]' }
+  "     " vistaのキーマップを無効化する（個別で無効化できないため）
+  "     let g:vista_no_mappings = 1
+  "     " 上で全マップを無効化したので、<CR>でカーソル下のシンボルへのジャンプだけ再マップする
+  "     autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <CR> :<C-u>call vista#cursor#FoldOrJump()<CR>
+  "     noremap <silent> [motion]v :<C-u>Vista coc<CR>
+  "     noremap <silent> [motion]V :<C-u>Vista finder coc<CR>
+  " endif
+
+  " fzf
+  " if isdirectory(expand("~/.cache/plugged/fzf.vim/"))
+  "   let g:fzf_layout = { 'down': '~40%' }
+
+  "   command! -bang -nargs=* GGrep
+  "         \ call fzf#vim#grep('git grep --line-number -- '.shellescape(<q-args>),
+  "         \ 0,
+  "         \ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}),
+  "         \ <bang>0)
+
+  "   noremap <silent> [motion]g :GFiles<CR>
+  "   noremap <silent> [motion]f :Files<CR>
+  "   noremap <silent> [motion]r :Rg<CR>
+  "   noremap <silent> [motion]R :GGrep<CR>
+  "   noremap <silent> [motion]h :History<CR>
+  "   noremap <silent> [motion]H :History:<CR>
+  "   noremap <silent> [motion]m :Maps<CR>
+  "   noremap <silent> [motion]M :Marks<CR>
+  "   noremap <silent> [motion]c :Commands<CR>
+  "   " noremap <silent> [motion]hs :History/<CR>
+  "   execute 'source' g:vimrc_dir . '/rc/plugin/fzf.vim'
+  " endif
+
+  " defx
+  " if isdirectory(expand("~/.cache/plugged/defx.nvim/"))
+  "     " autocmd FileType defx setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  "     " =~ 正規表現に一致する
+  "     autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'defx') | q | endif  " 開いているペインがDefxだけの場合はvimを閉じる
+
+  "     nnoremap <silent> [motion]e :<C-u>Defx
+  "         \ -listed -resume
+  "         \ -split=vertical
+  "         \ -winwidth=30
+  "         \ -direction=topleft
+  "         \ -columns=:mark:git:indent:icon:icons:filename
+  "         \ -buffer-name=tab`tabpagenr()``expand('%:p:h')`
+  "         \ -search=`expand('%:p')`<CR>
+
+  "     nnoremap <silent> [motion]E :<C-u>Defx
+  "         \ -listed
+  "         \ -resume
+  "         \ -columns=mark:indent:icon:icons:filename:git:type:time:size
+  "         \ -buffer-name=tab`tabpagenr()``expand('%:p:h')`
+  "         \ -search=`expand('%:p')`<CR>
+
+  "     execute 'source' g:vimrc_dir . '/rc/plugin/defx.vim'
+  " endif
+" augroup END
+
+
+
+
+
+
+
+
+" xxx

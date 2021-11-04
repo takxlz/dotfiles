@@ -50,12 +50,6 @@ let g:lightline = {
     \ },
 \ }
 
-" active
-" \   'left' : [['mode','paste'], ['fugitive','filename'], ['vista']]
-" component_function
-" \   'vista': 'NearestMethodOrFunction',
-
-
 " デフォルトではlightline#tab#filenameが使用されるが、加工したいため自作する
 function! LightLineTabFilename(n) abort
     "指定したタブ番号のページにt:nameが存在するときはt:nameを返し、存在しなければ""を返す
@@ -64,7 +58,6 @@ function! LightLineTabFilename(n) abort
     if l:tabname != ''
         return l:tabname
     endif
-
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
     let l:bname = bufname(buflist[winnr - 1])
@@ -78,26 +71,18 @@ function! LightLineTabFilename(n) abort
     elseif l:bname =~ 'fugitive'
         let l:bname = '#FUGITIVE'
     endif
-
     return l:bname
 endfunction
-
-
 
 function! LightLineWinform()
     return winwidth(0) > 50 ? 'w' . winwidth(0) . ':' . 'h' . winheight(0) : ''
 endfunction
 
-
-
 " ファイル名
 function! LightLineFilename()
     let l:filepath = expand('%:p')
-
     " ファイルパスが30文字を超える場合は、末尾から30文字文切り出す
     let l:filepath_short = strlen(l:filepath) >= 30 ? l:filepath[-30:] : l:filepath
-
-
     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ (&ft =~ 'defx\|denite' ? '' :
         \  &ft == 'fzf' ? '#FZF' :
@@ -113,24 +98,6 @@ function! LightLineModified()
     return &ft =~ 'defx\|denite\|help\|gundo' ? '' : (&modified ? '+' : (&modifiable ? '' : '-'))
 endfunction
 
-
-
-" function! NearestMethodOrFunction() abort
-"     " 「b:」バッファローカルの「変数名:値」の辞書の一覧を参照できる
-"     " バッファローカル変数一覧にvista_nearest...が存在すればその値を返し、なければ空を返す
-"     " return get(b:, 'vista_nearest_method_or_function', '')
-
-"     " 表示文字等を編集したいためgetは使用しない
-"     if exists('b:vista_nearest_method_or_function')
-"         if b:vista_nearest_method_or_function != ''
-"             return ' [f] ' . b:vista_nearest_method_or_function
-"         endif
-"     endif
-"     return ''
-" endfunction
-
-
-
 function! LightLineFugitive()
     try
         " autoloadはcallされるまでロードされていないのでexists()で判定してはいけない
@@ -145,25 +112,17 @@ function! LightLineFugitive()
     return ''
 endfunction
 
-
-
 function! LightLineFileencoding()
     return winwidth(0) > 60 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
-
-
 
 function! LightLineFileformat()
     return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 
-
-
 function! LightLineFiletype()
     return winwidth(0) > 80 ? (strlen(&filetype) ? "\ue7a3 " . &filetype : '[no_ft]') : ''
 endfunction
-
-
 
 function! LightLineMode()
     if &ft == 'defx' | return 'Defx' | endif
@@ -172,9 +131,6 @@ function! LightLineMode()
     return winwidth(0) > 30 ? lightline#mode() : ''
 endfunction
 
-
-
-" coc
 function! LightLineCocErrors()
     return s:lightline_coc_diagnostic('error', 'E')
 endfunction
@@ -199,15 +155,11 @@ function! s:lightline_coc_diagnostic(kind, sign) abort
     return printf('%s:%d', a:sign, info[a:kind])
 endfunction
 
-
-
 " コードチェック後に、lightline#update()をcallし、lightlineの表示を更新する
 augroup LightLineUpdate
     autocmd!
     autocmd User ALELintPost,CocStatusChange,CocDiagnosticChange call lightline#update()
 augroup END
-
-
 
 " vim起動時に実行
 " augroup LightLineStartUp
@@ -215,8 +167,6 @@ augroup END
 "     autocmd BufReadPost * call vista#RunForNearestMethodOrFunction()
 "     autocmd User  call RunForNearestMethodOrFunction lightline#update()
 " augroup END
-
-
 
 " let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
