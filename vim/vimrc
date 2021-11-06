@@ -99,11 +99,11 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " }}}3
 
   " Fuzzy Finder {{{3
-  call dein#add('junegunn/fzf', {'build': './install --bin'})
+  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+  call dein#add('yuki-yano/fzf-preview.vim', {'rev': 'release/rpc'})
   " call dein#add('junegunn/fzf.vim')
   " call dein#add('antoinemadec/coc-fzf', {'rev': 'release'})
 
-  " call dein#add('yuki-yano/fzf-preview.vim', {'rev': 'release/rpc'})
   " }}}3
 
   " filer {{{3
@@ -149,7 +149,7 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " call dein#add('tpope/vim-commentary')
   " call dein#add('unblevable/quick-scope')
   " call dein#add('vim-scripts/Align')
-  call dein#add('Bakudankun/BackAndForward.vim', {'on_map': ['<Plug>(backandforward-']})
+  " call dein#add('Bakudankun/BackAndForward.vim', {'on_map': ['<Plug>(backandforward-']})
   call dein#add('LeafCage/yankround.vim')
   call dein#add('MattesGroeger/vim-bookmarks')
   " call dein#add('SirVer/ultisnips', {'on_event': ['InsertEnter']})
@@ -179,6 +179,7 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " Appearance {{{3
   " call dein#add('Yggdroot/indentLine')
   call dein#add('itchyny/lightline.vim')
+  call dein#add('itchyny/vim-cursorword')
   call dein#add('lambdalisue/readablefold.vim')
   call dein#add('machakann/vim-highlightedundo', {'on_map': ['<Plug>']})
   call dein#add('machakann/vim-highlightedyank', {'on_event': ['TextYankPost']})
@@ -196,15 +197,15 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " Util {{{3
   " call dein#add('dhruvasagar/vim-table-mode')
   " call dein#add('iamcco/markdown-preview.nvim', {'build': 'sh -c "cd app && yarn install"'})
+  " call dein#add('liuchengxu/vista.vim', {'on_cmd': ['Vista']})
+  " call dein#add('jsfaint/gen_tags.vim')
   call dein#add('AndrewRadev/linediff.vim', {'on_cmd': ['LineDiff']})
   call dein#add('aiya000/aho-bakaup.vim', {'on_event': ['InsertEnter', 'TextChanged']})
   call dein#add('glidenote/memolist.vim')
   call dein#add('itchyny/vim-qfedit', {'on_ft': ['qf']})
-  call dein#add('jsfaint/gen_tags.vim')
   call dein#add('kana/vim-niceblock')
   call dein#add('lambdalisue/suda.vim', {'on_cmd': ['SudaRead', 'SudaWrite']})
   call dein#add('lambdalisue/vim-manpager', {'on_cmd': ['Man'], 'on_map': ['<Plug>']})
-  call dein#add('liuchengxu/vista.vim', {'on_cmd': ['Vista']})
   call dein#add('mbbill/undotree', {'on_cmd': ['UndotreeToggle']})
   call dein#add('moll/vim-bbye', {'on_cmd': ['Bdelete']})
   call dein#add('segeljakt/vim-silicon', {'on_cmd': ['Silicon']})
@@ -242,6 +243,7 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " call dein#add('icymind/NeoSolarized')
   " call dein#add('joshdick/onedark.vim')
   " call dein#add('taohexxx/lightline-solarized')
+  " call dein#add('morhetz/gruvbox')
   call dein#add('sainnhe/edge')
   call dein#add('sainnhe/gruvbox-material')
   " }}}3
@@ -316,10 +318,10 @@ inoremap jj <ESC>
 cmap <C-h> <BS>
 
 "" Move
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap jk k
+"nnoremap j gj
+"nnoremap k gk
+"nnoremap gj j
+"nnoremap jk k
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
@@ -437,9 +439,12 @@ nnoremap <Leader>r :<C-u>%s/\v//g<Left><Left><Left>
 xnoremap <Leader>r "sy:%s/\v<C-r>=substitute(@s, '/', '\\/', 'g')<CR>//g<Left><Left>
 
 "" Clipboard
-nnoremap <silent> sc :<C-u>call system("pbcopy", @") <Bar> echo "Copied \" register to OS clipboard"<CR>
-nnoremap <silent> sp :<C-u>let @" = substitute(system("pbpaste"), "\n\+$", "", "") <Bar> echo "Copied from OS clipboard to \" register"<CR>
-xnoremap <silent> sp <Esc>:let @" = substitute(system("pbpaste"), "\n\+$", "", "") <Bar> echo "Copied from OS clipboard to \" register"<CR>gv
+" nnoremap <silent> sc :<C-u>call system("pbcopy", @") <Bar> echo "Copied \" register to OS clipboard"<CR>
+" nnoremap <silent> sp :<C-u>let @" = substitute(system("pbpaste"), "\n\+$", "", "") <Bar> echo "Copied from OS clipboard to \" register"<CR>
+" xnoremap <silent> sp <Esc>:let @" = substitute(system("pbpaste"), "\n\+$", "", "") <Bar> echo "Copied from OS clipboard to \" register"<CR>gv
+
+"" highlight word on cursor
+nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
 " }}}2
 
 " Set Options {{{2
@@ -516,8 +521,8 @@ set shiftwidth=2
 set smartindent
 set tabstop=2
 
-set formatoptions-=ro
-set formatoptions+=jBn
+AutoCmd FileType * setlocal formatoptions-=ro
+AutoCmd FileType * setlocal formatoptions+=jBn
 
 "" viminfo
 set viminfo='1000,:1000
@@ -564,7 +569,7 @@ set swapfile
 set directory=~/.cache/vim/swap/
 
 "" Term
-set shell=zsh
+set shell=/bin/zsh
 set lazyredraw
 set ttyfast
 set ttimeout
@@ -833,76 +838,6 @@ command! JSON set ft=json | call CocAction('format')
 
 " VSCode {{{2
 command! VSCode execute printf('!code -r "%s"', expand('%'))
-" }}}2
-
-" Review {{{2
-let g:review_status = v:false
-
-function! s:review_start() abort
-  let g:review_status = v:true
-
-  colorscheme edge
-  set background=light
-  let g:lightline.colorscheme = 'edge'
-  call lightline#disable()
-  call lightline#enable()
-
-  let g:fzf_preview_command_bak = g:fzf_preview_command
-  let g:fzf_preview_command = 'bat --color=always --style=plain --theme="papercolor-light" ''{-1}'''
-
-  let $FZF_PREVIEW_PREVIEW_BAT_THEME_BAK = $FZF_PREVIEW_PREVIEW_BAT_THEME
-  let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'papercolor-light'
-  let $FZF_DEFAULT_OPTS_BAK = $FZF_DEFAULT_OPTS
-  " Edge
-  let $FZF_DEFAULT_OPTS= '--color=fg:#4b505b,bg:#fafafa,hl:#5079be,fg+:#4b505b,bg+:#fafafa,hl+:#3a8b84,info:#88909f,prompt:#d05858,pointer:#b05ccc,marker:#608e32,spinner:#d05858,header:#3a8b84'
-  " PaperColor
-  " let $FZF_DEFAULT_OPTS= '--color=fg:#4d4d4c,bg:#eeeeee,hl:#d7005f,fg+:#4d4d4c,bg+:#e8e8e8,hl+:#d7005f,info:#4271ae,prompt:#8959a8,pointer:#d7005f,marker:#4271ae,spinner:#4271ae,header:#4271ae'
-  " Solarized
-  " let $FZF_DEFAULT_OPTS = '--color=fg:240,bg:230,hl:33,fg+:241,bg+:221,hl+:33,info:33,prompt:33,pointer:166,marker:166,spinner:33'
-  let $BAT_THEME_BAK = $BAT_THEME
-  let $BAT_THEME = 'papercolor-light'
-
-  if dein#tap('smartnumber.vim')
-    SNumbersTurnOffRelative
-  endif
-
-  set listchars-=eol:$
-endfunction
-
-command! ReviewStart call <SID>review_start()
-
-function! s:review_end() abort
-  let g:review_status = v:false
-
-  colorscheme gruvbox-material
-  set background=dark
-  let g:lightline.colorscheme = 'gruvbox'
-  call lightline#disable()
-  call lightline#enable()
-
-  let g:fzf_preview_command = g:fzf_preview_command_bak
-  let $FZF_PREVIEW_PREVIEW_BAT_THEME = $FZF_PREVIEW_PREVIEW_BAT_THEME_BAK
-  let $FZF_DEFAULT_OPTS = $FZF_DEFAULT_OPTS_BAK
-  let $BAT_THEME = $BAT_THEME_BAK
-
-  if dein#tap('smartnumber.vim')
-    SNumbersTurnOnRelative
-  endif
-
-  set listchars+=eol:$
-endfunction
-
-command! ReviewEnd call <SID>review_end()
-
-function! s:review_toggle() abort
-  if g:review_status
-    ReviewEnd
-  else
-    ReviewStart
-  endif
-endfunction
-
-command! ReviewToggle call <SID>review_toggle()
 " }}}2
 
 " }}}1
@@ -1236,11 +1171,11 @@ endif
 " }}}3
 
 " gen_tags {{{3
-if dein#tap('gen_tags.vim')
-  let g:gen_tags#ctags_auto_gen = 1
-  let g:gen_tags#ctags_opts     = '--excmd=number'
-  let g:loaded_gentags#gtags    = 1
-endif
+" if dein#tap('gen_tags.vim')
+"   let g:gen_tags#ctags_auto_gen = 1
+"   let g:gen_tags#ctags_opts     = '--excmd=number'
+"   let g:loaded_gentags#gtags    = 1
+" endif
 " }}}3
 
 " import-cost {{{3
@@ -1445,21 +1380,21 @@ endif
 " Completion & Fuzzy Finder {{{2
 
 " fzf {{{3
-if dein#tap('fzf')
-  let g:fzf_files_options = '--layout=reverse'
-  let g:fzf_layout      = { 'window': { 'width': 0.9, 'height': 0.9 } }
-  " let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-  " Nord
-  " let $FZF_DEFAULT_OPTS = '--color=hl:#81A1C1,hl+:#81A1C1,info:#EACB8A,prompt:#81A1C1,pointer:#B48DAC,marker:#A3BE8B,spinner:#B48DAC,header:#A3BE8B'
-  " Gruvbox
-  let $FZF_DEFAULT_OPTS = '--color=bg+:#1d2021,bg:#1d2021,spinner:#d8a657,hl:#a9b665,fg:#d4be98,header:#928374,info:#89b482,pointer:#7daea3,marker:#d8a657,fg+:#d4be98,prompt:#e78a4e,hl+:#89b482'
-endif
+" if dein#tap('fzf')
+"   let g:fzf_files_options = '--layout=reverse'
+"   let g:fzf_layout      = { 'window': { 'width': 0.9, 'height': 0.9 } }
+"   " let g:fzf_history_dir = '~/.local/share/fzf-history'
+" 
+"   " Nord
+"   " let $FZF_DEFAULT_OPTS = '--color=hl:#81A1C1,hl+:#81A1C1,info:#EACB8A,prompt:#81A1C1,pointer:#B48DAC,marker:#A3BE8B,spinner:#B48DAC,header:#A3BE8B'
+"   " Gruvbox
+"   let $FZF_DEFAULT_OPTS = '--color=bg+:#1d2021,bg:#1d2021,spinner:#d8a657,hl:#a9b665,fg:#d4be98,header:#928374,info:#89b482,pointer:#7daea3,marker:#d8a657,fg+:#d4be98,prompt:#e78a4e,hl+:#89b482'
+" endif
 " }}}3
 
 " fzf-preview {{{3
 if dein#tap('fzf-preview.vim')
-  " let g:fzf_preview_rpc_debug = 1
+  let g:fzf_preview_rpc_debug = 1
   " let g:fzf_preview_direct_window_option = 'botright 20new'
   let g:fzf_preview_filelist_command    = 'fd --type file --hidden --exclude .git'
   let g:fzf_preview_git_files_command   = 'git ls-files --exclude-standard | while read line; do if [[ ! -L $line ]] && [[ -f $line ]]; then echo $line; fi; done'
@@ -1475,7 +1410,7 @@ if dein#tap('fzf-preview.vim')
   let $BAT_THEME                        = 'gruvbox-dark'
   let $FZF_PREVIEW_PREVIEW_BAT_THEME    = 'gruvbox-dark'
   let $BAT_STYLE                        = 'plain'
-  let g:fzf_preview_history_dir         = '~/.fzf'
+  " let g:fzf_preview_history_dir         = '~/.fzf'
   let $FZF_PREVIEW_PLUGIN_HELP_ROOT_DIR = '~/.vim/bundle/repos/github.com'
 
   nnoremap <fzf-p> <Nop>
@@ -1503,8 +1438,8 @@ if dein#tap('fzf-preview.vim')
   nnoremap <silent> <fzf-p>l     :<C-u>FzfPreviewLocationListRpc --experimental-fast<CR>
   nnoremap <silent> <fzf-p>:     :<C-u>FzfPreviewCommandPaletteRpc --experimental-fast<CR>
   nnoremap <silent> <fzf-p>m     :<C-u>FzfPreviewBookmarksRpc --resume --experimental-fast<CR>
-  nnoremap <silent> <fzf-p><C-]> :<C-u>FzfPreviewVistaCtagsRpc --experimental-fast --add-fzf-arg=--query="<C-r>=expand('<cword>')<CR>"<CR>
-  nnoremap <silent> <fzf-p>o     :<C-u>FzfPreviewVistaBufferCtagsRpc --experimental-fast<CR>
+  " nnoremap <silent> <fzf-p><C-]> :<C-u>FzfPreviewVistaCtagsRpc --experimental-fast --add-fzf-arg=--query="<C-r>=expand('<cword>')<CR>"<CR>
+  " nnoremap <silent> <fzf-p>o     :<C-u>FzfPreviewVistaBufferCtagsRpc --experimental-fast<CR>
 
   nnoremap          <fzf-p>f :<C-u>CocCommand fzf-preview.ProjectGrep --experimental-fast --add-fzf-arg=--exact --add-fzf-arg=--no-sort<Space>
   xnoremap          <fzf-p>f "sy:CocCommand fzf-preview.ProjectGrep --experimental-fast --add-fzf-arg=--exact --add-fzf-arg=--no-sort<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
@@ -1919,10 +1854,10 @@ endif
 " }}}3
 
 " BackAndForward {{{3
-if dein#tap('BackAndForward.vim')
-  nmap <C-b> <Plug>(backandforward-back)
-  nmap <C-f> <Plug>(backandforward-forward)
-endif
+" if dein#tap('BackAndForward.vim')
+"   nmap <C-b> <Plug>(backandforward-back)
+"   nmap <C-f> <Plug>(backandforward-forward)
+" endif
 " }}}3
 
 " bookmarks {{{3
@@ -2590,9 +2525,10 @@ endif
 
 " Appearance {{{2
 
-" foldCC {{{3
-if dein#tap('foldCC.vim')
-  set foldtext=FoldCCtext()
+" vim-cursorword {{{3
+if dein#tap('vim-cursorword')
+  let g:cursorword_delay = 600
+  let g:cursorword_highlight = 0
 endif
 " }}}3
 
@@ -2973,14 +2909,14 @@ if dein#tap('lightline.vim')
   "   return (&filetype !=# 'denite') ? '' : (substitute(denite#get_status_mode(), '[- ]', '', 'g'))
   " endfunction
 
-  function! NearestMethodOrFunction() abort
-    if !Lightline_is_visible(140)
-      return ''
-    endif
-    return get(b:, 'vista_nearest_method_or_function', '')
-  endfunction
-
-  AutoCmd User CocDiagnosticChange call lightline#update()
+"   function! NearestMethodOrFunction() abort
+"     if !Lightline_is_visible(140)
+"       return ''
+"     endif
+"     return get(b:, 'vista_nearest_method_or_function', '')
+"   endfunction
+" 
+"   AutoCmd User CocDiagnosticChange call lightline#update()
 endif
 " }}}3
 
@@ -3011,19 +2947,19 @@ endif
 " }}}3
 
 " vista {{{3
-if dein#tap('vista.vim')
-  BulkAlterCommand vis[ta] Vista
-
-  let g:vista_default_executive      = 'coc'
-  let g:vista_sidebar_width          = 50
-  let g:vista_echo_cursor_strategy   = 'both'
-  let g:vista_update_on_text_changed = 1
-  let g:vista_blink                  = [1, 100]
-
-  nnoremap <silent> <Leader>v :<C-u>Vista<CR>
-
-  AutoCmd VimEnter * call vista#RunForNearestMethodOrFunction()
-endif
+" if dein#tap('vista.vim')
+"   BulkAlterCommand vis[ta] Vista
+" 
+"   let g:vista_default_executive      = 'coc'
+"   let g:vista_sidebar_width          = 50
+"   let g:vista_echo_cursor_strategy   = 'both'
+"   let g:vista_update_on_text_changed = 1
+"   let g:vista_blink                  = [1, 100]
+" 
+"   nnoremap <silent> <Leader>v :<C-u>Vista<CR>
+" 
+"   AutoCmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" endif
 " }}}3
 
 " }}}2
@@ -3313,61 +3249,9 @@ nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>:EscEsc<CR>
 
 " }}}1
 
-" Correct Interference {{{1
-
-" keymaps {{{
-" function! Set_default_keymap() abort let g:keymap = 'Default'
-"   call lightline#update()
-" endfunction
-"
-" function! Set_quickfix_keymap() abort
-"   let g:keymap = 'QuickFix'
-"   call lightline#update()
-"
-"   nnoremap <silent> cp :<C-u>cprev<CR>
-"   nnoremap <silent> cn :<C-u>cnext<CR>
-" endfunction
-"
-" function! Set_locationlist_keymap() abort
-"   let g:keymap = 'LocationList'
-"   call lightline#update()
-"
-"   nnoremap <silent> cp :<C-u>lprev<CR>
-"   nnoremap <silent> cn :<C-u>lnext<CR>
-" endfunction
-"
-" AutoCmd FileType qf
-" \ if getwininfo(win_getid())[0].loclist |
-" \   call Set_default_keymap()      |
-" \   call Set_locationlist_keymap() |
-" \ elseif getwininfo(win_getid())[0].quickfix |
-" \   call Set_default_keymap()  |
-" \   call Set_quickfix_keymap() |
-" \ endif
-" }}}
-
-" }}}1
-
 " Load Colorscheme {{{1
 
 " Highlight {{{2
-
-AutoCmd ColorScheme nord,onedark,iceberg highlight Normal       ctermfg=145  ctermbg=235  guifg=#ABB2BF guibg=#26282F
-AutoCmd ColorScheme nord,onedark,iceberg highlight NormalNC     ctermfg=144  ctermbg=234  guifg=#ABB2BF guibg=#282C34
-AutoCmd ColorScheme nord,onedark,iceberg highlight CursorColumn ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
-AutoCmd ColorScheme nord,onedark,iceberg highlight CursorLine   ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
-AutoCmd ColorScheme nord,onedark,iceberg highlight CursorLineNr ctermfg=253  ctermbg=NONE guifg=#DADADA guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight LineNr       ctermfg=241  ctermbg=NONE guifg=#626262 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight NonText      ctermfg=60   ctermbg=NONE guifg=#5F5F87 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight Identifier   ctermfg=10   ctermbg=NONE guifg=#C0CA8E guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight Search       ctermfg=68   ctermbg=232  guifg=NONE    guibg=#213F72
-AutoCmd ColorScheme nord,onedark,iceberg highlight SignColumn   ctermfg=0    ctermbg=NONE guifg=#3B4252 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight Visual       ctermfg=NONE ctermbg=23   guifg=NONE    guibg=#1D4647
-AutoCmd ColorScheme nord,onedark,iceberg highlight Incsearch    ctermfg=68   ctermbg=232  guifg=NONE    guibg=#175655
-AutoCmd ColorScheme nord,onedark,iceberg highlight Folded       ctermfg=245  ctermbg=NONE guifg=#686f9a guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight DiffAdd      ctermfg=233  ctermbg=64   guifg=#C4C4C4 guibg=#456D4F
-AutoCmd ColorScheme nord,onedark,iceberg highlight DiffDelete   ctermfg=233  ctermbg=95   guifg=#C4C4C4 guibg=#593535
-AutoCmd ColorScheme nord,onedark,iceberg highlight DiffChange   ctermfg=233  ctermbg=143  guifg=#C4C4C4 guibg=#594D1A
 
 " AutoCmd ColorScheme gruvbox-material highlight CursorColumn ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
 " AutoCmd ColorScheme gruvbox-material highlight CursorLine   ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
@@ -3390,23 +3274,6 @@ AutoCmd ColorScheme gruvbox-material highlight Pmenu        ctermfg=NONE ctermbg
 AutoCmd ColorScheme gruvbox-material highlight PmenuSel     ctermfg=235  ctermbg=142  guifg=NONE    guibg=#3C6073
 
 " Gina (Vital.Vim.Buffer.ANSI)
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor0  ctermfg=0  guifg=#2E3440
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor1  ctermfg=1  guifg=#3B4252
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor2  ctermfg=2  guifg=#434C5E
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor3  ctermfg=3  guifg=#4C566A
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor4  ctermfg=4  guifg=#D8DEE9
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor5  ctermfg=5  guifg=#E5E9F0
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor6  ctermfg=6  guifg=#ECEFF4
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor7  ctermfg=7  guifg=#8FBCBB
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor8  ctermfg=8  guifg=#88C0D0
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor9  ctermfg=9  guifg=#81A1C1
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor10 ctermfg=10 guifg=#5E81AC
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor11 ctermfg=11 guifg=#BF616A
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor12 ctermfg=12 guifg=#D08770
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor13 ctermfg=13 guifg=#EBCB8B
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor14 ctermfg=14 guifg=#A3BE8C
-AutoCmd ColorScheme nord,onedark,iceberg highlight AnsiColor15 ctermfg=15 guifg=#B48EAD
-
 AutoCmd ColorScheme gruvbox-material highlight AnsiColor0  ctermfg=0  guifg=#2E3440
 AutoCmd ColorScheme gruvbox-material highlight AnsiColor1  ctermfg=1  guifg=#32302f
 AutoCmd ColorScheme gruvbox-material highlight AnsiColor2  ctermfg=2  guifg=#434C5E
@@ -3423,46 +3290,6 @@ AutoCmd ColorScheme gruvbox-material highlight AnsiColor12 ctermfg=12 guifg=#D08
 AutoCmd ColorScheme gruvbox-material highlight AnsiColor13 ctermfg=13 guifg=#d8a657
 AutoCmd ColorScheme gruvbox-material highlight AnsiColor14 ctermfg=14 guifg=#a9b665
 AutoCmd ColorScheme gruvbox-material highlight AnsiColor15 ctermfg=15 guifg=#d3869b
-
-" Plugin highlight
-" AutoCmd ColorScheme nord,onedark,iceberg highlight ShotFBlank              ctermfg=209  ctermbg=NONE cterm=underline,bold guifg=#E27878 guibg=NONE    gui=underline,bold
-" AutoCmd ColorScheme nord,onedark,iceberg highlight ShotFGraph              ctermfg=209  ctermbg=NONE                      guifg=#E27878 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight EasyMotionMoveHLDefault ctermfg=9    ctermbg=236  cterm=underline,bold guifg=#E98989 guibg=#303030 gui=underline,bold
-AutoCmd ColorScheme nord,onedark,iceberg highlight EftChar                 ctermfg=209  ctermbg=NONE cterm=underline,bold guifg=#E27878 guibg=NONE    gui=underline,bold
-AutoCmd ColorScheme nord,onedark,iceberg highlight EftSubChar              ctermfg=68   ctermbg=NONE cterm=underline,bold guifg=#5F87D7 guibg=NONE    gui=underline,bold
-AutoCmd ColorScheme nord,onedark,iceberg highlight ExtraWhiteSpace         ctermfg=NONE ctermbg=1                         guifg=NONE    guibg=#E98989
-AutoCmd ColorScheme nord,onedark,iceberg highlight FloatermNF              ctermfg=NONE ctermbg=234                       guifg=NONE    guibg=#161821
-AutoCmd ColorScheme nord,onedark,iceberg highlight GitRebase               ctermfg=NONE ctermbg=234                       guifg=NONE    guibg=#1F1F20
-AutoCmd ColorScheme nord,onedark,iceberg highlight HighlightedyankRegion   ctermfg=1    ctermbg=NONE                      guifg=#E27878 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight MatchParen              ctermfg=NONE ctermbg=NONE cterm=underline      guifg=NONE    guibg=NONE    gui=underline
-AutoCmd ColorScheme nord,onedark,iceberg highlight MatchParenCur           ctermfg=NONE ctermbg=NONE cterm=bold           guifg=NONE    guibg=NONE    gui=bold
-AutoCmd ColorScheme nord,onedark,iceberg highlight MatchWord               ctermfg=NONE ctermbg=NONE cterm=underline      guifg=NONE    guibg=NONE    gui=underline
-AutoCmd ColorScheme nord,onedark,iceberg highlight MatchWordCur            ctermfg=NONE ctermbg=NONE cterm=bold           guifg=NONE    guibg=NONE    gui=bold
-AutoCmd ColorScheme nord,onedark,iceberg highlight QuickScopePrimary       ctermfg=68   ctermbg=NONE                      guifg=#5F87D7 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight QuickScopeSecondary     ctermfg=72   ctermbg=NONE                      guifg=#5FAFAF guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight YankRoundRegion         ctermfg=209  ctermbg=237                       guifg=#FF875F guibg=#3A3A3A
-
-AutoCmd ColorScheme nord,onedark,iceberg highlight CocErrorSign            ctermfg=9    ctermbg=NONE                      guifg=#E98989 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight CocWarningSign          ctermfg=214  ctermbg=NONE                      guifg=#FFAF00 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight CocInfoSign             ctermfg=229  ctermbg=NONE                      guifg=#FFFFAF guibg=NONE
-
-AutoCmd ColorScheme nord,onedark,iceberg highlight Defx_git_Untracked      ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight Defx_git_Modified       ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight Defx_git_Staged         ctermfg=2    ctermbg=NONE                      guifg=#b4be82 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight Defx_git_Deleted        ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight Defx_git_Renamed        ctermfg=2    ctermbg=NONE                      guifg=#b4be82 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight Defx_git_Unmerged       ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-
-AutoCmd ColorScheme nord,onedark,iceberg highlight FernGitStatusWorktree   ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight FernGitStatusIndex      ctermfg=2    ctermbg=NONE                      guifg=#b4be82 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight FernGitStatusUnmerged   ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight FernGitStatusUntracked  ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme nord,onedark,iceberg highlight link FernGitStatusIgnored Comment
-
-AutoCmd ColorScheme nord,onedark,iceberg highlight ScrollView              ctermbg=159                                                  guibg=#D0D0D0
-
-" TreeSitter
-AutoCmd ColorScheme nord,onedark,iceberg highlight link TSPunctBracket Normal
 
 " AutoCmd ColorScheme gruvbox-material highlight QuickScopePrimary       ctermfg=68   ctermbg=NONE                      guifg=#5F87D7 guibg=NONE
 " AutoCmd ColorScheme gruvbox-material highlight QuickScopeSecondary     ctermfg=72   ctermbg=NONE                      guifg=#5FAFAF guibg=NONE
@@ -3491,13 +3318,6 @@ AutoCmd ColorScheme gruvbox-material highlight CocHoverFloating        ctermfg=N
 AutoCmd ColorScheme gruvbox-material highlight CocSuggestFloating      ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
 AutoCmd ColorScheme gruvbox-material highlight CocDiagnosticFloating   ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
 
-AutoCmd ColorScheme gruvbox-material highlight Defx_git_Untracked      ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight Defx_git_Modified       ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight Defx_git_Staged         ctermfg=2    ctermbg=NONE                      guifg=#b4be82 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight Defx_git_Deleted        ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight Defx_git_Renamed        ctermfg=2    ctermbg=NONE                      guifg=#b4be82 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight Defx_git_Unmerged       ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-
 AutoCmd ColorScheme gruvbox-material highlight FernGitStatusWorktree   ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight FernGitStatusIndex      ctermfg=2    ctermbg=NONE                      guifg=#b4be82 guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight FernGitStatusUnmerged   ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
@@ -3515,130 +3335,15 @@ AutoCmd ColorScheme gruvbox-material highlight HlSearchFloat           ctermfg=6
 
 AutoCmd ColorScheme gruvbox-material highlight ScrollView              ctermbg=159                                                  guibg=#D0D0D0
 
-AutoCmd ColorScheme gruvbox-material highlight VistaFloat ctermbg=237 guibg=#3a3a3a
+" AutoCmd ColorScheme gruvbox-material highlight VistaFloat ctermbg=237 guibg=#3a3a3a
 
 " TreeSitter
 AutoCmd ColorScheme gruvbox-material highlight link TSPunctBracket Normal
 AutoCmd ColorScheme gruvbox-material highlight link BiscuitColor   Comment
 
-" }}}2
-
-" nord {{{2
-
-" let g:nord_uniform_diff_background = 1
-" colorscheme nord
-
-" lightline highlight {{{3
-if dein#tap('lightline.vim')
-  let s:nord0       = ['#3B4252', 0]
-  let s:nord1       = ['#BF616A', 1]
-  let s:nord2       = ['#A3BE8C', 2]
-  let s:nord3       = ['#EBCB8B', 3]
-  let s:nord4       = ['#81A1C1', 4]
-  let s:nord5       = ['#B48EAD', 5]
-  let s:nord6       = ['#88C0D0', 6]
-  let s:nord7       = ['#E5E9F0', 7]
-  let s:nord8       = ['#4C566A', 8]
-  let s:nord9       = ['#B04B57', 9]
-  let s:nord10      = ['#93B379', 10]
-  let s:nord11      = ['#D08770', 11]
-  let s:nord12      = ['#5E81AC', 12]
-  let s:nord13      = ['#A4799D', 13]
-  let s:nord14      = ['#8FBCBB', 14]
-  let s:nord15      = ['#ECEFF4', 15]
-  " let s:white       = ['#AFAFAF', 145]
-  " let s:black       = ['#262626', 235]
-  let s:grey        = ['#3A3A3A', 237]
-  " let s:red         = ['#FF5F87', 204]
-  " let s:blue        = ['#00AFFF', 39]
-  " let s:green       = ['#75A174', 108]
-  " let s:yellow      = ['#D7AF87', 180]
-  " let s:orange      = ['#D78700', 172]
-  let s:blue_green  = ['#00AFAF', 37 ]
-
-  let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
-
-  let s:p.normal.left = [
-  \ [s:nord0,      s:nord4],
-  \ [s:nord7,      s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:nord4,      s:grey],
-  \ ]
-
-  let s:p.insert.left = [
-  \ [s:nord0,      s:nord3],
-  \ [s:nord7,      s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:nord4,      s:grey],
-  \]
-
-  let s:p.visual.left = [
-  \ [s:nord0,      s:nord5],
-  \ [s:nord7,      s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:nord4,      s:grey],
-  \ ]
-
-  let s:p.replace.left = [
-  \ [s:nord0,      s:nord1],
-  \ [s:nord7,      s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:nord4,      s:grey],
-  \ ]
-
-  let s:p.inactive.left = [
-  \ [s:blue_green, s:grey],
-  \ [s:nord7,      s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:nord4,      s:grey],
-  \ ]
-
-  let s:p.normal.right   = [[s:nord7, s:nord0],   [s:nord7, s:grey]]
-  let s:p.inactive.right = [[s:nord0, s:nord7],   [s:nord0, s:nord7]]
-  let s:p.insert.right   = [[s:nord0, s:nord3],   [s:nord7, s:grey]]
-  let s:p.replace.right  = [[s:nord0, s:nord1],   [s:nord7, s:grey]]
-  let s:p.visual.right   = [[s:nord0, s:nord5],   [s:nord7, s:grey]]
-
-  let s:p.normal.middle   = [[s:nord7, s:nord0]]
-  let s:p.inactive.middle = [[s:nord7, s:grey]]
-
-  let s:p.tabline.left   = [[s:nord7, s:nord8]]
-  let s:p.tabline.tabsel = [[s:nord0, s:nord4]]
-  let s:p.tabline.middle = [[s:nord7, s:nord0]]
-  let s:p.tabline.right  = [[s:nord7, s:nord8]]
-
-  let s:coc_diagnostic = [
-  \ [s:grey, s:nord1],
-  \ [s:grey, s:nord11],
-  \ [s:grey, s:nord3],
-  \ [s:grey, s:nord4],
-  \ [s:grey, s:nord2],
-  \ ]
-
-  let s:p.normal.error        = s:coc_diagnostic[0:0]
-  let s:p.insert.error        = s:coc_diagnostic[0:0]
-  let s:p.replace.error       = s:coc_diagnostic[0:0]
-  let s:p.visual.error        = s:coc_diagnostic[0:0]
-  let s:p.normal.warning      = s:coc_diagnostic[1:1]
-  let s:p.insert.warning      = s:coc_diagnostic[1:1]
-  let s:p.replace.warning     = s:coc_diagnostic[1:1]
-  let s:p.visual.warning      = s:coc_diagnostic[1:1]
-  let s:p.normal.information  = s:coc_diagnostic[2:2]
-  let s:p.insert.information  = s:coc_diagnostic[2:2]
-  let s:p.replace.information = s:coc_diagnostic[2:2]
-  let s:p.visual.information  = s:coc_diagnostic[2:2]
-  let s:p.normal.hint         = s:coc_diagnostic[2:2]
-  let s:p.insert.hint         = s:coc_diagnostic[2:2]
-  let s:p.replace.hint        = s:coc_diagnostic[2:2]
-  let s:p.visual.hint         = s:coc_diagnostic[2:2]
-  let s:p.normal.ok           = s:coc_diagnostic[3:3]
-  let s:p.insert.ok           = s:coc_diagnostic[3:3]
-  let s:p.replace.ok          = s:coc_diagnostic[3:3]
-  let s:p.visual.ok           = s:coc_diagnostic[3:3]
-
-  let g:lightline#colorscheme#nord#palette = lightline#colorscheme#flatten(s:p)
-endif
-" }}}3
+" vim-cursorword
+AutoCmd ColorScheme gruvbox-material highlight CursorWord0 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
+AutoCmd ColorScheme gruvbox-material highlight CursorWord1 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
 
 " }}}2
 
