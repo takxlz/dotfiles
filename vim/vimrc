@@ -385,8 +385,8 @@ cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 
 "" Indent
-nnoremap < <<
-nnoremap > >>
+" nnoremap < <<
+" nnoremap > >>
 xnoremap < <gv
 xnoremap > >gv|
 
@@ -397,6 +397,7 @@ nnoremap <silent> sj <C-w>j
 nnoremap <silent> sk <C-w>k
 nnoremap <silent> sl <C-w>l
 nnoremap <silent> sh <C-w>h
+nnoremap <silent> sz :<C-u>call <SID>toggle_maximize_window()<CR>
 if has('nvim')
   function! s:focus_floating() abort
     if !empty(nvim_win_get_config(win_getid()).relative)
@@ -415,6 +416,16 @@ if has('nvim')
   endfunction
   nnoremap <silent> <C-w><C-w> :<C-u>call <SID>focus_floating()<CR>
 endif
+function! s:toggle_maximize_window() abort
+  if !exists('g:is_maximize_window') || g:is_maximize_window == 0
+    :resize
+    :vertical resize
+    let g:is_maximize_window = 1
+  else
+    execute "normal \<C-w>="
+    let g:is_maximize_window = 0
+  endif
+endfunction
 
 "" Tab
 nnoremap <silent> st        :<C-u>tabnew<CR>
@@ -424,6 +435,15 @@ nnoremap <silent> <S-RIGHT> :tabm +1<CR>
 nnoremap <silent> <S-LEFT>  :tabm -1<CR>
 nnoremap <silent> sc        :tabclose<CR>
 nnoremap <silent> sC        :tabonly<CR>
+nnoremap <silent> s,        :<C-u>call <SID>change_tab_label()<CR>
+function! s:change_tab_label() abort
+  let l:instr = input('input new tab label: ')
+  if len(trim(l:instr)) > 0
+    let t:name = l:instr
+  endif
+  " update screen
+  redraw! | echo ''
+endfunction
 
 "" resize
 nnoremap <Left>  :<C-u>vertical resize -1<CR>
@@ -2152,37 +2172,31 @@ if dein#tap('lexima.vim')
 
     "" Parenthesis
     let s:rules += [
-    \ { 'char': '<C-h>', 'at': '(\%#)', 'input': '<BS><Del>', },
     \ { 'char': '<BS>',  'at': '(\%#)', 'input': '<BS><Del>', },
     \ ]
 
     "" Brace
     let s:rules += [
-    \ { 'char': '<C-h>', 'at': '{\%#}', 'input': '<BS><Del>', },
     \ { 'char': '<BS>',  'at': '{\%#}', 'input': '<BS><Del>', },
     \ ]
 
     "" Bracket
     let s:rules += [
-    \ { 'char': '<C-h>', 'at': '\[\%#\]', 'input': '<BS><Del>', },
     \ { 'char': '<BS>',  'at': '\[\%#\]', 'input': '<BS><Del>', },
     \ ]
 
     "" Sinble Quote
     let s:rules += [
-    \ { 'char': '<C-h>', 'at': "'\\%#'", 'input': '<BS><Del>', },
     \ { 'char': '<BS>',  'at': "'\\%#'", 'input': '<BS><Del>', },
     \ ]
 
     "" Double Quote
     let s:rules += [
-    \ { 'char': '<C-h>', 'at': '"\%#"', 'input': '<BS><Del>', },
     \ { 'char': '<BS>',  'at': '"\%#"', 'input': '<BS><Del>', },
     \ ]
 
     "" Back Quote
     let s:rules += [
-    \ { 'char': '<C-h>', 'at': '`\%#`', 'input': '<BS><Del>', },
     \ { 'char': '<BS>',  'at': '`\%#`', 'input': '<BS><Del>', },
     \ ]
 
@@ -2238,9 +2252,7 @@ if dein#tap('lexima.vim')
     \ { 'filetype': 'eruby', 'char': '=',     'at': '<%\%#',        'input': '=<Space><Right>',                 'input_after': '<Space>%>',                 },
     \ { 'filetype': 'eruby', 'char': '=',     'at': '<%\s\%#\s%>',  'input': '<Left>=<Right>',                                                              },
     \ { 'filetype': 'eruby', 'char': '=',     'at': '<%\%#.\+%>',                                                                           'priority': 10, },
-    \ { 'filetype': 'eruby', 'char': '<C-h>', 'at': '<%\s\%#\s%>',  'input': '<BS><BS><BS><Del><Del><Del>',                                                 },
     \ { 'filetype': 'eruby', 'char': '<BS>',  'at': '<%\s\%#\s%>',  'input': '<BS><BS><BS><Del><Del><Del>',                                                 },
-    \ { 'filetype': 'eruby', 'char': '<C-h>', 'at': '<%=\s\%#\s%>', 'input': '<BS><BS><BS><BS><Del><Del><Del>',                                             },
     \ { 'filetype': 'eruby', 'char': '<BS>',  'at': '<%=\s\%#\s%>', 'input': '<BS><BS><BS><BS><Del><Del><Del>',                                             },
     \ ]
 
@@ -2249,8 +2261,6 @@ if dein#tap('lexima.vim')
     \ { 'filetype': 'markdown', 'char': '`',       'at': '``\%#',                                                                        'input_after': '<CR><CR>```', 'priority': 10, },
     \ { 'filetype': 'markdown', 'char': '#',       'at': '^\%#\%(#\)\@!',                  'input': '#<Space>'                                                                         },
     \ { 'filetype': 'markdown', 'char': '#',       'at': '#\s\%#',                         'input': '<BS>#<Space>',                                                                    },
-    \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^#\s\%#',                        'input': '<BS><BS>'                                                                         },
-    \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '##\s\%#',                        'input': '<BS><BS><Space>',                                                                 },
     \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^#\s\%#',                        'input': '<BS><BS>'                                                                         },
     \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '##\s\%#',                        'input': '<BS><BS><Space>',                                                                 },
     \ { 'filetype': 'markdown', 'char': '-',       'at': '^\s*\%#',                        'input': '-<Space>',                                                                        },
@@ -2259,8 +2269,6 @@ if dein#tap('lexima.vim')
     \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\%#',                    'input': '<Home><Del><Del><End>',                                                           },
     \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\w.*\%#',                'input': '<Home><Del><Del><End>',                                                           },
     \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^-\s\w.*\%#',                    'input': '',                                                                                },
-    \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^-\s\%#',                        'input': '<C-w><BS>',                                                                       },
-    \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                                                                  },
     \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^-\s\%#',                        'input': '<C-w><BS>',                                                                       },
     \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                                                                  },
     \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^-\s\%#',                        'input': '<C-w><CR>',                                                                       },
@@ -2270,7 +2278,6 @@ if dein#tap('lexima.vim')
     \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\[\%#\]\s',               'input': '<Home><Tab><End><Left><Left>',                                                    },
     \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^-\s\[\%#\]\s',                  'input': '',                                                                                },
     \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\%#\]\s',              'input': '<Home><Del><Del><End><Left><Left>',                                               },
-    \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                                                                  },
     \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                                                                  },
     \ { 'filetype': 'markdown', 'char': '<Space>', 'at': '^\s*-\s\[\%#\]',                 'input': '<Space><End>',                                                                    },
     \ { 'filetype': 'markdown', 'char': 'x',       'at': '^\s*-\s\[\%#\]',                 'input': 'x<End>',                                                                          },
@@ -2281,8 +2288,6 @@ if dein#tap('lexima.vim')
     \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<Home><Del><Del><End>',                                                           },
     \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\w.*\%#', 'input': '<Home><Del><Del><End>',                                                           },
     \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^-\s\[\(\s\|x\)\]\s\w.*\%#',     'input': '',                                                                                },
-    \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',                                                             },
-    \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',                                                        },
     \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',                                                             },
     \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',                                                        },
     \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><CR>',                                                             },
@@ -2616,11 +2621,11 @@ if dein#tap('lightline.vim')
   \ },
   \ 'tabline': {
   \   'left':  [['tabs']],
-  \   'right': [],
+  \   'right': [['close']],
   \ },
   \ 'tab': {
-  \   'active':   ['tabwinnum', 'filename'],
-  \   'inactive': ['tabwinnum', 'filename'],
+  \   'active':   ['tabwinnum', 'filename', 'modified'],
+  \   'inactive': ['tabwinnum', 'filename', 'modified'],
   \ },
   \ 'component': {
   \   'spell': "%{&spell ? 'SPELL' : ''}",
@@ -2643,6 +2648,8 @@ if dein#tap('lightline.vim')
   \ },
   \ 'tab_component_function': {
   \   'tabwinnum': 'Lightline_tab_win_num',
+  \   'filename':  'Lightline_tab_filename',
+  \   'modified':  'lightline#tab#modified',
   \ },
   \ 'component_visible_condition': {
   \   'anzu':       "%{anzu#search_status !=# ''}",
@@ -2751,6 +2758,18 @@ if dein#tap('lightline.vim')
   \ 'gina-blame',
   \ ]
 
+  function! Lightline_tab_filename(n) abort
+    if count(s:lightline_ignore_filename_ft, &filetype)
+      return &filetype
+    endif
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    let bname = bufname(buflist[winnr - 1])
+    let bname = bname == '' ? '[No Name]' : bname
+    let tabname = gettabvar(a:n, 'name', '')
+    return tabname == '' ? bname : tabname
+  endfunction
+
   function! Lightline_is_visible(width) abort
     return a:width < winwidth(0)
   endfunction
@@ -2774,37 +2793,29 @@ if dein#tap('lightline.vim')
     if count(s:lightline_ignore_filepath_ft, &filetype) || expand('%:t') ==# '[Command Line]'
       return ''
     endif
-
     let path = fnamemodify(expand('%'), ':p:.:h')
     return path ==# '.' ? '' : path
-
     let not_home_prefix = match(path, '^/') != -1 ? '/' : ''
     let dirs            = split(path, '/')
     let last_dir        = remove(dirs, -1)
     call map(dirs, 'v:val[0]')
-
     return len(dirs) ? not_home_prefix . join(dirs, '/') . '/' . last_dir : last_dir
   endfunction
 
   function! Lightline_filename() abort
     let filename = fnamemodify(expand('%'), ':t')
-
     if count(s:lightline_ignore_filename_ft, &filetype)
       return ''
     endif
-
     if filename ==# ''
       let filename = '[No Name]'
     endif
-
     if &modifiable && &modified
       let filename = filename . ' [+]'
     endif
-
     if !&modifiable
       let filename = filename . ' [X]'
     endif
-
     return filename
   endfunction
 
@@ -2812,11 +2823,9 @@ if dein#tap('lightline.vim')
     let modified_background_buffers = filter(range(1, bufnr('$')),
     \ { _, bufnr -> bufexists(bufnr) && buflisted(bufnr) && getbufvar(bufnr, 'buftype') ==# '' && filereadable(expand('#' . bufnr . ':p')) && bufnr != bufnr('%') && getbufvar(bufnr, '&modified') == 1 }
     \ )
-
     if count(s:lightline_ignore_filename_ft, &filetype)
       return ''
     endif
-
     if len(modified_background_buffers) > 0
       return '!' . len(modified_background_buffers)
     else
@@ -2828,7 +2837,6 @@ if dein#tap('lightline.vim')
     if has_key(s:lightline_ft_to_mode_hash, &filetype)
       return ''
     endif
-
     if &filetype ==? 'qf' && getwininfo(win_getid())[0].loclist
       return 'LocationList'
     elseif &filetype ==? 'qf' && getwininfo(win_getid())[0].quickfix
@@ -2842,7 +2850,6 @@ if dein#tap('lightline.vim')
     if !Lightline_is_visible(100)
       return ''
     endif
-
     return !count(s:lightline_ignore_right_ft, &filetype) ?
     \ printf(' %3d:%2d / %d lines [%d%%]',line('.'), col('.'), line('$'), float2nr((1.0 * line('.')) / line('$') * 100.0)) :
     \ ''
@@ -2852,7 +2859,6 @@ if dein#tap('lightline.vim')
     if !Lightline_is_visible(140)
       return ''
     endif
-
     return !count(s:lightline_ignore_right_ft, &filetype) ?
     \ strlen(&fileencoding) ?
     \   &fileencoding :
@@ -2864,7 +2870,6 @@ if dein#tap('lightline.vim')
     if !Lightline_is_visible(140)
       return ''
     endif
-
     return !count(s:lightline_ignore_right_ft, &filetype) ?
     \ &fileformat :
     \ ''
@@ -3255,15 +3260,16 @@ nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>:EscEsc<CR>
 
 " AutoCmd ColorScheme gruvbox-material highlight CursorColumn ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
 " AutoCmd ColorScheme gruvbox-material highlight CursorLine   ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
-" AutoCmd ColorScheme gruvbox-material highlight CursorLineNr ctermfg=253  ctermbg=NONE guifg=#DADADA guibg=NONE
 " AutoCmd ColorScheme gruvbox-material highlight DiffAdd      ctermfg=233  ctermbg=64   guifg=#C4C4C4 guibg=#456D4F
 " AutoCmd ColorScheme gruvbox-material highlight DiffChange   ctermfg=233  ctermbg=143  guifg=#C4C4C4 guibg=#594D1A
 " AutoCmd ColorScheme gruvbox-material highlight DiffDelete   ctermfg=233  ctermbg=95   guifg=#C4C4C4 guibg=#593535
 " AutoCmd ColorScheme gruvbox-material highlight Identifier   ctermfg=10   ctermbg=NONE guifg=#C0CA8E guibg=NONE
-" AutoCmd ColorScheme gruvbox-material highlight LineNr       ctermfg=241  ctermbg=NONE guifg=#626262 guibg=NONE
 " AutoCmd ColorScheme gruvbox-material highlight NonText      ctermfg=60   ctermbg=NONE guifg=#5F5F87 guibg=NONE
 " AutoCmd ColorScheme gruvbox-material highlight Normal       ctermfg=145  ctermbg=235  guifg=#ABB2BF guibg=#26282F
 " AutoCmd ColorScheme gruvbox-material highlight NormalNC     ctermfg=144  ctermbg=234  guifg=#ABB2BF guibg=#282C34
+AutoCmd ColorScheme gruvbox-material highlight LineNr       ctermfg=241  ctermbg=NONE guifg=#626262 guibg=NONE
+AutoCmd ColorScheme gruvbox-material highlight CursorLineNr ctermfg=253  ctermbg=NONE guifg=#DCDCDC guibg=NONE
+AutoCmd ColorScheme gruvbox-material highlight FoldColumn   ctermfg=241  ctermbg=NONE guifg=#213F72 guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight DiffText     ctermfg=NONE ctermbg=223  guifg=NONE    guibg=#716522
 AutoCmd ColorScheme gruvbox-material highlight Folded       ctermfg=245  ctermbg=NONE guifg=#686f9a guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight IncSearch    ctermfg=234  ctermbg=167  guifg=NONE    guibg=#4E4A16
