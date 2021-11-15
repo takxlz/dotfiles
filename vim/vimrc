@@ -40,6 +40,8 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " IDE {{{3
   " call dein#add('neoclide/coc.nvim', {'rev': 'master', 'build': 'yarn install --frozen-lockfile'})
   call dein#add('neoclide/coc.nvim', {'rev': 'release'})
+  call dein#add('mfussenegger/nvim-dap')
+  call dein#add('rcarriga/nvim-dap-ui')
   " }}}3
 
   " Language {{{3
@@ -133,6 +135,7 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " call dein#add('rhysd/vim-textobj-ruby') " ir ar
   " call dein#add('romgrk/equal.operator') " i=h a=h i=l a=l
   " call dein#add('thinca/vim-textobj-between') " i{char} a{char}
+  call dein#add('Julian/vim-textobj-variable-segment') " iv av
   call dein#add('kana/vim-textobj-entire', {'on_map': {'ox': '<Plug>(textobj-entire'}}) " ie ae
   call dein#add('kana/vim-textobj-line', {'on_map': {'ox': '<Plug>(textobj-line'}}) " al il
   call dein#add('machakann/vim-textobj-functioncall', {'on_map': {'ox': '<Plug>(textobj-functioncall'}}) " if af
@@ -148,11 +151,10 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " call dein#add('tpope/vim-commentary')
   " call dein#add('unblevable/quick-scope')
   " call dein#add('vim-scripts/Align')
-  " call dein#add('Bakudankun/BackAndForward.vim', {'on_map': ['<Plug>(backandforward-']})
   call dein#add('LeafCage/yankround.vim')
   call dein#add('MattesGroeger/vim-bookmarks')
   " call dein#add('SirVer/ultisnips', {'on_event': ['InsertEnter']})
-  call dein#add('cohama/lexima.vim', {'on_event': ['InsertEnter'], 'hook_post_source': 'call SetupLexima()'})
+  " call dein#add('cohama/lexima.vim', {'on_event': ['InsertEnter'], 'hook_post_source': 'call SetupLexima()'})
   call dein#add('haya14busa/vim-asterisk', {'on_map': ['<Plug>']})
   call dein#add('haya14busa/vim-edgemotion', {'on_map': ['<Plug>']})
   call dein#add('hrsh7th/vim-eft', {'on_map': ['<Plug>']})
@@ -693,18 +695,6 @@ function! s:auto_mkdir(dir, force) abort
 endfunction
 " }}}2
 
-" SyntaxHighlightToggle {{{2
-" function! s:syntax_highlight_toggle() abort
-"   if exists('g:syntax_on')
-"     syntax off
-"   else
-"     syntax enable
-"   endif
-" endfunction
-
-" command! SyntaxHighlightToggle call <SID>syntax_highlight_toggle()
-" }}}2
-
 " QuickfixToggle {{{2
 function! s:quickfix_toggle() abort
   let _ = winnr('$')
@@ -1180,6 +1170,48 @@ if dein#tap('coc.nvim')
 endif
 " }}}3
 
+" nvim-dap & nvim-dap-ui {{{3
+if dein#tap('nvim-dap-ui')
+lua <<EOF
+  require("dapui").setup()
+EOF
+endif
+
+if dein#tap('nvim-dap')
+  nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+  nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+  nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+  nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
+  nnoremap <silent> <dev>mb :lua require'dap'.toggle_breakpoint()<CR>
+  nnoremap <silent> <dev>mB :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+  nnoremap <silent> <dev>mr :lua require'dap'.repl.open()<CR>
+  nnoremap <silent> <dev>ml :lua require'dap'.run_last()<CR>
+  nnoremap <silent> <dev>mv :lua require'dap.ui.variables'.scopes()<CR>
+  nnoremap <silent> <dev>mV :lua require'dap.ui.variables'.visual_hover()<CR>
+lua <<EOF
+  local dap = require('dap')
+  dap.adapters.node2 = {
+      type = 'executable',
+      command = 'node',
+      args = { os.getenv('HOME') .. '/tmp/vscode-node-debug2/out/src/nodeDebug.js'},
+  }
+  dap.configurations.typescript = {
+    {
+      type = 'node2',
+      name = 'Deno Launch',
+      request = 'launch',
+      cwd = vim.fn.getcwd(),
+      console = 'integratedTerminal',
+      runtimeExecutable = 'deno',
+      runtimeArgs = {'run', '--inspect-brk', '--allow-all', '${file}'},
+      port = 9229,
+    },
+  }
+EOF
+endif
+
+" }}}3
+
 " }}}2
 
 " Language {{{2
@@ -1427,7 +1459,7 @@ if dein#tap('fzf-preview.vim') || dein#tap('coc.nvim')
 
   nnoremap <fzf>r           :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
   xnoremap <fzf>r           "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
-  nnoremap <silent> <fzf>F  :<C-u>CocCommand fzf-preview.ProjectGrepRecall --resume<CR>
+  nnoremap <silent> <fzf>R  :<C-u>CocCommand fzf-preview.ProjectGrepRecall --resume<CR>
   nnoremap <silent> <fzf>f  :<C-u>CocCommand fzf-preview.FromResources directory<CR>
   nnoremap <silent> <fzf>u  :<C-u>CocCommand fzf-preview.FromResources project_mru<CR>
   nnoremap <silent> <fzf>w  :<C-u>CocCommand fzf-preview.FromResources project_mrw<CR>
@@ -1514,7 +1546,7 @@ if dein#tap('gina.vim')
 
     call gina#custom#mapping#nmap('diff', '<CR>', '<Plug>(gina-diff-jump-vsplit)', {'silent': 1})
 
-    call gina#custom#mapping#nmap('blame', '<C-l>', ':TmuxNavigateRight<CR>',    {'noremap': 1, 'silent': 1})
+    " call gina#custom#mapping#nmap('blame', '<C-l>', ':TmuxNavigateRight<CR>',    {'noremap': 1, 'silent': 1})
     call gina#custom#mapping#nmap('blame', '<C-r>', '<Plug>(gina-blame-redraw)', {'noremap': 1, 'silent': 1})
     call gina#custom#mapping#nmap('blame', 'j',     'j<Plug>(gina-blame-echo)')
     call gina#custom#mapping#nmap('blame', 'k',     'k<Plug>(gina-blame-echo)')
@@ -1815,13 +1847,6 @@ if dein#tap('nvim-hlslens') &&
 endif
 " }}}3
 
-" BackAndForward {{{3
-" if dein#tap('BackAndForward.vim')
-"   nmap <C-b> <Plug>(backandforward-back)
-"   nmap <C-f> <Plug>(backandforward-forward)
-" endif
-" }}}3
-
 " bookmarks {{{3
 if dein#tap('vim-bookmarks')
   let g:bookmark_no_default_key_mappings = 1
@@ -1861,10 +1886,10 @@ endif
 if dein#tap('caw.vim')
   let g:caw_integrated_plugin = 'ts_context_commentstring'
 
-  nmap <silent> <expr> <Leader>cc <SID>caw_hatpos_toggle()
-  xmap <silent> <expr> <Leader>cc <SID>caw_hatpos_toggle()
-  nmap <silent> <expr> <Leader>cw <SID>caw_wrap_toggle()
-  xmap <silent> <expr> <Leader>cw <SID>caw_wrap_toggle()
+  nmap <silent> <expr> gcc <SID>caw_hatpos_toggle()
+  xmap <silent> <expr> gcc <SID>caw_hatpos_toggle()
+  nmap <silent> <expr> gcw <SID>caw_wrap_toggle()
+  xmap <silent> <expr> gcw <SID>caw_wrap_toggle()
 
   function! s:caw_hatpos_toggle() abort
     if index(['typescript','typescriptreact'], &filetype) >= 0
@@ -1889,22 +1914,6 @@ if dein#tap('caw.vim')
 
     return "\<Plug>(caw:wrap:toggle)"
   endfunction
-
-  " function! s:caw_hatpos_toggle(mode) abort
-  "   if dein#tap('nvim-ts-context-commentstring')
-  "     lua require('ts_context_commentstring.internal').update_commentstring()
-  "   endif
-  "
-  "   call caw#keymapping_stub(a:mode, 'hatpos', 'toggle')
-  " endfunction
-
-  " function! s:caw_wrap_toggle(mode) abort
-  "   let b:caw_wrap_oneline_comment = ["/*", "*/"]
-  "   call caw#keymapping_stub(a:mode, 'wrap', 'toggle')
-  "   unlet b:caw_wrap_oneline_comment
-  " endfunction
-
-  " autocmd FileType typescript,typescriptreact let b:caw_wrap_oneline_comment = ['/*', '*/']
 endif
 " }}}3
 
@@ -1991,7 +2000,7 @@ endif
 
 " eft {{{3
 if dein#tap('vim-eft')
-  let g:eft_enable = 1
+  let g:eft_enable = 0
   nnoremap <Leader>f :<C-u>EftToggle<CR>
 
   function! s:eft_toggle() abort
@@ -2041,7 +2050,7 @@ if dein#tap('vim-eft')
     ounmap T
   endfunction
 
-  AutoCmd VimEnter * call <SID>eft_enable()
+  " AutoCmd VimEnter * call <SID>eft_enable()
 endif
 " }}}3
 
@@ -2987,7 +2996,7 @@ endif
 
 " memolist {{{3
 if dein#tap('memolist.vim')
-  let g:memolist_path = '~/.config/memolist'
+  let g:memolist_path = '~/.vim/memolist'
 endif
 " }}}3
 
@@ -3222,10 +3231,10 @@ AutoCmd ColorScheme gruvbox-material highlight Pmenu        ctermfg=NONE ctermbg
 AutoCmd ColorScheme gruvbox-material highlight PmenuSel     ctermfg=235  ctermbg=142  guifg=NONE    guibg=#3C6073
 
 " Gina (Vital.Vim.Buffer.ANSI)
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor0  ctermfg=0  guifg=#2E3440
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor1  ctermfg=1  guifg=#32302f
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor2  ctermfg=2  guifg=#434C5E
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor3  ctermfg=3  guifg=#4C566A
+AutoCmd ColorScheme gruvbox-material highlight AnsiColor0  ctermfg=0  guifg=#4C566A
+AutoCmd ColorScheme gruvbox-material highlight AnsiColor1  ctermfg=1  guifg=#ABB2BF
+AutoCmd ColorScheme gruvbox-material highlight AnsiColor2  ctermfg=2  guifg=#C4C4C4
+AutoCmd ColorScheme gruvbox-material highlight AnsiColor3  ctermfg=3  guifg=#DCDCDC
 AutoCmd ColorScheme gruvbox-material highlight AnsiColor4  ctermfg=4  guifg=#D8DEE9
 AutoCmd ColorScheme gruvbox-material highlight AnsiColor5  ctermfg=5  guifg=#d4be98
 AutoCmd ColorScheme gruvbox-material highlight AnsiColor6  ctermfg=6  guifg=#ECEFF4
