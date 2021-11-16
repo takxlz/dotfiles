@@ -86,10 +86,10 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " }}}3
 
   " Git {{{3
-  " call dein#add('cohama/agit.vim')
   " call dein#add('hotwatermorning/auto-git-diff')
   " call dein#add('rhysd/conflict-marker.vim')
   " call dein#add('tpope/vim-fugitive')
+  " test
   call dein#add('lambdalisue/gina.vim')
   call dein#add('wting/gitsessions.vim', {'on_cmd': ['GitSessionSave', 'GitSessionLoad']})
 
@@ -3211,9 +3211,6 @@ nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>:EscEsc<CR>
 
 " AutoCmd ColorScheme gruvbox-material highlight CursorColumn ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
 " AutoCmd ColorScheme gruvbox-material highlight CursorLine   ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
-" AutoCmd ColorScheme gruvbox-material highlight DiffAdd      ctermfg=233  ctermbg=64   guifg=#C4C4C4 guibg=#456D4F
-" AutoCmd ColorScheme gruvbox-material highlight DiffChange   ctermfg=233  ctermbg=143  guifg=#C4C4C4 guibg=#594D1A
-" AutoCmd ColorScheme gruvbox-material highlight DiffDelete   ctermfg=233  ctermbg=95   guifg=#C4C4C4 guibg=#593535
 " AutoCmd ColorScheme gruvbox-material highlight Identifier   ctermfg=10   ctermbg=NONE guifg=#C0CA8E guibg=NONE
 " AutoCmd ColorScheme gruvbox-material highlight NonText      ctermfg=60   ctermbg=NONE guifg=#5F5F87 guibg=NONE
 " AutoCmd ColorScheme gruvbox-material highlight Normal       ctermfg=145  ctermbg=235  guifg=#ABB2BF guibg=#26282F
@@ -3221,7 +3218,6 @@ nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>:EscEsc<CR>
 AutoCmd ColorScheme gruvbox-material highlight LineNr       ctermfg=241  ctermbg=NONE guifg=#626262 guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight CursorLineNr ctermfg=253  ctermbg=NONE guifg=#DCDCDC guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight FoldColumn   ctermfg=241  ctermbg=NONE guifg=#213F72 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight DiffText     ctermfg=NONE ctermbg=223  guifg=NONE    guibg=#716522
 AutoCmd ColorScheme gruvbox-material highlight Folded       ctermfg=245  ctermbg=NONE guifg=#686f9a guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight IncSearch    ctermfg=234  ctermbg=167  guifg=NONE    guibg=#4E4A16
 AutoCmd ColorScheme gruvbox-material highlight Search       ctermfg=68   ctermbg=232  guifg=NONE    guibg=#213F72
@@ -3229,24 +3225,27 @@ AutoCmd ColorScheme gruvbox-material highlight SignColumn   ctermfg=0    ctermbg
 AutoCmd ColorScheme gruvbox-material highlight Visual       ctermfg=NONE ctermbg=23   guifg=NONE    guibg=#1D4647
 AutoCmd ColorScheme gruvbox-material highlight Pmenu        ctermfg=NONE ctermbg=238  guifg=NONE    guibg=#2C3538
 AutoCmd ColorScheme gruvbox-material highlight PmenuSel     ctermfg=235  ctermbg=142  guifg=NONE    guibg=#3C6073
+AutoCmd ColorScheme gruvbox-material highlight DiffAdd      ctermfg=233  ctermbg=64   guifg=#C4C4C4 guibg=#213F72
+AutoCmd ColorScheme gruvbox-material highlight DiffChange   ctermfg=233  ctermbg=143  guifg=#C4C4C4 guibg=#594D1A
+AutoCmd ColorScheme gruvbox-material highlight DiffDelete   ctermfg=233  ctermbg=95   guifg=#C4C4C4 guibg=#7F1717
+AutoCmd ColorScheme gruvbox-material highlight DiffText     ctermfg=NONE ctermbg=223  guifg=NONE    guibg=#716522
 
 " Gina (Vital.Vim.Buffer.ANSI)
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor0  ctermfg=0  guifg=#4C566A
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor1  ctermfg=1  guifg=#ABB2BF
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor2  ctermfg=2  guifg=#C4C4C4
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor3  ctermfg=3  guifg=#DCDCDC
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor4  ctermfg=4  guifg=#D8DEE9
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor5  ctermfg=5  guifg=#d4be98
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor6  ctermfg=6  guifg=#ECEFF4
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor7  ctermfg=7  guifg=#8FBCBB
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor8  ctermfg=8  guifg=#89b482
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor9  ctermfg=9  guifg=#7daea3
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor10 ctermfg=10 guifg=#5E81AC
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor11 ctermfg=11 guifg=#ea6962
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor12 ctermfg=12 guifg=#D08770
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor13 ctermfg=13 guifg=#d8a657
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor14 ctermfg=14 guifg=#a9b665
-AutoCmd ColorScheme gruvbox-material highlight AnsiColor15 ctermfg=15 guifg=#d3869b
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor0  ctermfg=0  guifg=#4C566A
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor1  ctermfg=1  guifg=#ABB2BF
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor2  ctermfg=2  guifg=#C4C4C4
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor3  ctermfg=3  guifg=#DCDCDC
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor4  ctermfg=4  guifg=#D8DEE9
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor6  ctermfg=6  guifg=#ECEFF4
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor7  ctermfg=7  guifg=#8FBCBB
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor8  ctermfg=8  guifg=#89b482
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor9  ctermfg=9  guifg=#7DAEA3
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor10 ctermfg=10 guifg=#5E81AC
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor11 ctermfg=11 guifg=#EA6962
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor12 ctermfg=12 guifg=#D08770
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor13 ctermfg=13 guifg=#D8A657
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor14 ctermfg=14 guifg=#A9B665
+" AutoCmd ColorScheme gruvbox-material highlight AnsiColor15 ctermfg=15 guifg=#D3869B
 
 " AutoCmd ColorScheme gruvbox-material highlight QuickScopePrimary       ctermfg=68   ctermbg=NONE                      guifg=#5F87D7 guibg=NONE
 " AutoCmd ColorScheme gruvbox-material highlight QuickScopeSecondary     ctermfg=72   ctermbg=NONE                      guifg=#5FAFAF guibg=NONE
@@ -3275,10 +3274,10 @@ AutoCmd ColorScheme gruvbox-material highlight CocHoverFloating        ctermfg=N
 AutoCmd ColorScheme gruvbox-material highlight CocSuggestFloating      ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
 AutoCmd ColorScheme gruvbox-material highlight CocDiagnosticFloating   ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
 
-AutoCmd ColorScheme gruvbox-material highlight FernGitStatusWorktree   ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight FernGitStatusIndex      ctermfg=2    ctermbg=NONE                      guifg=#b4be82 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight FernGitStatusUnmerged   ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight FernGitStatusUntracked  ctermfg=1    ctermbg=NONE                      guifg=#e27878 guibg=NONE
+AutoCmd ColorScheme gruvbox-material highlight FernGitStatusWorktree   ctermfg=1    ctermbg=NONE                      guifg=#E27878 guibg=NONE
+AutoCmd ColorScheme gruvbox-material highlight FernGitStatusIndex      ctermfg=2    ctermbg=NONE                      guifg=#B4BE82 guibg=NONE
+AutoCmd ColorScheme gruvbox-material highlight FernGitStatusUnmerged   ctermfg=1    ctermbg=NONE                      guifg=#E27878 guibg=NONE
+AutoCmd ColorScheme gruvbox-material highlight FernGitStatusUntracked  ctermfg=1    ctermbg=NONE                      guifg=#E27878 guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight link FernGitStatusIgnored Comment
 
 AutoCmd ColorScheme gruvbox-material highlight GitSignsChange    ctermfg=214  ctermbg=NONE guifg=#FFAF60 guibg=NONE
@@ -3286,21 +3285,21 @@ AutoCmd ColorScheme gruvbox-material highlight CocGitChangedSign ctermfg=214  ct
 AutoCmd ColorScheme gruvbox-material highlight link GitSignsCurrentLineBlame Comment
 
 AutoCmd ColorScheme gruvbox-material highlight HlSearchNear            ctermfg=68   ctermbg=232                       guifg=NONE    guibg=#175655
-AutoCmd ColorScheme gruvbox-material highlight HlSearchLens            ctermfg=68   ctermbg=232                       guifg=#889eb5 guibg=#283642
+AutoCmd ColorScheme gruvbox-material highlight HlSearchLens            ctermfg=68   ctermbg=232                       guifg=#889EB5 guibg=#283642
 AutoCmd ColorScheme gruvbox-material highlight HlSearchLensNear        ctermfg=68   ctermbg=232                       guifg=NONE    guibg=#213F72
 AutoCmd ColorScheme gruvbox-material highlight HlSearchFloat           ctermfg=68   ctermbg=232                       guifg=NONE    guibg=#213F72
 
 AutoCmd ColorScheme gruvbox-material highlight ScrollView              ctermbg=159                                                  guibg=#D0D0D0
 
-" AutoCmd ColorScheme gruvbox-material highlight VistaFloat ctermbg=237 guibg=#3a3a3a
+" AutoCmd ColorScheme gruvbox-material highlight VistaFloat ctermbg=237 guibg=#3A3A3A
 
 " TreeSitter
 AutoCmd ColorScheme gruvbox-material highlight link TSPunctBracket Normal
 AutoCmd ColorScheme gruvbox-material highlight link BiscuitColor   Comment
 
 " vim-cursorword
-AutoCmd ColorScheme gruvbox-material highlight CursorWord0 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
-AutoCmd ColorScheme gruvbox-material highlight CursorWord1 term=underline cterm=underline gui=underline guibg=#ffd700 guifg=black
+AutoCmd ColorScheme gruvbox-material highlight CursorWord0 term=underline cterm=underline gui=underline guibg=#FFD700 guifg=black
+AutoCmd ColorScheme gruvbox-material highlight CursorWord1 term=underline cterm=underline gui=underline guibg=#FFD700 guifg=black
 
 " }}}2
 
