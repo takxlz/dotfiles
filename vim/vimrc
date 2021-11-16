@@ -3417,6 +3417,22 @@ endif
 
 " }}}2
 
+" Todo highlight {{{2
+AutoCmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyTodo', '\(TODO:.*\|todo:.*\)')
+AutoCmd WinEnter,BufRead,BufNew,Syntax * hi MyTodo cterm=bold gui=bold ctermfg=0 ctermbg=220 guifg=black guibg=#FFD700
+AutoCmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyNote', '\(NOTE:.*\|note:.*\)')
+AutoCmd WinEnter,BufRead,BufNew,Syntax * hi MyNote cterm=bold gui=bold ctermfg=0 ctermbg=45 guifg=black guibg=#00D7FF
+AutoCmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyXxx', '\(XXX:.*\|xxx:.*\)')
+AutoCmd WinEnter,BufRead,BufNew,Syntax * hi MyXxx cterm=bold gui=bold ctermfg=0 ctermbg=9 guifg=black guibg=#FF0000
+" }}}2
+
+" ejs highlight {{{2
+" 「<%.\{-}%>」=> 「<%」「%>」で囲まれた何らかの文字（最短一致）に一致する
+AutoCmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyEjs', '<%.\{-}%>')
+AutoCmd WinEnter,BufRead,BufNew,Syntax * hi MyEjs cterm=NONE gui=NONE ctermfg=0 ctermbg=NONE guifg=#696969 guibg=NONE
+" }}}2
+
+
 " }}}1
 
 " vim:set expandtab shiftwidth=2 softtabstop=2 tabstop=2 foldenable foldmethod=marker:
