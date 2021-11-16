@@ -3042,16 +3042,24 @@ if dein#tap('wilder.nvim')
     \ 'left': [wilder#popupmenu_devicons(), wilder#popupmenu_buffer_flags({'flags': ' '})],
     \ 'right': [' ', wilder#popupmenu_scrollbar()],
     \ })
-
-    let wilder_search_renderer = wilder#wildmenu_renderer({
+    " let wilder_search_renderer = wilder#wildmenu_renderer({
+    "\ 'highlighter': wilder#basic_highlighter(),
+    "\ 'separator': '  ',
+    "\ 'left': [' '],
+    "\ 'right': [' ', wilder#wildmenu_index()],
+    "\ })
+    let wilder_search_renderer = wilder#wildmenu_renderer(wilder#wildmenu_lightline_theme({
+    \ 'highlights': {},
     \ 'highlighter': wilder#basic_highlighter(),
-    \ 'separator': '  ',
-    \ 'left': [' '],
+    \ 'separator': ' · ',
+    \ 'left': [''],
     \ 'right': [' ', wilder#wildmenu_index()],
-    \ })
+    \ }))
 
     call wilder#setup({
     \ 'modes': [':', '/', '?'],
+    \ 'next_key': '<C-j>',
+    \ 'previous_key': '<C-k>',
     \ 'accept_key': '<C-e>',
     \ })
 
