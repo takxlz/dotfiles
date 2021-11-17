@@ -944,7 +944,6 @@ function! s:init_cmdwin() abort
     call coc#config('diagnostic.messageTarget', 'echo')
     call coc#config('signature.target', 'echo')
     call coc#config('coc.preferences.hoverTarget', 'echo')
-    call coc#config('session.directory', '~/.cache/vim/sessions')
   endif
 
   " nnoremap <silent> <buffer> dd :<C-u>rviminfo<CR>:call histdel(getcmdwintype(), line('.') - line('$'))<CR>:wviminfo!<CR>dd
@@ -1137,6 +1136,7 @@ if dein#tap('coc.nvim')
   endfunction
 
   function! s:coc_ts_ls_initialize() abort
+    call coc#config('session.directory', '~/.cache/vim/sessions')
     if <SID>is_deno()
       call coc#config('tsserver.enable', v:false)
       call coc#config('deno.enable', v:true)
