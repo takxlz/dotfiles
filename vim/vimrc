@@ -1461,6 +1461,7 @@ if dein#tap('fzf-preview.vim') || dein#tap('coc.nvim')
   xnoremap <fzf>r           "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
   nnoremap <silent> <fzf>R  :<C-u>CocCommand fzf-preview.ProjectGrepRecall --resume<CR>
   nnoremap <silent> <fzf>f  :<C-u>CocCommand fzf-preview.FromResources directory<CR>
+  nnoremap <silent> <fzf>F  :<C-u>CocCommand fzf-preview.FromResources directory git<CR>
   nnoremap <silent> <fzf>u  :<C-u>CocCommand fzf-preview.FromResources project_mru<CR>
   nnoremap <silent> <fzf>w  :<C-u>CocCommand fzf-preview.FromResources project_mrw<CR>
   nnoremap <silent> <fzf>j  :<C-u>CocCommand fzf-preview.Jumps<CR>
@@ -1538,15 +1539,13 @@ if dein#tap('gina.vim')
     call gina#custom#command#option('status', '--short')
     call gina#custom#command#option('/\%(status\|commit\|branch\)', '--opener', 'split')
     call gina#custom#command#option('diff', '--opener', 'vsplit')
-
     call gina#custom#command#option('/\%(status\|changes\)', '--ignore-submodules')
     call gina#custom#command#option('status', '--branch')
-    call gina#custom#mapping#nmap('status', '<C-j>', ':TmuxNavigateDown<CR>', {'noremap': 1, 'silent': 1})
-    call gina#custom#mapping#nmap('status', '<C-k>', ':TmuxNavigateUp<CR>',   {'noremap': 1, 'silent': 1})
+
+    call gina#custom#mapping#nmap('status', '<C-c>', '<C-u>:Gina commit<CR>', {'silent': 1})
 
     call gina#custom#mapping#nmap('diff', '<CR>', '<Plug>(gina-diff-jump-vsplit)', {'silent': 1})
 
-    " call gina#custom#mapping#nmap('blame', '<C-l>', ':TmuxNavigateRight<CR>',    {'noremap': 1, 'silent': 1})
     call gina#custom#mapping#nmap('blame', '<C-r>', '<Plug>(gina-blame-redraw)', {'noremap': 1, 'silent': 1})
     call gina#custom#mapping#nmap('blame', 'j',     'j<Plug>(gina-blame-echo)')
     call gina#custom#mapping#nmap('blame', 'k',     'k<Plug>(gina-blame-echo)')
@@ -1560,8 +1559,7 @@ if dein#tap('gina.vim')
     call gina#custom#mapping#nmap('/\%(status\|commit\|branch\|ls\|log\|reflog\|grep\)', 'q', 'ZQ', {'nnoremap': 1, 'silent': 1})
 
     call gina#custom#mapping#nmap('log', 'yy', ":<C-u>call gina#action#call('yank:rev')<CR>", {'noremap': 1, 'silent': 1})
-    " require floaterm
-    call gina#custom#mapping#nmap('log', 'R', ":<C-u>call gina#action#call('yank:rev')<CR>:FloatermNew git rebase -i <C-r>\"<CR>", {'noremap': 1, 'silent': 1})
+    call gina#custom#mapping#nmap('log', 'R',  ":<C-u>call gina#action#call('yank:rev')<CR>:FloatermNew git rebase -i <C-r>\"<CR>", {'noremap': 1, 'silent': 1})
   endfunction
 endif
 " }}}3
