@@ -1,7 +1,7 @@
 " Plugin Manager {{{1
 
 " Install & Load Dein {{{2
-let s:DEIN_BASE_PATH = $HOME . '/.vim/bundle/'
+let s:DEIN_BASE_PATH = $HOME . '/.cache/vim/bundle/'
 let s:DEIN_PATH      = expand(s:DEIN_BASE_PATH . 'repos/github.com/Shougo/dein.vim')
 if !isdirectory(s:DEIN_PATH)
   if executable('git') && confirm('Install dein.vim or Launch vim immediately', "&Yes\n&No", 1)
@@ -1001,7 +1001,7 @@ if dein#tap('denops-skkeleton.vim')
   cmap <C-j> <Plug>(skkeleton-enable)
 
   call skkeleton#config({
-  \ 'globalJisyo': expand('~/.vim/skk/SKK-JISYO.L')
+  \ 'globalJisyo': expand('~/.cache/vim/skk/SKK-JISYO.L')
   \ })
 
   AutoCmd User skkeleton-enable-pre let b:coc_suggest_disable = v:true
@@ -1450,7 +1450,7 @@ if dein#tap('fzf-preview.vim') || dein#tap('coc.nvim')
   \ '--bind': 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up,?:toggle-preview,ctrl-j:down,ctrl-k:up,ctrl-n:next-history,ctrl-p:previous-history'
   \ }
 
-  let $FZF_PREVIEW_PLUGIN_HELP_ROOT_DIR = '~/.vim/bundle/repos/github.com'
+  let $FZF_PREVIEW_PLUGIN_HELP_ROOT_DIR = '~/.cache/vim/bundle/repos/github.com'
   let g:fzf_preview_history_dir         = '~/.fzf'
 
   nnoremap <fzf> <Nop>
@@ -2458,7 +2458,7 @@ if dein#tap('ultisnips')
   let g:UltiSnipsExpandTrigger       = "<C-f>"
   let g:UltiSnipsJumpForwardTrigger  = "<C-f>"
   let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
-  let g:UltiSnipsSnippetDirectories  = ["~/.vim/ultisnips"]
+  let g:UltiSnipsSnippetDirectories  = ["~/.cache/vim/ultisnips"]
 endif
 " }}}3
 
@@ -2995,7 +2995,7 @@ endif
 
 " memolist {{{3
 if dein#tap('memolist.vim')
-  let g:memolist_path = '~/.vim/memolist'
+  let g:memolist_path = '~/.cache/vim/memolist'
 endif
 " }}}3
 
