@@ -41,7 +41,7 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " call dein#add('neoclide/coc.nvim', {'rev': 'master', 'build': 'yarn install --frozen-lockfile'})
   call dein#add('neoclide/coc.nvim', {'rev': 'release'})
   call dein#add('mfussenegger/nvim-dap')
-  call dein#add('rcarriga/nvim-dap-ui', {'depends': ['nvim-dap']})
+  call dein#add('rcarriga/nvim-dap-ui')
   " }}}3
 
   " Language {{{3
@@ -180,8 +180,8 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " Appearance {{{3
   " call dein#add('Yggdroot/indentLine')
   call dein#add('itchyny/lightline.vim')
-  call dein#add('itchyny/vim-cursorword')
   call dein#add('lambdalisue/readablefold.vim')
+  call dein#add('itchyny/vim-cursorword')
   call dein#add('machakann/vim-highlightedundo', {'on_map': ['<Plug>']})
   call dein#add('machakann/vim-highlightedyank', {'on_event': ['TextYankPost']})
   call dein#add('mopp/smartnumber.vim')
@@ -388,8 +388,8 @@ cnoremap <C-p> <Up>
 "" Indent
 " nnoremap < <<
 " nnoremap > >>
-xnoremap < <gv
-xnoremap > >gv|
+" xnoremap < <gv
+" xnoremap > >gv|
 
 "" Window
 nnoremap <silent> ss :<C-u>sp<CR>
@@ -694,6 +694,15 @@ function! s:auto_mkdir(dir, force) abort
   endif
 endfunction
 " }}}2
+
+" Audo remove dust
+AutoCmd BufWritePre * call <SID>remove_dust()
+function! s:remove_dust()
+  let cursor_point = getpos(".")
+  execute ":%s/^ *$//ge"
+  call setpos(".", cursor_point)
+  unlet cursor_point
+endfunction
 
 " QuickfixToggle {{{2
 function! s:quickfix_toggle() abort
@@ -1173,14 +1182,15 @@ endif
 " }}}3
 
 " nvim-dap & nvim-dap-ui {{{3
-if dein#tap('nvim-dap-ui')
+" if dein#tap('nvim-dap-ui')
 lua <<EOF
-  require("dapui").setup()
+  -- require("dapui").setup()
 EOF
-endif
+" endif
 
-if dein#tap('nvim-dap')
-  nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+if dein#tap('nvim-dap') && dein#tap('nvim-dap-ui')
+  " nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+  nnoremap <silent> <F5> :DapStart<CR>
   nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
   nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
   nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
@@ -1190,12 +1200,20 @@ if dein#tap('nvim-dap')
   nnoremap <silent> <dev>ml :lua require'dap'.run_last()<CR>
   nnoremap <silent> <dev>mv :lua require'dap.ui.variables'.scopes()<CR>
   nnoremap <silent> <dev>mV :lua require'dap.ui.variables'.visual_hover()<CR>
+  command! DapStart call <SID>nvim_dap_settings()
+  function! s:nvim_dap_settings() abort
+    lua require("dapui").setup()
+    lua require'dap'.continue()
+    lua require('dapui').open()
+  endfunction
+endif
+
 lua <<EOF
   local dap = require('dap')
   dap.adapters.node2 = {
-      type = 'executable',
-      command = 'node',
-      args = { os.getenv('HOME') .. '/tmp/vscode-node-debug2/out/src/nodeDebug.js'},
+    type = 'executable',
+    command = 'node',
+    args = { os.getenv('HOME') .. '/tmp/vscode-node-debug2/out/src/nodeDebug.js'},
   }
   dap.configurations.typescript = {
     {
@@ -1210,8 +1228,6 @@ lua <<EOF
     },
   }
 EOF
-endif
-
 " }}}3
 
 " }}}2
