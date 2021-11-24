@@ -678,12 +678,12 @@ endfunction
 " AutoCmd VimEnter * call timer_start(<SID>highlight_cursor_wait, function('<SID>enter'))
 
 function! s:cursor_highlight_toggle() abort
-  if g:highlight_cursor
-    let g:highlight_cursor = 0
-    setlocal nocursorline nocursorcolumn
-  else
-    let g:highlight_cursor = 1
+  if !exists('g:is_highlight_cursor') || g:is_highlight_cursor == 0
+    let g:is_highlight_cursor = 1
     setlocal cursorline cursorcolumn
+  else
+    let g:is_highlight_cursor = 0
+    setlocal nocursorline nocursorcolumn
   endif
 endfunction
 
@@ -3239,13 +3239,13 @@ nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>:EscEsc<CR>
 
 " Highlight {{{2
 
-" AutoCmd ColorScheme gruvbox-material highlight CursorColumn ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
-" AutoCmd ColorScheme gruvbox-material highlight CursorLine   ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
 " AutoCmd ColorScheme gruvbox-material highlight Identifier   ctermfg=10   ctermbg=NONE guifg=#C0CA8E guibg=NONE
 " AutoCmd ColorScheme gruvbox-material highlight NonText      ctermfg=60   ctermbg=NONE guifg=#5F5F87 guibg=NONE
 " AutoCmd ColorScheme gruvbox-material highlight Normal       ctermfg=145  ctermbg=235  guifg=#ABB2BF guibg=#26282F
 " AutoCmd ColorScheme gruvbox-material highlight NormalNC     ctermfg=144  ctermbg=234  guifg=#ABB2BF guibg=#282C34
 AutoCmd ColorScheme gruvbox-material highlight LineNr       ctermfg=241  ctermbg=NONE guifg=#626262 guibg=NONE
+AutoCmd ColorScheme gruvbox-material highlight CursorColumn ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
+AutoCmd ColorScheme gruvbox-material highlight CursorLine   ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
 AutoCmd ColorScheme gruvbox-material highlight CursorLineNr ctermfg=253  ctermbg=NONE guifg=#DCDCDC guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight FoldColumn   ctermfg=241  ctermbg=NONE guifg=#213F72 guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight Folded       ctermfg=245  ctermbg=NONE guifg=#686f9a guibg=NONE
