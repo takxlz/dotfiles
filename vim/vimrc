@@ -1460,7 +1460,8 @@ if dein#tap('fzf-preview.vim') || dein#tap('coc.nvim')
   AutoCmd User fzf_preview#coc#initialized call <SID>fzf_preview_settings()
 
   " let g:fzf_preview_direct_window_option = 'botright 20new'
-  let g:fzf_preview_filelist_command    = 'fd --type file --hidden --exclude .git'
+  " let g:fzf_preview_filelist_command    = 'fd --type file --hidden --exclude .git'
+  let g:fzf_preview_filelist_command    = 'rg --files --hidden --follow --no-messages --glob "!.git/*" --glob \!"* *"'
   let g:fzf_preview_git_files_command   = 'git ls-files --exclude-standard | while read line; do if [[ ! -L $line ]] && [[ -f $line ]]; then echo $line; fi; done'
   let g:fzf_preview_grep_cmd            = 'rg --line-number --no-heading --color=never --sort=path'
   let g:fzf_preview_mru_limit           = 5000
@@ -1482,12 +1483,12 @@ if dein#tap('fzf-preview.vim') || dein#tap('coc.nvim')
   nnoremap <fzf>r           :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
   xnoremap <fzf>r           "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
   nnoremap <silent> <fzf>R  :<C-u>CocCommand fzf-preview.ProjectGrepRecall --resume<CR>
-  nnoremap <silent> <fzf>f  :<C-u>CocCommand fzf-preview.FromResources directory<CR>
-  nnoremap <silent> <fzf>F  :<C-u>CocCommand fzf-preview.FromResources directory git<CR>
-  nnoremap <silent> <fzf>u  :<C-u>CocCommand fzf-preview.FromResources project_mru<CR>
-  nnoremap <silent> <fzf>w  :<C-u>CocCommand fzf-preview.FromResources project_mrw<CR>
-  nnoremap <silent> <fzf>j  :<C-u>CocCommand fzf-preview.Jumps<CR>
-  nnoremap <silent> <fzf>g; :<C-u>CocCommand fzf-preview.Changes<CR>
+  nnoremap <silent> <fzf>f  :<C-u>CocCommand fzf-preview.ProjectFiles --experimental-fast<CR>
+  nnoremap <silent> <fzf>F  :<C-u>CocCommand fzf-preview.GitFiles --experimental-fast<CR>
+  nnoremap <silent> <fzf>u  :<C-u>CocCommand fzf-preview.FromResources project_mru --experimental-fast<CR>
+  nnoremap <silent> <fzf>w  :<C-u>CocCommand fzf-preview.FromResources project_mrw --experimental-fast<CR>
+  nnoremap <silent> <fzf>j  :<C-u>CocCommand fzf-preview.Jumps --experimental-fast<CR>
+  nnoremap <silent> <fzf>g; :<C-u>CocCommand fzf-preview.Changes --experimental-fast<CR>
   nnoremap <silent> <fzf>/  :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
   nnoremap <silent> <fzf>*  :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
   nnoremap <silent> <fzf>q  :<C-u>CocCommand fzf-preview.QuickFix<CR>
