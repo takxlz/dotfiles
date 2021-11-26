@@ -1480,31 +1480,38 @@ if dein#tap('fzf-preview.vim') || dein#tap('coc.nvim')
   nmap     ;       <fzf>
   xmap     ;       <fzf>
 
+  " favorite
+  nnoremap <silent> <fzf>;  :<C-u>CocCommand fzf-preview.FromResources directory mru mrw<CR>
+  " project
+  nnoremap <silent> <fzf>f  :<C-u>CocCommand fzf-preview.FromResources directory<CR>
+  nnoremap <silent> <fzf>F  :<C-u>CocCommand fzf-preview.FromResources project<CR>
+  " mru
+  nnoremap <silent> <fzf>u  :<C-u>CocCommand fzf-preview.FromResources mru<CR>
+  nnoremap <silent> <fzf>U  :<C-u>CocCommand fzf-preview.FromResources project_mru<CR>
+  " mrw
+  nnoremap <silent> <fzf>w  :<C-u>CocCommand fzf-preview.FromResources mrw<CR>
+  nnoremap <silent> <fzf>W  :<C-u>CocCommand fzf-preview.FromResources project_mrw<CR>
+  " other
   nnoremap <fzf>r           :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
   xnoremap <fzf>r           "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
   nnoremap <silent> <fzf>R  :<C-u>CocCommand fzf-preview.ProjectGrepRecall --resume<CR>
-  nnoremap <silent> <fzf>f  :<C-u>CocCommand fzf-preview.ProjectFiles --experimental-fast<CR>
-  nnoremap <silent> <fzf>F  :<C-u>CocCommand fzf-preview.GitFiles --experimental-fast<CR>
-  nnoremap <silent> <fzf>u  :<C-u>CocCommand fzf-preview.FromResources project_mru --experimental-fast<CR>
-  nnoremap <silent> <fzf>w  :<C-u>CocCommand fzf-preview.FromResources project_mrw --experimental-fast<CR>
-  nnoremap <silent> <fzf>j  :<C-u>CocCommand fzf-preview.Jumps --experimental-fast<CR>
-  nnoremap <silent> <fzf>g; :<C-u>CocCommand fzf-preview.Changes --experimental-fast<CR>
+  nnoremap <silent> <fzf>j  :<C-u>CocCommand fzf-preview.Jumps<CR>
+  nnoremap <silent> <fzf>g; :<C-u>CocCommand fzf-preview.Changes<CR>
   nnoremap <silent> <fzf>/  :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
   nnoremap <silent> <fzf>*  :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
   nnoremap <silent> <fzf>q  :<C-u>CocCommand fzf-preview.QuickFix<CR>
   nnoremap <silent> <fzf>l  :<C-u>CocCommand fzf-preview.LocationList<CR>
   nnoremap <silent> <fzf>p  :<C-u>CocCommand fzf-preview.Yankround<CR>
   nnoremap <silent> <fzf>:  :<C-u>CocCommand fzf-preview.CommandPalette<CR>
-
   nnoremap <silent> <fzf>gg :<C-u>CocCommand fzf-preview.GitActions<CR>
-  nnoremap <silent> <fzf>gf :<C-u>CocCommand fzf-preview.FromResources git<CR>
   nnoremap <silent> <fzf>gs :<C-u>CocCommand fzf-preview.GitStatus<CR>
-
+  " coc
   nnoremap <silent> <dev>q  :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<CR>
   nnoremap <silent> <dev>Q  :<C-u>CocCommand fzf-preview.CocDiagnostics<CR>
   nnoremap <silent> <dev>rf :<C-u>CocCommand fzf-preview.CocReferences<CR>
   nnoremap <silent> <dev>t  :<C-u>CocCommand fzf-preview.CocTypeDefinitions<CR>
   nnoremap <silent> <dev>i  :<C-u>CocCommand fzf-preview.CocImplementations<CR>
+  nnoremap <silent> <dev>o  :<C-u>CocCommand fzf-preview.CocOutline<CR>
 
   if dein#tap('fzf.vim')
     nnoremap <silent> <fzf>m :Maps<CR>
