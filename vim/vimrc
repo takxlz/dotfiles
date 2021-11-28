@@ -1726,6 +1726,7 @@ if dein#tap('fern.vim')
   endfunction
 
   AutoCmd FileType fern call <SID>fern_settings()
+  AutoCmd FileType fern call fern_git_status#init()
   AutoCmd FileType fern call glyph_palette#apply()
 endif
 " }}}3
