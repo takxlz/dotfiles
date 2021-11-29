@@ -108,14 +108,14 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " }}}3
 
   " filer {{{3
-  call dein#add('lambdalisue/fern.vim', {'on_cmd': ['Fern'], 'depends': ['fern-git-status.vim', 'fern-renderer-nerdfont.vim', 'glyph-palette.vim', 'nerdfont.vim', 'fern-preview.vim']})
+  " call dein#add('lambdalisue/fern.vim', {'on_cmd': ['Fern'], 'depends': ['fern-git-status.vim', 'fern-renderer-nerdfont.vim', 'glyph-palette.vim', 'nerdfont.vim', 'fern-preview.vim']})
 
-  " call dein#add('LumaKernel/fern-mapping-fzf.vim')
-  " call dein#add('LumaKernel/fern-mapping-reload-all.vim')
-  call dein#add('lambdalisue/fern-git-status.vim', {'lazy': 1})
-  call dein#add('lambdalisue/fern-renderer-nerdfont.vim', {'lazy': 1})
-  call dein#add('lambdalisue/glyph-palette.vim', {'lazy': 1})
-  call dein#add('lambdalisue/nerdfont.vim', {'lazy': 1})
+  "" call dein#add('LumaKernel/fern-mapping-fzf.vim')
+  "" call dein#add('LumaKernel/fern-mapping-reload-all.vim')
+  " call dein#add('lambdalisue/fern-git-status.vim', {'lazy': 1})
+  " call dein#add('lambdalisue/fern-renderer-nerdfont.vim', {'lazy': 1})
+  " call dein#add('lambdalisue/glyph-palette.vim', {'lazy': 1})
+  " call dein#add('lambdalisue/nerdfont.vim', {'lazy': 1})
 
   if has('nvim')
     " call dein#add('kyazdani42/nvim-tree.lua')
@@ -1632,6 +1632,23 @@ endif
 
 " filer {{{2
 
+" coc-explorer {{{3
+if dein#tap('coc.nvim')
+  nnoremap <silent> <Leader>e :<C-u>CocCommand explorer
+  \ --width 30
+  \ --toggle<CR>
+
+" 開いているペインがcoc-explorerだけの場合はvimを閉じる
+  autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'coc-explorer') | q | endif
+
+  call coc#config('explorer.keyMappings.global', {
+  \ 's': v:false,
+  \ '<tab>': v:false,
+  \ ',': 'actionMenu',
+  \ })
+endif
+" }}}3
+
 " fern {{{3
 if dein#tap('fern.vim')
   function! s:fern_reveal(dict) abort
@@ -1667,8 +1684,8 @@ if dein#tap('fern.vim')
       endif
   endfunction
 
-  nnoremap <silent> <Leader>e :<C-u>Fern . -drawer<CR><C-w>=
-  nnoremap <silent> <Leader>E :<C-u>Fern . -drawer -reveal=%<CR><C-w>=
+  " nnoremap <silent> <Leader>e :<C-u>Fern . -drawer<CR><C-w>=
+  " nnoremap <silent> <Leader>E :<C-u>Fern . -drawer -reveal=%<CR><C-w>=
 
   function! s:fern_settings() abort
     nnoremap <silent> <buffer> <Plug>(fern-page-down-wrapper) <C-d>
@@ -3265,9 +3282,9 @@ AutoCmd ColorScheme gruvbox-material highlight Visual       ctermfg=NONE ctermbg
 AutoCmd ColorScheme gruvbox-material highlight Pmenu        ctermfg=NONE ctermbg=238  guifg=NONE    guibg=#2C3538
 AutoCmd ColorScheme gruvbox-material highlight PmenuSel     ctermfg=235  ctermbg=142  guifg=NONE    guibg=#3C6073
 AutoCmd ColorScheme gruvbox-material highlight DiffAdd      ctermfg=233  ctermbg=64   guifg=#C4C4C4 guibg=#213F72
-AutoCmd ColorScheme gruvbox-material highlight DiffChange   ctermfg=233  ctermbg=143  guifg=#C4C4C4 guibg=#594D1A
 AutoCmd ColorScheme gruvbox-material highlight DiffDelete   ctermfg=233  ctermbg=95   guifg=#C4C4C4 guibg=#7F1717
-AutoCmd ColorScheme gruvbox-material highlight DiffText     ctermfg=NONE ctermbg=223  guifg=NONE    guibg=#716522
+AutoCmd ColorScheme gruvbox-material highlight DiffChange   ctermfg=233  ctermbg=143  guifg=#C4C4C4 guibg=#4E4A16
+AutoCmd ColorScheme gruvbox-material highlight DiffText     ctermfg=233  ctermbg=143  guifg=#C4C4C4 guibg=#77682A
 
 " Gina (Vital.Vim.Buffer.ANSI)
 " AutoCmd ColorScheme gruvbox-material highlight AnsiColor0  ctermfg=0  guifg=#4C566A
