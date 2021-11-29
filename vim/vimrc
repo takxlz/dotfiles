@@ -1066,7 +1066,7 @@ if dein#tap('coc.nvim')
   endif
 
   " Manual completion
-  inoremap <silent> <expr> <C-Space> coc#refresh()
+  " inoremap <silent> <expr> <C-Space> coc#refresh()
 
   " Snippet map
   " let g:coc_snippet_next = '<C-f>'
@@ -1076,12 +1076,18 @@ if dein#tap('coc.nvim')
   nnoremap <silent> gh      :<C-u>call <SID>show_documentation()<CR>
   nnoremap <silent> <dev>R  :<C-u>CocRestart<CR>
 
-  nnoremap <silent> <dev>d  :<C-u>call CocActionAsync('jumpDefinition', 'tab drop')<CR>
-  nnoremap <silent> <dev>D  :<C-u>call CocAction('jumpDefinition', 'vsplit')<CR>
-  nnoremap <silent> <dev>i  :<C-u>call CocActionAsync('jumpImplementation', 'tab drop')<CR>
-  nnoremap <silent> <dev>I  :<C-u>call CocActionAsync('jumpImplementation', 'vsplit')<CR>
-  nnoremap <silent> <dev>t  :<C-u>call CocActionAsync('jumpTypeDefinition', 'tab drop')<CR>
-  nnoremap <silent> <dev>T  :<C-u>call CocActionAsync('jumpTypeDefinition', 'vsplit')<CR>
+  nmap     <silent> <dev>d  <Plug>(coc-definition)
+  nnoremap <silent> <dev>md :<C-u>call CocActionAsync('jumpDefinition', 'tab drop')<CR>
+  nnoremap <silent> <dev>mD :<C-u>call CocAction('jumpDefinition', 'vsplit')<CR>
+
+  nmap     <silent> <dev>i  <Plug>(coc-implementation)
+  nnoremap <silent> <dev>mi :<C-u>call CocActionAsync('jumpImplementation', 'tab drop')<CR>
+  nnoremap <silent> <dev>mI :<C-u>call CocActionAsync('jumpImplementation', 'vsplit')<CR>
+
+  nmap     <silent> <dev>t  <Plug>(coc-type-definition)
+  nnoremap <silent> <dev>mt :<C-u>call CocActionAsync('jumpTypeDefinition', 'tab drop')<CR>
+  nnoremap <silent> <dev>mT :<C-u>call CocActionAsync('jumpTypeDefinition', 'vsplit')<CR>
+
   nmap     <silent> <dev>k  <Plug>(coc-diagnostic-prev)
   nmap     <silent> <dev>j  <Plug>(coc-diagnostic-next)
   nmap     <silent> <dev>rn <Plug>(coc-rename)
