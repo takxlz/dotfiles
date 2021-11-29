@@ -1075,12 +1075,16 @@ if dein#tap('coc.nvim')
   " keymap
   nnoremap <silent> gh      :<C-u>call <SID>show_documentation()<CR>
   nnoremap <silent> <dev>R  :<C-u>CocRestart<CR>
-  nmap     <silent> <dev>p  <Plug>(coc-diagnostic-prev)
-  nmap     <silent> <dev>n  <Plug>(coc-diagnostic-next)
-  nmap     <silent> <dev>d  <Plug>(coc-definition)
-  nmap     <silent> <dev>I  <Plug>(coc-implementation)
+
+  nnoremap <silent> <dev>d  :<C-u>CocActionAsync('jumpDefinition', 'tab drop')<CR>
+  nnoremap <silent> <dev>D  :<C-u>CocAction('jumpDefinition', 'vsplit')<CR>
+  nnoremap <silent> <dev>i  :<C-u>CocActionAsync('jumpImplementation', 'tab drop')<CR>
+  nnoremap <silent> <dev>I  :<C-u>CocActionAsync('jumpImplementation', 'vsplit')<CR>
+  nnoremap <silent> <dev>t  :<C-u>call CocActionAsync('jumpTypeDefinition', 'tab drop')<CR>
+  nnoremap <silent> <dev>T  :<C-u>call CocActionAsync('jumpTypeDefinition', 'vsplit')<CR>
+  nmap     <silent> <dev>k  <Plug>(coc-diagnostic-prev)
+  nmap     <silent> <dev>j  <Plug>(coc-diagnostic-next)
   nmap     <silent> <dev>rn <Plug>(coc-rename)
-  nmap     <silent> <dev>T  <Plug>(coc-type-definition)
   nmap     <silent> <dev>a  <Plug>(coc-codeaction-selected)iw
   nmap     <silent> <dev>A  <Plug>(coc-codeaction)
   nmap     <silent> <dev>l  <Plug>(coc-codelens-action)
@@ -1088,14 +1092,12 @@ if dein#tap('coc.nvim')
   nmap     <silent> <dev>f  <Plug>(coc-format)
   xmap     <silent> <dev>f  <Plug>(coc-format-selected)
   nmap     <silent> <dev>gs <Plug>(coc-git-chunkinfo)
+  nmap     <silent> <dev>rf <Plug>(coc-references)
 
   nnoremap <silent> <expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
   nnoremap <silent> <expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
   inoremap <silent> <expr> <C-d> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(1)\<CR>" : "\<C-d>"
   inoremap <silent> <expr> <C-u> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(0)\<CR>" : "\<C-u>"
-
-  " nnoremap <Leader>e :<C-u>CocCommand explorer<CR>
-  " nnoremap <Leader>E :<C-u>CocCommand explorer --reveal expand('%')<CR>
 
   nmap <silent> gp <Plug>(coc-git-prevchunk)
   nmap <silent> gn <Plug>(coc-git-nextchunk)
@@ -1507,12 +1509,12 @@ if dein#tap('fzf-preview.vim') || dein#tap('coc.nvim')
   nnoremap <silent> <fzf>gg :<C-u>CocCommand fzf-preview.GitActions<CR>
   nnoremap <silent> <fzf>gs :<C-u>CocCommand fzf-preview.GitStatus<CR>
   " coc
-  nnoremap <silent> <dev>q  :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<CR>
-  nnoremap <silent> <dev>Q  :<C-u>CocCommand fzf-preview.CocDiagnostics<CR>
-  nnoremap <silent> <dev>rf :<C-u>CocCommand fzf-preview.CocReferences<CR>
-  nnoremap <silent> <dev>t  :<C-u>CocCommand fzf-preview.CocTypeDefinitions<CR>
-  nnoremap <silent> <dev>i  :<C-u>CocCommand fzf-preview.CocImplementations<CR>
-  nnoremap <silent> <dev>o  :<C-u>CocCommand fzf-preview.CocOutline<CR>
+  nnoremap <silent> <fzf>q  :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<CR>
+  nnoremap <silent> <fzf>Q  :<C-u>CocCommand fzf-preview.CocDiagnostics<CR>
+  nnoremap <silent> <fzf>rf :<C-u>CocCommand fzf-preview.CocReferences<CR>
+  nnoremap <silent> <fzf>t  :<C-u>CocCommand fzf-preview.CocTypeDefinitions<CR>
+  nnoremap <silent> <fzf>i  :<C-u>CocCommand fzf-preview.CocImplementations<CR>
+  nnoremap <silent> <fzf>o  :<C-u>CocCommand fzf-preview.CocOutline<CR>
 
   if dein#tap('fzf.vim')
     nnoremap <silent> <fzf>m :Maps<CR>
