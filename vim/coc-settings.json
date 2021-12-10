@@ -8,19 +8,9 @@
     }
   },
 
-  // EXPLORER
-  "explorer.keyMappings.global": {
-     "s": false,
-     "<tab>": false,
-     ",": "actionMenu",
-  },
-
-  // その他
-  "suggest.noselect": true,
-
   // python
   "python.jediEnabled": false,
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
-  "python.analysis.diagnosticEnabled": true,
+  "python.analysis.diagnosticEnabled": true
 }

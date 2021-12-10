@@ -1649,11 +1649,13 @@ if dein#tap('coc.nvim')
 " 開いているペインがcoc-explorerだけの場合はvimを閉じる
   autocmd BufEnter * if (winnr("$") == 1 && &ft =~ 'coc-explorer') | q | endif
 
+  call coc#config('explorer.floating.border.enable', v:true)
   call coc#config('explorer.keyMappings.global', {
   \ 's': v:false,
   \ '<tab>': v:false,
   \ ',': 'actionMenu',
   \ })
+
 endif
 " }}}3
 
