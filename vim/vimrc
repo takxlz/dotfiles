@@ -40,9 +40,9 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " IDE {{{3
   " call dein#add('neoclide/coc.nvim', {'rev': 'master', 'build': 'yarn install --frozen-lockfile'})
   call dein#add('neoclide/coc.nvim', {'rev': 'release'})
-  call dein#add('mfussenegger/nvim-dap')
-  call dein#add('rcarriga/nvim-dap-ui')
-  "call dein#add('puremourning/vimspector')
+  " call dein#add('mfussenegger/nvim-dap')
+  " call dein#add('rcarriga/nvim-dap-ui')
+  call dein#add('puremourning/vimspector')
   " }}}3
 
   " Language {{{3
@@ -475,7 +475,13 @@ if has('nvim')
   let g:loaded_python_provider = 0
   let g:loaded_perl_provider   = 0
   let g:loaded_ruby_provider   = 0
-  let g:python3_host_prog      = $HOME . '/.pyenv/shims/python'
+  if has('mac') || has('unix')
+    let g:python3_host_prog=exepath('python3')
+    set mouse=a
+  else
+    " windowsではpython3ではなくpython
+    let g:python3_host_prog=exepath('python')
+  endif
 
   set inccommand=nosplit
 
@@ -1194,6 +1200,12 @@ if dein#tap('coc.nvim')
 endif
 " }}}3
 
+" vimspector {{{3
+if dein#tap('vimspector')
+  let g:vimspector_enable_mappings = 'HUMAN'
+endif
+" }}}3
+
 " nvim-dap & nvim-dap-ui {{{3
 " if dein#tap('nvim-dap-ui')
 lua <<EOF
@@ -1222,25 +1234,25 @@ if dein#tap('nvim-dap') && dein#tap('nvim-dap-ui')
 endif
 
 lua <<EOF
-  local dap = require('dap')
-  -- node/deno
-  dap.adapters.node2 = {
-    type = 'executable',
-    command = 'node',
-    args = { os.getenv('HOME') .. '/tmp/vscode-node-debug2/out/src/nodeDebug.js'},
-  }
-  dap.configurations.typescript = {
-    {
-      type = 'node2',
-      name = 'Deno Launch',
-      request = 'launch',
-      cwd = vim.fn.getcwd(),
-      console = 'integratedTerminal',
-      runtimeExecutable = 'deno',
-      runtimeArgs = {'run', '--inspect-brk', '--allow-all', '${file}'},
-      port = 9229,
-    },
-  }
+--   local dap = require('dap')
+--   -- node/deno
+--   dap.adapters.node2 = {
+--     type = 'executable',
+--     command = 'node',
+--     args = { os.getenv('HOME') .. '/tmp/vscode-node-debug2/out/src/nodeDebug.js'},
+--   }
+--   dap.configurations.typescript = {
+--     {
+--       type = 'node2',
+--       name = 'Deno Launch',
+--       request = 'launch',
+--       cwd = vim.fn.getcwd(),
+--       console = 'integratedTerminal',
+--       runtimeExecutable = 'deno',
+--       runtimeArgs = {'run', '--inspect-brk', '--allow-all', '${file}'},
+--       port = 9229,
+--     },
+--   }
 EOF
 " }}}3
 
