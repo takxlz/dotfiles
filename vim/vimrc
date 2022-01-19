@@ -42,6 +42,7 @@ if dein#load_state(s:DEIN_BASE_PATH)
   call dein#add('neoclide/coc.nvim', {'rev': 'release'})
   call dein#add('mfussenegger/nvim-dap')
   call dein#add('rcarriga/nvim-dap-ui')
+  "call dein#add('puremourning/vimspector')
   " }}}3
 
   " Language {{{3
@@ -1222,6 +1223,7 @@ endif
 
 lua <<EOF
   local dap = require('dap')
+  -- node/deno
   dap.adapters.node2 = {
     type = 'executable',
     command = 'node',
@@ -3339,6 +3341,8 @@ AutoCmd ColorScheme gruvbox-material highlight CocFloating             ctermfg=N
 AutoCmd ColorScheme gruvbox-material highlight CocHoverFloating        ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
 AutoCmd ColorScheme gruvbox-material highlight CocSuggestFloating      ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
 AutoCmd ColorScheme gruvbox-material highlight CocDiagnosticFloating   ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
+AutoCmd ColorScheme gruvbox-material highlight link CocRustTypeHint Comment
+AutoCmd ColorScheme gruvbox-material highlight link CocRustChainingHint Comment
 
 AutoCmd ColorScheme gruvbox-material highlight FernGitStatusWorktree   ctermfg=1    ctermbg=NONE                      guifg=#E27878 guibg=NONE
 AutoCmd ColorScheme gruvbox-material highlight FernGitStatusIndex      ctermfg=2    ctermbg=NONE                      guifg=#B4BE82 guibg=NONE
