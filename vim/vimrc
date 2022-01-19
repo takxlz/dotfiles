@@ -1008,7 +1008,7 @@ endif
 " Plugin Manager {{{2
 
 " dein {{{3
-BulkAlterCommand dein Dein
+" BulkAlterCommand dein Dein
 " }}}3
 
 " }}}2
@@ -1203,6 +1203,7 @@ endif
 " vimspector {{{3
 if dein#tap('vimspector')
   let g:vimspector_enable_mappings = 'HUMAN'
+  BulkAlterCommand dr[eset] VimspectorReset
 endif
 " }}}3
 
