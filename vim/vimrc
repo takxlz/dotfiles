@@ -461,9 +461,12 @@ nnoremap <Leader>r :<C-u>%s/\v//g<Left><Left><Left>
 xnoremap <Leader>r "sy:%s/\v<C-r>=substitute(@s, '/', '\\/', 'g')<CR>//g<Left><Left>
 
 "" Clipboard
-" nnoremap <silent> sc :<C-u>call system("pbcopy", @") <Bar> echo "Copied \" register to OS clipboard"<CR>
-" nnoremap <silent> sp :<C-u>let @" = substitute(system("pbpaste"), "\n\+$", "", "") <Bar> echo "Copied from OS clipboard to \" register"<CR>
-" xnoremap <silent> sp <Esc>:let @" = substitute(system("pbpaste"), "\n\+$", "", "") <Bar> echo "Copied from OS clipboard to \" register"<CR>gv
+nnoremap <Space>y "+yy
+vnoremap <Space>y "+yy
+nnoremap <Space>p "+p
+" nnoremap <silent> <Space>y :<C-u>call system("pbcopy", @") <Bar> echo "Copied \" register to OS clipboard"<CR>
+" nnoremap <silent> <Space>p :<C-u>let @" = substitute(system("pbpaste"), "\n\+$", "", "") <Bar> echo "Copied from OS clipboard to \" register"<CR>
+" xnoremap <silent> <Space>p <Esc>:let @" = substitute(system("pbpaste"), "\n\+$", "", "") <Bar> echo "Copied from OS clipboard to \" register"<CR>gv
 
 "" highlight word on cursor
 nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
@@ -859,7 +862,7 @@ command! UsePluginQuickFix call <SID>jump_plugin('qf')
 
 nnoremap <silent> [p        :<C-u>UsePluginPrev<CR>
 nnoremap <silent> ]p        :<C-u>UsePluginNext<CR>
-nnoremap <silent> <Leader>p :<C-u>UsePluginQuickFix<CR>
+" nnoremap <silent> <Leader>p :<C-u>UsePluginQuickFix<CR>
 " }}}2
 
 " View JSON {{{2
