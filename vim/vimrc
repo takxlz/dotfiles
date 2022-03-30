@@ -302,7 +302,7 @@ command! -nargs=* AutoCmd autocmd vimrc <args>
 
 "" Leader
 let g:mapleader = "\<Space>"
-noremap <Leader> <Nop>
+noremap <Space> <Nop>
 noremap <dev>    <Nop>
 map     m        <dev>
 
@@ -333,7 +333,7 @@ inoremap <C-l> <Right>
 nnoremap <C-q> <C-^>
 
 "" Save and reload (for treesitter)
-nnoremap <silent> <Leader>R :<C-u>w<CR>:e!<CR>
+nnoremap <silent> <Space>R :<C-u>w<CR>:e!<CR>
 
 "" Yank
 nnoremap Y y$
@@ -347,8 +347,8 @@ endfunction
 xnoremap gy <Esc>:<C-u>call <SID>yank_without_indent()<CR>
 
 "" Save
-nnoremap <silent> <Leader>w :<C-u>update<CR>
-nnoremap <silent> <Leader>W :<C-u>update!<CR>
+nnoremap <silent> <Space>w :<C-u>update<CR>
+nnoremap <silent> <Space>W :<C-u>update!<CR>
 
 "" Automatically indent with i and A
 nnoremap <expr> i len(getline('.')) ? "i" : "\"_cc"
@@ -457,8 +457,8 @@ nnoremap <Down>  :<C-u>resize +1<CR>
 nnoremap Q @q
 
 "" regexp
-nnoremap <Leader>r :<C-u>%s/\v//g<Left><Left><Left>
-xnoremap <Leader>r "sy:%s/\v<C-r>=substitute(@s, '/', '\\/', 'g')<CR>//g<Left><Left>
+nnoremap <Space>r :<C-u>%s/\v//g<Left><Left><Left>
+xnoremap <Space>r "sy:%s/\v<C-r>=substitute(@s, '/', '\\/', 'g')<CR>//g<Left><Left>
 
 "" Clipboard
 nnoremap <Space>y "+yy
@@ -729,7 +729,7 @@ function! s:quickfix_toggle() abort
 endfunction
 
 command! QuickfixToggle call <SID>quickfix_toggle()
-nnoremap <silent> <Leader>q :<C-u>QuickfixToggle<CR>
+nnoremap <silent> <Space>q :<C-u>QuickfixToggle<CR>
 " }}}2
 
 " ToggleLocationList {{{2
@@ -743,7 +743,7 @@ function! s:location_list_toggle() abort
 endfunction
 
 command! LocationListToggle call <SID>location_list_toggle()
-nnoremap <silent> <Leader>l :<C-u>LocationListToggle<CR>
+nnoremap <silent> <Space>l :<C-u>LocationListToggle<CR>
 " }}}2
 
 " HelpEdit & HelpView {{{2
@@ -862,7 +862,7 @@ command! UsePluginQuickFix call <SID>jump_plugin('qf')
 
 nnoremap <silent> [p        :<C-u>UsePluginPrev<CR>
 nnoremap <silent> ]p        :<C-u>UsePluginNext<CR>
-" nnoremap <silent> <Leader>p :<C-u>UsePluginQuickFix<CR>
+" nnoremap <silent> <Space>p :<C-u>UsePluginQuickFix<CR>
 " }}}2
 
 " View JSON {{{2
@@ -1660,7 +1660,7 @@ endif
 
 " coc-explorer {{{3
 if dein#tap('coc.nvim')
-  nnoremap <silent> <Leader>e :<C-u>CocCommand explorer
+  nnoremap <silent> <Space>e :<C-u>CocCommand explorer
   \ --width 30
   \ --toggle<CR>
 
@@ -1712,8 +1712,8 @@ if dein#tap('fern.vim')
       endif
   endfunction
 
-  " nnoremap <silent> <Leader>e :<C-u>Fern . -drawer<CR><C-w>=
-  " nnoremap <silent> <Leader>E :<C-u>Fern . -drawer -reveal=%<CR><C-w>=
+  " nnoremap <silent> <Space>e :<C-u>Fern . -drawer<CR><C-w>=
+  " nnoremap <silent> <Space>E :<C-u>Fern . -drawer -reveal=%<CR><C-w>=
 
   function! s:fern_settings() abort
     nnoremap <silent> <buffer> <Plug>(fern-page-down-wrapper) <C-d>
@@ -2076,7 +2076,7 @@ endif
 " eft {{{3
 if dein#tap('vim-eft')
   let g:eft_enable = 0
-  nnoremap <Leader>f :<C-u>EftToggle<CR>
+  nnoremap <Space>f :<C-u>EftToggle<CR>
 
   function! s:eft_toggle() abort
     if g:eft_enable == 1
@@ -2170,12 +2170,12 @@ endif
 
 " edgemotion {{{3
 if dein#tap('vim-edgemotion')
-  nmap <silent> <Leader>j <Plug>(edgemotion-j)
-  nmap <silent> <Leader>k <Plug>(edgemotion-k)
-  xmap <silent> <Leader>j <Plug>(edgemotion-j)
-  xmap <silent> <Leader>k <Plug>(edgemotion-k)
-  omap <silent> <Leader>j <Plug>(edgemotion-j)
-  omap <silent> <Leader>k <Plug>(edgemotion-k)
+  nmap <silent> <Space>j <Plug>(edgemotion-j)
+  nmap <silent> <Space>k <Plug>(edgemotion-k)
+  xmap <silent> <Space>j <Plug>(edgemotion-j)
+  xmap <silent> <Space>k <Plug>(edgemotion-k)
+  omap <silent> <Space>j <Plug>(edgemotion-j)
+  omap <silent> <Space>k <Plug>(edgemotion-k)
 endif
 " }}}3
 
@@ -2183,8 +2183,8 @@ endif
 if dein#tap('vim-jplus')
   nmap <silent> J         <Plug>(jplus)
   xmap <silent> J         <Plug>(jplus)
-  nmap <silent> <Leader>J <Plug>(jplus-input)
-  xmap <silent> <Leader>J <Plug>(jplus-input)
+  nmap <silent> <Space>J <Plug>(jplus-input)
+  xmap <silent> <Space>J <Plug>(jplus-input)
 endif
 " }}}3
 
@@ -2961,7 +2961,7 @@ endif
 if dein#tap('smartnumber.vim')
   let g:snumber_enable_startup = 1
   let g:snumber_enable_relative = 1
-  nnoremap <Leader>n :<C-u>SNToggle<CR>
+  nnoremap <Space>n :<C-u>SNToggle<CR>
 
   function! s:snumber_relative_toggle() abort
     if g:snumber_enable_relative == 1
@@ -2987,7 +2987,7 @@ endif
 "   let g:vista_update_on_text_changed = 1
 "   let g:vista_blink                  = [1, 100]
 " 
-"   nnoremap <silent> <Leader>v :<C-u>Vista<CR>
+"   nnoremap <silent> <Space>v :<C-u>Vista<CR>
 " 
 "   AutoCmd VimEnter * call vista#RunForNearestMethodOrFunction()
 " endif
@@ -3006,7 +3006,7 @@ endif
 
 " bbye {{{3
 if dein#tap('vim-bbye')
-  nnoremap <silent> <Leader>d :<C-u>Bdelete!<CR>
+  nnoremap <silent> <Space>d :<C-u>Bdelete!<CR>
 endif
 " }}}3
 
@@ -3064,7 +3064,7 @@ if dein#tap('vim-floaterm')
     set winhighlight=Normal:GitRebase
     set winblend=30
 
-    nnoremap <silent> <buffer> <Leader>d :bdelete!<Space><Bar><Space>close<CR>
+    nnoremap <silent> <buffer> <Space>d :bdelete!<Space><Bar><Space>close<CR>
   endfunction
 endif
 " }}}3
@@ -3104,7 +3104,7 @@ endif
 
 " undotree {{{3
 if dein#tap('undotree')
-  nnoremap <silent> <Leader>u :<C-u>UndotreeToggle<CR>
+  nnoremap <silent> <Space>u :<C-u>UndotreeToggle<CR>
 endif
 " }}}3
 
@@ -3155,7 +3155,7 @@ endif
 " windowswap {{{3
 if dein#tap('vim-windowswap')
   let g:windowswap_map_keys = 0
-  nnoremap <silent> <Leader><C-w> :call WindowSwap#EasyWindowSwap()<CR>
+  nnoremap <silent> <Space><C-w> :call WindowSwap#EasyWindowSwap()<CR>
 endif
 " }}}3
 
