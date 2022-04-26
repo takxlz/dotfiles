@@ -22,14 +22,11 @@ if dein#load_state(s:DEIN_BASE_PATH)
 
   " Dein {{{3
   call dein#add('Shougo/dein.vim')
-
   call dein#add('haya14busa/dein-command.vim', {'on_cmd': ['Dein']})
   " }}}3
 
   " denops {{{3
   call dein#add('vim-denops/denops.vim')
-
-  " call dein#add('kuuote/denops-skkeleton.vim')
   call dein#add('lambdalisue/guise.vim')
   " }}}3
 
@@ -38,66 +35,26 @@ if dein#load_state(s:DEIN_BASE_PATH)
   " }}}3
 
   " IDE {{{3
-  " call dein#add('neoclide/coc.nvim', {'rev': 'master', 'build': 'yarn install --frozen-lockfile'})
   call dein#add('neoclide/coc.nvim', {'rev': 'release'})
-  " call dein#add('mfussenegger/nvim-dap')
-  " call dein#add('rcarriga/nvim-dap-ui')
   call dein#add('puremourning/vimspector')
   " }}}3
 
   " Language {{{3
   call dein#add('elzr/vim-json', {'on_ft': ['json']})
-  call dein#add('pantharshit00/vim-prisma', {'on_ft': ['prisma']})
   call dein#add('plasticboy/vim-markdown', {'on_ft': ['markdown']})
   call dein#add('rhysd/vim-fixjson', {'on_ft': ['json']})
-
   if has('nvim')
-    let s:treesitter_ft = [
-    \ 'typescript',
-    \ 'typescriptreact',
-    \ 'graphql',
-    \ 'rust',
-    \ 'ruby',
-    \ 'python',
-    \ 'json',
-    \ 'yaml',
-    \ 'dockerfile',
-    \ 'vim',
-    \ 'lua',
-    \ 'html',
-    \ 'css',
-    \ 'comment',
-    \ ]
-    call dein#add('nvim-treesitter/nvim-treesitter', {
-    \ 'on_ft': s:treesitter_ft,
-    \ 'depends': ['nvim-ts-context-commentstring', 'nvim-ts-rainbow'],
-    \ 'hook_post_source': 'call SetupTreesitter()'
-    \ })
-
-    " call dein#add('David-Kunz/treesitter-unit')
-    " call dein#add('code-biscuits/nvim-biscuits')
-    " call dein#add('haringsrob/nvim_context_vt')
-    " call dein#add('lukas-reineke/indent-blankline.nvim')
-    " call dein#add('nvim-treesitter/nvim-treesitter-refactor')
-    " call dein#add('nvim-treesitter/nvim-treesitter-textobjects')
-    " call dein#add('romgrk/nvim-treesitter-context')
     call dein#add('JoosepAlviste/nvim-ts-context-commentstring', {'lazy': 1})
     call dein#add('p00f/nvim-ts-rainbow', {'lazy': 1})
   endif
   " }}}3
 
   " Git {{{3
-  " call dein#add('hotwatermorning/auto-git-diff')
-  " call dein#add('rhysd/conflict-marker.vim')
   " call dein#add('tpope/vim-fugitive')
-  " test
   call dein#add('lambdalisue/gina.vim')
   call dein#add('wting/gitsessions.vim', {'on_cmd': ['GitSessionSave', 'GitSessionLoad']})
-
   if has('nvim')
-    " call dein#add('APZelos/blamer.nvim')
-    " call dein#add('lewis6991/gitsigns.nvim')
-    " call dein#add('rhysd/git-messenger.vim')
+    call dein#add('APZelos/blamer.nvim')
   endif
   " }}}3
 
@@ -105,57 +62,28 @@ if dein#load_state(s:DEIN_BASE_PATH)
   call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
   call dein#add('junegunn/fzf.vim')
   " call dein#add('yuki-yano/fzf-preview.vim', {'rev': 'release/rpc'})
-
-  " }}}3
-
-  " filer {{{3
-  " call dein#add('lambdalisue/fern.vim', {'on_cmd': ['Fern'], 'depends': ['fern-git-status.vim', 'fern-renderer-nerdfont.vim', 'glyph-palette.vim', 'nerdfont.vim', 'fern-preview.vim']})
-
-  "" call dein#add('LumaKernel/fern-mapping-fzf.vim')
-  "" call dein#add('LumaKernel/fern-mapping-reload-all.vim')
-  " call dein#add('lambdalisue/fern-git-status.vim', {'lazy': 1})
-  " call dein#add('lambdalisue/fern-renderer-nerdfont.vim', {'lazy': 1})
-  " call dein#add('lambdalisue/glyph-palette.vim', {'lazy': 1})
-  " call dein#add('lambdalisue/nerdfont.vim', {'lazy': 1})
-
-  if has('nvim')
-    " call dein#add('kyazdani42/nvim-tree.lua')
-  endif
   " }}}3
 
   " textobj & operator {{{3
   " TODO: lazy load
-  call dein#add('machakann/vim-sandwich') " ib, ab, is, as
-  call dein#add('machakann/vim-swap') " g< g> i, a,
-
   call dein#add('kana/vim-textobj-user')
   call dein#add('kana/vim-operator-user')
-
-  " call dein#add('kana/vim-textobj-fold') " iz az
-  " call dein#add('kana/vim-textobj-indent') " ii ai
-  " call dein#add('rhysd/vim-textobj-ruby') " ir ar
-  " call dein#add('romgrk/equal.operator') " i=h a=h i=l a=l
-  " call dein#add('thinca/vim-textobj-between') " i{char} a{char}
+  call dein#add('tpope/vim-surround') "s
+  call dein#add('tpope/vim-commentary') "gc
+  call dein#add('machakann/vim-swap') " g< g> i, a,
   call dein#add('Julian/vim-textobj-variable-segment') " iv av
   call dein#add('kana/vim-textobj-entire', {'on_map': {'ox': '<Plug>(textobj-entire'}}) " ie ae
   call dein#add('kana/vim-textobj-line', {'on_map': {'ox': '<Plug>(textobj-line'}}) " al il
   call dein#add('machakann/vim-textobj-functioncall', {'on_map': {'ox': '<Plug>(textobj-functioncall'}}) " if af
   call dein#add('mattn/vim-textobj-url', {'on_map': {'ox': '<Plug>(textobj-url'}}) " iu au
   call dein#add('yuki-yano/vim-textobj-cursor-context', {'on_map': {'ox': '<Plug>(textobj-cursorcontext'}}) " ic ac
-
   call dein#add('mopp/vim-operator-convert-case', {'on_map': ['<Plug>(operator-convert-case']}) " cy
   call dein#add('yuki-yano/vim-operator-replace', {'on_map': ['<Plug>(operator-replace']})  " _
+  " call dein#add('kana/vim-textobj-indent') " ii ai
   " }}}3
 
   " Edit & Move & Search {{{3
-  " call dein#add('easymotion/vim-easymotion')
-  " call dein#add('tpope/vim-commentary')
-  " call dein#add('unblevable/quick-scope')
-  " call dein#add('vim-scripts/Align')
   call dein#add('LeafCage/yankround.vim')
-  call dein#add('MattesGroeger/vim-bookmarks')
-  call dein#add('SirVer/ultisnips', {'on_event': ['InsertEnter']})
-  " call dein#add('cohama/lexima.vim', {'on_event': ['InsertEnter'], 'hook_post_source': 'call SetupLexima()'})
   call dein#add('haya14busa/vim-asterisk', {'on_map': ['<Plug>']})
   call dein#add('haya14busa/vim-edgemotion', {'on_map': ['<Plug>']})
   call dein#add('hrsh7th/vim-eft', {'on_map': ['<Plug>']})
@@ -166,14 +94,10 @@ if dein#load_state(s:DEIN_BASE_PATH)
   call dein#add('t9md/vim-textmanip', {'on_map': ['<Plug>']})
   call dein#add('terryma/vim-expand-region', {'on_map': ['<Plug>']})
   call dein#add('thinca/vim-qfreplace', {'on_cmd': ['Qfreplace']})
-  call dein#add('tommcdo/vim-exchange', {'on_map': ['<Plug>(Exchange']})
   call dein#add('tpope/vim-repeat')
-  call dein#add('tyru/caw.vim', {'rev': '703db47', 'on_map': ['<Plug>']})
 
   if has('nvim')
-    call dein#add('ggandor/lightspeed.nvim')
     call dein#add('kevinhwang91/nvim-hlslens')
-    " call dein#add('monaqa/dial.nvim')
     call dein#add('nacro90/numb.nvim')
   endif
   " }}}3
@@ -183,7 +107,6 @@ if dein#load_state(s:DEIN_BASE_PATH)
   call dein#add('itchyny/lightline.vim')
   call dein#add('lambdalisue/readablefold.vim')
   call dein#add('itchyny/vim-cursorword')
-  call dein#add('machakann/vim-highlightedundo', {'on_map': ['<Plug>']})
   call dein#add('machakann/vim-highlightedyank', {'on_event': ['TextYankPost']})
   call dein#add('mopp/smartnumber.vim')
   call dein#add('ryanoasis/vim-devicons')
@@ -192,60 +115,31 @@ if dein#load_state(s:DEIN_BASE_PATH)
     call dein#add('dstein64/nvim-scrollview', {'on_event': ['WinScrolled']})
     call dein#add('kevinhwang91/nvim-bqf', {'on_ft': ['qf']})
     call dein#add('norcalli/nvim-colorizer.lua')
-    call dein#add('rcarriga/nvim-notify')
   endif
   " }}}3
 
   " Util {{{3
-  " call dein#add('dhruvasagar/vim-table-mode')
-  " call dein#add('iamcco/markdown-preview.nvim', {'build': 'sh -c "cd app && yarn install"'})
-  " call dein#add('liuchengxu/vista.vim', {'on_cmd': ['Vista']})
-  " call dein#add('jsfaint/gen_tags.vim')
   call dein#add('AndrewRadev/linediff.vim', {'on_cmd': ['LineDiff']})
   call dein#add('aiya000/aho-bakaup.vim', {'on_event': ['InsertEnter', 'TextChanged']})
   call dein#add('glidenote/memolist.vim')
   call dein#add('itchyny/vim-qfedit', {'on_ft': ['qf']})
   call dein#add('kana/vim-niceblock')
   call dein#add('lambdalisue/suda.vim', {'on_cmd': ['SudaRead', 'SudaWrite']})
-  call dein#add('lambdalisue/vim-manpager', {'on_cmd': ['Man'], 'on_map': ['<Plug>']})
   call dein#add('mbbill/undotree', {'on_cmd': ['UndotreeToggle']})
-  call dein#add('moll/vim-bbye', {'on_cmd': ['Bdelete']})
-  call dein#add('segeljakt/vim-silicon', {'on_cmd': ['Silicon']})
-  call dein#add('thinca/vim-quickrun')
   call dein#add('tyru/capture.vim', {'on_cmd': ['Capture']})
-  call dein#add('tyru/vim-altercmd')
-  call dein#add('vim-test/vim-test', {'lazy': 1})
+  " call dein#add('tyru/vim-altercmd')
+  call dein#add('tsuyoshicho/vim-altercmd')
   call dein#add('voldikss/vim-floaterm', {'on_cmd': ['FloatermToggle']})
-  call dein#add('wesQ3/vim-windowswap', {'on_func': ['WindowSwap#EasyWindowSwap']})
+  call dein#add('SirVer/ultisnips') " cocで依存しているため導入する
+  " call dein#add('dhruvasagar/vim-table-mode')
+  " call dein#add('iamcco/markdown-preview.nvim', {'build': 'sh -c "cd app && yarn install"'})
 
   if has('nvim')
-    call dein#add("rcarriga/vim-ultest", {'on_cmd': ['Ultest', 'UltestNearest', 'UltestSummary'], 'depends': ['vim-test'], 'hook_source': 'call SetUpUltest()'})
     call dein#add('gelguy/wilder.nvim', {'on_map': [':', '/', '?'], 'hook_source': 'call SetUpWilder()'})
-  endif
-
-  if $ENABLE_WAKATIME == 1
-    call dein#add('wakatime/vim-wakatime')
-  endif
-  " }}}3
-
-  " Develop {{{3
-  call dein#add('rbtnn/vim-vimscript_lasterror')
-  call dein#add('thinca/vim-prettyprint')
-
-  if has('nvim')
-    call dein#add('lambdalisue/vim-quickrun-neovim-job')
   endif
   " }}}3
 
   " Color Theme {{{3
-  " call dein#add('NLKNguyen/papercolor-theme')
-  " call dein#add('arcticicestudio/nord-vim')
-  " call dein#add('cocopon/iceberg.vim')
-  " call dein#add('high-moctane/gaming.vim')
-  " call dein#add('icymind/NeoSolarized')
-  " call dein#add('joshdick/onedark.vim')
-  " call dein#add('taohexxx/lightline-solarized')
-  " call dein#add('morhetz/gruvbox')
   call dein#add('sainnhe/edge')
   call dein#add('sainnhe/gruvbox-material')
   " }}}3
@@ -262,11 +156,9 @@ if dein#check_install() && confirm('Would you like to download some plugins ?', 
   call dein#install()
 endif
 " }}}2
-
 " }}}1
 
 " Global Settings {{{1
-
 " Encoding {{{2
 set encoding=utf-8
 set fileencodings=utf-8,sjis,cp932,euc-jp
@@ -279,12 +171,14 @@ scriptencoding utf-8
 augroup vimrc
   autocmd!
 augroup END
-
 command! -nargs=* AutoCmd autocmd vimrc <args>
 " }}}2
 
-" Mappings {{{2
+" vimrc_dir {{{2
+let g:vimrc_dir = expand('<sfile>:p:h')
+" }}}2
 
+" Mappings {{{2
 "-------------------------------------------------------------------------------------------|
 "  Modes     | Normal | Insert | Command | Visual | Select | Operator | Terminal | Lang-Arg |
 " [nore]map  |    @   |   -    |    -    |   @    |   @    |    @     |    -     |    -     |
@@ -386,12 +280,6 @@ noremap! <C-f> <Right>
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 
-"" Indent
-" nnoremap < <<
-" nnoremap > >>
-" xnoremap < <gv
-" xnoremap > >gv|
-
 "" Window
 nnoremap <silent> ss :<C-u>sp<CR>
 nnoremap <silent> sv :<C-u>vs<CR>
@@ -452,9 +340,6 @@ nnoremap <Left>  :<C-u>vertical resize -1<CR>
 nnoremap <Right> :<C-u>vertical resize +1<CR>
 nnoremap <Up>    :<C-u>resize -1<CR>
 nnoremap <Down>  :<C-u>resize +1<CR>
-
-"" Macro
-nnoremap Q @q
 
 "" regexp
 nnoremap <Space>r :<C-u>%s/\v//g<Left><Left><Left>
@@ -647,13 +532,10 @@ let g:loaded_netrw             = 1
 let g:loaded_netrwPlugin       = 1
 let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
-
 " }}}2
-
 " }}}1
 
 " Command & Function {{{1
-
 " Move cursor last position {{{2
 AutoCmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 " }}}2
@@ -709,7 +591,7 @@ function! s:auto_mkdir(dir, force) abort
 endfunction
 " }}}2
 
-" Audo remove dust
+" Auto remove dust
 AutoCmd BufWritePre * call <SID>remove_dust()
 function! s:remove_dust()
   let cursor_point = getpos(".")
@@ -732,39 +614,6 @@ command! QuickfixToggle call <SID>quickfix_toggle()
 nnoremap <silent> <Space>q :<C-u>QuickfixToggle<CR>
 " }}}2
 
-" ToggleLocationList {{{2
-function! s:location_list_toggle() abort
-  let _ = winnr('$')
-  lclose
-  if _ == winnr('$')
-    botright lopen
-    " call g:Set_locationlist_keymap()
-  endif
-endfunction
-
-command! LocationListToggle call <SID>location_list_toggle()
-nnoremap <silent> <Space>l :<C-u>LocationListToggle<CR>
-" }}}2
-
-" HelpEdit & HelpView {{{2
-function! s:option_to_help_view() abort
-  setlocal buftype=help nomodifiable readonly
-  setlocal nolist
-  setlocal colorcolumn=
-  setlocal conceallevel=2
-endfunction
-
-function! s:option_to_help_edit() abort
-  setlocal buftype= modifiable noreadonly
-  setlocal list tabstop=8 shiftwidth=8 softtabstop=8 noexpandtab textwidth=78
-  setlocal colorcolumn=+1
-  setlocal conceallevel=0
-endfunction
-
-command! HelpView call <SID>option_to_help_view()
-command! HelpEdit call <SID>option_to_help_edit()
-" }}}2
-
 " HighlightInfo {{{2
 function! s:get_syn_id(transparent) abort
   let synid = synID(line('.'), col('.'), 1)
@@ -783,102 +632,13 @@ endfunction
 command! HighlightInfo call <SID>get_highlight_info()
 " }}}2
 
-" Jump plugin  {{{2
-function! s:plugin_name(line) abort
-  try
-    if len(matchlist(a:line, 'dein#add(''\(.\{-}\)''.*)')) != 0
-      let matches = matchlist(a:line, 'dein#add(''\(.\{-}\)''.*)')
-      return split(matches[1], '/')[-1]
-    elseif len(matchlist(a:line, 'dein#tap(''\(.*\)'')')) != 0
-      let matches = matchlist(a:line, 'dein#tap(''\(.*\)'')')
-      return matches[1]
-    else
-      echomsg 'Plugin not found'
-      return ''
-    endif
-  catch
-    echomsg 'Plugin not found'
-  endtry
-endfunction
-
-function! s:plugin_line(plugin_name, lines, start_line, end_line) abort
-  let i = a:start_line
-  while i < a:end_line
-    if match(a:lines[i], 'dein#add(''.\+/' . a:plugin_name . '''.*)') != -1 || match(a:lines[i], 'dein#tap(''' . a:plugin_name . ''')') != -1
-      call setpos('.', [0, i + 1, 0, 0])
-      return v:true
-    endif
-
-    let i = i + 1
-  endwhile
-
-  return v:false
-endfunction
-
-function! s:plugin_lines(plugin_name, lines) abort
-  let lines = []
-  let i = 1
-  while i < line('$')
-    if match(a:lines[i], 'dein#add(''.\+/' . a:plugin_name . '''.*)') != -1 || match(a:lines[i], 'dein#tap(''' . a:plugin_name . ''')') != -1
-      call add(lines, { 'filename': expand('%'), 'lnum': i + 1, 'text': a:lines[i] })
-    endif
-
-    let i = i + 1
-  endwhile
-
-  call setqflist([], 'r', { 'items': lines })
-  copen
-endfunction
-
-function! s:jump_plugin(mode) abort
-  let line = getline('.')
-  let plugin_name = <SID>plugin_name(line)
-
-  if plugin_name ==# ''
-    return
-  endif
-
-  let current_line = line('.')
-  let lines = getline(0, line('$'))
-
-  if a:mode ==# 'next'
-    let result = <SID>plugin_line(plugin_name, lines, current_line, len(lines))
-    if !result
-      call <SID>plugin_line(plugin_name, lines, 1, current_line)
-    endif
-  elseif a:mode ==# 'prev'
-    let result = <SID>plugin_line(plugin_name, lines, 1, current_line)
-    if !result
-      call <SID>plugin_line(plugin_name, lines, current_line, len(lines))
-    endif
-  elseif a:mode ==# 'qf'
-    call <SID>plugin_lines(plugin_name, lines)
-  endif
-endfunction
-
-command! UsePluginPrev     call <SID>jump_plugin('prev')
-command! UsePluginNext     call <SID>jump_plugin('next')
-command! UsePluginQuickFix call <SID>jump_plugin('qf')
-
-nnoremap <silent> [p        :<C-u>UsePluginPrev<CR>
-nnoremap <silent> ]p        :<C-u>UsePluginNext<CR>
-" nnoremap <silent> <Space>p :<C-u>UsePluginQuickFix<CR>
-" }}}2
-
 " View JSON {{{2
 command! JSON set ft=json | call CocAction('format')
 " }}}2
-
-" VSCode {{{2
-command! VSCode execute printf('!code -r "%s"', expand('%'))
-" }}}2
-
 " }}}1
 
 " FileType Settings {{{1
-
 " FileType {{{2
-
 " Indent {{{3
 AutoCmd FileType javascript      setlocal expandtab   shiftwidth=2 softtabstop=2 tabstop=2
 AutoCmd FileType typescript      setlocal expandtab   shiftwidth=2 softtabstop=2 tabstop=2
@@ -913,7 +673,6 @@ AutoCmd FileType vim  setlocal iskeyword+=-
 AutoCmd FileType sh   setlocal iskeyword+=-
 AutoCmd FileType zsh  setlocal iskeyword+=-
 " }}}3
-
 " }}}2
 
 " Vim script {{{2
@@ -942,51 +701,10 @@ AutoCmd FileType diff nnoremap <silent> <nowait> <buffer> q :<C-u>quit<CR>
 AutoCmd FileType man  nnoremap <silent> <nowait> <buffer> q :<C-u>quit<CR>
 AutoCmd FileType git  nnoremap <silent> <nowait> <buffer> q :<C-u>quit<CR>
 " }}}2
-
-" }}}1
-
-" Command Line Window {{{1
-set cedit=\<C-c>
-
-" nnoremap : q:
-" xnoremap : q:
-" nnoremap q: :
-" xnoremap q: :
-
-AutoCmd CmdwinEnter * call <SID>init_cmdwin()
-AutoCmd CmdwinLeave * call <SID>deinit_cmdwin()
-
-function! s:init_cmdwin() abort
-  setlocal number | setlocal norelativenumber
-  nnoremap <buffer> <CR> <CR>
-  nnoremap <buffer> <silent> <nowait> q :<C-u>quit<CR>
-  inoremap <buffer> <C-c> <Esc>l<C-c>
-
-  if dein#tap('coc.nvim')
-    call coc#config('suggest.floatEnable', v:false)
-    call coc#config('diagnostic.messageTarget', 'echo')
-    call coc#config('signature.target', 'echo')
-    call coc#config('coc.preferences.hoverTarget', 'echo')
-  endif
-
-  " nnoremap <silent> <buffer> dd :<C-u>rviminfo<CR>:call histdel(getcmdwintype(), line('.') - line('$'))<CR>:wviminfo!<CR>dd
-  startinsert!
-endfunction
-
-function! s:deinit_cmdwin() abort
-  if dein#tap('coc.nvim')
-    call coc#config('suggest.floatEnable', v:true)
-    call coc#config('diagnostic.messageTarget', 'float')
-    call coc#config('signature.target', 'float')
-    call coc#config('coc.preferences.hoverTarget', 'float')
-  endif
-endfunction
 " }}}1
 
 " Plugin Settings {{{1
-
 " Eager Load {{{2
-
 " altercmd {{{3
 function! s:bulk_alter_command(original, altanative) abort
   if exists(':AlterCommand')
@@ -1005,37 +723,12 @@ if dein#tap('vim-altercmd')
   BulkAlterCommand js[on] JSON
 endif
 " }}}3
-
-" }}}2
-
-" Plugin Manager {{{2
-
-" dein {{{3
-" BulkAlterCommand dein Dein
-" }}}3
-
 " }}}2
 
 " denops {{{2
-
-" denops-skkeleton {{{3
-if dein#tap('denops-skkeleton.vim')
-  imap <C-j> <Plug>(skkeleton-enable)
-  cmap <C-j> <Plug>(skkeleton-enable)
-
-  call skkeleton#config({
-  \ 'globalJisyo': expand('~/.cache/vim/skk/SKK-JISYO.L')
-  \ })
-
-  AutoCmd User skkeleton-enable-pre let b:coc_suggest_disable = v:true
-  AutoCmd User skkeleton-disable-pre let b:coc_suggest_disable = v:false
-endif
-" }}}3
-
 " }}}2
 
 " IDE {{{2
-
 " coc {{{3
 if dein#tap('coc.nvim')
   BulkAlterCommand or[ganizeimport] OrganizeImport
@@ -1046,41 +739,22 @@ if dein#tap('coc.nvim')
   \ 'coc-eslint',
   \ 'coc-explorer',
   \ 'coc-git',
-  \ 'coc-go',
   \ 'coc-json',
   \ 'coc-lists',
   \ 'coc-markdown-preview-enhanced',
   \ 'coc-markdownlint',
   \ 'coc-marketplace',
-  \ 'coc-npm-version',
-  \ 'coc-prettier',
-  \ 'coc-prisma',
   \ 'coc-python',
-  \ 'coc-react-refactor',
   \ 'coc-rust-analyzer',
   \ 'coc-sh',
-  \ 'coc-solargraph',
-  \ 'coc-spell-checker',
   \ 'coc-sql',
-  \ 'coc-stylelintplus',
-  \ 'coc-tabnine',
   \ 'coc-tsserver',
-  \ 'coc-ultisnips-select',
-  \ 'coc-vimlsp',
-  \ 'coc-word',
   \ 'coc-yaml',
   \ ]
 
   if !dein#tap('fzf-preview.vim') && dein#tap('coc.nvim')
     call add(g:coc_global_extensions, 'coc-fzf-preview')
   endif
-
-  " Manual completion
-  " inoremap <silent> <expr> <C-Space> coc#refresh()
-
-  " Snippet map
-  " let g:coc_snippet_next = '<C-f>'
-  " let g:coc_snippet_prev = '<C-b>'
 
   " keymap
   nnoremap <silent> gh      :<C-u>call <SID>show_documentation()<CR>
@@ -1118,21 +792,7 @@ if dein#tap('coc.nvim')
   nmap <silent> gp <Plug>(coc-git-prevchunk)
   nmap <silent> gn <Plug>(coc-git-nextchunk)
 
-  function! s:organize_import_and_format() abort
-    call CocAction('runCommand', 'editor.action.organizeImport')
-
-    if <SID>is_deno()
-      call CocAction('format')
-    else
-      call CocAction('runCommand', 'eslint.executeAutofix')
-      call CocAction('runCommand', 'prettier.formatFile')
-    endif
-  endfunction
-
-  command! OrganizeImport     call <SID>organize_import_and_format()
   command! CocMarkdownPreview CocCommand markdown-preview-enhanced.openPreview
-
-  " AutoCmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
   function! s:show_documentation() abort
     if index(['vim','help'], &filetype) >= 0
@@ -1209,79 +869,12 @@ if dein#tap('vimspector')
   BulkAlterCommand dr[eset] VimspectorReset
 endif
 " }}}3
-
-" nvim-dap & nvim-dap-ui {{{3
-" if dein#tap('nvim-dap-ui')
-lua <<EOF
-  -- require("dapui").setup()
-EOF
-" endif
-
-if dein#tap('nvim-dap') && dein#tap('nvim-dap-ui')
-  " nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
-  nnoremap <silent> <F5> :DapStart<CR>
-  nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
-  nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
-  nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
-  nnoremap <silent> <dev>mb :lua require'dap'.toggle_breakpoint()<CR>
-  nnoremap <silent> <dev>mB :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-  nnoremap <silent> <dev>mr :lua require'dap'.repl.open()<CR>
-  nnoremap <silent> <dev>ml :lua require'dap'.run_last()<CR>
-  nnoremap <silent> <dev>mv :lua require'dap.ui.variables'.scopes()<CR>
-  nnoremap <silent> <dev>mV :lua require'dap.ui.variables'.visual_hover()<CR>
-  command! DapStart call <SID>nvim_dap_settings()
-  function! s:nvim_dap_settings() abort
-    lua require("dapui").setup()
-    lua require'dap'.continue()
-    lua require('dapui').open()
-  endfunction
-endif
-
-lua <<EOF
---   local dap = require('dap')
---   -- node/deno
---   dap.adapters.node2 = {
---     type = 'executable',
---     command = 'node',
---     args = { os.getenv('HOME') .. '/tmp/vscode-node-debug2/out/src/nodeDebug.js'},
---   }
---   dap.configurations.typescript = {
---     {
---       type = 'node2',
---       name = 'Deno Launch',
---       request = 'launch',
---       cwd = vim.fn.getcwd(),
---       console = 'integratedTerminal',
---       runtimeExecutable = 'deno',
---       runtimeArgs = {'run', '--inspect-brk', '--allow-all', '${file}'},
---       port = 9229,
---     },
---   }
-EOF
-" }}}3
-
 " }}}2
 
 " Language {{{2
-
 " fixjson {{{3
 if dein#tap('vim-fixjson')
   let g:fixjson_fix_on_save = 0
-endif
-" }}}3
-
-" gen_tags {{{3
-" if dein#tap('gen_tags.vim')
-"   let g:gen_tags#ctags_auto_gen = 1
-"   let g:gen_tags#ctags_opts     = '--excmd=number'
-"   let g:loaded_gentags#gtags    = 1
-" endif
-" }}}3
-
-" import-cost {{{3
-if dein#tap('vim-import-cost')
-  AutoCmd InsertLeave *.js,*.jsx,*.ts,*.tsx ImportCost
-  AutoCmd BufEnter *.js,*.jsx,*.ts,*.tsx    ImportCost
 endif
 " }}}3
 
@@ -1307,178 +900,9 @@ if dein#tap('rainbow_csv')
   let g:disable_rainbow_key_mappings = 1
 endif
 " }}}3
-
-" treesitter {{{3
-if dein#tap('nvim-treesitter')
-  function! SetupTreesitter() abort
-    let g:highlightedundo_enable = 1
-
-lua <<EOF
-require('nvim-treesitter.configs').setup {
-  ensure_installed = {
-    "typescript",
-    "tsx",
-    "javascript",
-    "graphql",
-    "jsdoc",
-    "rust",
-    "ruby",
-    "python",
-    "json",
-    "yaml",
-    "dockerfile",
-    "vim",
-    "lua",
-    "html",
-    "css",
-    "comment",
-  },
-  highlight = {
-    enable = true,
-  },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
-  rainbow = {
-    enable = true,
-  },
-  -- refactor = {
-  --   highlight_current_scope = {
-  --     enable = true
-  --   },
-  -- },
-}
-
--- require('nvim-biscuits').setup({
---   default_config = {
---     prefix_string = " => "
---   },
--- })
-
--- require "nvim-treesitter.highlight"
--- local hlmap = vim.treesitter.highlighter.hl_map
-
--- hlmap.error = nil
--- hlmap["punctuation.delimiter"] = "Delimiter"
--- hlmap["punctuation.bracket"] = nil
-
--- require('treesitter-context').setup{
---   enable = true,
---   throttle = true,
--- }
-
--- require('treesitter-unit').select()
--- require('treesitter-unit').enable_highlighting()
-
--- require("indent_blankline").setup {
---   space_char_blankline = " ",
---   show_current_context = true,
--- }
-
--- require('nvim_context_vt').setup()
-EOF
-
-    " omap <silent> <Plug>(textobj-treesitter-unit-i) :<C-u>lua require('treesitter-unit').select(true)<CR>
-    " xmap <silent> <Plug>(textobj-treesitter-unit-i) :lua require('treesitter-unit').select(true)<CR>
-    " omap <silent> <Plug>(textobj-treesitter-unit-a) :<C-u>lua require('treesitter-unit').select()<CR>
-    " xmap <silent> <Plug>(textobj-treesitter-unit-a) :lua require('treesitter-unit').select()<CR>
-
-    " omap <silent> iu <Plug>(textobj-treesitter-unit-i)
-    " xmap <silent> iu <Plug>(textobj-treesitter-unit-i)
-    " omap <silent> au <Plug>(textobj-treesitter-unit-a)
-    " xmap <silent> au <Plug>(textobj-treesitter-unit-a)
-
-
-    function! s:treesitter_toggle() abort
-      if g:treesitter_enable == 1
-        let g:treesitter_enable = 0
-        call <SID>treesitter_disable()
-      else
-        let g:treesitter_enable = 1
-        call <SID>treesitter_enable()
-      endif
-    endfunction
-    command! TreesitterToggle call <SID>treesitter_toggle()
-
-    function! s:treesitter_enable() abort
-      TSEnableAll highlight
-      TSEnableAll context_commentstring
-      TSEnableAll rainbow
-    endfunction
-
-    function! s:treesitter_disable() abort
-      TSDisableAll highlight
-      TSDisableAll context_commentstring
-      TSDisableAll rainbow
-    endfunction
-
-    function! s:check_large_file() abort
-      let max_file_size = 500 * 1000
-      let fsize = getfsize(@%)
-      let line_num = line('$')
-
-      if fsize > max_file_size
-        if input(printf('"%s" is too large file.(%s lines, %s byte) Continue? [y/N]', @%, line_num, fsize)) !~? '^y\%[es]$'
-          bwipeout
-          return
-        else
-          syntax off
-          call <SID>treesitter_disable()
-        endif
-      endif
-    endfunction
-
-    AutoCmd BufReadPre *.ts,*.tsx,*.js call <SID>check_large_file()
-
-    " AutoCmd BufReadPre  *.ts,*.tsx,*.js call <SID>disable_syntax()
-    " AutoCmd BufReadPost *.ts,*.tsx,*.js call <SID>set_syntax()
-    " AutoCmd BufEnter    *.ts,*.tsx,*.js call <SID>enable_tsbuf()
-    "
-    " function! s:disable_syntax() abort
-    "   syntax off
-    "   TSDisableAll highlight
-    "   TSDisableAll context_commentstring
-    "   TSDisableAll rainbow
-    " endfunction
-    " 
-    " function! s:enable_tsbuf() abort
-    "   if exists('b:ts_buf') && b:ts_buf
-    "     TSEnableAll highlight
-    "     TSEnableAll context_commentstring
-    "     TSEnableAll rainbow
-    "     TSBufEnable highlight
-    "     TSBufEnable context_commentstring
-    "     TSBufEnable rainbow
-    "   endif
-    " endfunction
-    "
-    " function! s:set_syntax() abort
-    "   let max_file_size = 500 * 1000
-    "   let fsize = getfsize(@%)
-    "   let line_num = line('$')
-    "
-    "   if fsize > max_file_size && input(printf('"%s" is too large file.(%s lines, %s byte) Continue? [y/N]', @%, line_num, fsize)) !~? '^y\%[es]$'
-    "     bwipeout
-    "     return
-    "   endif
-    "
-    "   if fsize < max_file_size
-    "     syntax on
-    "     let b:ts_buf = v:true
-    "   else
-    "     syntax off
-    "     let b:ts_buf = v:false
-    "   endif
-    " endfunction
-  endfunction
-endif
-" }}}3
-
 " }}}2
 
 " Fuzzy Finder {{{2
-
 " fzf-preview & fzf {{{3
 if dein#tap('fzf-preview.vim') || dein#tap('coc.nvim')
   AutoCmd VimEnter * call <SID>auto_mkdir(expand('~/.fzf'), v:cmdbang)
@@ -1558,23 +982,13 @@ if dein#tap('fzf-preview.vim') || dein#tap('coc.nvim')
 
 endif
 " }}}3
-
 " }}}2
 
 " Git {{{2
-
 " blamer {{{3
 if dein#tap('blamer.nvim')
   let g:blamer_enabled = 1
   let g:blamer_show_in_visual_modes = 0
-endif
-" }}}3
-
-" git-messenger {{{3
-if dein#tap('git-messenger.vim')
-  let g:git_messenger_no_default_mappings = 1
-
-  nnoremap <silent> gm :<C-u>GitMessenger<CR>
 endif
 " }}}3
 
@@ -1629,35 +1043,9 @@ if dein#tap('gitsessions.vim')
   let g:gitsessions_disable_auto_load = 1
 endif
 " }}}3
-
-" gitsigns {{{3
-if dein#tap('gitsigns.nvim')
-  nnoremap <silent> gp :<C-u>lua require('gitsigns').prev_hunk()<CR>
-  nnoremap <silent> gn :<C-u>lua require('gitsigns').next_hunk()<CR>
-
-lua <<EOF
-require('gitsigns').setup {
-  signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'   },
-    change       = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'GitSignsDelete', text = '-', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-  },
-  word_diff = false,
-  keymaps = {
-    noremap = false,
-  },
-  current_line_blame = false,
-}
-EOF
-endif
-" }}}3
-
 " }}}2
 
 " filer {{{2
-
 " coc-explorer {{{3
 if dein#tap('coc.nvim')
   nnoremap <silent> <Space>e :<C-u>CocCommand explorer
@@ -1673,129 +1061,11 @@ if dein#tap('coc.nvim')
   \ '<tab>': v:false,
   \ ',': 'actionMenu',
   \ })
-
 endif
 " }}}3
-
-" fern {{{3
-if dein#tap('fern.vim')
-  function! s:fern_reveal(dict) abort
-    execute 'FernReveal' a:dict.relative_path
-  endfunction
-
-  let g:fern#disable_default_mappings             = 1
-  let g:fern#drawer_width                         = 40
-  let g:fern#renderer                             = 'nerdfont'
-  let g:fern#renderer#nerdfont#padding            = '  '
-  let g:fern#hide_cursor                          = 1
-  let g:fern#mapping#fzf#disable_default_mappings = 1
-  let g:Fern_mapping_fzf_file_sink                = function('s:fern_reveal')
-  let g:Fern_mapping_fzf_dir_sink                 = function('s:fern_reveal')
-
-  function! s:fern_preview_width() abort
-    let width = float2nr(&columns * 0.8)
-    let width = min([width, 200])
-    return width
-  endfunction
-
-  let g:fern_preview_window_calculator = {
-  \ 'width': function('s:fern_preview_width')
-  \ }
-
-  function! Fern_mapping_fzf_customize_option(spec) abort
-      let a:spec.options .= ' --multi'
-      " Note that fzf#vim#with_preview comes from fzf.vim
-      if exists('*fzf#vim#with_preview')
-        return fzf#vim#with_preview(a:spec)
-      else
-        return a:spec
-      endif
-  endfunction
-
-  " nnoremap <silent> <Space>e :<C-u>Fern . -drawer<CR><C-w>=
-  " nnoremap <silent> <Space>E :<C-u>Fern . -drawer -reveal=%<CR><C-w>=
-
-  function! s:fern_settings() abort
-    nnoremap <silent> <buffer> <Plug>(fern-page-down-wrapper) <C-d>
-    nnoremap <silent> <buffer> <Plug>(fern-page-up-wrapper)   <C-u>
-    nnoremap <silent> <buffer> <Plug>(fern-search-prev)       N
-
-    nmap <silent> <buffer> <expr> <Plug>(fern-expand-or-collapse)                 fern#smart#leaf("\<Plug>(fern-action-collapse)", "\<Plug>(fern-action-expand)", "\<Plug>(fern-action-collapse)")
-    nmap <silent> <buffer> <expr> <Plug>(fern-open-system-directory-or-open-file) fern#smart#leaf("\<Plug>(fern-action-open:select)", "\<Plug>(fern-action-open:system)")
-    nmap <silent> <buffer> <expr> <Plug>(fern-quit-or-close-preview)              fern_preview#smart_preview("\<Plug>(fern-action-preview:close)\<Plug>(fern-action-preview:auto:disable)", ":q\<CR>")
-    nmap <silent> <buffer> <expr> <Plug>(fern-wipe-or-close-preview)              fern_preview#smart_preview("\<Plug>(fern-action-preview:close)\<Plug>(fern-action-preview:auto:disable)", ":bwipe!\<CR>")
-    nmap <silent> <buffer> <expr> <Plug>(fern-page-down-or-scroll-down-preview)   fern_preview#smart_preview("\<Plug>(fern-action-preview:scroll:down:half)", "\<Plug>(fern-page-down-wrapper)")
-    nmap <silent> <buffer> <expr> <Plug>(fern-page-down-or-scroll-up-preview)     fern_preview#smart_preview("\<Plug>(fern-action-preview:scroll:up:half)", "\<Plug>(fern-page-up-wrapper)")
-    nmap <silent> <buffer> <expr> <Plug>(fern-new-file-or-search-prev)            v:hlsearch ? "\<Plug>(fern-search-prev)" : "\<Plug>(fern-action-new-file)"
-
-    nmap <silent> <buffer> <nowait> a       <Plug>(fern-choice)
-    nmap <silent> <buffer> <nowait> <CR>    <Plug>(fern-open-system-directory-or-open-file)
-    nmap <silent> <buffer> <nowait> t       <Plug>(fern-expand-or-collapse)
-    nmap <silent> <buffer> <nowait> l       <Plug>(fern-action-open-or-enter)
-    nmap <silent> <buffer> <nowait> h       <Plug>(fern-action-leave)
-    nmap <silent> <buffer> <nowait> x       <Plug>(fern-action-mark:toggle)j
-    xmap <silent> <buffer> <nowait> x       <Plug>(fern-action-mark:toggle)j
-    nmap <silent> <buffer> <nowait> <Space> <Plug>(fern-action-mark:toggle)j
-    xmap <silent> <buffer> <nowait> <Space> <Plug>(fern-action-mark:toggle)j
-    nmap <silent> <buffer> <nowait> N       <Plug>(fern-new-file-or-search-prev)
-    nmap <silent> <buffer> <nowait> K       <Plug>(fern-action-new-dir)
-    nmap <silent> <buffer> <nowait> d       <Plug>(fern-action-trash)
-    nmap <silent> <buffer> <nowait> r       <Plug>(fern-action-rename)
-    nmap <silent> <buffer> <nowait> c       <Plug>(fern-action-copy)
-    nmap <silent> <buffer> <nowait> C       <Plug>(fern-action-clipboard-copy)
-    nmap <silent> <buffer> <nowait> m       <Plug>(fern-action-move)
-    nmap <silent> <buffer> <nowait> M       <Plug>(fern-action-clipboard-move)
-    nmap <silent> <buffer> <nowait> P       <Plug>(fern-action-clipboard-paste)
-    nmap <silent> <buffer> <nowait> !       <Plug>(fern-action-hidden-toggle)
-    nmap <silent> <buffer> <nowait> y       <Plug>(fern-action-yank)
-    nmap <silent> <buffer> <nowait> <C-g>   <Plug>(fern-action-debug)
-    nmap <silent> <buffer> <nowait> ?       <Plug>(fern-action-help)
-    nmap <silent> <buffer> <nowait> <C-c>   <Plug>(fern-action-cancel)
-    nmap <silent> <buffer> <nowait> .       <Plug>(fern-repeat)
-    nmap <silent> <buffer> <nowait> q       <Plug>(fern-quit-or-close-preview)
-    nmap <silent> <buffer> <nowait> Q       <Plug>(fern-wipe-or-close-preview)
-    nmap <silent> <buffer> <nowait> p       <Plug>(fern-action-preview:toggle)
-    nmap <silent> <buffer> <nowait> <C-p>   <Plug>(fern-action-preview:auto:toggle)
-    nmap <silent> <buffer> <nowait> <C-d>   <Plug>(fern-page-down-or-scroll-down-preview)
-    nmap <silent> <buffer> <nowait> <C-u>   <Plug>(fern-page-down-or-scroll-up-preview)
-    nmap <silent> <buffer> <nowait> R       <Plug>(fern-action-reload:all)
-    nmap <silent> <buffer> <nowait> ;f      <Plug>(fern-action-fzf-root-files)
-    nmap <silent> <buffer> <nowait> ;d      <Plug>(fern-action-fzf-root-dirs)
-    nmap <silent> <buffer> <nowait> ;a      <Plug>(fern-action-fzf-root-both)
-
-    setlocal nonumber norelativenumber
-    augroup fern-cursor-moved
-      autocmd! * <buffer>
-      autocmd CursorMoved <buffer> echo matchstr(getline('.'), '[-./[:alnum:]_]\+')
-    augroup END
-  endfunction
-
-  AutoCmd FileType fern call <SID>fern_settings()
-  AutoCmd FileType fern call fern_git_status#init()
-  AutoCmd FileType fern call glyph_palette#apply()
-endif
-" }}}3
-
 " }}}2
 
 " textobj & operator {{{2
-
-" equal.operator {{{3
-if dein#tap('equal.operator')
-  let equal_operator_default_mappings = 0
-
-  omap i=h <Plug>(operator-lhs)
-  omap a=h <Plug>(operator-Lhs)
-  xmap i=h <Plug>(visual-lhs)
-  xmap a=h <Plug>(visual-Lhs)
-
-  omap i=l <Plug>(operator-rhs)
-  omap a=l <Plug>(operator-Rhs)
-  xmap i=l <Plug>(visual-rhs)
-  xmap a=l <Plug>(visual-Rhs)
-endif
-" }}}3
-
 " operator-convert-case {{{3
 if dein#tap('vim-operator-convert-case')
   nmap cy <Plug>(operator-convert-case-loop)
@@ -1820,31 +1090,9 @@ if dein#tap('vim-swap')
 endif
 " }}}3
 
-" textobj-between {{{3
-if dein#tap('vim-textobj-between')
-  let g:textobj_between_no_default_key_mappings = 1
-
-  omap i/ <Plug>(textobj-between-i)/
-  omap a/ <Plug>(textobj-between-a)/
-  xmap i/ <Plug>(textobj-between-i)/
-  xmap a/ <Plug>(textobj-between-a)/
-
-  omap i_ <Plug>(textobj-between-i)_
-  omap a_ <Plug>(textobj-between-a)_
-  xmap i_ <Plug>(textobj-between-i)_
-  xmap a_ <Plug>(textobj-between-a)_
-
-  omap i- <Plug>(textobj-between-i)-
-  omap a- <Plug>(textobj-between-a)-
-  xmap i- <Plug>(textobj-between-i)-
-  xmap a- <Plug>(textobj-between-a)-
-endif
-" }}}3
-
 " textobj-cursorcontext {{{3
 if dein#tap('vim-textobj-cursorcontext')
   let g:textobj_cursorcontext_no_default_key_mappings = 1
-
   omap ic <Plug>(textobj-cursorcontext-i)
   omap ac <Plug>(textobj-cursorcontext-a)
   xmap ic <Plug>(textobj-cursorcontext-i)
@@ -1855,7 +1103,6 @@ endif
 " textobj-entire {{{3
 if dein#tap('vim-textobj-entire')
   let g:textobj_entire_no_default_key_mappings = 1
-
   omap ie <Plug>(textobj-entire-i)
   omap ae <Plug>(textobj-entire-a)
   xmap ie <Plug>(textobj-entire-i)
@@ -1866,7 +1113,6 @@ endif
 " textobj-functioncall {{{3
 if dein#tap('vim-textobj-functioncall')
   let g:textobj_functioncall_no_default_key_mappings = 1
-
   omap if <Plug>(textobj-functioncall-i)
   omap af <Plug>(textobj-functioncall-a)
   xmap if <Plug>(textobj-functioncall-i)
@@ -1877,7 +1123,6 @@ endif
 " textobj-line {{{3
 if dein#tap('vim-textobj-line')
   let g:textobj_line_no_default_key_mappings = 1
-
   omap il <Plug>(textobj-line-i)
   omap al <Plug>(textobj-line-a)
   xmap il <Plug>(textobj-line-i)
@@ -1888,18 +1133,15 @@ endif
 " textobj-url {{{3
 if dein#tap('vim-textobj-url')
   let g:textobj_url_no_default_key_mappings = 1
-
   omap iu <Plug>(textobj-url-i)
   omap au <Plug>(textobj-url-a)
   xmap iu <Plug>(textobj-url-i)
   xmap au <Plug>(textobj-url-a)
 endif
 " }}}3
-
 " }}}2
 
 " Edit & Move & Search {{{2
-
 " hlslens & asterisk & anzu {{{3
 if dein#tap('nvim-hlslens') &&
    \ dein#tap('vim-asterisk') &&
@@ -1907,7 +1149,6 @@ if dein#tap('nvim-hlslens') &&
 
   if has('nvim')
     lua require('hlslens').setup({auto_enable = true})
-
     nmap <silent> n  :<C-u>execute('normal! ' . v:count1 . 'n')<CR>:lua require('hlslens').start()<CR><Plug>(anzu-update-search-status)zzzv
     nmap <silent> N  :<C-u>execute('normal! ' . v:count1 . 'N')<CR>:lua require('hlslens').start()<CR><Plug>(anzu-update-search-status)zzzv
     nmap <silent> *  <Plug>(asterisk-z*):lua require('hlslens').start()<CR><Plug>(anzu-update-search-status)
@@ -1919,76 +1160,6 @@ if dein#tap('nvim-hlslens') &&
     nmap <silent> g# <Plug>(asterisk-gz#):lua require('hlslens').start()<CR><Plug>(anzu-update-search-status)
     xmap <silent> g# <Plug>(asterisk-gz#):lua require('hlslens').start()<CR><Plug>(anzu-update-search-status)
   endif
-endif
-" }}}3
-
-" bookmarks {{{3
-if dein#tap('vim-bookmarks')
-  let g:bookmark_no_default_key_mappings = 1
-  let g:bookmark_save_per_working_dir    = 1
-
-  nnoremap <bookmark> <Nop>
-  nmap     M          <bookmark>
-
-  nnoremap <silent> <bookmark>m :<C-u>BookmarkToggle<CR>
-  nnoremap <silent> <bookmark>i :<C-u>BookmarkAnnotate<CR>
-  nnoremap <silent> <bookmark>n :<C-u>BookmarkNext<CR>
-  nnoremap <silent> <bookmark>p :<C-u>BookmarkPrev<CR>
-  nnoremap <silent> <bookmark>a :<C-u>BookmarkShowAll<CR>
-  nnoremap <silent> <bookmark>c :<C-u>BookmarkClear<CR>
-  nnoremap <silent> <bookmark>x :<C-u>BookmarkClearAll<CR>
-
-  function! g:BMWorkDirFileLocation() abort
-    let filename = 'bookmarks'
-    let location = ''
-
-    if isdirectory('.git')
-      let location = getcwd() . '/.git'
-    else
-      let location = finddir('.git', '.;')
-    endif
-
-    if len(location) > 0
-      return location . '/' . filename
-    else
-      return getcwd() . '/.' . filename
-    endif
-  endfunction
-endif
-" }}}3
-
-" caw {{{3
-if dein#tap('caw.vim')
-  let g:caw_integrated_plugin = 'ts_context_commentstring'
-
-  nmap <silent> <expr> gcc <SID>caw_hatpos_toggle()
-  xmap <silent> <expr> gcc <SID>caw_hatpos_toggle()
-  nmap <silent> <expr> gcw <SID>caw_wrap_toggle()
-  xmap <silent> <expr> gcw <SID>caw_wrap_toggle()
-
-  function! s:caw_hatpos_toggle() abort
-    if index(['typescript','typescriptreact'], &filetype) >= 0
-      if dein#tap('nvim-ts-context-commentstring')
-        lua require('ts_context_commentstring.internal').update_commentstring()
-        call caw#update_comments_from_commentstring(&commentstring)
-      endif
-    endif
-
-    return "\<Plug>(caw:hatpos:toggle)"
-  endfunction
-
-  function! s:caw_wrap_toggle() abort
-    if index(['typescript','typescriptreact'], &filetype) >= 0 && match(&commentstring, '^\/\/') != -1
-      if dein#tap('nvim-ts-context-commentstring')
-        lua require('ts_context_commentstring.internal').update_commentstring()
-        call caw#update_comments_from_commentstring(&commentstring)
-      endif
-
-      let b:caw_wrap_oneline_comment = ["/*", "*/"]
-    endif
-
-    return "\<Plug>(caw:wrap:toggle)"
-  endfunction
 endif
 " }}}3
 
@@ -2044,32 +1215,6 @@ if dein#tap('vim-easy-align')
   \   'stick_to_left': 1,
   \ }
   \ }
-endif
-" }}}3
-
-" easymotion {{{3
-if dein#tap('vim-easymotion')
-  " EasyMotion
-  let g:EasyMotion_do_mapping       = 0
-  let g:EasyMotion_smartcase        = 1
-  let g:EasyMotion_startofline      = 0
-  let g:EasyMotion_keys             = 'HJKLASDFGYUIOPQWERTNMZXCVB'
-  let g:EasyMotion_use_upper        = 1
-  let g:EasyMotion_enter_jump_first = 1
-  let g:EasyMotion_space_jump_first = 1
-  let g:EasyMotion_prompt           = 'Search by EasyMotion ({n} character(s)) > '
-
-  nmap <silent> S  <Plug>(easymotion-overwin-f)
-  omap <silent> S  <Plug>(easymotion-bd-f)
-  xmap <silent> S  <Plug>(easymotion-bd-f)
-  " nmap <silent> ss <Plug>(easymotion-overwin-w)
-  " omap <silent> ss <Plug>(easymotion-bd-w)
-  " xmap <silent> ss <Plug>(easymotion-bd-w)
-  "
-  " omap <silent> f  <Plug>(easymotion-fl)
-  " omap <silent> t  <Plug>(easymotion-tl)
-  " omap <silent> F  <Plug>(easymotion-Fl)
-  " omap <silent> T  <Plug>(easymotion-Tl)
 endif
 " }}}3
 
@@ -2162,7 +1307,6 @@ if dein#tap('vim-expand-region')
   \ "ac": 0,
   \ 'ie': 0,
   \ }
-
   xmap v <Plug>(expand_region_expand)
   xmap V <Plug>(expand_region_shrink)
 endif
@@ -2188,335 +1332,11 @@ if dein#tap('vim-jplus')
 endif
 " }}}3
 
-" lexima {{{3
-if dein#tap('lexima.vim')
-  let g:lexima_map_escape = ''
-  let g:lexima_enable_endwise_rules = 0
-
-  function! SetupLexima() abort
-    let s:rules = []
-
-    "" Parenthesis
-    let s:rules += [
-    \ { 'char': '<BS>',  'at': '(\%#)', 'input': '<BS><Del>', },
-    \ ]
-
-    "" Brace
-    let s:rules += [
-    \ { 'char': '<BS>',  'at': '{\%#}', 'input': '<BS><Del>', },
-    \ ]
-
-    "" Bracket
-    let s:rules += [
-    \ { 'char': '<BS>',  'at': '\[\%#\]', 'input': '<BS><Del>', },
-    \ ]
-
-    "" Sinble Quote
-    let s:rules += [
-    \ { 'char': '<BS>',  'at': "'\\%#'", 'input': '<BS><Del>', },
-    \ ]
-
-    "" Double Quote
-    let s:rules += [
-    \ { 'char': '<BS>',  'at': '"\%#"', 'input': '<BS><Del>', },
-    \ ]
-
-    "" Back Quote
-    let s:rules += [
-    \ { 'char': '<BS>',  'at': '`\%#`', 'input': '<BS><Del>', },
-    \ ]
-
-    "" Move closing parenthesis
-    let s:rules += [
-    \ { 'char': '<C-f>', 'at': '\%#\s*)',  'input': '<Left><C-o>f)<Right>'  },
-    \ { 'char': '<Tab>', 'at': '\%#\s*)',  'input': '<Left><C-o>f)<Right>'  },
-    \ { 'char': '<C-f>', 'at': '\%#\s*\}', 'input': '<Left><C-o>f}<Right>'  },
-    \ { 'char': '<Tab>', 'at': '\%#\s*\}', 'input': '<Left><C-o>f}<Right>'  },
-    \ { 'char': '<C-f>', 'at': '\%#\s*\]', 'input': '<Left><C-o>f]<Right>'  },
-    \ { 'char': '<Tab>', 'at': '\%#\s*\]', 'input': '<Left><C-o>f]<Right>'  },
-    \ { 'char': '<C-f>', 'at': '\%#\s*>',  'input': '<Left><C-o>f><Right>'  },
-    \ { 'char': '<Tab>', 'at': '\%#\s*>',  'input': '<Left><C-o>f><Right>'  },
-    \ { 'char': '<C-f>', 'at': '\%#\s*`',  'input': '<Left><C-o>f`<Right>'  },
-    \ { 'char': '<Tab>', 'at': '\%#\s*`',  'input': '<Left><C-o>f`<Right>'  },
-    \ { 'char': '<C-f>', 'at': '\%#\s*"',  'input': '<Left><C-o>f"<Right>'  },
-    \ { 'char': '<Tab>', 'at': '\%#\s*"',  'input': '<Left><C-o>f"<Right>'  },
-    \ { 'char': '<C-f>', 'at': '\%#\s*''', 'input': '<Left><C-o>f''<Right>' },
-    \ { 'char': '<Tab>', 'at': '\%#\s*''', 'input': '<Left><C-o>f''<Right>' },
-    \ ]
-
-    "" Insert semicolon at the end of the line
-    let s:rules += [
-    \ { 'char': ';', 'at': '(.*\%#)$',   'input': '<Right>;' },
-    \ { 'char': ';', 'at': '^\s*\%#)$',  'input': '<Right>;' },
-    \ { 'char': ';', 'at': '(.*\%#\}$',  'input': '<Right>;' },
-    \ { 'char': ';', 'at': '^\s*\%#\}$', 'input': '<Right>;' },
-    \ ]
-
-    "" TypeScript
-    let s:rules += [
-    \ { 'filetype': ['typescript', 'typescriptreact', 'javascript'], 'char': '>', 'at': '\s([a-zA-Z, ]*\%#)',            'input': '<Left><C-o>f)<Right>a=> {}<Esc>',                 },
-    \ { 'filetype': ['typescript', 'typescriptreact', 'javascript'], 'char': '>', 'at': '\s([a-zA-Z]\+\%#)',             'input': '<Right> => {}<Left>',              'priority': 10 },
-    \ { 'filetype': ['typescript', 'typescriptreact', 'javascript'], 'char': '>', 'at': '[a-z]((.*\%#.*))',              'input': '<Left><C-o>f)a => {}<Esc>',                       },
-    \ { 'filetype': ['typescript', 'typescriptreact', 'javascript'], 'char': '>', 'at': '[a-z]([a-zA-Z]\+\%#)',          'input': ' => {}<Left>',                                    },
-    \ { 'filetype': ['typescript', 'typescriptreact', 'javascript'], 'char': '>', 'at': '(.*[a-zA-Z]\+<[a-zA-Z]\+>\%#)', 'input': '<Left><C-o>f)<Right>a=> {}<Left>',                },
-    \ ]
-
-    "" ruby
-    let s:rules += [
-    \ { 'filetype': 'ruby', 'char': '<CR>',  'at': '^\s*\%(module\|def\|class\|if\|unless\)\s\w\+\((.*)\)\?\%#$', 'input': '<CR>',         'input_after': 'end',          },
-    \ { 'filetype': 'ruby', 'char': '<CR>',  'at': '^\s*\%(begin\)\s*\%#',                                        'input': '<CR>',         'input_after': 'end',          },
-    \ { 'filetype': 'ruby', 'char': '<CR>',  'at': '\%(^\s*#.*\)\@<!do\%(\s*|.*|\)\?\s*\%#',                      'input': '<CR>',         'input_after': 'end',          },
-    \ { 'filetype': 'ruby', 'char': '<Bar>', 'at': 'do\%#',                                                       'input': '<Space><Bar>', 'input_after': '<Bar><CR>end', },
-    \ { 'filetype': 'ruby', 'char': '<Bar>', 'at': 'do\s\%#',                                                     'input': '<Bar>',        'input_after': '<Bar><CR>end', },
-    \ { 'filetype': 'ruby', 'char': '<Bar>', 'at': '{\%#}',                                                       'input': '<Space><Bar>', 'input_after': '<Bar><Space>', },
-    \ { 'filetype': 'ruby', 'char': '<Bar>', 'at': '{\s\%#\s}',                                                   'input': '<Bar>',        'input_after': '<Bar><Space>', },
-    \ ]
-
-    "" eruby
-    let s:rules += [
-    \ { 'filetype': 'eruby', 'char': '%',     'at': '<\%#',         'input': '%<Space>',                        'input_after': '<Space>%>',                 },
-    \ { 'filetype': 'eruby', 'char': '=',     'at': '<%\%#',        'input': '=<Space><Right>',                 'input_after': '<Space>%>',                 },
-    \ { 'filetype': 'eruby', 'char': '=',     'at': '<%\s\%#\s%>',  'input': '<Left>=<Right>',                                                              },
-    \ { 'filetype': 'eruby', 'char': '=',     'at': '<%\%#.\+%>',                                                                           'priority': 10, },
-    \ { 'filetype': 'eruby', 'char': '<BS>',  'at': '<%\s\%#\s%>',  'input': '<BS><BS><BS><Del><Del><Del>',                                                 },
-    \ { 'filetype': 'eruby', 'char': '<BS>',  'at': '<%=\s\%#\s%>', 'input': '<BS><BS><BS><BS><Del><Del><Del>',                                             },
-    \ ]
-
-    "" markdown
-    let s:rules += [
-    \ { 'filetype': 'markdown', 'char': '`',       'at': '``\%#',                                                                        'input_after': '<CR><CR>```', 'priority': 10, },
-    \ { 'filetype': 'markdown', 'char': '#',       'at': '^\%#\%(#\)\@!',                  'input': '#<Space>'                                                                         },
-    \ { 'filetype': 'markdown', 'char': '#',       'at': '#\s\%#',                         'input': '<BS>#<Space>',                                                                    },
-    \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^#\s\%#',                        'input': '<BS><BS>'                                                                         },
-    \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '##\s\%#',                        'input': '<BS><BS><Space>',                                                                 },
-    \ { 'filetype': 'markdown', 'char': '-',       'at': '^\s*\%#',                        'input': '-<Space>',                                                                        },
-    \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\%#',                     'input': '<Home><Tab><End>',                                                                },
-    \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\w.*\%#',                 'input': '<Home><Tab><End>',                                                                },
-    \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\%#',                    'input': '<Home><Del><Del><End>',                                                           },
-    \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\w.*\%#',                'input': '<Home><Del><Del><End>',                                                           },
-    \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^-\s\w.*\%#',                    'input': '',                                                                                },
-    \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^-\s\%#',                        'input': '<C-w><BS>',                                                                       },
-    \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                                                                  },
-    \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^-\s\%#',                        'input': '<C-w><CR>',                                                                       },
-    \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><CR>',                                                                  },
-    \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s*-\s\w.*\%#',                 'input': '<CR>-<Space>',                                                                    },
-    \ { 'filetype': 'markdown', 'char': '[',       'at': '^\s*-\s\%#',                     'input': '<Left><Space>[]<Left>',                                                           },
-    \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\[\%#\]\s',               'input': '<Home><Tab><End><Left><Left>',                                                    },
-    \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^-\s\[\%#\]\s',                  'input': '',                                                                                },
-    \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\%#\]\s',              'input': '<Home><Del><Del><End><Left><Left>',                                               },
-    \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                                                                  },
-    \ { 'filetype': 'markdown', 'char': '<Space>', 'at': '^\s*-\s\[\%#\]',                 'input': '<Space><End>',                                                                    },
-    \ { 'filetype': 'markdown', 'char': 'x',       'at': '^\s*-\s\[\%#\]',                 'input': 'x<End>',                                                                          },
-    \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^-\s\[\%#\]',                    'input': '<End><C-w><C-w><C-w><CR>',                                                        },
-    \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s\+-\s\[\%#\]',                'input': '<End><C-w><C-w><C-w><C-w><CR>',                                                   },
-    \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\%#',      'input': '<Home><Tab><End>',                                                                },
-    \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<Home><Tab><End>',                                                                },
-    \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<Home><Del><Del><End>',                                                           },
-    \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\w.*\%#', 'input': '<Home><Del><Del><End>',                                                           },
-    \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^-\s\[\(\s\|x\)\]\s\w.*\%#',     'input': '',                                                                                },
-    \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',                                                             },
-    \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',                                                        },
-    \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><CR>',                                                             },
-    \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><CR>',                                                        },
-    \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<CR>-<Space>[',                     'input_after': ']<Space>',                    },
-    \ ]
-
-    "" vim
-    let s:rules += [
-    \ { 'filetype': 'vim', 'char': '{', 'at': '^".*{\%#$', 'input': '{{', 'input_after': '<CR>" }}}', 'priority': 10, },
-    \ ]
-
-    "" shell
-    let s:rules += [
-    \ { 'filetype': ['sh', 'zsh'], 'char': '[', 'at': '\[\%#\]', 'input': '[<Space>', 'input_after': '<Space>]', 'priority': 10 },
-    \ ]
-
-    for s:rule in s:rules
-      call lexima#add_rule(s:rule)
-    endfor
-  endfunction
-endif
-" }}}3
-
-" lightspeed {{{3
-if dein#tap('lightspeed.nvim')
-  lua require('lightspeed').setup({})
-
-  " nmap <silent> ss <Plug>Lightspeed_s
-  " xmap <silent> ss <Plug>Lightspeed_s
-  " omap <silent> ss <Plug>Lightspeed_s
-  nmap <silent> S  <Plug>Lightspeed_S
-  xmap <silent> S  <Plug>Lightspeed_S
-  omap <silent> S  <Plug>Lightspeed_S
-endif
-" }}}3
-
 " numb {{{3
 if dein#tap('numb.nvim')
 lua << EOF
 require('numb').setup()
 EOF
-endif
-" }}}3
-
-" quick-scope {{{3
-" let g:qs_buftype_blacklist = ['terminal', 'nofile']
-" }}}3
-
-" sandwich {{{3
-if dein#tap('vim-sandwich') &&
-   \ dein#tap('vim-textobj-functioncall')
-  let g:textobj_sandwich_no_default_key_mappings     = 1
-  let g:textobj_functioncall_no_default_key_mappings = 1
-
-  omap <silent> ib <Plug>(textobj-sandwich-auto-i)
-  xmap <silent> ib <Plug>(textobj-sandwich-auto-i)
-  omap <silent> ab <Plug>(textobj-sandwich-auto-a)
-  xmap <silent> ab <Plug>(textobj-sandwich-auto-a)
-
-  let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-  let g:sandwich#recipes += [
-  \ {
-  \   'buns':         ['_', '_'],
-  \   'quoteescape':  1,
-  \   'expand_range': 0,
-  \   'nesting':      1,
-  \   'linewise':     0,
-  \   'match_syntax': 1,
-  \ },
-  \ {
-  \   'buns':         ['-', '-'],
-  \   'quoteescape':  1,
-  \   'expand_range': 0,
-  \   'nesting':      1,
-  \   'linewise':     0,
-  \   'match_syntax': 1,
-  \ },
-  \ {
-  \   'buns':         ['/', '/'],
-  \   'quoteescape':  1,
-  \   'expand_range': 0,
-  \   'nesting':      0,
-  \   'linewise':     0,
-  \   'match_syntax': 1,
-  \ },
-  \ {
-  \   'buns':     ['${', '}'],
-  \   'input':    ['$'],
-  \   'filetype': ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
-  \ },
-  \ {
-  \   'buns':     ['#{', '}'],
-  \   'input':    ['#'],
-  \   'filetype': ['ruby', 'eruby'],
-  \ },
-  \ {
-  \   'buns':     ['-> () {', '}'],
-  \   'input':    ['->'],
-  \   'kind':     ['add'],
-  \   'filetype': ['ruby', 'eruby'],
-  \ },
-  \ {
-  \   'buns':     ['<% ', ' %>'],
-  \   'input':    ['%'],
-  \   'filetype': ['eruby'],
-  \ },
-  \ {
-  \   'buns':     ['<%= ', ' %>'],
-  \   'input':    ['='],
-  \   'filetype': ['eruby'],
-  \ },
-  \ ]
-
-  let g:textobj_functioncall_patterns = [
-  \ {
-  \   'header' : '\<\%(\h\k*\.\)*\h\k*',
-  \   'bra'    : '(',
-  \   'ket'    : ')',
-  \   'footer' : '',
-  \ },
-  \ ]
-
-  omap <silent> if <Plug>(textobj-functioncall-innerparen-i)
-  xmap <silent> if <Plug>(textobj-functioncall-innerparen-i)
-  omap <silent> af <Plug>(textobj-functioncall-i)
-  xmap <silent> af <Plug>(textobj-functioncall-i)
-
-  let g:sandwich#magicchar#f#patterns = [
-  \ {
-  \   'header' : '\<\%(\h\k*\.\)*\h\k*',
-  \   'bra'    : '(',
-  \   'ket'    : ')',
-  \   'footer' : '',
-  \ },
-  \ ]
-
-  nmap <silent> srf <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)ff
-
-  let g:textobj_functioncall_generics_patterns = [
-  \ {
-  \   'header' : '\<\h\k*',
-  \   'bra'    : '<',
-  \   'ket'    : '>',
-  \   'footer' : '',
-  \ },
-  \ ]
-
-  onoremap <silent> <Plug>(textobj-functioncall-generics-i) :<C-u>call textobj#functioncall#ip('o', g:textobj_functioncall_generics_patterns)<CR>
-  xnoremap <silent> <Plug>(textobj-functioncall-generics-i) :<C-u>call textobj#functioncall#ip('x', g:textobj_functioncall_generics_patterns)<CR>
-  onoremap <silent> <Plug>(textobj-functioncall-generics-a) :<C-u>call textobj#functioncall#i('o', g:textobj_functioncall_generics_patterns)<CR>
-  xnoremap <silent> <Plug>(textobj-functioncall-generics-a) :<C-u>call textobj#functioncall#i('x', g:textobj_functioncall_generics_patterns)<CR>
-
-  omap <silent> ig <Plug>(textobj-functioncall-generics-i)
-  xmap <silent> ig <Plug>(textobj-functioncall-generics-i)
-  omap <silent> ag <Plug>(textobj-functioncall-generics-a)
-  xmap <silent> ag <Plug>(textobj-functioncall-generics-a)
-
-  let g:sandwich#recipes += [
-  \ {
-  \   'buns': ['InputGenerics()', '">"'],
-  \   'expr': 1,
-  \   'cursor': 'inner_tail',
-  \   'kind': ['add', 'replace'],
-  \   'action': ['add'],
-  \   'input': ['g']
-  \ },
-  \ {
-  \   'external': ['i<', "\<Plug>(textobj-functioncall-generics-a)"],
-  \   'noremap': 0,
-  \   'kind': ['delete', 'replace', 'query'],
-  \   'input': ['g']
-  \ },
-  \ ]
-
-  function! InputGenerics() abort
-    let genericsname = input('Generics Name: ', '')
-    if genericsname ==# ''
-      throw 'OperatorSandwichCancel'
-    endif
-    return genericsname . '<'
-  endfunction
-
-  nmap <silent> srg <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)gg
-
-  let g:textobj_functioncall_ts_string_variable_patterns = [
-  \ {
-  \   'header' : '\$',
-  \   'bra'    : '{',
-  \   'ket'    : '}',
-  \   'footer' : '',
-  \ },
-  \ ]
-
-  onoremap <silent> <Plug>(textobj-functioncall-ts-string-variable-i) :<C-u>call textobj#functioncall#i('o', g:textobj_functioncall_ts_string_variable_patterns)<CR>
-  xnoremap <silent> <Plug>(textobj-functioncall-ts-string-variable-i) :<C-u>call textobj#functioncall#i('x', g:textobj_functioncall_ts_string_variable_patterns)<CR>
-  onoremap <silent> <Plug>(textobj-functioncall-ts-string-variable-a) :<C-u>call textobj#functioncall#a('o', g:textobj_functioncall_ts_string_variable_patterns)<CR>
-  xnoremap <silent> <Plug>(textobj-functioncall-ts-string-variable-a) :<C-u>call textobj#functioncall#a('x', g:textobj_functioncall_ts_string_variable_patterns)<CR>
-
-  omap <silent> i$ <Plug>(textobj-functioncall-ts-string-variable-i)
-  xmap <silent> i$ <Plug>(textobj-functioncall-ts-string-variable-i)
-  omap <silent> a$ <Plug>(textobj-functioncall-ts-string-variable-a)
-  xmap <silent> a$ <Plug>(textobj-functioncall-ts-string-variable-a)
 endif
 " }}}3
 
@@ -2529,21 +1349,11 @@ if dein#tap('vim-textmanip')
 endif
 " }}}3
 
-" ultisnips {{{3
-if dein#tap('ultisnips')
-  let g:UltiSnipsExpandTrigger       = "<C-f>"
-  let g:UltiSnipsJumpForwardTrigger  = "<C-f>"
-  let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
-  let g:UltiSnipsSnippetDirectories  = ["~/.cache/vim/ultisnips"]
-endif
-" }}}3
-
 " yankround {{{3
 if dein#tap('yankround.vim')
   let g:yankround_max_history   = 10000
   let g:yankround_use_region_hl = 1
   let g:yankround_dir           = '~/.cache/vim/yankround'
-
   nmap p <Plug>(yankround-p)
   xmap p <Plug>(yankround-p)
   nmap P <Plug>(yankround-P)
@@ -2551,11 +1361,9 @@ if dein#tap('yankround.vim')
   nmap <silent> <expr> <C-n> yankround#is_active() ? "\<Plug>(yankround-next)" : ""
 endif
 " }}}3
-
 " }}}2
 
 " Appearance {{{2
-
 " vim-cursorword {{{3
 if dein#tap('vim-cursorword')
   let g:cursorword_delay = 600
@@ -2563,56 +1371,9 @@ if dein#tap('vim-cursorword')
 endif
 " }}}3
 
-" highlightedundo {{{3
-if dein#tap('vim-highlightedundo')
-  let g:highlightedundo_enable         = 1
-  let g:highlightedundo#highlight_mode = 2
-
-  function! s:highlightedundo_toggle() abort
-    if g:highlightedundo_enable == 1
-      let g:highlightedundo_enable = 0
-      call <SID>highlightedundo_disable()
-    else
-      let g:highlightedundo_enable = 1
-      call <SID>highlightedundo_enable()
-    endif
-  endfunction
-  command! HighlightedundoToggle call <SID>highlightedundo_toggle()
-
-  function! s:highlightedundo_enable() abort
-    nmap <silent> u     <Plug>(highlightedundo-undo)
-    nmap <silent> <C-r> <Plug>(highlightedundo-redo)
-  endfunction
-
-  function! s:highlightedundo_disable() abort
-    nunmap u
-    nunmap <C-r>
-  endfunction
-
-  AutoCmd VimEnter * call <SID>highlightedundo_enable()
-endif
-" }}}3
-
 " highlightedyank {{{3
 if dein#tap('vim-highlightedyank')
   let g:highlightedyank_highlight_duration = 300
-
-  " function! s:highlight_yank_enter(...) abort
-  "   augroup highlight_yank
-  "     autocmd!
-  "     autocmd TextYankPost * call highlightedyank#debounce()
-  "     autocmd TextYankPost * setlocal list listchars-=eol:$
-  "     autocmd TextYankPost * call timer_start(g:highlightedyank_highlight_duration, function('<SID>highlight_yank_leave'))
-  "   augroup END
-  " endfunction
-  "
-  " function! s:highlight_yank_leave(...) abort
-  "   augroup highlight_yank
-  "     setlocal list listchars+=eol:$
-  "   augroup END
-  " endfunction
-  "
-  " call timer_start(g:highlightedyank_highlight_duration, function('<SID>highlight_yank_enter'))
 endif
 " }}}3
 
@@ -2624,331 +1385,7 @@ endif
 " }}}3
 
 " lightline {{{3
-if dein#tap('lightline.vim')
-  let g:lightline = {
-  \ 'colorscheme': 'gruvbox',
-  \ 'active': {
-  \   'left': [
-  \     ['mode', 'spell', 'paste'],
-  \     ['filepath', 'filename', 'modified_buffers'],
-  \     ['special_mode', 'anzu', 'vm_regions'],
-  \    ],
-  \   'right': [
-  \     ['lineinfo'],
-  \     ['filetype', 'fileencoding', 'fileformat'],
-  \     ['linter_ok', 'linter_informations', 'linter_warnings', 'linter_errors'],
-  \     ['quickrun'],
-  \     ['coc_status'],
-  \   ],
-  \ },
-  \ 'inactive': {
-  \   'left': [[], ['special_mode'], [], ['filepath', 'filename']],
-  \   'right': [[], ['filetype', 'fileencoding', 'fileformat']],
-  \ },
-  \ 'tabline': {
-  \   'left':  [['tabs']],
-  \   'right': [['close']],
-  \ },
-  \ 'tab': {
-  \   'active':   ['tabwinnum', 'filename', 'modified'],
-  \   'inactive': ['tabwinnum', 'filename', 'modified'],
-  \ },
-  \ 'component': {
-  \   'spell': "%{&spell ? 'SPELL' : ''}",
-  \   'paste': "%{&paste ? 'PASTE' : ''}",
-  \  },
-  \ 'component_function': {
-  \   'mode':             'Lightline_mode',
-  \   'filepath':         'Lightline_filepath',
-  \   'filename':         'Lightline_filename',
-  \   'modified_buffers': 'Lightline_modified_buffers',
-  \   'filetype':         'Lightline_filetype',
-  \   'lineinfo':         'Lightline_lineinfo',
-  \   'fileencoding':     'Lightline_fileencoding',
-  \   'fileformat':       'Lightline_fileformat',
-  \   'special_mode':     'Lightline_special_mode',
-  \   'coc_status':       'Lightline_coc_status',
-  \   'anzu':             'anzu#search_status',
-  \   'quickrun':         'Lightline_quickrun_runnning',
-  \   'vm_regions':       'Lightline_vm_regions',
-  \ },
-  \ 'tab_component_function': {
-  \   'tabwinnum': 'Lightline_tab_win_num',
-  \   'filename':  'Lightline_tab_filename',
-  \   'modified':  'lightline#tab#modified',
-  \ },
-  \ 'component_visible_condition': {
-  \   'anzu':       "%{anzu#search_status !=# ''}",
-  \   'vm_regions': "%{Lightline_vm_regions() !=# ''}",
-  \ },
-  \ 'component_function_visible_condition': {
-  \   'spell': '&spell',
-  \   'paste': '&paste',
-  \ },
-  \ 'component_type': {
-  \   'linter_errors':       'error',
-  \   'linter_warnings':     'warning',
-  \   'linter_informations': 'information',
-  \   'linter_ok':           'ok',
-  \   'quickrun':            'quickrun',
-  \ },
-  \ 'component_expand': {
-  \   'linter_errors':       'Lightline_coc_errors',
-  \   'linter_warnings':     'Lightline_coc_warnings',
-  \   'linter_informations': 'Lightline_coc_information',
-  \   'linter_hint':         'Lightline_coc_hint',
-  \   'linter_ok':           'Lightline_coc_ok',
-  \   'quickrun':            'Lightline_quickrun_runnning',
-  \ },
-  \ 'enable': {
-  \   'statusline': 1,
-  \   'tabline':    1,
-  \ },
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '', 'right': '' }
-  \ }
-
-  " Disable lineinfo, fileencoding and fileformat
-  let s:lightline_ignore_right_ft = [
-  \ 'qf',
-  \ 'help',
-  \ 'diff',
-  \ 'man',
-  \ 'fzf',
-  \ 'defx',
-  \ 'fern',
-  \ 'coc-explorer',
-  \ 'capture',
-  \ 'gina-status',
-  \ 'gina-branch',
-  \ 'gina-log',
-  \ 'gina-reflog',
-  \ 'gina-blame',
-  \ ]
-
-  let s:lightline_ft_to_mode_hash = {
-  \ 'help':         'Help',
-  \ 'diff':         'Diff',
-  \ 'man':          'Man',
-  \ 'fzf':          'FZF',
-  \ 'defx':         'Defx',
-  \ 'fern':         'Fern',
-  \ 'coc-explorer': 'Explorer',
-  \ 'capture':      'Capture',
-  \ 'gina-status':  'Git Status',
-  \ 'gina-branch':  'Git Branch',
-  \ 'gina-log':     'Git Log',
-  \ 'gina-reflog':  'Git Reflog',
-  \ 'gina-blame':   'Git Blame',
-  \ }
-
-  let s:lightline_ignore_modifiable_ft = [
-  \ 'qf',
-  \ 'help',
-  \ 'man',
-  \ 'fzf',
-  \ 'defx',
-  \ 'fern',
-  \ 'coc-explorer',
-  \ 'capture',
-  \ 'gina-status',
-  \ 'gina-branch',
-  \ 'gina-log',
-  \ 'gina-reflog',
-  \ 'gina-blame',
-  \ ]
-
-  let s:lightline_ignore_filename_ft = [
-  \ 'qf',
-  \ 'fzf',
-  \ 'defx',
-  \ 'fern',
-  \ 'coc-explorer',
-  \ 'gina-status',
-  \ 'gina-branch',
-  \ 'gina-log',
-  \ 'gina-reflog',
-  \ 'gina-blame',
-  \ ]
-
-  let s:lightline_ignore_filepath_ft = [
-  \ 'qf',
-  \ 'fzf',
-  \ 'defx',
-  \ 'fern',
-  \ 'coc-explorer',
-  \ 'gina-status',
-  \ 'gina-branch',
-  \ 'gina-log',
-  \ 'gina-reflog',
-  \ 'gina-blame',
-  \ ]
-
-  function! Lightline_tab_filename(n) abort
-    if count(s:lightline_ignore_filename_ft, &filetype)
-      return &filetype
-    endif
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    let bname = bufname(buflist[winnr - 1])
-    let bname = bname == '' ? '[No Name]' : bname
-    let tabname = gettabvar(a:n, 'name', '')
-    return tabname == '' ? bname : tabname
-  endfunction
-
-  function! Lightline_is_visible(width) abort
-    return a:width < winwidth(0)
-  endfunction
-
-  function! Lightline_mode() abort
-    return lightline#mode()
-  endfunction
-
-  function! Lightline_special_mode() abort
-    let special_mode = get(s:lightline_ft_to_mode_hash, &filetype, '')
-    let win = getwininfo(win_getid())[0]
-    return special_mode !=# '' ? special_mode :
-    \ anzu#search_status() !=# '' ? 'Anzu' :
-    \ Lightline_filetype() ==# '' ? '' :
-    \ win.loclist ? '[Location List] ' . get(w:, 'quickfix_title', ''):
-    \ win.quickfix ? '[QuickFix] ' . get(w:, 'quickfix_title', '') :
-    \ ''
-  endfunction
-
-  function! Lightline_filepath() abort
-    if count(s:lightline_ignore_filepath_ft, &filetype) || expand('%:t') ==# '[Command Line]'
-      return ''
-    endif
-    let path = fnamemodify(expand('%'), ':p:.:h')
-    return path ==# '.' ? '' : path
-    let not_home_prefix = match(path, '^/') != -1 ? '/' : ''
-    let dirs            = split(path, '/')
-    let last_dir        = remove(dirs, -1)
-    call map(dirs, 'v:val[0]')
-    return len(dirs) ? not_home_prefix . join(dirs, '/') . '/' . last_dir : last_dir
-  endfunction
-
-  function! Lightline_filename() abort
-    let filename = fnamemodify(expand('%'), ':t')
-    if count(s:lightline_ignore_filename_ft, &filetype)
-      return ''
-    endif
-    if filename ==# ''
-      let filename = '[No Name]'
-    endif
-    if &modifiable && &modified
-      let filename = filename . ' [+]'
-    endif
-    if !&modifiable
-      let filename = filename . ' [X]'
-    endif
-    return filename
-  endfunction
-
-  function! Lightline_modified_buffers() abort
-    let modified_background_buffers = filter(range(1, bufnr('$')),
-    \ { _, bufnr -> bufexists(bufnr) && buflisted(bufnr) && getbufvar(bufnr, 'buftype') ==# '' && filereadable(expand('#' . bufnr . ':p')) && bufnr != bufnr('%') && getbufvar(bufnr, '&modified') == 1 }
-    \ )
-    if count(s:lightline_ignore_filename_ft, &filetype)
-      return ''
-    endif
-    if len(modified_background_buffers) > 0
-      return '!' . len(modified_background_buffers)
-    else
-      return ''
-    endif
-  endfunction
-
-  function! Lightline_filetype() abort
-    if has_key(s:lightline_ft_to_mode_hash, &filetype)
-      return ''
-    endif
-    if &filetype ==? 'qf' && getwininfo(win_getid())[0].loclist
-      return 'LocationList'
-    elseif &filetype ==? 'qf' && getwininfo(win_getid())[0].quickfix
-      return 'QuickFix'
-    else
-      return &filetype . ' ' . WebDevIconsGetFileTypeSymbol() . ' '
-    endif
-  endfunction
-
-  function! Lightline_lineinfo() abort
-    if !Lightline_is_visible(100)
-      return ''
-    endif
-    return !count(s:lightline_ignore_right_ft, &filetype) ?
-    \ printf(' %3d:%2d / %d lines [%d%%]',line('.'), col('.'), line('$'), float2nr((1.0 * line('.')) / line('$') * 100.0)) :
-    \ ''
-  endfunction
-
-  function! Lightline_fileencoding() abort
-    if !Lightline_is_visible(140)
-      return ''
-    endif
-    return !count(s:lightline_ignore_right_ft, &filetype) ?
-    \ strlen(&fileencoding) ?
-    \   &fileencoding :
-    \   &encoding :
-    \ ''
-  endfunction
-
-  function! Lightline_fileformat() abort
-    if !Lightline_is_visible(140)
-      return ''
-    endif
-    return !count(s:lightline_ignore_right_ft, &filetype) ?
-    \ &fileformat :
-    \ ''
-  endfunction
-
-  function! Lightline_tab_win_num(n) abort
-    return a:n . ':' . len(tabpagebuflist(a:n))
-  endfunction
-
-  function! Lightline_coc_errors() abort
-    return b:coc_diagnostic_info['error'] != 0 ? ' ' . b:coc_diagnostic_info['error'] : ''
-  endfunction
-
-  function! Lightline_coc_warnings() abort
-    return b:coc_diagnostic_info['warning'] != 0 ? ' ' . b:coc_diagnostic_info['warning'] : ''
-  endfunction
-
-  function! Lightline_coc_information() abort
-    return b:coc_diagnostic_info['information'] != 0 ? ' ' . b:coc_diagnostic_info['information'] : ''
-  endfunction
-
-  function! Lightline_coc_hint() abort
-    return b:coc_diagnostic_info['hint'] != 0 ? ' ' . b:coc_diagnostic_info['hint'] : ''
-  endfunction
-
-  function! Lightline_coc_ok() abort
-    return b:coc_diagnostic_info['error'] == 0 &&
-    \ b:coc_diagnostic_info['warning'] == 0 &&
-    \ b:coc_diagnostic_info['information'] == 0 ?
-    \ ' ' : ''
-  endfunction
-
-  function! Lightline_quickrun_runnning() abort
-    return g:quickrun_running_message
-  endfunction
-
-  function! Lightline_coc_status() abort
-    return get(g:, 'coc_status', '')
-  endfunction
-
-  " function! Lightline_denite() abort
-  "   return (&filetype !=# 'denite') ? '' : (substitute(denite#get_status_mode(), '[- ]', '', 'g'))
-  " endfunction
-
-"   function! NearestMethodOrFunction() abort
-"     if !Lightline_is_visible(140)
-"       return ''
-"     endif
-"     return get(b:, 'vista_nearest_method_or_function', '')
-"   endfunction
-" 
-"   AutoCmd User CocDiagnosticChange call lightline#update()
-endif
+execute 'source' g:vimrc_dir . '/config/lightline.vim'
 " }}}3
 
 " nvim-colorizer {{{3
@@ -2976,27 +1413,9 @@ if dein#tap('smartnumber.vim')
   command! SNToggle call <SID>snumber_relative_toggle()
 endif
 " }}}3
-
-" vista {{{3
-" if dein#tap('vista.vim')
-"   BulkAlterCommand vis[ta] Vista
-" 
-"   let g:vista_default_executive      = 'coc'
-"   let g:vista_sidebar_width          = 50
-"   let g:vista_echo_cursor_strategy   = 'both'
-"   let g:vista_update_on_text_changed = 1
-"   let g:vista_blink                  = [1, 100]
-" 
-"   nnoremap <silent> <Space>v :<C-u>Vista<CR>
-" 
-"   AutoCmd VimEnter * call vista#RunForNearestMethodOrFunction()
-" endif
-" }}}3
-
 " }}}2
 
 " Util {{{2
-
 " aho-bakaup {{{3
 if dein#tap('aho-bakaup.vim')
   let g:bakaup_auto_backup = 1
@@ -3004,42 +1423,10 @@ if dein#tap('aho-bakaup.vim')
 endif
 " }}}3
 
-" bbye {{{3
-if dein#tap('vim-bbye')
-  nnoremap <silent> <Space>d :<C-u>Bdelete!<CR>
-endif
-" }}}3
-
 " capture {{{3
 if dein#tap('capture.vim')
   BulkAlterCommand cap[ture] Capture
   AutoCmd FileType capture nnoremap <silent> <buffer> q :<C-u>quit<CR>
-endif
-" }}}3
-
-" dial {{{3
-if dein#tap('dial.nvim')
-  nmap <C-a>  <Plug>(dial-increment)
-  nmap <C-x>  <Plug>(dial-decrement)
-  xmap <C-a>  <Plug>(dial-increment)
-  xmap <C-x>  <Plug>(dial-decrement)
-  xmap g<C-a> <Plug>(dial-increment-additional)
-  xmap g<C-x> <Plug>(dial-decrement-additional)
-lua << EOF
-local dial = require("dial")
-
-dial.augends["custom#boolean"] = dial.common.enum_cyclic{
-  name = "boolean",
-  strlist = {"true", "false"},
-}
-dial.augends["custom#and_or"] = dial.common.enum_cyclic{
-  name = "and_or",
-  strlist = {"&&", "||"},
-  ptn_format = "\\C\\M\\(%s\\)",
-}
-table.insert(dial.config.searchlist.normal, "custom#boolean")
-table.insert(dial.config.searchlist.normal, "custom#and_or")
-EOF
 endif
 " }}}3
 
@@ -3072,33 +1459,6 @@ endif
 " memolist {{{3
 if dein#tap('memolist.vim')
   let g:memolist_path = '~/.cache/vim/memolist'
-endif
-" }}}3
-
-" silicon {{{3
-if dein#tap('vim-silicon')
-  let g:silicon = {
-  \   'theme':           'Monokai Extended',
-  \   'background':      '#97A1AC',
-  \   'shadow-color':    '#555555',
-  \   'line-number':     v:false,
-  \   'round-corner':    v:true,
-  \   'window-controls': v:true,
-  \   'output':          '~/Downloads/silicon-{time:%Y-%m-%d-%H%M%S}.png',
-  \ }
-endif
-" }}}3
-
-" test {{{3
-if dein#tap('vim-test') &&
-   \ dein#tap('vim-ultest')
-  function! SetUpUltest() abort
-    BulkAlterCommand te[st]     Ultest
-    BulkAlterCommand tn[ear]    UltestNearest
-    BulkAlterCommand ts[ummary] UltestSummary
-
-    let g:ultest_use_pty = 1
-  endfunction
 endif
 " }}}3
 
@@ -3152,116 +1512,6 @@ if dein#tap('wilder.nvim')
 endif
 " }}}3
 
-" windowswap {{{3
-if dein#tap('vim-windowswap')
-  let g:windowswap_map_keys = 0
-  nnoremap <silent> <Space><C-w> :call WindowSwap#EasyWindowSwap()<CR>
-endif
-" }}}3
-
-" }}}2
-
-" Develop {{{2
-
-" quickrun {{{3
-if dein#tap('vim-quickrun')
-  BulkAlterCommand r[un] QuickRun
-
-  let s:notify_hook = {}
-  let g:quickrun_running_message = ''
-  let g:quickrun_notify_success_message = ''
-  let g:quickrun_notify_error_message = ''
-
-  function! s:notify_hook.on_ready(session, context) abort
-    let g:quickrun_running_message = '[QuickRun] Running ' . a:session.config.command
-
-    if dein#tap('lightline.vim')
-      call lightline#update()
-    endif
-  endfunction
-
-  function! s:notify_hook.on_finish(session, context) abort
-    let g:quickrun_running_message = ''
-
-    if dein#tap('lightline.vim')
-      call lightline#update()
-    endif
-  endfunction
-
-  function! s:notify_hook.on_success(session, context) abort
-    let g:quickrun_notify_success_message = 'Success ' . a:session.config.command
-    echohl String | echomsg '[QuickRun] ' . g:quickrun_notify_success_message | echohl None
-
-    if dein#tap('nvim-notify')
-      lua require('notify')(vim.g.quickrun_notify_success_message, 'info', { title = ' QuickRun' })
-    endif
-  endfunction
-
-  function! s:notify_hook.on_success(session, context) abort
-    let g:quickrun_notify_success_message = 'Success ' . a:session.config.command
-    echohl String | echomsg '[QuickRun] ' . g:quickrun_notify_success_message | echohl None
-
-    if dein#tap('nvim-notify')
-      lua require('notify')(vim.g.quickrun_notify_success_message, 'info', { title = ' QuickRun' })
-    endif
-  endfunction
-
-  function! s:notify_hook.on_failure(session, context) abort
-    let g:quickrun_notify_error_message = 'Error ' . a:session.config.command
-    echohl Error | echomsg '[QuickRun] ' . g:quickrun_notify_error_message | echohl None
-
-    if dein#tap('nvim-notify')
-      lua require('notify')(vim.g.quickrun_notify_error_message, 'error', { title = ' QuickRun' })
-    endif
-  endfunction
-
-  function! s:notify_hook.sweep() abort
-    let g:quickrun_notify_success_message = ''
-    let g:quickrun_notify_error_message = ''
-  endfunction
-
-  let g:quickrun_config = {
-  \ '_' : {
-  \   'outputter' : 'error',
-  \   'outputter/error/success': 'buffer',
-  \   'outputter/error/error':   'quickfix',
-  \   'outputter/buffer/opener': ':botright 15split',
-  \   'outputter/buffer/close_on_empty' : 1,
-  \   'hooks' : [s:notify_hook],
-  \ },
-  \ 'deno' : {
-  \   'command': 'deno',
-  \   'cmdopt': '--no-check --allow-all --unstable',
-  \   'exec': ['%c run %o %s'],
-  \ },
-  \ 'tsc' : {
-  \   'command': 'tsc',
-  \   'exec': ['yarn run --silent %C --project . --noEmit --incremental --tsBuildInfoFile .git/.tsbuildinfo 2>/dev/null'],
-  \   'outputter': 'quickfix',
-  \   'outputter/quickfix/errorformat': '%+A %#%f %#(%l\,%c): %m,%C%m',
-  \ },
-  \ 'eslint' : {
-  \   'command': 'eslint',
-  \   'exec': ['yarn run --silent %C --format unix --ext .ts,.tsx %a 2>/dev/null'],
-  \   'outputter': 'quickfix',
-  \   'outputter/quickfix/errorformat': '%f:%l:%c:%m,%-G%.%#',
-  \ },
-  \ 'yq' : {
-  \   'exec': 'cat %s | yq eval --tojson',
-  \ },
-  \ 'yq-browser' : {
-  \   'exec': 'cat %s | yq eval --tojson',
-  \   'outputter': 'browser',
-  \   'outputter/browser/name': tempname() . '.json',
-  \ },
-  \ }
-
-  if dein#tap('vim-quickrun-neovim-job')
-    let g:quickrun_config._.runner = 'neovim_job'
-  endif
-endif
-" }}}3
-
 " }}}2
 
 " Combination Settings {{{2
@@ -3278,247 +1528,10 @@ endfunction
 command! EscEsc call <SID>esc_esc()
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>:EscEsc<CR>
 " }}}2
-
-" Removed Plugin {{{2
-
-" " ref {{{3
-" BulkAlterCommand refe Ref<Space>refe
-" " }}}3
-
-" }}}2
-
 " }}}1
 
 " Load Colorscheme {{{1
-
-" Highlight {{{2
-
-" AutoCmd ColorScheme gruvbox-material highlight Identifier   ctermfg=10   ctermbg=NONE guifg=#C0CA8E guibg=NONE
-" AutoCmd ColorScheme gruvbox-material highlight NonText      ctermfg=60   ctermbg=NONE guifg=#5F5F87 guibg=NONE
-" AutoCmd ColorScheme gruvbox-material highlight Normal       ctermfg=145  ctermbg=235  guifg=#ABB2BF guibg=#26282F
-" AutoCmd ColorScheme gruvbox-material highlight NormalNC     ctermfg=144  ctermbg=234  guifg=#ABB2BF guibg=#282C34
-AutoCmd ColorScheme gruvbox-material highlight LineNr       ctermfg=241  ctermbg=NONE guifg=#626262 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight CursorColumn ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
-AutoCmd ColorScheme gruvbox-material highlight CursorLine   ctermfg=NONE ctermbg=236  guifg=NONE    guibg=#353535
-AutoCmd ColorScheme gruvbox-material highlight CursorLineNr ctermfg=253  ctermbg=NONE guifg=#DCDCDC guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight FoldColumn   ctermfg=241  ctermbg=NONE guifg=#213F72 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight Folded       ctermfg=245  ctermbg=NONE guifg=#686f9a guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight IncSearch    ctermfg=234  ctermbg=167  guifg=NONE    guibg=#4E4A16
-AutoCmd ColorScheme gruvbox-material highlight Search       ctermfg=68   ctermbg=232  guifg=NONE    guibg=#213F72
-AutoCmd ColorScheme gruvbox-material highlight SignColumn   ctermfg=0    ctermbg=NONE guifg=#32302f guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight Visual       ctermfg=NONE ctermbg=23   guifg=NONE    guibg=#1D4647
-AutoCmd ColorScheme gruvbox-material highlight Pmenu        ctermfg=NONE ctermbg=238  guifg=NONE    guibg=#2C3538
-AutoCmd ColorScheme gruvbox-material highlight PmenuSel     ctermfg=235  ctermbg=142  guifg=NONE    guibg=#3C6073
-AutoCmd ColorScheme gruvbox-material highlight DiffAdd      ctermfg=233  ctermbg=64   guifg=#C4C4C4 guibg=#213F72
-AutoCmd ColorScheme gruvbox-material highlight DiffDelete   ctermfg=233  ctermbg=95   guifg=#C4C4C4 guibg=#7F1717
-AutoCmd ColorScheme gruvbox-material highlight DiffChange   ctermfg=233  ctermbg=143  guifg=#C4C4C4 guibg=#4E4A16
-AutoCmd ColorScheme gruvbox-material highlight DiffText     ctermfg=233  ctermbg=143  guifg=#C4C4C4 guibg=#77682A
-
-" Gina (Vital.Vim.Buffer.ANSI)
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor0  ctermfg=0  guifg=#4C566A
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor1  ctermfg=1  guifg=#ABB2BF
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor2  ctermfg=2  guifg=#C4C4C4
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor3  ctermfg=3  guifg=#DCDCDC
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor4  ctermfg=4  guifg=#D8DEE9
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor6  ctermfg=6  guifg=#ECEFF4
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor7  ctermfg=7  guifg=#8FBCBB
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor8  ctermfg=8  guifg=#89b482
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor9  ctermfg=9  guifg=#7DAEA3
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor10 ctermfg=10 guifg=#5E81AC
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor11 ctermfg=11 guifg=#EA6962
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor12 ctermfg=12 guifg=#D08770
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor13 ctermfg=13 guifg=#D8A657
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor14 ctermfg=14 guifg=#A9B665
-" AutoCmd ColorScheme gruvbox-material highlight AnsiColor15 ctermfg=15 guifg=#D3869B
-
-" AutoCmd ColorScheme gruvbox-material highlight QuickScopePrimary       ctermfg=68   ctermbg=NONE                      guifg=#5F87D7 guibg=NONE
-" AutoCmd ColorScheme gruvbox-material highlight QuickScopeSecondary     ctermfg=72   ctermbg=NONE                      guifg=#5FAFAF guibg=NONE
-" AutoCmd ColorScheme gruvbox-material highlight ShotFBlank              ctermfg=209  ctermbg=NONE cterm=underline,bold guifg=#E27878 guibg=NONE    gui=underline,bold
-" AutoCmd ColorScheme gruvbox-material highlight ShotFGraph              ctermfg=209  ctermbg=NONE                      guifg=#E27878 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight BrightestHighlight      ctermfg=NONE ctermbg=236                       guifg=NONE    guibg=#32302f
-AutoCmd ColorScheme gruvbox-material highlight EasyMotionMoveHLDefault ctermfg=9    ctermbg=236  cterm=underline,bold guifg=#E98989 guibg=#303030 gui=underline,bold
-AutoCmd ColorScheme gruvbox-material highlight EftChar                 ctermfg=209  ctermbg=NONE cterm=underline,bold guifg=#E27878 guibg=NONE    gui=underline,bold
-AutoCmd ColorScheme gruvbox-material highlight EftSubChar              ctermfg=68   ctermbg=NONE cterm=underline,bold guifg=#5F87D7 guibg=NONE    gui=underline,bold
-AutoCmd ColorScheme gruvbox-material highlight ExchangeRegion          ctermfg=68   ctermbg=232  cterm=underline,bold guifg=NONE    guibg=#2E3F29 gui=underline,bold
-AutoCmd ColorScheme gruvbox-material highlight ExtraWhiteSpace         ctermfg=NONE ctermbg=1                         guifg=NONE    guibg=#E98989
-AutoCmd ColorScheme gruvbox-material highlight FloatermNF              ctermfg=NONE ctermbg=234                       guifg=NONE    guibg=#161821
-AutoCmd ColorScheme gruvbox-material highlight GitRebase               ctermfg=NONE ctermbg=234                       guifg=NONE    guibg=#1F1F20
-AutoCmd ColorScheme gruvbox-material highlight MatchParen              ctermfg=NONE ctermbg=NONE cterm=underline      guifg=NONE    guibg=NONE    gui=underline
-AutoCmd ColorScheme gruvbox-material highlight MatchParenCur           ctermfg=NONE ctermbg=NONE cterm=bold           guifg=NONE    guibg=NONE    gui=bold
-AutoCmd ColorScheme gruvbox-material highlight MatchWord               ctermfg=NONE ctermbg=NONE cterm=underline      guifg=NONE    guibg=NONE    gui=underline
-AutoCmd ColorScheme gruvbox-material highlight MatchWordCur            ctermfg=NONE ctermbg=NONE cterm=bold           guifg=NONE    guibg=NONE    gui=bold
-AutoCmd ColorScheme gruvbox-material highlight HighlightedyankRegion   ctermfg=1    ctermbg=NONE                      guifg=NONE    guibg=#434C5E
-AutoCmd ColorScheme gruvbox-material highlight YankRoundRegion         ctermfg=209  ctermbg=237                       guifg=NONE    guibg=#434C5E
-
-AutoCmd ColorScheme gruvbox-material highlight CocErrorSign            ctermfg=9    ctermbg=NONE                      guifg=#E98989 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight CocWarningSign          ctermfg=214  ctermbg=NONE                      guifg=#FFAF60 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight CocInfoSign             ctermfg=229  ctermbg=NONE                      guifg=#FFFFAF guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight CocFloating             ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2C3538
-AutoCmd ColorScheme gruvbox-material highlight CocHoverFloating        ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
-AutoCmd ColorScheme gruvbox-material highlight CocSuggestFloating      ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
-AutoCmd ColorScheme gruvbox-material highlight CocDiagnosticFloating   ctermfg=NONE ctermbg=238                       guifg=NONE    guibg=#2A2D2F
-AutoCmd ColorScheme gruvbox-material highlight link CocRustTypeHint Comment
-AutoCmd ColorScheme gruvbox-material highlight link CocRustChainingHint Comment
-
-AutoCmd ColorScheme gruvbox-material highlight FernGitStatusWorktree   ctermfg=1    ctermbg=NONE                      guifg=#E27878 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight FernGitStatusIndex      ctermfg=2    ctermbg=NONE                      guifg=#B4BE82 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight FernGitStatusUnmerged   ctermfg=1    ctermbg=NONE                      guifg=#E27878 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight FernGitStatusUntracked  ctermfg=1    ctermbg=NONE                      guifg=#E27878 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight link FernGitStatusIgnored Comment
-
-AutoCmd ColorScheme gruvbox-material highlight GitSignsChange    ctermfg=214  ctermbg=NONE guifg=#FFAF60 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight CocGitChangedSign ctermfg=214  ctermbg=NONE guifg=#FFAF60 guibg=NONE
-AutoCmd ColorScheme gruvbox-material highlight link GitSignsCurrentLineBlame Comment
-
-AutoCmd ColorScheme gruvbox-material highlight HlSearchNear            ctermfg=68   ctermbg=232                       guifg=NONE    guibg=#175655
-AutoCmd ColorScheme gruvbox-material highlight HlSearchLens            ctermfg=68   ctermbg=232                       guifg=#889EB5 guibg=#283642
-AutoCmd ColorScheme gruvbox-material highlight HlSearchLensNear        ctermfg=68   ctermbg=232                       guifg=NONE    guibg=#213F72
-AutoCmd ColorScheme gruvbox-material highlight HlSearchFloat           ctermfg=68   ctermbg=232                       guifg=NONE    guibg=#213F72
-
-AutoCmd ColorScheme gruvbox-material highlight ScrollView              ctermbg=159                                                  guibg=#D0D0D0
-
-" AutoCmd ColorScheme gruvbox-material highlight VistaFloat ctermbg=237 guibg=#3A3A3A
-
-" TreeSitter
-AutoCmd ColorScheme gruvbox-material highlight link TSPunctBracket Normal
-AutoCmd ColorScheme gruvbox-material highlight link BiscuitColor   Comment
-
-" vim-cursorword
-AutoCmd ColorScheme gruvbox-material highlight CursorWord0 term=underline cterm=underline gui=underline guibg=#FFD700 guifg=black
-AutoCmd ColorScheme gruvbox-material highlight CursorWord1 term=underline cterm=underline gui=underline guibg=#FFD700 guifg=black
-
-" }}}2
-
-" gruvbox-material {{{2
-let g:gruvbox_material_better_performance     = 1
-let g:gruvbox_material_background             = 'hard'
-let g:gruvbox_material_transparent_background = 1
-let g:gruvbox_material_enable_bold            = 1
-let g:gruvbox_material_enable_italic          = 1
-
-colorscheme gruvbox-material
-
-" lightline highlight {{{3
-if dein#tap('lightline.vim')
-  let s:gruvbox0   = ['#32302f', 0]
-  let s:gruvbox1   = ['#ea6962', 1]
-  let s:gruvbox2   = ['#a9b665', 2]
-  let s:gruvbox3   = ['#d8a657', 3]
-  let s:gruvbox4   = ['#7daea3', 4]
-  let s:gruvbox5   = ['#d3869b', 5]
-  let s:gruvbox6   = ['#89b482', 6]
-  let s:gruvbox7   = ['#d4be98', 7]
-  let s:grey       = ['#3A3A3A', 237]
-  let s:blue_green = ['#00AFAF', 37]
-  let s:warning    = ['#FFAF60', 214]
-  let s:info       = ['#FFFFAF', 229]
-
-  let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
-
-  let s:p.normal.left = [
-  \ [s:gruvbox0,   s:gruvbox4],
-  \ [s:gruvbox7,   s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:gruvbox4,   s:grey],
-  \ ]
-
-  let s:p.insert.left = [
-  \ [s:gruvbox0,   s:gruvbox3],
-  \ [s:gruvbox7,   s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:gruvbox4,   s:grey],
-  \ ]
-
-  let s:p.visual.left = [
-  \ [s:gruvbox0,   s:gruvbox5],
-  \ [s:gruvbox7,   s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:gruvbox4,   s:grey],
-  \ ]
-
-  let s:p.replace.left = [
-  \ [s:gruvbox0,   s:gruvbox1],
-  \ [s:gruvbox7,   s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:gruvbox4,   s:grey],
-  \ ]
-
-  let s:p.inactive.left = [
-  \ [s:blue_green, s:grey],
-  \ [s:gruvbox7,   s:grey],
-  \ [s:blue_green, s:grey],
-  \ [s:gruvbox4,   s:grey],
-  \ ]
-
-  let s:p.normal.right   = [[s:gruvbox0, s:gruvbox4], [s:gruvbox7, s:grey]]
-  let s:p.inactive.right = [[s:gruvbox0, s:gruvbox7], [s:gruvbox0, s:gruvbox7]]
-  let s:p.insert.right   = [[s:gruvbox0, s:gruvbox3], [s:gruvbox7, s:grey]]
-  let s:p.replace.right  = [[s:gruvbox0, s:gruvbox1], [s:gruvbox7, s:grey]]
-  let s:p.visual.right   = [[s:gruvbox0, s:gruvbox5], [s:gruvbox7, s:grey]]
-
-  let s:p.normal.middle   = [[s:gruvbox7, s:gruvbox0]]
-  let s:p.inactive.middle = [[s:gruvbox7, s:grey]]
-
-  let s:p.tabline.left   = [[s:gruvbox7, s:grey]]
-  let s:p.tabline.tabsel = [[s:gruvbox0, s:gruvbox4]]
-  let s:p.tabline.middle = [[s:gruvbox7, s:gruvbox0]]
-  let s:p.tabline.right  = [[s:gruvbox7, s:grey]]
-
-  let s:coc_diagnostic = [
-  \ [s:grey, s:gruvbox1],
-  \ [s:grey, s:warning],
-  \ [s:grey, s:info],
-  \ [s:grey, s:gruvbox4],
-  \ ]
-
-  let s:p.normal.error        = s:coc_diagnostic[0:0]
-  let s:p.insert.error        = s:coc_diagnostic[0:0]
-  let s:p.replace.error       = s:coc_diagnostic[0:0]
-  let s:p.visual.error        = s:coc_diagnostic[0:0]
-  let s:p.normal.warning      = s:coc_diagnostic[1:1]
-  let s:p.insert.warning      = s:coc_diagnostic[1:1]
-  let s:p.replace.warning     = s:coc_diagnostic[1:1]
-  let s:p.visual.warning      = s:coc_diagnostic[1:1]
-  let s:p.normal.information  = s:coc_diagnostic[2:2]
-  let s:p.insert.information  = s:coc_diagnostic[2:2]
-  let s:p.replace.information = s:coc_diagnostic[2:2]
-  let s:p.visual.information  = s:coc_diagnostic[2:2]
-  let s:p.normal.hint         = s:coc_diagnostic[2:2]
-  let s:p.insert.hint         = s:coc_diagnostic[2:2]
-  let s:p.replace.hint        = s:coc_diagnostic[2:2]
-  let s:p.visual.hint         = s:coc_diagnostic[2:2]
-  let s:p.normal.ok           = s:coc_diagnostic[3:3]
-  let s:p.insert.ok           = s:coc_diagnostic[3:3]
-  let s:p.replace.ok          = s:coc_diagnostic[3:3]
-  let s:p.visual.ok           = s:coc_diagnostic[3:3]
-
-  let s:p.normal.quickrun  = [[s:gruvbox0, s:info]]
-  let s:p.insert.quickrun  = [[s:gruvbox0, s:info]]
-  let s:p.replace.quickrun = [[s:gruvbox0, s:info]]
-  let s:p.visual.quickrun  = [[s:gruvbox0, s:info]]
-
-  let g:lightline#colorscheme#gruvbox#palette = lightline#colorscheme#flatten(s:p)
-endif
-" }}}3
-
-" }}}2
-
-" Todo highlight {{{2
-AutoCmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyTodo', '\(TODO:.*\|todo:.*\)')
-AutoCmd WinEnter,BufRead,BufNew,Syntax * hi MyTodo cterm=bold gui=bold ctermfg=0 ctermbg=220 guifg=black guibg=#FFD700
-AutoCmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyNote', '\(NOTE:.*\|note:.*\)')
-AutoCmd WinEnter,BufRead,BufNew,Syntax * hi MyNote cterm=bold gui=bold ctermfg=0 ctermbg=45 guifg=black guibg=#00D7FF
-AutoCmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyXxx', '\(XXX:.*\|xxx:.*\)')
-AutoCmd WinEnter,BufRead,BufNew,Syntax * hi MyXxx cterm=bold gui=bold ctermfg=0 ctermbg=9 guifg=black guibg=#FF0000
-" }}}2
-
-" ejs highlight {{{2
-" 「<%.\{-}%>」=> 「<%」「%>」で囲まれた何らかの文字（最短一致）に一致する
-AutoCmd WinEnter,BufRead,BufNew,Syntax * silent! call matchadd('MyEjs', '<%.\{-}%>')
-AutoCmd WinEnter,BufRead,BufNew,Syntax * hi MyEjs cterm=NONE gui=NONE ctermfg=0 ctermbg=NONE guifg=#696969 guibg=NONE
-" }}}2
-
-
+execute 'source' g:vimrc_dir . '/config/hilight.vim'
 " }}}1
 
 " vim:set expandtab shiftwidth=2 softtabstop=2 tabstop=2 foldenable foldmethod=marker:
