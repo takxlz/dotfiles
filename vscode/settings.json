@@ -76,7 +76,6 @@
 
   // language(python)
   "python.languageServer": "Pylance",
-  "python.defaultInterpreterPath": "/usr/local/bin/python3",
 
 
   /****************************************************************************************************

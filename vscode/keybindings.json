@@ -29,12 +29,6 @@
   { "key": "ctrl+space o", "command": "workbench.action.quickOpen" },
   { "key": "ctrl+space ctrl+o", "command": "workbench.action.quickOpen" },
 
-  // エディタの最大化/最小化
-  { "key": "ctrl+space z", "command": "multiCommand.maximizeEditor", "when": "sideBarVisible" },
-  { "key": "ctrl+space ctrl+z", "command": "multiCommand.mximizeEditor", "when": "sideBarVisible" },
-  { "key": "ctrl+space z", "command": "multiCommand.minimizeEditor", "when": "!sideBarVisible" },
-  { "key": "ctrl+space ctrl+z", "command": "multiCommand.minimizeEditor", "when": "!sideBarVisible" },
-
   // パネルのトグル
   { "key": "ctrl+space p", "command": "workbench.action.togglePanel" },
   { "key": "ctrl+space ctrl+p", "command": "workbench.action.togglePanel" },
@@ -46,6 +40,14 @@
   // ミニマップのトグル
   { "key": "ctrl+space m", "command": "editor.action.toggleMinimap" },
   { "key": "ctrl+space ctrl+m", "command": "editor.action.toggleMinimap" },
+
+  // エディタ/ターミナルの最大化/最小化
+  // { "key": "ctrl+space z", "command": "multiCommand.maximizeEditor", "when": "sideBarVisible" },
+  // { "key": "ctrl+space ctrl+z", "command": "multiCommand.mximizeEditor", "when": "sideBarVisible" },
+  // { "key": "ctrl+space z", "command": "multiCommand.minimizeEditor", "when": "!sideBarVisible" },
+  // { "key": "ctrl+space ctrl+z", "command": "multiCommand.minimizeEditor", "when": "!sideBarVisible" },
+  { "key": "ctrl+space z", "command": "workbench.action.toggleMaximizedPanel", "when": "panelFocus" },
+  { "key": "ctrl+space ctrl+z", "command": "workbench.action.toggleMaximizedPanel", "when": "panelFocus" },
 
 
   /****************************************************************************************************
