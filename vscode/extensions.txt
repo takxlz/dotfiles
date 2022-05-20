@@ -21,6 +21,7 @@ formulahendry.auto-rename-tag
 Gruntfuggly.todo-tree
 humao.rest-client
 IBM.output-colorizer
+jcbuisson.vue
 jebbs.plantuml
 KevinRose.vsc-python-indent
 mads-hartmann.bash-ide-vscode
@@ -59,6 +60,7 @@ shd101wyy.markdown-preview-enhanced
 vadimcn.vscode-lldb
 vscode-icons-team.vscode-icons
 vscodevim.vim
+Vue.volar
 WallabyJs.quokka-vscode
 wholroyd.jinja
 wmaurer.change-case
