@@ -2,5 +2,6 @@
 *.swp
 .DS_Store
 /vim/_plugged/*
+/vim/sessions/*
 !.gitkeep
 node_modules/
