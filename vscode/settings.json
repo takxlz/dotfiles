@@ -56,6 +56,8 @@
   "terminal.integrated.fontSize": 17,
   "terminal.integrated.copyOnSelection": true,
 
+  // basic(security)
+  "security.workspace.trust.untrustedFiles": "open",
 
   /****************************************************************************************************
   * launguage
@@ -87,7 +89,6 @@
 
   // extension(vscodevim)
   "vim.leader": "<space>",
-  "vim.easymotion": true,
   "vim.camelCaseMotion.enable": true,
   "vim.autoSwitchInputMethod.defaultIM": "com.google.inputmethod.Japanese.Roman",
   "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/local/bin/im-select",
@@ -132,11 +133,11 @@
     { "before": ["s", "l"], "commands": ["workbench.action.focusRightGroup"] },
     { "before": ["s", "n"], "commands": ["workbench.action.nextEditor"] },
     { "before": ["s", "p"], "commands": ["workbench.action.previousEditor"] },
-    { "before": ["m", "s"], "commands": ["textmarker.toggleHighlight"] },
-    { "before": [";", "S"], "commands": ["textmarker.clearAllHighlight"] },
+    { "before": ["<space>", "<space>"], "commands": ["textmarker.toggleHighlight"] },
+    { "before": ["<ESC>", "<ESC>"], "commands": ["textmarker.clearAllHighlight"] },
 
     // 変数の参照箇所の表示
-    { "before": ["<leader>", "d", "r"], "commands": ["editor.action.referenceSearch.trigger"] },
+    { "before": ["<space>", "d", "r"], "commands": ["editor.action.referenceSearch.trigger"] },
 
     // サイドバーの表示状態をソース管理（git）にする
     { "before": ["<space>", "g", "s"], "commands": ["multiCommand.dispGitStatus"] },
@@ -216,5 +217,5 @@
   * other
   ****************************************************************************************************/
   "dummy": "dummy",
-  "security.workspace.trust.untrustedFiles": "open",
+  "gitlens.defaultDateShortFormat": null,
 }
