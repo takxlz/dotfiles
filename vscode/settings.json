@@ -20,7 +20,7 @@
 
   // basic(workbench)
   "workbench.editor.enablePreview": false,
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "vscode-icons",
   "workbench.editor.pinnedTabSizing": "compact",
   "workbench.editor.tabSizing": "shrink",
   "workbench.startupEditor": "newUntitledFile",
@@ -29,10 +29,7 @@
     "statusBar.background": "#00612c",
     "statusBar.noFolderBackground": "#00612c",
     "statusBar.debuggingBackground": "#55006f"
-  },
-
-  // basic(window)
-  "window.zoomLevel": -0.4,
+},
   "window.openFoldersInNewWindow": "off",
 
   // basic(files)
@@ -93,7 +90,6 @@
   "vim.autoSwitchInputMethod.defaultIM": "com.google.inputmethod.Japanese.Roman",
   "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/local/bin/im-select",
   "vim.autoSwitchInputMethod.switchIMCmd": "/usr/local/bin/im-select {im}",
-  "vim.autoSwitchInputMethod.enable": true,
   "vim.hlsearch": true,
   "vim.visualstar": true,
   "vim.history": 5000,
@@ -218,4 +214,12 @@
   ****************************************************************************************************/
   "dummy": "dummy",
   "gitlens.defaultDateShortFormat": null,
+  "[vue]": {
+    "editor.tabSize": 2
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "editor.inlayHints.enabled": true,
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "vim.useSystemClipboard": true,
 }

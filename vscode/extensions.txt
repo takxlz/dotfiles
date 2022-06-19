@@ -13,9 +13,6 @@ donjayamanne.python-extension-pack
 eamodio.gitlens
 eg2.vscode-npm-script
 emilast.LogFileHighlighter
-Equinusocio.vsc-community-material-theme
-Equinusocio.vsc-material-theme
-equinusocio.vsc-material-theme-icons
 esbenp.prettier-vscode
 formulahendry.auto-rename-tag
 Gruntfuggly.todo-tree
@@ -26,7 +23,6 @@ jebbs.plantuml
 KevinRose.vsc-python-indent
 mads-hartmann.bash-ide-vscode
 magicstack.MagicPython
-matklad.rust-analyzer
 mechatroner.rainbow-csv
 ms-azuretools.vscode-docker
 MS-CEINTL.vscode-language-pack-ja
@@ -52,6 +48,7 @@ ritwickdey.LiveServer
 rogalmic.bash-debug
 RomanPeshkov.vscode-text-tables
 Rubymaniac.vscode-direnv
+rust-lang.rust-analyzer
 ryu1kn.partial-diff
 ryu1kn.text-marker
 ryuta46.multi-command
