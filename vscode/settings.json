@@ -17,6 +17,7 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.copyWithSyntaxHighlighting": false,
   "editor.showFoldingControls": "always",
+  "editor.inlayHints.enabled": true,
 
   // basic(workbench)
   "workbench.editor.enablePreview": false,
@@ -52,6 +53,7 @@
   // basic(terminal)
   "terminal.integrated.fontSize": 17,
   "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.enableMultiLinePasteWarning": false,
 
   // basic(security)
   "security.workspace.trust.untrustedFiles": "open",
@@ -73,8 +75,16 @@
   // language(typescript)
   "typescript.updateImportsOnFileMove.enabled": "always",
 
+  // language(vue)
+  "[vue]": {
+    "editor.tabSize": 2
+  },
+
   // language(python)
   "python.languageServer": "Pylance",
+
+  // language(rust)
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
 
 
   /****************************************************************************************************
@@ -85,6 +95,7 @@
   // "vscode-neovim.neovimInitVimPaths.darwin": "/Users/takxlz/dotfiles/vim/init-vscode.vim",
 
   // extension(vscodevim)
+  "vim.useSystemClipboard": true,
   "vim.leader": "<space>",
   "vim.camelCaseMotion.enable": true,
   "vim.autoSwitchInputMethod.defaultIM": "com.google.inputmethod.Japanese.Roman",
@@ -209,17 +220,14 @@
     },
   },
 
+  // extension(gitlens)
+  "gitlens.defaultDateShortFormat": null,
+
+  // extension(vsicons)
+  "vsicons.dontShowNewVersionMessage": true,
+
   /****************************************************************************************************
   * other
   ****************************************************************************************************/
   "dummy": "dummy",
-  "gitlens.defaultDateShortFormat": null,
-  "[vue]": {
-    "editor.tabSize": 2
-  },
-  "vsicons.dontShowNewVersionMessage": true,
-  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
-  "editor.inlayHints.enabled": true,
-  "terminal.integrated.enableMultiLinePasteWarning": false,
-  "vim.useSystemClipboard": true,
 }
