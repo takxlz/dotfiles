@@ -197,8 +197,8 @@ let g:vimrc_dir = expand('<sfile>:p:h')
 "" Leader
 let g:mapleader = "\<Space>"
 noremap <Space> <Nop>
-noremap <dev>    <Nop>
-map     m        <dev>
+noremap <dev>   <Nop>
+map     m       <dev>
 
 "" Disable s
 noremap s <Nop>

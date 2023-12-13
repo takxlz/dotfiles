@@ -1,0 +1,75 @@
+" PLUGIN
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'machakann/vim-highlightedyank'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'kana/vim-textobj-entire'
+
+
+" OPTION
+"" IME
+set keep-english-in-normal
+
+" 検索するときに大文字小文字を区別しない
+set ignorecase
+
+" 検索時に大文字を含んでいたら大/小を区別
+set smartcase
+
+" インクリメンタル検索 (検索ワードの最初の文字を入力した時点で検索が開始)
+set incsearch
+
+" 検索対象をハイライト
+set hlsearch
+
+" ウィンドウの右下にまだ実行していない入力中のコマンドを表示
+set showcmd
+
+" ヤンクでクリップボードにコピー
+set clipboard+=unnamed
+
+
+" KEYMAP
+"" Disable key
+noremap s <Nop>
+noremap <Space> <Nop>
+
+"" Esc
+inoremap jj <Esc>
+inoremap っｊ <Esc>
+
+"" ウィンドウ系
+nnoremap <silent> ss :<C-u>sp<Cr>
+nnoremap <silent> sv :<C-u>vs<Cr>
+nnoremap <silent> sj <C-w>j
+nnoremap <silent> sk <C-w>k
+nnoremap <silent> sl <C-w>l
+nnoremap <silent> sh <C-w>h
+
+"" 移動系
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+" x キー削除でデフォルトレジスタに入れない
+nnoremap x "_x
+vnoremap x "_x
+
+" ヤンクでクリップボードにコピー
+noremap "+y "*y
+noremap "+Y "*Y
+noremap "+p "*p
+noremap "+P "*P
+
+" ジャンプ
+"" 定義へ移動
+map <Space>jd <Action>(GotoDeclaration)
+"  ターミナルへ移動
+map <C-Space>j <Action>(ActivateTerminalToolWindow)
+
+# マウスホバーした内容を表示
+nmap gh <Action>(ShowHoverInfo)
+
+
