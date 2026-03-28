@@ -40,3 +40,28 @@ map("x", "<leader>p", '"_dP')
 
 -- 保存
 map("n", "<leader>w", "<cmd>w<cr>")
+
+-- カーソル下の単語をハイライト（複数単語を同時にハイライト可能）
+vim.api.nvim_set_hl(0, "WordHighlight1", { fg = "#000000", bg = "#e8a040" }) -- オレンジ
+vim.api.nvim_set_hl(0, "WordHighlight2", { fg = "#000000", bg = "#40a0e8" }) -- 青
+vim.api.nvim_set_hl(0, "WordHighlight3", { fg = "#000000", bg = "#60c060" }) -- 緑
+vim.api.nvim_set_hl(0, "WordHighlight4", { fg = "#000000", bg = "#e06080" }) -- 赤
+vim.api.nvim_set_hl(0, "WordHighlight5", { fg = "#000000", bg = "#c080e0" }) -- 紫
+vim.api.nvim_set_hl(0, "WordHighlight6", { fg = "#000000", bg = "#e0d060" }) -- 黄
+local highlight_colors = { "WordHighlight1", "WordHighlight2", "WordHighlight3", "WordHighlight4", "WordHighlight5", "WordHighlight6" }
+local highlight_index = 0
+map("n", "<leader><Space>", function()
+  local word = vim.fn.expand("<cword>")
+  if word == "" then
+    return
+  end
+  highlight_index = (highlight_index % #highlight_colors) + 1
+  vim.fn.matchadd(highlight_colors[highlight_index], "\\<" .. vim.fn.escape(word, "\\") .. "\\>")
+end)
+
+-- ハイライトをすべてクリア
+map("n", "<Esc>", function()
+  vim.cmd("nohlsearch")
+  vim.fn.clearmatches()
+  highlight_index = 0
+end)
