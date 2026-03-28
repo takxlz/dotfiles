@@ -59,6 +59,40 @@ map("n", "<leader><Space>", function()
   vim.fn.matchadd(highlight_colors[highlight_index], "\\<" .. vim.fn.escape(word, "\\") .. "\\>")
 end)
 
+-- チートシートをフロートウィンドウで表示
+map("n", "<leader>?", function()
+  local path = vim.fn.stdpath("config") .. "/CHEATSHEET.md"
+  local lines = vim.fn.readfile(path)
+
+  -- ウィンドウサイズ（画面の80%）
+  local width = math.floor(vim.o.columns * 0.8)
+  local height = math.floor(vim.o.lines * 0.8)
+  local row = math.floor((vim.o.lines - height) / 2)
+  local col = math.floor((vim.o.columns - width) / 2)
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.bo[buf].filetype = "markdown"
+  vim.bo[buf].modifiable = false
+
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = "editor",
+    width = width,
+    height = height,
+    row = row,
+    col = col,
+    style = "minimal",
+    border = "rounded",
+    title = " CHEATSHEET ",
+    title_pos = "center",
+  })
+
+  -- Esc2回で閉じる
+  vim.keymap.set("n", "<Esc><Esc>", function()
+    vim.api.nvim_win_close(win, true)
+  end, { buffer = buf })
+end)
+
 -- ハイライトをすべてクリア
 map("n", "<Esc>", function()
   vim.cmd("nohlsearch")
