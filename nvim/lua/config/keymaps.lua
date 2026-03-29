@@ -2,6 +2,7 @@ local map = vim.keymap.set
 
 -- インサートモードを抜ける
 map("i", "jj", "<Esc>")
+map("i", "っｊ", "<Esc>")
 
 -- 検索ハイライト解除
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")

@@ -15,6 +15,9 @@ return {
       "pyright",
       "rust_analyzer",
       "jdtls",
+      "jsonls",
+      "html",
+      "cssls",
     })
 
     -- LSP接続時のキーマップ・診断設定
@@ -36,7 +39,9 @@ return {
 
         -- コードアクション・リネーム
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<leader>cr", function()
+          return ":IncRename " .. vim.fn.expand("<cword>")
+        end, { buffer = bufnr, expr = true })
 
         -- 診断ジャンプ
         vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)

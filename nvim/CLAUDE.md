@@ -17,9 +17,8 @@ nvim/
 │   │   ├── autocmds.lua     -- 自動コマンド
 │   │   └── lazy.lua         -- lazy.nvim ブートストラップ
 │   └── plugins/             -- 1プラグイン1ファイル
-├── after/
-│   └── lsp/                 -- 言語サーバーごとのカスタマイズ（ファイル名=サーバー名）
-└── nvim_sample/             -- 参考用（他人の設定ファイル、編集しない）
+└── after/
+    └── lsp/                 -- 言語サーバーごとのカスタマイズ（ファイル名=サーバー名）
 ```
 
 ## 導入済みプラグイン
@@ -47,6 +46,15 @@ nvim/
 - aerial.nvim（シンボル一覧サイドバー）
 - todo-comments.nvim（TODO/FIXME等のハイライト + 検索）
 - indent-blankline.nvim（インデントガイドライン表示）
+- conform.nvim（保存時自動フォーマット）
+- nvim-lint（リンター連携）
+- nvim-treesitter-textobjects（関数・クラス単位のテキストオブジェクト）
+- im-select.nvim（ノーマルモード復帰時にIMEを自動オフ、macismバックエンド）
+- nvim-ts-autotag（HTML/JSXタグの自動閉じ・自動リネーム）
+- nvim-treesitter-context（関数名・クラス名の画面上部固定表示）
+- flash.nvim（画面内高速ジャンプ、gsキーで発動）
+- inc-rename.nvim（LSPリネームのリアルタイムプレビュー）
+- highlight-undo.nvim（undo/redo時の変更箇所ハイライト）
 
 ## 有効な言語サーバー
 
@@ -55,8 +63,22 @@ nvim/
 - pyright（Python）
 - rust_analyzer（Rust）
 - jdtls（Java）
+- jsonls（JSON）
+- html（HTML）
+- cssls（CSS）
 
 カスタマイズが必要になったら `after/lsp/<サーバー名>.lua` を追加する。
+
+## フォーマッター・リンター
+
+mason で自動インストールされる。
+
+- stylua（Lua）
+- prettier（TS/JS/JSON/HTML/CSS/YAML/Markdown）
+- black（Python）
+- rustfmt（Rust、rustup 経由）
+- eslint_d（TS/JS リンター）
+- ruff（Python リンター）
 
 ## 環境
 

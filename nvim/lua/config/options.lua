@@ -32,6 +32,7 @@ vim.opt.wrap = false
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 
 -- クリップボード
 vim.opt.clipboard = "unnamedplus"
@@ -39,3 +40,21 @@ vim.opt.clipboard = "unnamedplus"
 -- 分割
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.splitkeep = "screen"
+
+-- UI
+vim.opt.showmode = false
+vim.opt.smoothscroll = true
+vim.opt.confirm = true
+vim.opt.mouse = "a"
+
+-- 編集
+vim.opt.virtualedit = "block"
+vim.opt.inccommand = "split"
+
+-- 不可視文字の表示
+vim.opt.list = true
+vim.opt.listchars = { tab = "→ ", trail = "·", nbsp = "␣" }
+
+-- ウィンドウ装飾
+vim.opt.fillchars = { eob = " " }
