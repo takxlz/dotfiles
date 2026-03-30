@@ -23,11 +23,12 @@ return {
         ["<Up>"] = { "select_prev", "fallback" },
       },
       completion = {
+        list = { selection = { preselect = false, auto_insert = false } },
         menu = { auto_show = true },
       },
     },
     completion = {
-      list = { selection = { preselect = true, auto_insert = false } },
+      list = { selection = { preselect = false, auto_insert = false } },
       menu = { border = "rounded" },
       documentation = { auto_show = true, window = { border = "rounded" } },
     },
