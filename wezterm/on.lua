@@ -21,6 +21,18 @@ wezterm.on("toggle-blur", function(window, _)
 	window:set_config_overrides(overrides)
 end)
 
+wezterm.on("format-tab-title", function(tab)
+	local pane = tab.active_pane
+	local cwd = pane.current_working_dir
+	local dir = ""
+	if cwd then
+		local path = cwd.file_path or tostring(cwd)
+		dir = path:match("([^/]+)/?$") or path
+	end
+	local index = tostring(tab.tab_index + 1)
+	return " " .. index .. ": " .. dir .. " "
+end)
+
 wezterm.on("gui-startup", function(cmd)
 	local _, _, window = mux.spawn_window(cmd or {})
 	local w = window:gui_window()
