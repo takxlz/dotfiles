@@ -4,54 +4,47 @@ local act = wezterm.action
 -- ---------------------------------------------------------------
 -- --- wezterm keymap (tmux-style: leader = C-Space)
 -- ---------------------------------------------------------------
--- | 操作                   | tmux           | WezTerm        |
--- |------------------------|----------------|----------------|
--- | prefix                 | C-Space        | C-Space        |
--- | 縦分割                 | prefix + v     | leader + v     |
--- | 横分割                 | prefix + s     | leader + s     |
--- | ペイン移動             | prefix + hjkl  | leader + hjkl  |
--- | ペインリサイズ         | prefix + <>+-  | leader + <>+-  |
--- |                        |                | Alt + hjkl     | ※連続操作用
--- | ペイン閉じる           | -              | leader + x     |
--- | ペインズーム           | -              | leader + z     |
--- | 新規タブ               | prefix + t     | leader + t     |
--- | タブ閉じる             | prefix + c     | leader + c     |
--- | 次/前のタブ            | prefix + C-n/p | leader + C-n/p |
--- |                        |                | C-Tab/C-S-Tab  | ※連続操作用（デフォルト）
--- | タブ番号指定           | prefix + 1-9   | leader + 1-9   |
--- | タブ位置移動           | -              | leader + ( / ) |
--- | フルスクリーン         | -              | leader + f     |
--- | クイックセレクト       | -              | leader + Space |
--- | 背景ブラー切替         | -              | leader + b     |
--- | ワークスペース一覧     | -              | leader + w     |
--- | ワークスペース作成     | -              | leader + S     |
--- | 次/前のワークスペース  | -              | leader + N / P |
--- | ワークスペース名変更   | prefix + $     | leader + $     |
--- | 設定リロード           | prefix + r     | leader + r     |
--- | Shift+Enter送信        | -              | Shift + Enter  |
+-- | 操作                   | WezTerm          | 方式       |
+-- |------------------------|------------------|------------|
+-- | prefix                 | C-Space          | leader     |
+-- | 縦分割                 | leader + v       | leader     |
+-- | 横分割                 | leader + s       | leader     |
+-- | ペイン移動             | Alt + hjkl       | Alt        |
+-- | ペインリサイズ         | Alt + C-hjkl     | Alt + Ctrl |
+-- | ペイン閉じる           | leader + x       | leader     |
+-- | ペインズーム           | leader + z       | leader     |
+-- | 新規タブ               | leader + t       | leader     |
+-- | タブ閉じる             | leader + c       | leader     |
+-- | 次/前のタブ            | Alt + n/p        | Alt        |
+-- |                        | C-Tab/C-S-Tab    | （デフォルト）
+-- | タブ番号指定           | leader + 1-9     | leader     |
+-- | タブ位置移動           | leader + ( / )   | leader     |
+-- | フルスクリーン         | leader + f       | leader     |
+-- | クイックセレクト       | leader + Space   | leader     |
+-- | 背景ブラー切替         | leader + b       | leader     |
+-- | ワークスペース一覧     | leader + w       | leader     |
+-- | ワークスペース作成     | leader + S       | leader     |
+-- | 次/前のワークスペース  | Alt + Cmd + n/p  | Alt + Cmd  |
+-- | ワークスペース名変更   | leader + $       | leader     |
+-- | 設定リロード           | leader + r       | leader     |
+-- | Shift+Enter送信        | Shift + Enter    | —          |
 -- ---------------------------------------------------------------
 local keys = {
 	-- ペイン分割
 	{ key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = "s", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 
-	-- ペイン移動 (vim style)
-	{ key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
-	{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
-	{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
-	{ key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
+	-- ペイン移動 (Alt: 連続操作用)
+	{ key = "h", mods = "ALT", action = act.ActivatePaneDirection("Left") },
+	{ key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
+	{ key = "k", mods = "ALT", action = act.ActivatePaneDirection("Up") },
+	{ key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
 
-	-- ペインリサイズ
-	{ key = "<", mods = "LEADER", action = act.AdjustPaneSize({ "Left", 5 }) },
-	{ key = ">", mods = "LEADER", action = act.AdjustPaneSize({ "Right", 5 }) },
-	{ key = "+", mods = "LEADER", action = act.AdjustPaneSize({ "Down", 5 }) },
-	{ key = "-", mods = "LEADER", action = act.AdjustPaneSize({ "Up", 5 }) },
-
-	-- ペインリサイズ (Alt: 連続操作用)
-	{ key = "h", mods = "ALT", action = act.AdjustPaneSize({ "Left", 5 }) },
-	{ key = "j", mods = "ALT", action = act.AdjustPaneSize({ "Down", 5 }) },
-	{ key = "k", mods = "ALT", action = act.AdjustPaneSize({ "Up", 5 }) },
-	{ key = "l", mods = "ALT", action = act.AdjustPaneSize({ "Right", 5 }) },
+	-- ペインリサイズ (Alt+Ctrl: 連続操作用)
+	{ key = "h", mods = "ALT|CTRL", action = act.AdjustPaneSize({ "Left", 5 }) },
+	{ key = "j", mods = "ALT|CTRL", action = act.AdjustPaneSize({ "Down", 5 }) },
+	{ key = "k", mods = "ALT|CTRL", action = act.AdjustPaneSize({ "Up", 5 }) },
+	{ key = "l", mods = "ALT|CTRL", action = act.AdjustPaneSize({ "Right", 5 }) },
 
 	-- ペイン閉じる
 	{ key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = true }) },
@@ -62,8 +55,9 @@ local keys = {
 	-- タブ操作
 	{ key = "t", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
 	{ key = "c", mods = "LEADER", action = act.CloseCurrentTab({ confirm = true }) },
-	{ key = "n", mods = "LEADER|CTRL", action = act.ActivateTabRelative(1) },
-	{ key = "p", mods = "LEADER|CTRL", action = act.ActivateTabRelative(-1) },
+	-- タブ切替 (Alt: 連続操作用)
+	{ key = "n", mods = "ALT", action = act.ActivateTabRelative(1) },
+	{ key = "p", mods = "ALT", action = act.ActivateTabRelative(-1) },
 
 	-- タブの移動
 	{ key = "(", mods = "LEADER", action = act.MoveTabRelative(-1) },
@@ -79,8 +73,9 @@ local keys = {
 	{ key = "b", mods = "LEADER", action = act.EmitEvent("toggle-blur") },
 
 	-- ワークスペース [[
-	{ key = "N", mods = "LEADER", action = act.SwitchWorkspaceRelative(1) },
-	{ key = "P", mods = "LEADER", action = act.SwitchWorkspaceRelative(-1) },
+	-- ワークスペース切替 (Alt+Cmd: 連続操作用)
+	{ key = "n", mods = "ALT|SUPER", action = act.SwitchWorkspaceRelative(1) },
+	{ key = "p", mods = "ALT|SUPER", action = act.SwitchWorkspaceRelative(-1) },
 	{
 		-- ワークスペース新規作成
 		key = "S",
