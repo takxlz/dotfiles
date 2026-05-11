@@ -4,9 +4,9 @@
 
 ## 現在のフェーズ
 
-**Phase 1: Nix と Home Manager の動作確認** ✅ 完了
+**Phase 2: Brewfile の段階的移行** 着手中（neovim 移行済み）
 
-次にやること: **`nix/` 配下の Git コミット → Phase 2 着手判断**
+次にやること: **その他 CLI ツールを順次 `home.nix` へ移行**
 
 ## 確定事項
 
@@ -32,7 +32,7 @@
 
 ## Phase 1 残タスク
 
-- [ ] `nix/flake.lock` を Git にコミット（再現性の核なので必須）
+- [x] `nix/flake.lock` を Git にコミット（d3eb9fe）
 - [ ] `home-manager news` で 249 件の breaking changes を一読
 
 ## 次に実行するコマンド
@@ -73,9 +73,10 @@ home-manager news
 
 両方とも `README.md` の「既知の落とし穴」セクションに記載済み。
 
-## Phase 2（将来）: Brewfile の段階的移行
+## Phase 2: Brewfile の段階的移行
 
-- [ ] `packages/Brewfile` の CLI ツールを `home.nix` に書き換え
+- [x] `neovim` を `home.nix` に移行（Homebrew からアンインストール済み、v0.11.5 → v0.12.2）
+- [ ] `packages/Brewfile` の残りの CLI ツールを `home.nix` に書き換え
 - [ ] GUI アプリ（cask: `docker-desktop`, `wezterm@nightly` 等）は Homebrew のまま継続
 - [ ] VSCode 拡張・フォントの扱いを検討
 

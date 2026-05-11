@@ -10,6 +10,7 @@
     eza
     zoxide
     delta
+    neovim
   ];
 
   programs.home-manager.enable = true;
