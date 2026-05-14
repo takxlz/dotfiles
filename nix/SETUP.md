@@ -80,7 +80,7 @@ home-manager news
 - [x] `tmux`, `uv` を `home.nix` に移行（バイナリのみ Nix 管理、設定は dotfiles 側のまま）
 - [ ] 言語ランタイム系（`go`, `rustup`, `pyenv`, `nodebrew`, `openjdk@17`, `python@3.11`）の扱い検討
 - [ ] その他 Brewfile 残（画像ライブラリ群, クロスコンパイル系, `macism`, `qmk`）
-- [ ] `exa` を Brewfile から削除（`eza` に置換済み）
+- [x] `exa` を Brewfile から削除し Homebrew からアンインストール（`eza` で置換済み）
 - [ ] GUI アプリ（cask: `docker-desktop`, `wezterm@nightly` 等）は Homebrew のまま継続
 - [ ] VSCode 拡張・フォントの扱いを検討
 

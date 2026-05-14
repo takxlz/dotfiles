@@ -7,7 +7,6 @@ brew "jpeg-xl"
 brew "aom"
 brew "deno", link: false
 brew "docker", link: false
-brew "exa"
 brew "libavif"
 brew "gd"
 brew "gdk-pixbuf"
