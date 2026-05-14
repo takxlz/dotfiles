@@ -20,6 +20,8 @@
     tree
     tmux
     uv
+    go
+    jdk17
   ];
 
   programs.home-manager.enable = true;
