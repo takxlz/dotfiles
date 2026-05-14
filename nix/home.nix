@@ -11,6 +11,13 @@
     zoxide
     delta
     neovim
+    bat
+    fd
+    fzf
+    ripgrep
+    gh
+    ghq
+    tree
   ];
 
   programs.home-manager.enable = true;
