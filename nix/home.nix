@@ -18,6 +18,8 @@
     gh
     ghq
     tree
+    tmux
+    uv
   ];
 
   programs.home-manager.enable = true;

@@ -77,8 +77,9 @@ home-manager news
 
 - [x] `neovim` を `home.nix` に移行（Homebrew からアンインストール済み、v0.11.5 → v0.12.2）
 - [x] modern CLI 7点を `home.nix` に移行（`bat`, `fd`, `fzf`, `ripgrep`, `gh`, `ghq`, `tree`）
+- [x] `tmux`, `uv` を `home.nix` に移行（バイナリのみ Nix 管理、設定は dotfiles 側のまま）
 - [ ] 言語ランタイム系（`go`, `rustup`, `pyenv`, `nodebrew`, `openjdk@17`, `python@3.11`）の扱い検討
-- [ ] その他 Brewfile 残（`tmux`, `uv`, 画像ライブラリ群, クロスコンパイル系, `macism`, `qmk`）
+- [ ] その他 Brewfile 残（画像ライブラリ群, クロスコンパイル系, `macism`, `qmk`）
 - [ ] `exa` を Brewfile から削除（`eza` に置換済み）
 - [ ] GUI アプリ（cask: `docker-desktop`, `wezterm@nightly` 等）は Homebrew のまま継続
 - [ ] VSCode 拡張・フォントの扱いを検討
