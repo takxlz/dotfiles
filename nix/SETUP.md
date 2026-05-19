@@ -81,6 +81,7 @@ home-manager news
 - [x] `go` を `home.nix` に移行（v1.24.3 → v1.26.2）
 - [x] `openjdk@17` → `jdk17` (Zulu17.0.18) に移行
 - [x] `python@3.11` + `pyenv` を削除し、`python313.withPackages` で pillow 同梱して移行
+- [x] `direnv` + `nix-direnv` を `programs.direnv` で有効化（プロジェクト別 flake サポート用）
 - [ ] 言語ランタイム系の残り（`rustup`, `nodebrew`）の扱い検討
 - [ ] その他 Brewfile 残（画像ライブラリ群, クロスコンパイル系, `macism`, `qmk`）
 - [x] `exa` を Brewfile から削除し Homebrew からアンインストール（`eza` で置換済み）

@@ -28,4 +28,10 @@
   ];
 
   programs.home-manager.enable = true;
+
+  # cd 時に flake.nix/.envrc でプロジェクト別環境を切り替える
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 }
