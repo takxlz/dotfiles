@@ -82,7 +82,8 @@ home-manager news
 - [x] `openjdk@17` → `jdk17` (Zulu17.0.18) に移行
 - [x] `python@3.11` + `pyenv` を削除し、`python313.withPackages` で pillow 同梱して移行
 - [x] `direnv` + `nix-direnv` を `programs.direnv` で有効化（プロジェクト別 flake サポート用）
-- [ ] 言語ランタイム系の残り（`rustup`, `nodebrew`）の扱い検討
+- [x] `nodebrew` を削除し `nodejs_24` を `home.nix` に追加（複数バージョンが必要なプロジェクトは flake.nix で対応）
+- [ ] 言語ランタイム系の残り（`rustup`）の扱い検討
 - [ ] その他 Brewfile 残（画像ライブラリ群, クロスコンパイル系, `macism`, `qmk`）
 - [x] `exa` を Brewfile から削除し Homebrew からアンインストール（`eza` で置換済み）
 - [ ] GUI アプリ（cask: `docker-desktop`, `wezterm@nightly` 等）は Homebrew のまま継続

@@ -25,6 +25,7 @@
     (python313.withPackages (ps: with ps; [
       pillow
     ]))
+    nodejs_24
   ];
 
   programs.home-manager.enable = true;
