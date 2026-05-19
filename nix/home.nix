@@ -22,6 +22,9 @@
     uv
     go
     jdk17
+    (python313.withPackages (ps: with ps; [
+      pillow
+    ]))
   ];
 
   programs.home-manager.enable = true;

@@ -80,7 +80,8 @@ home-manager news
 - [x] `tmux`, `uv` を `home.nix` に移行（バイナリのみ Nix 管理、設定は dotfiles 側のまま）
 - [x] `go` を `home.nix` に移行（v1.24.3 → v1.26.2）
 - [x] `openjdk@17` → `jdk17` (Zulu17.0.18) に移行
-- [ ] 言語ランタイム系の残り（`rustup`, `pyenv`, `nodebrew`, `python@3.11`）の扱い検討
+- [x] `python@3.11` + `pyenv` を削除し、`python313.withPackages` で pillow 同梱して移行
+- [ ] 言語ランタイム系の残り（`rustup`, `nodebrew`）の扱い検討
 - [ ] その他 Brewfile 残（画像ライブラリ群, クロスコンパイル系, `macism`, `qmk`）
 - [x] `exa` を Brewfile から削除し Homebrew からアンインストール（`eza` で置換済み）
 - [ ] GUI アプリ（cask: `docker-desktop`, `wezterm@nightly` 等）は Homebrew のまま継続
