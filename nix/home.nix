@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   # stable Rust + クロスコンパイル target + IDE 用 component
   # nightly や古い stable はプロジェクトの flake.nix の devShell 側で対応する
@@ -26,7 +26,6 @@ in
     neovim
     bat
     fd
-    fzf
     ripgrep
     gh
     ghq
@@ -42,11 +41,91 @@ in
     rust-stable
   ];
 
+  # ~/.config/starship.toml を dotfiles/zsh/starship.toml への symlink にする
+  home.file.".config/starship.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/zsh/starship.toml";
+
+  home.sessionVariables = {
+    LANG = "ja_JP.UTF-8";
+    EDITOR = "nvim";
+    VPS_SSH_PORT = "2222";
+  };
+
+  # PATH 追加（順序：先頭が優先）
+  home.sessionPath = [
+    "/opt/homebrew/opt/openjdk@21/bin"
+    "$HOME/.local/bin"
+    "$HOME/.cargo/bin"
+    "/Users/takxlz/Library/Application Support/JetBrains/Toolbox/scripts"
+  ];
+
   programs.home-manager.enable = true;
 
   # cd 時に flake.nix/.envrc でプロジェクト別環境を切り替える
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+  };
+
+  programs.zsh = {
+    enable = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    historySubstringSearch.enable = true;
+
+    history = {
+      size = 1000;
+      save = 100000;
+      ignoreDups = true;
+      ignoreAllDups = true;
+      ignoreSpace = true;
+      expireDuplicatesFirst = true;
+      share = true;
+      extended = true;
+    };
+
+    shellAliases = {
+      vim = "nvim";
+      python = "python3";
+      tree = "tree --dirsfirst";
+      slpnow = "pmset sleepnow";
+
+      # ls 系（eza ベース、prezto utility モジュールの代替）
+      ls = "eza --group-directories-first";
+      ll = "eza -lh --git --group-directories-first";
+      la = "eza -lah --git --group-directories-first";
+      lt = "eza --tree";
+      l  = "eza -1A";
+
+      # directory stack（prezto directory モジュールの代替）
+      d = "dirs -v";
+    };
+
+    initContent = ''
+      # Homebrew の環境変数セットアップ（HOMEBREW_PREFIX, PATH 等）
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+
+      # ローカル/プライベートな環境変数（シークレット）
+      [ -f ~/.zsh.local ] && source ~/.zsh.local
+
+      # ディレクトリ移動関連（prezto directory モジュールの代替）
+      setopt AUTO_CD            # ディレクトリ名だけで cd
+      setopt AUTO_PUSHD         # cd 時に自動 pushd
+      setopt PUSHD_IGNORE_DUPS  # pushd 重複排除
+
+      # 全履歴を表示
+      function history-all { history -E 1 }
+    '';
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+    defaultCommand = ''rg --files --hidden --follow --glob "!.git/*"'';
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
   };
 }

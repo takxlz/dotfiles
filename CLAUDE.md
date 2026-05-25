@@ -6,9 +6,11 @@
 
 ```
 dotfiles/
+├── nix/        -- Nix / Home Manager 設定（詳細は nix/README.md）
 ├── nvim/       -- Neovim 設定（詳細は nvim/CLAUDE.md）
 ├── wezterm/    -- WezTerm 設定
 ├── tmux/       -- tmux レイアウトスクリプト
+├── zsh/        -- starship 設定とシークレット雛形（zsh 本体は home.nix で宣言）
 ├── jetbrains/  -- JetBrains IDE 設定
 └── packages/   -- パッケージ一覧（Brewfile, npm, pip）
 ```

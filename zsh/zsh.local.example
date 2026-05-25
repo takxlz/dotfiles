@@ -1,0 +1,18 @@
+# ~/.zsh.local の雛形
+#
+# 使い方:
+#   cp dotfiles/zsh/zsh.local.example ~/.zsh.local
+#   chmod 600 ~/.zsh.local
+#   各値を埋める
+#
+# ~/.zsh.local は ~/.zshrc から自動 source される（home.nix の programs.zsh.initContent 参照）。
+# このファイル自身は雛形なのでコミットしてよいが、~/.zsh.local 本体は絶対にコミットしない。
+
+# LINE Bot credentials
+export LINE_CHANNEL_ACCESS_TOKEN=""
+export LINE_CHANNEL_SECRET=""
+
+# LINE User IDs
+export LINE_ID_TAKA=""
+export LINE_ID_SARA=""
+export LINE_ID_FUTARIGOTO=""

@@ -89,9 +89,12 @@ home-manager news
 - [ ] GUI アプリ（cask: `docker-desktop`, `wezterm@nightly` 等）は Homebrew のまま継続
 - [ ] VSCode 拡張・フォントの扱いを検討
 
-## Phase 3（将来）: dotfiles 設定の統合
+## Phase 3: dotfiles 設定の統合
 
-- [ ] `programs.zsh`, `programs.git`, `programs.neovim` で設定生成を Nix に寄せる
+- [x] `programs.zsh` 採用、prezto + p10k を撤去。`programs.starship` + `programs.fzf` も有効化
+- [x] starship は gruvbox-rainbow プリセット（`dotfiles/zsh/starship.toml`）。`mkOutOfStoreSymlink` で dotfiles を直接参照
+- [x] シークレットを `~/.zsh.local`（chmod 600、gitignore 不要・ホーム配下）に分離。雛形は `dotfiles/zsh/zsh.local.example`
+- [ ] `programs.git`, `programs.neovim` で設定生成を Nix に寄せる
 - [ ] nix-darwin 導入の検討（macOS システム設定の宣言化）
 
 ## 環境メモ
