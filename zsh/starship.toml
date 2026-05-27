@@ -6,10 +6,7 @@ $os\
 $username\
 [](bg:color_yellow fg:color_orange)\
 $directory\
-[](fg:color_yellow bg:color_aqua)\
-$git_branch\
-$git_status\
-[](fg:color_aqua bg:color_blue)\
+${custom.git_clean}${custom.git_dirty}${custom.git_outside}\
 $c\
 $cpp\
 $rust\
@@ -30,19 +27,21 @@ $time\
 [](fg:color_bg1)\
 $line_break$character"""
 
-palette = 'gruvbox_dark'
+palette = 'mono'
 
-[palettes.gruvbox_dark]
-color_fg0 = '#fbf1c7'
-color_bg1 = '#3c3836'
-color_bg3 = '#665c54'
-color_blue = '#458588'
-color_aqua = '#689d6a'
-color_green = '#98971a'
-color_orange = '#d65d0e'
-color_purple = '#b16286'
-color_red = '#cc241d'
-color_yellow = '#d79921'
+# モノクロパレット：各セグメントは濃淡の異なるグレー、
+# success/error/vim の状態色だけ識別用に残す（p10k Lean 風）
+[palettes.mono]
+color_fg0    = '#d4d4d4'  # 明るいグレー（前景文字）
+color_bg1    = '#1c1c1c'  # 最も暗いグレー（time セグメント）
+color_bg3    = '#262626'  # 暗いグレー（docker セグメント）
+color_blue   = '#303030'  # 中暗グレー（言語セグメント）
+color_aqua   = '#3a3a3a'  # 中グレー（git セグメント）
+color_yellow = '#454545'  # 中明グレー（directory セグメント）
+color_orange = '#505050'  # 最も明るいセグメント（os/user）
+color_green  = '#87af87'  # 成功インジケータ（控えめな緑）
+color_red    = '#d75f5f'  # エラーインジケータ
+color_purple = '#af87af'  # vim REPLACE インジケータ
 
 [os]
 disabled = false
@@ -92,13 +91,10 @@ truncation_symbol = "…/"
 "Developer" = "󰲋 "
 
 [git_branch]
-symbol = ""
-style = "bg:color_aqua"
-format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
+disabled = true
 
 [git_status]
-style = "bg:color_aqua"
-format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
+disabled = true
 
 [nodejs]
 symbol = ""
@@ -179,9 +175,62 @@ disabled = false
 
 [character]
 disabled = false
-success_symbol = '[](bold fg:color_green)'
-error_symbol = '[](bold fg:color_red)'
-vimcmd_symbol = '[](bold fg:color_green)'
-vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
-vimcmd_replace_symbol = '[](bold fg:color_purple)'
-vimcmd_visual_symbol = '[](bold fg:color_yellow)'
+success_symbol = '[❯](bold fg:color_green)'
+error_symbol = '[❯](bold fg:color_red)'
+vimcmd_symbol = '[❯](bold fg:color_green)'
+vimcmd_replace_one_symbol = '[❯](bold fg:color_purple)'
+vimcmd_replace_symbol = '[❯](bold fg:color_purple)'
+vimcmd_visual_symbol = '[❯](bold fg:color_yellow)'
+
+
+# Git の状態に応じて色を切り替える 3 モジュール
+# - clean: 変更なし → 緑
+# - dirty: 変更あり → 黄
+# - outside: git 外 → 単純に直前→次へのパススルー chevron
+
+[custom.git_clean]
+description = "Git branch (clean)"
+when = 'git rev-parse --is-inside-work-tree >/dev/null 2>&1 && test -z "$(git status --porcelain 2>/dev/null)"'
+shell = ["sh", "--norc"]
+command = "git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null"
+format = "[](fg:color_yellow bg:#87af87)[   $output ](fg:#1c1c1c bg:#87af87)[](fg:#87af87 bg:color_blue)"
+
+[custom.git_dirty]
+description = "Git branch (dirty)"
+when = 'git rev-parse --is-inside-work-tree >/dev/null 2>&1 && test -n "$(git status --porcelain 2>/dev/null)"'
+shell = ["sh", "--norc"]
+command = """
+branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+status=$(git status --porcelain 2>/dev/null)
+
+# ワーキングツリーの変更を分類してカウント
+staged=$(echo "$status"    | grep -cE "^[MARC]")
+modified=$(echo "$status"  | grep -cE "^.M|^MM")
+deleted=$(echo "$status"   | grep -cE "^.D|^D")
+untracked=$(echo "$status" | grep -c "^??")
+
+indicators=""
+[ "$staged"    -gt 0 ] && indicators="$indicators +$staged"
+[ "$modified"  -gt 0 ] && indicators="$indicators !$modified"
+[ "$deleted"   -gt 0 ] && indicators="$indicators -$deleted"
+[ "$untracked" -gt 0 ] && indicators="$indicators ?$untracked"
+
+# upstream との差分
+upstream=$(git rev-parse --abbrev-ref "@{u}" 2>/dev/null)
+if [ -n "$upstream" ]; then
+  ahead=$(git rev-list --count "${upstream}..HEAD" 2>/dev/null)
+  behind=$(git rev-list --count "HEAD..${upstream}" 2>/dev/null)
+  [ -n "$ahead"  ] && [ "$ahead"  != "0" ] && indicators="$indicators ⇡$ahead"
+  [ -n "$behind" ] && [ "$behind" != "0" ] && indicators="$indicators ⇣$behind"
+fi
+
+printf "%s%s" "$branch" "$indicators"
+"""
+format = "[](fg:color_yellow bg:#d7af5f)[   $output ](fg:#1c1c1c bg:#d7af5f)[](fg:#d7af5f bg:color_blue)"
+
+[custom.git_outside]
+description = "Not in a git repo (passthrough chevron)"
+when = '! git rev-parse --is-inside-work-tree >/dev/null 2>&1'
+shell = ["sh", "--norc"]
+command = "true"
+format = "[](fg:color_yellow bg:color_blue)"
