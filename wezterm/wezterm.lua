@@ -53,6 +53,9 @@ local config = {
 	},
 	macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
 	audible_bell = "SystemBeep",
+	-- 曖昧幅（①●等）の全角グリフがセル幅をはみ出すのを許可し、横潰れを防ぐ
+	-- 幅は1セルのままなのでシェルとのカーソル位置ずれは起きない
+	allow_square_glyphs_to_overflow_width = "Always",
 }
 
 config = utils.merge_tables(config, require("tab_bar"))
