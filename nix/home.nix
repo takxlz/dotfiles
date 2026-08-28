@@ -50,6 +50,10 @@ in
   home.file.".config/starship.toml".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/zsh/starship.toml";
 
+  # ~/.config/nvim を dotfiles/nvim への symlink にする
+  home.file.".config/nvim".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/nvim";
+
   # ~/.config/ghostty を dotfiles/ghostty への symlink にする（nvim と同じ流儀）
   home.file.".config/ghostty".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/ghostty";

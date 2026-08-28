@@ -13,7 +13,7 @@ dotfiles/
 ├── wezterm/    -- WezTerm 設定（撤去済み、参照用に保管）
 ├── tmux/       -- tmux 設定・レイアウトスクリプト（撤去済み、参照用に保管）
 ├── zsh/        -- starship 設定とシークレット雛形（zsh 本体は home.nix で宣言）
-├── jetbrains/  -- JetBrains IDE 設定
+├── jetbrains/  -- JetBrains IDE 設定（撤去済み、参照用に保管）
 └── packages/   -- パッケージ一覧（Brewfile, npm, pip）
 ```
 
@@ -22,10 +22,20 @@ dotfiles/
 - ディレクトリ名はツール名ベースで統一
 - クロスプラットフォーム（macOS/Windows）で使えるキーバインドを優先
 
-## 撤去済みツール（wezterm / tmux）
+## 設定ファイルの symlink
 
-- Ghostty + herdr へ移行したため、パッケージと symlink は削除済み
-- `wezterm/` `tmux/` の設定ファイルは参照用に残しているが、どこからも読まれていない
+- symlink は全て `nix/home.nix` の `mkOutOfStoreSymlink` で宣言する
+- 手動 `ln -s` はしない（再現手順が残らず、マシン移行時に失われる）
+- リンク先は dotfiles の実体なので、設定編集に `home-manager switch` は不要
+  （`switch` が要るのは symlink の宣言そのものを足し引きしたときだけ）
+- 対象: `nvim/`、`ghostty/`、`herdr/config.toml`、`zsh/starship.toml`
+
+## 撤去済みツール（wezterm / tmux / jetbrains）
+
+- wezterm / tmux: Ghostty + herdr へ移行したため、パッケージと symlink は削除済み
+- jetbrains: `~/.ideavimrc` が旧 dotfiles パス（`~/dotfiles`）を指したまま壊れていたため
+  symlink を削除。IDE を使う場合は `home.nix` に宣言して張り直す
+- いずれも設定ファイルは参照用に残しているが、どこからも読まれていない
 - 現役の設定として扱わないこと。復活させる場合は git 履歴から手順を辿る
 
 ## Ghostty
