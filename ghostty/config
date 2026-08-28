@@ -1,0 +1,7 @@
+# Ghostty 設定
+# リファレンス: https://ghostty.org/docs/config/reference
+# 設定リロード: Cmd+Shift+,
+
+font-family = HackGen Console NF
+font-size = 16
+

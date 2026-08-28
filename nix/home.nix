@@ -39,11 +39,19 @@ in
     ]))
     nodejs_24
     rust-stable
+
+    # ターミナル。macOS では pkgs.ghostty がビルド対象外のため公式バイナリ版を使う。
+    # .app は targets.darwin.linkApps により ~/Applications/Home Manager Apps/ に張られる。
+    ghostty-bin
   ];
 
   # ~/.config/starship.toml を dotfiles/zsh/starship.toml への symlink にする
   home.file.".config/starship.toml".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/zsh/starship.toml";
+
+  # ~/.config/ghostty を dotfiles/ghostty への symlink にする（nvim/wezterm と同じ流儀）
+  home.file.".config/ghostty".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/ghostty";
 
   home.sessionVariables = {
     LANG = "ja_JP.UTF-8";

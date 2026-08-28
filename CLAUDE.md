@@ -9,6 +9,7 @@ dotfiles/
 ├── nix/        -- Nix / Home Manager 設定（詳細は nix/README.md）
 ├── nvim/       -- Neovim 設定（詳細は nvim/CLAUDE.md）
 ├── wezterm/    -- WezTerm 設定
+├── ghostty/    -- Ghostty 設定
 ├── tmux/       -- tmux レイアウトスクリプト
 ├── zsh/        -- starship 設定とシークレット雛形（zsh 本体は home.nix で宣言）
 ├── jetbrains/  -- JetBrains IDE 設定
@@ -26,12 +27,22 @@ dotfiles/
 - leader キーは `Ctrl+Space`（tmux の prefix と同じ）
 - 連続操作が必要なもの（ペインリサイズ等）は Alt 系のキーも併用
 
+## Ghostty
+
+- 設定は `ghostty/config` の1ファイル（`key = value` 形式）
+- パッケージは Home Manager 管理（`nix/home.nix` の `ghostty-bin`）
+- `~/.config/ghostty` は `ghostty/` への symlink なので、編集に `home-manager switch` は不要
+- 配色・キーバインド等は Ghostty のデフォルトのまま
+- WezTerm の設定は引き継がない（別ターミナルとして素の状態から育てる）
+- 設定変更後の反映は Ghostty 上で `Cmd+Shift+,`、検証は `ghostty +validate-config`
+- 値を空にすると（`font-family =`）そのキーはデフォルトに戻る
+
 ## コミットルール
 
 - コミットメッセージに Claude によるコミットである旨（Co-Authored-By 等）を含めない
 
 ## 環境
 
-- ターミナル: WezTerm
+- ターミナル: WezTerm（メイン）／ Ghostty（併用、Home Manager 管理）
 - フォント: HackGen Console NF
 - シェル: zsh
