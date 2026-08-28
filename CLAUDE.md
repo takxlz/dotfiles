@@ -41,7 +41,7 @@ dotfiles/
 ## herdr
 
 - 設定は `herdr/config.toml` の1ファイル
-- パッケージは Home Manager 管理（`nix/home.nix` の `herdr`、nixpkgs-fresh 経由）
+- パッケージは Home Manager 管理（`nix/home.nix` の `herdr`）
 - `~/.config/herdr` はソケット・ログ・セッション状態も置かれるため、
   symlink は `config.toml` のファイル単位で張る（ディレクトリごとにしない）
 - prefix は `Ctrl+Space`（tmux / WezTerm から引き継ぎ）

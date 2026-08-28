@@ -6,7 +6,7 @@ macOS 上で Nix と Home Manager を使い、ユーザー環境のパッケー�
 
 ```
 nix/
-├── flake.nix      -- 入口、依存関係（nixpkgs / nixpkgs-fresh / home-manager）を宣言
+├── flake.nix      -- 入口、依存関係（nixpkgs / home-manager / rust-overlay）を宣言
 ├── flake.lock     -- 依存のコミットハッシュをロック（自動生成、git にコミットする）
 ├── home.nix       -- ユーザー環境の中身（パッケージ・設定）
 ├── README.md      -- このファイル
@@ -163,14 +163,24 @@ home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
 
 ### ベースの pin は据え置き、一部だけ新しい nixpkgs から取りたい
 
-`flake.nix` に `nixpkgs-fresh` という別 input を持たせ、overlay で該当パッケージだけ差し替えている。
+**現在は使っていない**（過去に herdr のために導入し、本体の pin が追いついたので撤去済み）。
+本体の pin に無い・古すぎるパッケージが再び出てきたら、この手順で復活させる。
+
+同じ `nixpkgs-unstable` を別 input として2つ持ち、overlay で該当パッケージだけ差し替える。
 `nixpkgs` 本体の pin を動かさずに済むので、他のパッケージのバージョンは影響を受けない。
 
 ```nix
+# inputs
 nixpkgs-fresh.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-...
+
+# outputs の let 内
+pkgsFresh = import nixpkgs-fresh { inherit system; };
 freshOverlay = _final: _prev: {
   inherit (pkgsFresh) herdr;   # ここに列挙したものだけ nixpkgs-fresh から取る
+};
+pkgs = import nixpkgs {
+  inherit system;
+  overlays = [ rust-overlay.overlays.default freshOverlay ];
 };
 ```
 
@@ -180,6 +190,8 @@ freshOverlay = _final: _prev: {
 ```bash
 nix flake update nixpkgs-fresh --flake ~/dev/github.com/takxlz/dotfiles/nix
 ```
+
+本体の pin が追いついたら、input・overlay・`import` の引数をまとめて削除して元に戻す。
 
 ### 特定パッケージのバージョンを固定したい
 
