@@ -31,6 +31,8 @@ in
     ghq
     tree
     tmux
+    # コーディングエージェント（Claude Code 等）を常駐させるマルチプレクサ
+    herdr
     uv
     go
     jdk17
@@ -52,6 +54,11 @@ in
   # ~/.config/ghostty を dotfiles/ghostty への symlink にする（nvim/wezterm と同じ流儀）
   home.file.".config/ghostty".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/ghostty";
+
+  # ~/.config/herdr/config.toml を dotfiles/herdr への symlink にする。
+  # ~/.config/herdr にはソケット・ログ・セッション状態も置かれるため、ディレクトリごとではなくファイル単位で張る。
+  home.file.".config/herdr/config.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/herdr/config.toml";
 
   home.sessionVariables = {
     LANG = "ja_JP.UTF-8";

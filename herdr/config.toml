@@ -1,0 +1,25 @@
+# herdr 設定
+# リファレンス: https://herdr.dev/docs/keyboard/
+# 既定値の雛形: herdr --default-config
+# 設定リロード: prefix+Shift+R または herdr server reload-config
+
+[keys]
+# tmux / WezTerm から引き継いだ prefix。
+# macOS の入力ソース切替も Ctrl+Space だが、キーボードレイアウトが ABC のみのため衝突しない。
+prefix = "ctrl+space"
+
+# 上下分割は WezTerm の leader+s に合わせる（既定は prefix+minus）
+split_horizontal = "prefix+s"
+# prefix+s を分割に譲り、設定画面は空いた prefix+- へ
+settings = "prefix+minus"
+
+[ui]
+agent_panel_sort = "spaces"
+
+show_agent_labels_on_pane_borders = false
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+[ui.toast]
+delivery = "herdr"

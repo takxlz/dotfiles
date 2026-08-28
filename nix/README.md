@@ -6,7 +6,7 @@ macOS 上で Nix と Home Manager を使い、ユーザー環境のパッケー�
 
 ```
 nix/
-├── flake.nix      -- 入口、依存関係（nixpkgs / home-manager）を宣言
+├── flake.nix      -- 入口、依存関係（nixpkgs / nixpkgs-fresh / home-manager）を宣言
 ├── flake.lock     -- 依存のコミットハッシュをロック（自動生成、git にコミットする）
 ├── home.nix       -- ユーザー環境の中身（パッケージ・設定）
 ├── README.md      -- このファイル
@@ -134,6 +134,20 @@ home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
 
 `home.nix` から行を消して switch するだけ。命令的な uninstall コマンドは存在しない（`home.nix` が真実）。
 
+### macOS の GUI アプリ（.app）
+
+`.app` を含むパッケージ（`ghostty-bin` など）を `home.packages` に入れると、
+Home Manager が `~/Applications/Home Manager Apps/` に symlink を張る
+（`targets.darwin.linkApps`、`stateVersion = 24.11` なので既定で有効）。
+
+- Finder / Dock からは起動できる
+- symlink なので Spotlight・Launchpad のインデックスには載らない
+- Spotlight から引きたい場合は `targets.darwin.copyApps.enable = true` に切り替える
+  （実体コピーになる代わりに、ターミナルへ「App 管理」権限の付与が必要）
+
+nixpkgs には darwin 非対応の GUI パッケージもある（例: `pkgs.ghostty` は Linux 専用）。
+その場合は `-bin` 付きの公式バイナリ版があるか探す（`pkgs.ghostty-bin`）。
+
 ## バージョン管理
 
 ### 全部固定したい（再現性重視）
@@ -147,9 +161,25 @@ nix flake update --flake ~/dev/github.com/takxlz/dotfiles/nix
 home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
 ```
 
-### 安定版ベース ＋ 一部だけ最新にしたい
+### ベースの pin は据え置き、一部だけ新しい nixpkgs から取りたい
 
-`flake.nix` で stable と unstable を別 input として持つ。`README.md` 範囲外の高度な使い方なので必要になったら調べる。
+`flake.nix` に `nixpkgs-fresh` という別 input を持たせ、overlay で該当パッケージだけ差し替えている。
+`nixpkgs` 本体の pin を動かさずに済むので、他のパッケージのバージョンは影響を受けない。
+
+```nix
+nixpkgs-fresh.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+...
+freshOverlay = _final: _prev: {
+  inherit (pkgsFresh) herdr;   # ここに列挙したものだけ nixpkgs-fresh から取る
+};
+```
+
+`home.nix` 側は通常どおり `home.packages` に名前を書くだけでよい。
+`nixpkgs-fresh` だけを更新するには input を指定する：
+
+```bash
+nix flake update nixpkgs-fresh --flake ~/dev/github.com/takxlz/dotfiles/nix
+```
 
 ### 特定パッケージのバージョンを固定したい
 
@@ -200,15 +230,16 @@ Determinate Systems 製インストーラを使ったので、ジャーナル記
 
 ## 環境メモ
 
-| 項目                | 値                                              |
-|---------------------|-------------------------------------------------|
-| OS                  | macOS aarch64                                   |
-| Nix ディストリ      | Determinate Nix（DS 版、`determinate-nixd` 使用）|
-| 自動アップデート    | デフォルト有効（DS 版の挙動）                   |
-| Flakes              | デフォルト有効                                  |
-| パッケージカタログ  | `nixpkgs-unstable` ブランチ                     |
-| Home Manager       | master ブランチ                                 |
-| Homebrew            | 併用継続（GUI アプリ・cask は brew で管理）     |
+| 項目               | 値                                                |
+|--------------------|---------------------------------------------------|
+| OS                 | macOS aarch64                                     |
+| Nix ディストリ     | Determinate Nix（DS 版、`determinate-nixd` 使用） |
+| 自動アップデート   | デフォルト有効（DS 版の挙動）                     |
+| Flakes             | デフォルト有効                                    |
+| パッケージカタログ | `nixpkgs-unstable` ブランチ                       |
+| Home Manager       | master ブランチ                                   |
+| Homebrew           | 併用継続（cask は brew、CLI は nix で管理）       |
+| GUI アプリ         | 原則 brew cask。Ghostty のみ nix（`ghostty-bin`） |
 
 ## 参考リンク
 
