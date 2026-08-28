@@ -43,6 +43,11 @@ return {
           return ":IncRename " .. vim.fn.expand("<cword>")
         end, { buffer = bufnr, expr = true })
 
+        -- インレイヒント切替
+        vim.keymap.set("n", "<leader>ch", function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+        end, opts)
+
         -- 診断ジャンプ
         vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
         vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
