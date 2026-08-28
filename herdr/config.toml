@@ -27,9 +27,11 @@ delivery = "herdr"
 [ui.sidebar.agents]
 # 既定は [["state_icon", "workspace", "tab"], ["agent"]]。
 # エージェント名を1行目に寄せ、タブ名を独立した行にする。
-# tab は既定だと暗すぎるため、tokyo-night の中間トーンで少し濃くする。
-# （通常前景は #c0caf5。テーマを変えたらこの色も見直すこと）
+# tab は Spaces のブランチ名と同じ紫（#bb9af7 = tokyo-night の mauve の実値）にする。
+# Agents パネルの副次テキストには既定で DIM が付く。dim = false で外すと
+# ブランチ名と同じ発色になるが、workspace 名より目立つため DIM は残す。
+# テーマを変えたらこの色も見直すこと。
 rows = [
   ["state_icon", "workspace", "agent"],
-  [{ token = "tab", fg = "#a9b1d6" }],
+  [{ token = "tab", fg = "#bb9af7", dim = true }],
 ]
