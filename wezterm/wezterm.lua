@@ -53,9 +53,9 @@ local config = {
 	},
 	macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
 	audible_bell = "SystemBeep",
-	-- 曖昧幅（①●等）の全角グリフがセル幅をはみ出すのを許可し、横潰れを防ぐ
-	-- 幅は1セルのままなのでシェルとのカーソル位置ずれは起きない
-	allow_square_glyphs_to_overflow_width = "Always",
+	-- 東アジア曖昧幅（① ≧ → 等）を2セル幅として扱い、横潰れ・重なりを解消する
+	-- macOS の ja_JP.UTF-8 ロケールの wcwidth（曖昧幅=2セル）と揃えてカーソルずれを防ぐ
+	-- treat_east_asian_ambiguous_width_as_wide = true,
 }
 
 config = utils.merge_tables(config, require("tab_bar"))
