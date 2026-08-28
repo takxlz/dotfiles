@@ -30,7 +30,6 @@ in
     gh
     ghq
     tree
-    tmux
     # コーディングエージェント（Claude Code 等）を常駐させるマルチプレクサ
     herdr
     uv
@@ -51,7 +50,7 @@ in
   home.file.".config/starship.toml".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/zsh/starship.toml";
 
-  # ~/.config/ghostty を dotfiles/ghostty への symlink にする（nvim/wezterm と同じ流儀）
+  # ~/.config/ghostty を dotfiles/ghostty への symlink にする（nvim と同じ流儀）
   home.file.".config/ghostty".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/ghostty";
 

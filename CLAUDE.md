@@ -8,10 +8,10 @@
 dotfiles/
 ├── nix/        -- Nix / Home Manager 設定（詳細は nix/README.md）
 ├── nvim/       -- Neovim 設定（詳細は nvim/CLAUDE.md）
-├── wezterm/    -- WezTerm 設定
 ├── ghostty/    -- Ghostty 設定
 ├── herdr/      -- herdr（ターミナルマルチプレクサ）設定
-├── tmux/       -- tmux レイアウトスクリプト
+├── wezterm/    -- WezTerm 設定（撤去済み、参照用に保管）
+├── tmux/       -- tmux 設定・レイアウトスクリプト（撤去済み、参照用に保管）
 ├── zsh/        -- starship 設定とシークレット雛形（zsh 本体は home.nix で宣言）
 ├── jetbrains/  -- JetBrains IDE 設定
 └── packages/   -- パッケージ一覧（Brewfile, npm, pip）
@@ -22,11 +22,11 @@ dotfiles/
 - ディレクトリ名はツール名ベースで統一
 - クロスプラットフォーム（macOS/Windows）で使えるキーバインドを優先
 
-## WezTerm
+## 撤去済みツール（wezterm / tmux）
 
-- キーマップ対応表は `wezterm/keymaps.lua` 先頭のコメントを参照
-- leader キーは `Ctrl+Space`（tmux の prefix と同じ）
-- 連続操作が必要なもの（ペインリサイズ等）は Alt 系のキーも併用
+- Ghostty + herdr へ移行したため、パッケージと symlink は削除済み
+- `wezterm/` `tmux/` の設定ファイルは参照用に残しているが、どこからも読まれていない
+- 現役の設定として扱わないこと。復活させる場合は git 履歴から手順を辿る
 
 ## Ghostty
 
@@ -54,7 +54,7 @@ dotfiles/
 
 ## 環境
 
-- ターミナル: WezTerm から Ghostty へ移行中（どちらも Home Manager 管理）
-- マルチプレクサ: tmux から herdr へ移行中
+- ターミナル: Ghostty（Home Manager 管理）
+- マルチプレクサ: herdr（Home Manager 管理）
 - フォント: HackGen Console NF
 - シェル: zsh

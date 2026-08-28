@@ -82,7 +82,7 @@ mason で自動インストールされる。
 
 ## 環境
 
-- ターミナル: WezTerm
+- ターミナル: Ghostty
 - フォント: HackGen Nerd Font (HackGenConsoleNF)
 - よく使う言語: TypeScript, JavaScript, Python, Java, Rust
 
