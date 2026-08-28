@@ -26,7 +26,7 @@ nvim/
 - lazy.nvim（プラグインマネージャー）
 - tokyonight.nvim（カラースキーム、night スタイル）
 - lualine.nvim（ステータスライン、powerline セパレータ）
-- bufferline.nvim（タブライン、slant スタイル）
+- bufferline.nvim（タブライン、tabs モードでタブページのみ表示、thin セパレータ）
 - nvim-treesitter（TS/JS/Python/Java/Rust 等）
 - nvim-autopairs（括弧自動閉じ）
 - Comment.nvim（コメントトグル）

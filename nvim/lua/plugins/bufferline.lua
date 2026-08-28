@@ -4,7 +4,8 @@ return {
   event = "VeryLazy",
   opts = {
     options = {
-      separator_style = "slant",
+      mode = "tabs",
+      separator_style = "thin",
     },
   },
 }
