@@ -11,3 +11,8 @@
 *.key
 .env
 .env.*
+
+# Nix
+# home-manager build が生成する成果物への symlink
+result
+result-*
