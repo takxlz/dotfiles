@@ -4,7 +4,7 @@
 # ┌──────┬──────────────────────────────────────────────────────────┬──────────────────────────┬────────────────────────────────────────┐
 # │ 順序 │ セグメント                                                │ 背景色（mono パレット）  │ 表示内容                                │
 # ├──────┼──────────────────────────────────────────────────────────┼──────────────────────────┼────────────────────────────────────────┤
-# │ 1    │ $os + $username                                          │ color_orange (#505050)   │ OS アイコン + ユーザー名                 │
+# │ 1    │ $username                                                │ color_orange (#505050)   │ ユーザー名                              │
 # │ 2    │ $directory                                               │ color_yellow (#454545)   │ カレントディレクトリ（3階層 truncation） │
 # │ 3    │ $git_branch + $git_status                                │ color_aqua   (#3a3a3a)   │ ブランチ名と件数（! + - ? ⇡ ⇣）          │
 # │ 4    │ $c $cpp $rust $golang $nodejs $bun $php $java            │ color_blue   (#303030)   │ 言語ランタイムのバージョン               │
@@ -15,12 +15,11 @@
 # └──────┴──────────────────────────────────────────────────────────┴──────────────────────────┴────────────────────────────────────────┘
 #
 # - 各セグメント間は [](fg:前 bg:次) の powerline 区切りで濃 → 淡へ段階的に繋ぐ
-# - $character は success=緑 / error=赤 / vim REPLACE=紫 / VISUAL=黄 で色分け
+# - $character は success=文字色 / error=赤 / vim REPLACE=紫 / VISUAL=黄 で色分け
 # - $git_status は ${count} で件数表示（例: !2 ?1）
 
 format = """
 [](color_orange)\
-$os\
 $username\
 [](bg:color_yellow fg:color_orange)\
 $directory\
@@ -59,38 +58,10 @@ color_bg3    = '#262626'  # 暗いグレー（docker セグメント）
 color_blue   = '#303030'  # 中暗グレー（言語セグメント）
 color_aqua   = '#3a3a3a'  # 中グレー（git セグメント）
 color_yellow = '#454545'  # 中明グレー（directory セグメント）
-color_orange = '#505050'  # 最も明るいセグメント（os/user）
+color_orange = '#505050'  # 最も明るいセグメント（user）
 color_green  = '#87af87'  # 成功インジケータ（控えめな緑）
 color_red    = '#d75f5f'  # エラーインジケータ
 color_purple = '#af87af'  # vim REPLACE インジケータ
-
-[os]
-disabled = false
-style = "bg:color_orange fg:color_fg0"
-
-[os.symbols]
-Windows = "󰍲"
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = "󰀵"
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-AOSC = ""
-Arch = "󰣇"
-Artix = "󰣇"
-EndeavourOS = ""
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
-Pop = ""
 
 [username]
 show_always = true
@@ -205,7 +176,7 @@ disabled = false
 
 [character]
 disabled = false
-success_symbol = '[❯](bold fg:color_green)'
+success_symbol = '[❯](bold fg:color_fg0)'
 error_symbol = '[❯](bold fg:color_red)'
 vimcmd_symbol = '[❯](bold fg:color_green)'
 vimcmd_replace_one_symbol = '[❯](bold fg:color_purple)'
