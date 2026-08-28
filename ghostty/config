@@ -9,3 +9,10 @@ font-size = 16
 background-opacity = 0.85
 # 背景のブラー（macOS のみ、半径を指定）
 background-blur = 20
+
+# macOS の Option を Alt として送る（herdr / nvim の Alt 系キー用）
+macos-option-as-alt = true
+# クリップボード読み取りの都度確認を無効化（nvim の OSC 52 連携用）
+clipboard-read = allow
+# herdr がセッションを永続化するため、閉じる際の確認は不要
+confirm-close-surface = false
