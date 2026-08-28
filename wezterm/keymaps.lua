@@ -10,6 +10,7 @@ local act = wezterm.action
 -- | 縦分割                 | leader + v       | leader     |
 -- | 横分割                 | leader + s       | leader     |
 -- | ペイン移動             | Alt + hjkl       | Alt        |
+-- |                        | leader + hjkl    | leader     |
 -- | ペインリサイズ         | Alt + C-hjkl     | Alt + Ctrl |
 -- | ペイン閉じる           | leader + x       | leader     |
 -- | ペインズーム           | leader + z       | leader     |
@@ -39,6 +40,12 @@ local keys = {
 	{ key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
 	{ key = "k", mods = "ALT", action = act.ActivatePaneDirection("Up") },
 	{ key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
+
+	-- ペイン移動 (leader: tmux 風)
+	{ key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
+	{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
+	{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
+	{ key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
 
 	-- ペインリサイズ (Alt+Ctrl: 連続操作用)
 	{ key = "h", mods = "ALT|CTRL", action = act.AdjustPaneSize({ "Left", 5 }) },
