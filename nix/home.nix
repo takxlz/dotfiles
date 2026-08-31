@@ -40,6 +40,12 @@ in
     ]))
     nodejs_24
     rust-stable
+    deno
+
+    # 図の生成（dot コマンド）
+    graphviz
+    # 入力ソース切り替え。nvim の im-select.nvim が呼ぶ
+    macism
 
     # ターミナル。macOS では pkgs.ghostty がビルド対象外のため公式バイナリ版を使う。
     # .app は targets.darwin.linkApps により ~/Applications/Home Manager Apps/ に張られる。
@@ -70,8 +76,8 @@ in
   };
 
   # PATH 追加（順序：先頭が優先）
+  # JDK は jdk17 を home.packages で入れているので brew の openjdk は参照しない
   home.sessionPath = [
-    "/opt/homebrew/opt/openjdk@21/bin"
     "$HOME/.local/bin"
     "$HOME/.cargo/bin"
     "/Users/takxlz/Library/Application Support/JetBrains/Toolbox/scripts"
@@ -122,6 +128,10 @@ in
     initContent = ''
       # Homebrew の環境変数セットアップ（HOMEBREW_PREFIX, PATH 等）
       eval "$(/opt/homebrew/bin/brew shellenv)"
+
+      # brew shellenv は PATH の先頭に /opt/homebrew/bin を挿すため、
+      # そのままだと Nix で宣言したパッケージが brew 版に負ける。Nix を優先に戻す。
+      export PATH="$HOME/.nix-profile/bin:$PATH"
 
       # ローカル/プライベートな環境変数（シークレット）
       [ -f ~/.zsh.local ] && source ~/.zsh.local

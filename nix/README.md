@@ -209,6 +209,22 @@ nix flake update nixpkgs-fresh --flake ~/dev/github.com/takxlz/dotfiles/nix
 
 通常の対話シェル（新しいタブを開いた WezTerm 等）では問題ない。
 
+### brew が PATH で nix より優先されてしまう
+
+`brew shellenv` は PATH の**先頭**に `/opt/homebrew/bin` を挿す。これは `.zshrc`
+（`programs.zsh.initContent`）に展開され、Nix の PATH 設定より後に走るため、
+そのままだと nix で宣言したパッケージが brew 版に負ける。
+
+対策として `initContent` で brew shellenv の直後に nix を優先へ戻している：
+
+```bash
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="$HOME/.nix-profile/bin:$PATH"
+```
+
+同名のコマンドが両方にある場合は `command -v` で実体を確認すること。
+`~/.nix-profile/bin` を指していなければ宣言が効いていない。
+
 ### zsh で `nix#takxlz` が "no matches found"
 
 zsh の `extendedglob` が `#` をグロブ文字として解釈する。flake URI はシングルクォートで囲む：

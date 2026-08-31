@@ -1,23 +1,21 @@
-tap "laishulu/homebrew"
+# Homebrew で管理するもの。CLI ツールは原則 nix/home.nix 側で宣言する。
+# ここに残すのは cask、nixpkgs に無いもの、brew 側に置く理由があるものだけ。
 tap "osx-cross/arm"
 tap "osx-cross/avr"
 tap "qmk/qmk"
 brew "webp"
 brew "jpeg-xl"
 brew "aom"
-brew "deno", link: false
 brew "docker", link: false
 brew "libavif"
 brew "gd"
 brew "gdk-pixbuf"
-brew "gradle"
 brew "netpbm"
 brew "librsvg"
-brew "graphviz"
-brew "maven"
 brew "mingw-w64"
 brew "mysql"
-brew "laishulu/homebrew/macism"
+# QMK。formula 自身が avr-gcc@8 / arm-none-eabi-gcc@8 と各種書き込みツールを
+# 依存として引き込む。nix に移すとこの依存束を自前で書き下すことになるため brew に置く。
 brew "qmk/qmk/qmk"
 cask "docker-desktop"
 cask "font-hackgen-nerd"
