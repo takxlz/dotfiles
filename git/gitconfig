@@ -1,0 +1,10 @@
+[core]
+	editor = vim
+	autocrlf = input
+[user]
+	name = takxlz
+	email = takxlz.yas@gmail.com
+[pull]
+	rebase = false
+[ghq]
+	root = ~/dev

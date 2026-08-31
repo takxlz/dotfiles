@@ -9,6 +9,7 @@ dotfiles/
 ├── nix/        -- Nix / Home Manager 設定（詳細は nix/README.md）
 ├── nvim/       -- Neovim 設定（詳細は nvim/CLAUDE.md）
 ├── ghostty/    -- Ghostty 設定
+├── git/        -- gitconfig（グローバル設定）
 ├── herdr/      -- herdr（ターミナルマルチプレクサ）設定
 ├── wezterm/    -- WezTerm 設定（撤去済み、参照用に保管）
 ├── tmux/       -- tmux 設定・レイアウトスクリプト（撤去済み、参照用に保管）
@@ -28,7 +29,9 @@ dotfiles/
 - 手動 `ln -s` はしない（再現手順が残らず、マシン移行時に失われる）
 - リンク先は dotfiles の実体なので、設定編集に `home-manager switch` は不要
   （`switch` が要るのは symlink の宣言そのものを足し引きしたときだけ）
-- 対象: `nvim/`、`ghostty/`、`herdr/config.toml`、`zsh/starship.toml`
+- `programs.git` のような Home Manager モジュールは使わない。生成物が Nix ストアの
+  読み取り専用ファイルになり、`git config --global` 等での変更ができなくなるため
+- 対象: `nvim/`、`ghostty/`、`herdr/config.toml`、`zsh/starship.toml`、`git/gitconfig`
 
 ## 撤去済みツール（wezterm / tmux / jetbrains）
 

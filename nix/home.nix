@@ -59,6 +59,11 @@ in
   home.file.".config/starship.toml".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/zsh/starship.toml";
 
+  # ~/.gitconfig を dotfiles/git/gitconfig への symlink にする。
+  # 実体ファイルなので git config --global での変更もそのまま dotfiles に反映される。
+  home.file.".gitconfig".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/git/gitconfig";
+
   # ~/.config/nvim を dotfiles/nvim への symlink にする
   home.file.".config/nvim".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/nvim";
