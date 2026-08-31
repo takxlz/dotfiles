@@ -73,6 +73,9 @@ dotfiles/
   （宣言に残らず、マシン移行時に失われるため）
 - nvim の LSP・フォーマッタは mason.nvim が管理する。`ensure_installed` に一覧があり
   nvim 設定として git 管理されているので、nix には寄せない
+- VSCode 拡張機能は Brewfile で管理しない（VSCode 側の設定同期に任せる）。
+  `brew bundle dump` は `code --list-extensions` を自動で書き出すため、
+  再生成したら `vscode "..."` 行を削除すること
 - PATH は nix が brew より優先（`home.nix` の `initContent` で明示的に前置している）
 - 追加先に迷ったら `nix search nixpkgs <名前>` で在庫を確認する
 
