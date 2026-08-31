@@ -66,6 +66,10 @@ dotfiles/
   - nixpkgs に無いもの（`hid_bootloader_cli`, `mdloader` 等）
   - brew 側に置く理由があるもの（`docker` は Docker Desktop 付属、`mysql` はデータ互換性、`qmk` は下記参照）
 - `automake` / `cmake` / `pkgconf` は他 formula のビルド依存。brew が自動管理するので触らない
+- `cargo install` / `go install` は使わない。nixpkgs にあれば `home.packages` で宣言する
+  （宣言に残らず、マシン移行時に失われるため）
+- nvim の LSP・フォーマッタは mason.nvim が管理する。`ensure_installed` に一覧があり
+  nvim 設定として git 管理されているので、nix には寄せない
 - PATH は nix が brew より優先（`home.nix` の `initContent` で明示的に前置している）
 - 追加先に迷ったら `nix search nixpkgs <名前>` で在庫を確認する
 

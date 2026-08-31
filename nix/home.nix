@@ -33,7 +33,6 @@ in
     # コーディングエージェント（Claude Code 等）を常駐させるマルチプレクサ
     herdr
     uv
-    go
     jdk17
     (python313.withPackages (ps: with ps; [
       pillow
@@ -41,6 +40,10 @@ in
     nodejs_24
     rust-stable
     deno
+
+    # Rust 関連の補助ツール（従来 cargo install で入れていたもの）
+    cargo-expand
+    rustlings
 
     # 図の生成（dot コマンド）
     graphviz
