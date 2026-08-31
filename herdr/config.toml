@@ -35,3 +35,9 @@ rows = [
   ["state_icon", "workspace", "agent"],
   [{ token = "tab", fg = "#bb9af7", dim = true }],
 ]
+
+[experimental]
+# サーバ再起動後にペインの画面内容を復元する（既定は off）。
+# 出力は ~/.config/herdr/session-history.json に平文で保存されるため、
+# 画面に出したトークンや秘密情報もディスクに残る。シェル履歴と同等の扱いにすること。
+pane_history = true
