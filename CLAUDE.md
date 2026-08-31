@@ -6,7 +6,7 @@
 
 ```
 dotfiles/
-├── nix/        -- Nix / Home Manager 設定（詳細は nix/README.md）
+├── nix/        -- nix-darwin / Home Manager 設定（詳細は nix/README.md）
 ├── nvim/       -- Neovim 設定（詳細は nvim/CLAUDE.md）
 ├── ghostty/    -- Ghostty 設定
 ├── git/        -- gitconfig（グローバル設定）
@@ -22,6 +22,14 @@ dotfiles/
 
 - ディレクトリ名はツール名ベースで統一
 - クロスプラットフォーム（macOS/Windows）で使えるキーバインドを優先
+
+## macOS のシステム設定
+
+- Dock / Finder / キーボード / トラックパッド等は `nix/darwin.nix` で宣言する
+- 反映は `sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"`
+  （パッケージ追加も macOS 設定変更もこのコマンド1つ）
+- 宣言していない項目は変更されない。ただし**宣言を削除しても元の値には戻らない**
+- `com.apple.universalaccess` は SIP 保護のため書けない。宣言すると activation が失敗する
 
 ## 設定ファイルの symlink
 
@@ -139,3 +147,4 @@ atmega32u4 のフラッシュは 28672 バイト。コンパイラのバージ�
 - マルチプレクサ: herdr（Home Manager 管理）
 - フォント: HackGen Console NF
 - シェル: zsh
+- システム設定: nix-darwin（Nix 本体は Determinate Nix が管理、`nix.enable = false`）

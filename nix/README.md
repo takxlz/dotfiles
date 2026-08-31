@@ -6,8 +6,9 @@ macOS 上で Nix と Home Manager を使い、ユーザー環境のパッケー�
 
 ```
 nix/
-├── flake.nix      -- 入口、依存関係（nixpkgs / home-manager / rust-overlay）を宣言
+├── flake.nix      -- 入口、依存関係（nixpkgs / nix-darwin / home-manager / rust-overlay）を宣言
 ├── flake.lock     -- 依存のコミットハッシュをロック（自動生成、git にコミットする）
+├── darwin.nix     -- macOS のシステム設定（Dock / Finder / キーボード等）
 ├── home.nix       -- ユーザー環境の中身（パッケージ・設定）
 ├── README.md      -- このファイル
 └── SETUP.md       -- セットアップ進捗ログ（完了後に削除可）
@@ -22,12 +23,14 @@ nix/
 | Nix           | パッケージマネージャ ＋ 設定言語                                       |
 | nixpkgs       | Nix で書かれた巨大なパッケージカタログ（github.com/NixOS/nixpkgs）     |
 | Home Manager  | nixpkgs を使ってユーザー環境（パッケージ ＋ dotfiles）を管理する仕組み |
+| nix-darwin    | macOS のシステム設定と launchd を管理する仕組み。Home Manager を内包する |
 
 ### flake.nix と home.nix の役割分担
 
 | ファイル    | 役割                                                                  |
 |-------------|-----------------------------------------------------------------------|
-| flake.nix   | どの nixpkgs / home-manager を使うかを宣言（依存とバージョン）        |
+| flake.nix   | どの nixpkgs / nix-darwin / home-manager を使うかを宣言（依存とバージョン） |
+| darwin.nix  | macOS 自体の設定（Dock、Finder、キーボード、トラックパッド等）        |
 | home.nix    | カタログから何を入れるか・どう設定するかを宣言（中身）                |
 
 「flake.nix が冷凍カタログの号数を決め、home.nix が商品を選ぶ」関係。
@@ -42,7 +45,8 @@ nix/
 
 ### 世代（generation）
 
-`home-manager switch` するたびに新しい「世代」が作られ、現在の世代がそこへ切り替わる。過去の世代も `/nix/var/nix/profiles/per-user/takxlz/` に残るので、ロールバック可能。
+`darwin-rebuild switch` するたびに新しい「世代」が作られ、現在の世代がそこへ切り替わる。過去の世代も `/nix/var/nix/profiles/` に残るので、ロールバック可能。
+システム世代は `system-<N>-link`、Home Manager の世代は `per-user/takxlz/` 配下。
 
 ```
 世代 1: eza のみ
@@ -55,7 +59,7 @@ nix/
 ### 適用（パッケージ追加・設定変更後）
 
 ```bash
-home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
+sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 `home.nix` の宣言通りに環境を作り直し、新しい世代に切り替える。
@@ -63,7 +67,7 @@ home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
 ### 設定の事前ビルド（適用せず検証）
 
 ```bash
-home-manager build --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
+darwin-rebuild build --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 構文エラー・依存解決ミスの確認に使う。
@@ -75,7 +79,7 @@ home-manager build --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
 nix flake update --flake ~/dev/github.com/takxlz/dotfiles/nix
 
 # 適用
-home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
+sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 `flake.lock` の差分が git diff に出るので、何が更新されたか確認できる。
@@ -83,21 +87,23 @@ home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
 ### 世代の確認
 
 ```bash
-home-manager generations
+darwin-rebuild --list-generations     # システム世代
+home-manager generations              # Home Manager 世代
 ```
 
 ### ロールバック
 
-`generations` で戻したい世代の activate スクリプトを直接実行する：
+戻したい世代の activate スクリプトを直接実行する：
 
 ```bash
-/nix/var/nix/profiles/per-user/takxlz/home-manager-2-link/activate
+sudo /nix/var/nix/profiles/system-1-link/activate      # システム世代
+/nix/var/nix/profiles/per-user/takxlz/home-manager-2-link/activate   # HM 単体
 ```
 
 ### 古い世代の掃除（ディスク節約）
 
 ```bash
-home-manager expire-generations '-30 days'   # 30日より古い世代を削除
+sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 30d
 nix-collect-garbage -d                       # ストアの未参照ファイルを削除
 ```
 
@@ -127,7 +133,7 @@ home.packages = with pkgs; [
 ```
 
 ```bash
-home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
+sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 ### 削除
@@ -148,6 +154,21 @@ Home Manager が `~/Applications/Home Manager Apps/` に symlink を張る
 nixpkgs には darwin 非対応の GUI パッケージもある（例: `pkgs.ghostty` は Linux 専用）。
 その場合は `-bin` 付きの公式バイナリ版があるか探す（`pkgs.ghostty-bin`）。
 
+## macOS のシステム設定
+
+`darwin.nix` の `system.defaults` に書く。宣言していない項目は変更されない。
+
+```nix
+system.defaults.dock.autohide = true;
+system.defaults.NSGlobalDomain.InitialKeyRepeat = 15;
+```
+
+- 宣言を**削除しても元の値には戻らない**。管理外になるだけで、最後に書いた値が残る。
+  戻したいときは明示的に逆の値を書くか、手動で `defaults delete` する
+- オプション名は https://nix-darwin.github.io/nix-darwin/manual/ で調べる
+- nix-darwin にオプションが無いキーは `system.defaults.CustomUserPreferences` で書ける
+- 一部の設定は再ログインや再起動が必要
+
 ## バージョン管理
 
 ### 全部固定したい（再現性重視）
@@ -158,7 +179,7 @@ nixpkgs には darwin 非対応の GUI パッケージもある（例: `pkgs.gho
 
 ```bash
 nix flake update --flake ~/dev/github.com/takxlz/dotfiles/nix
-home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
+sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 ### ベースの pin は据え置き、一部だけ新しい nixpkgs から取りたい
@@ -225,12 +246,31 @@ export PATH="$HOME/.nix-profile/bin:$PATH"
 同名のコマンドが両方にある場合は `command -v` で実体を確認すること。
 `~/.nix-profile/bin` を指していなければ宣言が効いていない。
 
+### activation が "Could not write domain" で失敗する
+
+`com.apple.universalaccess` など SIP に保護されたドメインは `defaults` から書けない。
+`system.defaults.universalaccess.*` を宣言すると activation がそこで中断し、
+`/run/current-system` が作られないまま終わる。該当の宣言を外すこと。
+
+### switch 後にコマンドが全て消えた
+
+`home-manager.useUserPackages = true` にすると、パッケージの配置先が
+`~/.nix-profile` から `/etc/profiles/per-user/<user>` に変わる。
+`users.users.<user>` を完全に宣言していないとこの配置先が作られず、
+`~/.nix-profile` から削除されただけの状態になる。`false` にしておく。
+
+### 既存のシェルで `darwin-rebuild` が見つからない
+
+`/run/current-system/sw/bin` を PATH に足すのは nix-darwin が置き換えた
+`/etc/zshrc`。既存のシェルは旧版を読んでいるので知らない。
+`exec zsh` するか新しいタブを開く。
+
 ### zsh で `nix#takxlz` が "no matches found"
 
 zsh の `extendedglob` が `#` をグロブ文字として解釈する。flake URI はシングルクォートで囲む：
 
 ```bash
-home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
+sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 ## アンインストール
@@ -242,7 +282,7 @@ home-manager switch --flake '~/dev/github.com/takxlz/dotfiles/nix#takxlz'
 ### Home Manager の管理ファイルをリセット
 
 ```bash
-home-manager expire-generations '-0 days'    # 全世代を期限切れに
+sudo nix profile wipe-history --profile /nix/var/nix/profiles/system
 nix-collect-garbage -d                        # 物理削除
 ```
 
@@ -265,7 +305,8 @@ Determinate Systems 製インストーラを使ったので、ジャーナル記
 | 自動アップデート   | デフォルト有効（DS 版の挙動）                     |
 | Flakes             | デフォルト有効                                    |
 | パッケージカタログ | `nixpkgs-unstable` ブランチ                       |
-| Home Manager       | master ブランチ                                   |
+| Home Manager       | master ブランチ（nix-darwin のモジュールとして動作）|
+| nix-darwin         | master ブランチ。`nix.enable = false`（Nix 本体は DS 版が管理）|
 | Homebrew           | 併用継続（cask は brew、CLI は nix で管理）       |
 | GUI アプリ         | 原則 brew cask。Ghostty のみ nix（`ghostty-bin`） |
 
