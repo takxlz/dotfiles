@@ -3,6 +3,9 @@
 # 既定値の雛形: herdr --default-config
 # 設定リロード: prefix+Shift+R または herdr server reload-config
 
+# オンボーディング（初回起動時の通知設定画面）は選択済みなので出さない
+onboarding = false
+
 [keys]
 # tmux / WezTerm から引き継いだ prefix。
 # macOS の入力ソース切替も Ctrl+Space だが、キーボードレイアウトが ABC のみのため衝突しない。
