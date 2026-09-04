@@ -1,0 +1,7 @@
+# 既存の設定ファイルの書式に合わせる。
+# 設定ファイルが無いと stylua の既定（タブインデント）が適用され、
+# 保存時フォーマット（conform.nvim）が全ファイルをタブへ書き換えてしまう。
+indent_type = "Spaces"
+indent_width = 2
+column_width = 120
+

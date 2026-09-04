@@ -49,7 +49,8 @@ vim.api.nvim_set_hl(0, "WordHighlight3", { fg = "#000000", bg = "#60c060" }) -- 
 vim.api.nvim_set_hl(0, "WordHighlight4", { fg = "#000000", bg = "#e06080" }) -- 赤
 vim.api.nvim_set_hl(0, "WordHighlight5", { fg = "#000000", bg = "#c080e0" }) -- 紫
 vim.api.nvim_set_hl(0, "WordHighlight6", { fg = "#000000", bg = "#e0d060" }) -- 黄
-local highlight_colors = { "WordHighlight1", "WordHighlight2", "WordHighlight3", "WordHighlight4", "WordHighlight5", "WordHighlight6" }
+local highlight_colors =
+  { "WordHighlight1", "WordHighlight2", "WordHighlight3", "WordHighlight4", "WordHighlight5", "WordHighlight6" }
 local highlight_index = 0
 map("n", "<leader><Space>", function()
   local word = vim.fn.expand("<cword>")

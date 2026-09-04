@@ -3,7 +3,13 @@ return {
   event = "BufWritePre",
   cmd = "ConformInfo",
   keys = {
-    { "<leader>cf", function() require("conform").format({ async = true }) end, desc = "フォーマット" },
+    {
+      "<leader>cf",
+      function()
+        require("conform").format({ async = true })
+      end,
+      desc = "フォーマット",
+    },
   },
   opts = {
     formatters_by_ft = {

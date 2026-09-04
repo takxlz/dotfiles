@@ -80,7 +80,9 @@ nvim/
 
 ## フォーマッター・リンター
 
-mason で自動インストールされる。
+mason で自動インストールされる。書式設定は `nvim/.stylua.toml`（2スペース、120桁）。
+このファイルが無いと stylua の既定であるタブインデントが適用され、
+保存時フォーマットが全ファイルを書き換えてしまう。
 
 - stylua（Lua）
 - prettier（TS/JS/JSON/HTML/CSS/YAML/Markdown）
