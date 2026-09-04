@@ -65,6 +65,15 @@ nvim/
 - 読み直しが起きたときは `FileChangedShellPost` で通知する
 - `CursorHold` は `updatetime`（既定 4000ms）のアイドル後に発火する
 
+## LSP ログ
+
+- パス: `~/.local/state/nvim/lsp.log`（`vim.lsp.get_log_path()`）
+- 言語サーバーの stderr は Neovim 側で ERROR として無条件に記録される。
+  `vim.lsp.set_log_level()` を下げても止まらない
+- 過去に rust-analyzer のパニックループで 21GB まで膨らんだため、
+  `lspconfig.lua` の冒頭で 50MB を超えていたら起動時に切り詰める
+- 上限を変えるときは `lspconfig.lua` の `max_log_bytes`
+
 ## 有効な言語サーバー
 
 - lua_ls（Lua、after/lsp/lua_ls.lua でカスタマイズ）

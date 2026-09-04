@@ -3,6 +3,21 @@ return {
   dependencies = { "williamboman/mason.nvim" },
   event = { "BufReadPre", "BufNewFile" },
   config = function()
+    -- LSP ログの肥大化を防ぐ。
+    -- 言語サーバーの stderr は Neovim 側で ERROR として無条件に記録されるため、
+    -- ログレベルを下げても止められない（rust-analyzer のパニックループで 21GB まで膨らんだ実績あり）。
+    -- 直近のログは残しつつ上限を設けるため、起動時にサイズを見て切り詰める。
+    local log_path = vim.lsp.get_log_path()
+    local max_log_bytes = 50 * 1024 * 1024
+    local stat = vim.uv.fs_stat(log_path)
+    if stat and stat.size > max_log_bytes then
+      vim.uv.fs_open(log_path, "w", 420, function(err, fd)
+        if not err and fd then
+          vim.uv.fs_close(fd)
+        end
+      end)
+    end
+
     -- 全サーバー共通の設定
     vim.lsp.config("*", {
       capabilities = vim.lsp.protocol.make_client_capabilities(),
