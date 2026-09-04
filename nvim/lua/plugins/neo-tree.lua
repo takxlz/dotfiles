@@ -11,6 +11,9 @@ return {
   },
   opts = {
     filesystem = {
+      -- OS のファイル監視で外部からのファイル変更をツリーに自動反映する。
+      -- false のままだと nvim 内で保存したときしか更新されない。
+      use_libuv_file_watcher = true,
       filtered_items = {
         visible = true,
         hide_dotfiles = false,

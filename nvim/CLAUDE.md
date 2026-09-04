@@ -38,7 +38,7 @@ nvim/
 - mason.nvim（言語サーバーのインストール管理）
 - blink.cmp（補完エンジン）
 - oil.nvim（バッファ型ファイラー）
-- neo-tree.nvim（ツリー型ファイラー）
+- neo-tree.nvim（ツリー型ファイラー、OS のファイル監視で外部変更を自動反映）
 - fzf-lua（ファジーファインダー）
 - gitsigns.nvim（git変更表示、hunk操作）
 - vim-fugitive（git操作全般）
@@ -55,6 +55,15 @@ nvim/
 - flash.nvim（画面内高速ジャンプ、gsキーで発動）
 - inc-rename.nvim（LSPリネームのリアルタイムプレビュー）
 - highlight-undo.nvim（undo/redo時の変更箇所ハイライト）
+
+## 外部でのファイル変更への追従
+
+- ツリー表示: neo-tree の `use_libuv_file_watcher = true`。OS のファイル監視を使うので
+  nvim にフォーカスが無くても反映される。false のままだと nvim 内で保存したときしか更新されない
+- バッファ内容: `autocmds.lua` で `FocusGained` / `BufEnter` / `CursorHold` / `CursorHoldI` に
+  `checktime` を割り当てている。`autoread` は Neovim の既定で有効だが、検査の契機が無いと反映されない
+- 読み直しが起きたときは `FileChangedShellPost` で通知する
+- `CursorHold` は `updatetime`（既定 4000ms）のアイドル後に発火する
 
 ## 有効な言語サーバー
 
