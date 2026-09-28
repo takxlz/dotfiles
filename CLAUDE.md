@@ -69,6 +69,17 @@ dotfiles/
 - 既定値の雛形は `herdr --default-config`、検証は `herdr config check`
 - 設定変更後の反映は `prefix+Shift+R` または `herdr server reload-config`
 
+## Orca
+
+- 複数のコーディングエージェントを git worktree ごとに並列で動かす ADE（stablyai/orca）
+- パッケージは Brewfile の `cask "stablyai/orca/orca"`（公式 tap。`brew trust` 登録済み）
+- homebrew/cask の `orca`（plotly）や nixpkgs の `orca`（スクリーンリーダー）は別物。
+  tap 付きの名前で指定する
+- 更新はアプリ内アップデータが行う（`auto_updates`）。`brew upgrade` では更新されない
+- nix に寄せない。nixpkgs に無く、Nix ストアは読み取り専用で自己更新と衝突するため
+- 設定は `~/Library/Application Support/Orca` と `~/.orca` にあり、dotfiles では管理していない
+- `orca` CLI は cask が `/opt/homebrew/bin/orca` に張る
+
 ## パッケージ管理の役割分担
 
 - CLI ツールは原則 `nix/home.nix` で宣言する
@@ -145,6 +156,7 @@ atmega32u4 のフラッシュは 28672 バイト。コンパイラのバージ�
 
 - ターミナル: Ghostty（Home Manager 管理）
 - マルチプレクサ: herdr（Home Manager 管理）
+- ADE: Orca（Homebrew cask 管理）
 - フォント: HackGen Console NF
 - シェル: zsh
 - システム設定: nix-darwin（Nix 本体は Determinate Nix が管理、`nix.enable = false`）

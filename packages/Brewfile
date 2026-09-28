@@ -7,6 +7,7 @@
 tap "osx-cross/arm"
 tap "osx-cross/avr"
 tap "qmk/qmk"
+tap "stablyai/orca"
 brew "webp"
 brew "jpeg-xl"
 brew "aom"
@@ -25,4 +26,7 @@ cask "font-hackgen-nerd"
 cask "gcloud-cli"
 cask "keycastr"
 cask "ngrok"
+# Orca（ADE）。homebrew/cask の "orca" は別物（plotly）なので tap 付きの名前で指定する。
+# アプリ内アップデータが更新するため、brew upgrade では更新されない（auto_updates）。
+cask "stablyai/orca/orca"
 cask "zed"
