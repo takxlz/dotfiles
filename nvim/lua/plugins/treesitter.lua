@@ -27,5 +27,7 @@ return {
   },
   config = function(_, opts)
     require("nvim-treesitter.configs").setup(opts)
+    -- master ブランチのハンドラは Neovim 0.12 と互換がないので上書きする
+    require("config.treesitter-compat").setup()
   end,
 }

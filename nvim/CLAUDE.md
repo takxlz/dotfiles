@@ -15,7 +15,9 @@ nvim/
 │   │   ├── options.lua      -- vim.opt 系
 │   │   ├── keymaps.lua      -- キーマップ
 │   │   ├── autocmds.lua     -- 自動コマンド
-│   │   └── lazy.lua         -- lazy.nvim ブートストラップ
+│   │   ├── lazy.lua         -- lazy.nvim ブートストラップ
+│   │   └── treesitter-compat.lua
+│   │                        -- nvim-treesitter master と Neovim 0.12 の互換レイヤ
 │   └── plugins/             -- 1プラグイン1ファイル
 └── after/
     └── lsp/                 -- 言語サーバーごとのカスタマイズ（ファイル名=サーバー名）
@@ -64,6 +66,18 @@ nvim/
   `checktime` を割り当てている。`autoread` は Neovim の既定で有効だが、検査の契機が無いと反映されない
 - 読み直しが起きたときは `FileChangedShellPost` で通知する
 - `CursorHold` は `updatetime`（既定 4000ms）のアイドル後に発火する
+
+## nvim-treesitter と Neovim 0.12 の互換
+
+- Neovim 0.12 で `vim.treesitter.query.add_directive` / `add_predicate` の `all` オプションが
+  廃止され、ハンドラに渡る `match[capture_id]` が常にノードの配列になった
+- nvim-treesitter は master ブランチが `{ all = false }` を渡したまま単一ノード前提なので、
+  `#downcase!` `#set-lang-from-mimetype!` `#set-lang-from-info-string!` などが配列を TSNode として
+  扱い `node:range()` で落ちる（例: markdown の ```` ```bash ```` フェンス内に heredoc があると発生）
+- `lua/config/treesitter-compat.lua` で配列を単一ノードへ畳むラッパを挟んで登録し直す。
+  `treesitter.lua` の `config` から `configs.setup()` の後に呼ぶ
+- ハンドラは適用時に名前で引かれるので、登録済みのクエリにも即座に効く
+- main ブランチへ移行したらこのファイルごと削除してよい
 
 ## LSP ログ
 
