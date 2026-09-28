@@ -1,5 +1,5 @@
 # macOS システム設定。現在の Mac の状態を defaults から読み取って起こしたもの。
-# 反映は `darwin-rebuild switch --flake ~/dev/github.com/takxlz/dotfiles/nix#takxlz`
+# 反映は `darwin-rebuild switch --flake ~/workspace/repos/github.com/takxlz/dotfiles/nix#takxlz`
 {
   system.stateVersion = 6;
   system.primaryUser = "takxlz";

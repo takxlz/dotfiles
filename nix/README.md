@@ -59,7 +59,7 @@ nix/
 ### 適用（パッケージ追加・設定変更後）
 
 ```bash
-sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
+sudo darwin-rebuild switch --flake "$HOME/workspace/repos/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 `home.nix` の宣言通りに環境を作り直し、新しい世代に切り替える。
@@ -67,7 +67,7 @@ sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#tak
 ### 設定の事前ビルド（適用せず検証）
 
 ```bash
-darwin-rebuild build --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
+darwin-rebuild build --flake "$HOME/workspace/repos/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 構文エラー・依存解決ミスの確認に使う。
@@ -76,10 +76,10 @@ darwin-rebuild build --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
 
 ```bash
 # flake.lock を更新
-nix flake update --flake ~/dev/github.com/takxlz/dotfiles/nix
+nix flake update --flake ~/workspace/repos/github.com/takxlz/dotfiles/nix
 
 # 適用
-sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
+sudo darwin-rebuild switch --flake "$HOME/workspace/repos/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 `flake.lock` の差分が git diff に出るので、何が更新されたか確認できる。
@@ -133,7 +133,7 @@ home.packages = with pkgs; [
 ```
 
 ```bash
-sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
+sudo darwin-rebuild switch --flake "$HOME/workspace/repos/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 ### 削除
@@ -178,8 +178,8 @@ system.defaults.NSGlobalDomain.InitialKeyRepeat = 15;
 ### 全体を最新にしたい
 
 ```bash
-nix flake update --flake ~/dev/github.com/takxlz/dotfiles/nix
-sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
+nix flake update --flake ~/workspace/repos/github.com/takxlz/dotfiles/nix
+sudo darwin-rebuild switch --flake "$HOME/workspace/repos/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 ### ベースの pin は据え置き、一部だけ新しい nixpkgs から取りたい
@@ -209,7 +209,7 @@ pkgs = import nixpkgs {
 `nixpkgs-fresh` だけを更新するには input を指定する：
 
 ```bash
-nix flake update nixpkgs-fresh --flake ~/dev/github.com/takxlz/dotfiles/nix
+nix flake update nixpkgs-fresh --flake ~/workspace/repos/github.com/takxlz/dotfiles/nix
 ```
 
 本体の pin が追いついたら、input・overlay・`import` の引数をまとめて削除して元に戻す。
@@ -270,7 +270,7 @@ export PATH="$HOME/.nix-profile/bin:$PATH"
 zsh の `extendedglob` が `#` をグロブ文字として解釈する。flake URI はシングルクォートで囲む：
 
 ```bash
-sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"
+sudo darwin-rebuild switch --flake "$HOME/workspace/repos/github.com/takxlz/dotfiles/nix#takxlz"
 ```
 
 ## アンインストール

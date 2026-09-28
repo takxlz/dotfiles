@@ -57,25 +57,25 @@ in
 
   # ~/.config/starship.toml を dotfiles/zsh/starship.toml への symlink にする
   home.file.".config/starship.toml".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/zsh/starship.toml";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/repos/github.com/takxlz/dotfiles/zsh/starship.toml";
 
   # ~/.gitconfig を dotfiles/git/gitconfig への symlink にする。
   # 実体ファイルなので git config --global での変更もそのまま dotfiles に反映される。
   home.file.".gitconfig".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/git/gitconfig";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/repos/github.com/takxlz/dotfiles/git/gitconfig";
 
   # ~/.config/nvim を dotfiles/nvim への symlink にする
   home.file.".config/nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/nvim";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/repos/github.com/takxlz/dotfiles/nvim";
 
   # ~/.config/ghostty を dotfiles/ghostty への symlink にする（nvim と同じ流儀）
   home.file.".config/ghostty".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/ghostty";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/repos/github.com/takxlz/dotfiles/ghostty";
 
   # ~/.config/herdr/config.toml を dotfiles/herdr への symlink にする。
   # ~/.config/herdr にはソケット・ログ・セッション状態も置かれるため、ディレクトリごとではなくファイル単位で張る。
   home.file.".config/herdr/config.toml".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/github.com/takxlz/dotfiles/herdr/config.toml";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/repos/github.com/takxlz/dotfiles/herdr/config.toml";
 
   home.sessionVariables = {
     LANG = "ja_JP.UTF-8";

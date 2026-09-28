@@ -26,7 +26,7 @@ dotfiles/
 ## macOS のシステム設定
 
 - Dock / Finder / キーボード / トラックパッド等は `nix/darwin.nix` で宣言する
-- 反映は `sudo darwin-rebuild switch --flake "$HOME/dev/github.com/takxlz/dotfiles/nix#takxlz"`
+- 反映は `sudo darwin-rebuild switch --flake "$HOME/workspace/repos/github.com/takxlz/dotfiles/nix#takxlz"`
   （パッケージ追加も macOS 設定変更もこのコマンド1つ）
 - 宣言していない項目は変更されない。ただし**宣言を削除しても元の値には戻らない**
 - `com.apple.universalaccess` は SIP 保護のため書けない。宣言すると activation が失敗する

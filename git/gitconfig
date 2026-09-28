@@ -7,4 +7,4 @@
 [pull]
 	rebase = false
 [ghq]
-	root = ~/dev
+	root = ~/workspace/repos

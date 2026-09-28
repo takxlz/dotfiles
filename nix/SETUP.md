@@ -49,10 +49,10 @@ git commit -m "feat: Nix + Home Manager によるパッケージ管理を導入"
 ```bash
 # 設定変更後の適用
 nix run home-manager/master -- switch \
-  --flake '/Users/takxlz/dev/github.com/takxlz/dotfiles/nix#takxlz' -b backup
+  --flake '/Users/takxlz/workspace/repos/github.com/takxlz/dotfiles/nix#takxlz' -b backup
 
 # nixpkgs を最新カタログに更新
-nix flake update --flake /Users/takxlz/dev/github.com/takxlz/dotfiles/nix
+nix flake update --flake /Users/takxlz/workspace/repos/github.com/takxlz/dotfiles/nix
 
 # 世代の確認
 home-manager generations
